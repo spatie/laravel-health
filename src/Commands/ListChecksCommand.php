@@ -4,11 +4,11 @@ namespace Spatie\Health\Commands;
 
 use Illuminate\Console\Command;
 
-class HealthCommand extends Command
+class ListChecksCommand extends Command
 {
-    public $signature = 'laravel-health';
+    public $signature = 'health:list';
 
-    public $description = 'My command';
+    public $description = 'List all health checks';
 
     public function handle(): int
     {

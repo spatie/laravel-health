@@ -8,10 +8,14 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('laravel-health_table', function (Blueprint $table) {
+        Schema::create('check_results', function (Blueprint $table) {
             $table->id();
 
-            // add fields
+            $table->string('name');
+            $table->string('result');
+            $table->text('message');
+            $table->json('meta');
+            $table->timestamp('started_failing_at');
 
             $table->timestamps();
         });
