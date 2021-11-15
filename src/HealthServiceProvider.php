@@ -2,9 +2,9 @@
 
 namespace Spatie\Health;
 
+use Spatie\Health\Commands\HealthCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\Health\Commands\HealthCommand;
 
 class HealthServiceProvider extends PackageServiceProvider
 {
