@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "spatie/laravel-health",
+    "description": "Check the health of your Laravel app",
     "keywords": [
-        ":vendor_name",
+        "spatie",
         "laravel",
-        ":package_slug"
+        "laravel-health"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/spatie/laravel-health",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Freek Van der Herten",
+            "email": "freek@spatie.be",
             "role": "Developer"
         }
     ],
@@ -34,13 +34,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Spatie\\Health\\": "src",
+            "Spatie\\Health\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Spatie\\Health\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +54,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Spatie\\Health\\HealthServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\SkeletonFacade"
+                "Health": "Spatie\\Health\\HealthFacade"
             }
         }
     },
