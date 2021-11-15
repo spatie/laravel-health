@@ -6,5 +6,4 @@ use Illuminate\Support\Facades\Facade;
 
 class Health extends Facade
 {
-
 }

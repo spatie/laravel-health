@@ -9,9 +9,8 @@ use Spatie\Health\Enums\Result;
 
 abstract class Check
 {
-    protected string $expression = '* * * * *';
-
     use ManagesFrequencies;
+    protected string $expression = '* * * * *';
 
     abstract public function name(): string;
 
@@ -26,7 +25,8 @@ abstract class Check
         return (new CronExpression($this->expression))->isDue($date->toDateTimeString());
     }
 
-    public function meta(): array {
+    public function meta(): array
+    {
         return [];
     }
 }

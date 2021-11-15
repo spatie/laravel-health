@@ -2,11 +2,11 @@
 
 namespace Spatie\Health;
 
-use \Spatie\Health\Checks\Check;
+use Spatie\Health\Checks\Check;
 
 class Health
 {
-    /** @var array<int, Check>  */
+    /** @var array<int, Check> */
     protected array $checks;
 
     /** @param array<int, Check> $checks */

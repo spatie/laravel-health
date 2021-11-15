@@ -2,7 +2,6 @@
 
 namespace Spatie\Health\Checks;
 
-use Spatie\Health\Checks\Check;
 use Spatie\Health\Enums\Result;
 
 class DiskspaceCheck extends Check
@@ -16,22 +15,22 @@ class DiskspaceCheck extends Check
         return $instance;
     }
 
-    function name(): string
+    public function name(): string
     {
         // TODO: Implement name() method.
     }
 
-    function result(): Result
+    public function result(): Result
     {
         // TODO: Implement result() method.
     }
 
-    function message(): ?string
+    public function message(): ?string
     {
         // TODO: Implement message() method.
     }
 
-    function meta(): array
+    public function meta(): array
     {
         // TODO: Implement meta() method.
     }

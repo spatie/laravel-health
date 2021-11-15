@@ -14,6 +14,4 @@ class CheckResult extends Model
     public $casts = [
         'started_failing_at' => 'timestamp',
     ];
-
-
 }

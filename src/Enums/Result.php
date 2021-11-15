@@ -6,5 +6,4 @@ use Spatie\Enum\Enum;
 
 class Result extends Enum
 {
-
 }
