@@ -12,13 +12,8 @@ class ResultStores
         $configValues = config('health.result_stores');
 
         return collect($configValues)
-            ->mapWithKeys(function (mixed $value, mixed $key) {
-                $className = is_array($value) ? $key : $value;
-
-                $parameters = is_array($value) ? $value : [];
-
-                return [$className => $parameters];
-            })
+            ->keyBy(fn (mixed $value, mixed $key) => is_array($value) ? $key : $value)
+            ->map(fn (mixed $value) => is_array($value) ? $value : [])
             ->map(function (array $parameters, string $className): ResultStore {
                 return app($className, $parameters);
             });

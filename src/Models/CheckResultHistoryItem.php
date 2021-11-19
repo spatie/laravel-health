@@ -23,6 +23,7 @@ class CheckResultHistoryItem extends Model
 
     public $guarded = [];
 
+    /** @var array<string,string> */
     public $casts = [
         'meta' => 'array',
         'started_failing_at' => 'timestamp',
