@@ -30,7 +30,7 @@ class HealthServiceProvider extends PackageServiceProvider
         $this->app->singleton(Health::class, fn () => new Health());
         $this->app->bind('health', Health::class);
 
-        $this->app->bind(ResultStore::class, fn() => ResultStores::createFromConfig()->first());
+        $this->app->bind(ResultStore::class, fn () => ResultStores::createFromConfig()->first());
     }
 
     /*
