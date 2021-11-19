@@ -1,16 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Storage;
-use Spatie\Health\ResultStores\ResultStore;
 use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\ResultStores\JsonFileHeathResultStore;
+use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
 use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesJsonSnapshot;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->path = 'health.json';
 
     testTime()->freeze('2021-01-01 00:00:00');
@@ -39,7 +39,7 @@ it('can write check results to a json file', function () {
     assertMatchesJsonSnapshot($content);
 });
 
-it('can retrieve the latest results from json', function() {
+it('can retrieve the latest results from json', function () {
     $report = app(ResultStore::class)->latestResults();
     expect($report)->toBeNull();
 
