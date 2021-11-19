@@ -23,7 +23,9 @@
         "illuminate/database": "^8.70",
         "illuminate/support": "^8.70",
         "spatie/enum": "^3.10",
-        "spatie/laravel-package-tools": "^1.9.2"
+        "spatie/laravel-package-tools": "^1.9.2",
+        "spatie/regex": "^3.1",
+        "symfony/process": "^5.3"
     },
     "require-dev": {
         "nunomaduro/collision": "^5.10",
@@ -36,6 +38,8 @@
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.4",
         "spatie/laravel-ray": "^1.26",
+        "spatie/pest-plugin-snapshots": "^1.1",
+        "spatie/pest-plugin-test-time": "^1.0",
         "spatie/test-time": "^1.2"
     },
     "autoload": {
@@ -61,7 +65,10 @@
         "laravel": {
             "providers": [
                 "Spatie\\Health\\HealthServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Skeleton": "Spatie\\Health\\Facades\\Health"
+            }
         }
     },
     "minimum-stability": "dev",

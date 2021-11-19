@@ -2,11 +2,11 @@
 
 namespace Spatie\Health;
 
-use Spatie\Health\Checks\DiskspaceCheck;
+use Spatie\Health\Checks\DiskSpaceCheck;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\Health\Commands\ListChecksCommand;
+use Spatie\Health\Commands\ListchecksCommand;
 
 class HealthServiceProvider extends PackageServiceProvider
 {
@@ -18,7 +18,7 @@ class HealthServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_health_tables')
             ->hasCommands(
-                ListChecksCommand::class,
+                ListchecksCommand::class,
                 RunChecksCommand::class,
             );
     }
@@ -26,11 +26,15 @@ class HealthServiceProvider extends PackageServiceProvider
     public function packageBooted()
     {
         $this->app->singleton(Health::class, fn() => new Health());
+        $this->app->bind('health', Health::class);
+
+
     }
 
+    /*
     public function checks()
     {
-        Health::registerChecks([
+        Health::registerchecks([
             DiskspaceCheck::new()
                 ->warnWhenFreeSpaceIsBelowPercentage(20)
                 ->errorWhenFreeSpaceIsBelowPercentage(10)
@@ -42,4 +46,5 @@ class HealthServiceProvider extends PackageServiceProvider
                 ->errorWhenFreeSpaceIsBelowPercentage(10)
         ];
     }
+    */
 }

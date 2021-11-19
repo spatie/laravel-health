@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Health\Http;
+namespace Spatie\Health\Http\Controllers;
 
 class OhDearHealthSummaryController
 {

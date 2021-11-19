@@ -3,11 +3,11 @@
 namespace Spatie\Health\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Spatie\Health\Models\CheckResult;
+use Spatie\Health\Models\CheckResultHistoryItem;
 
 class CheckResultFactory extends Factory
 {
-    protected $model = CheckResult::class;
+    protected $model = CheckResultHistoryItem::class;
 
     public function definition()
     {

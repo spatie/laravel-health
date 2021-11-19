@@ -8,14 +8,15 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('check_results', function (Blueprint $table) {
+        Schema::create('check_result_history_items', function (Blueprint $table) {
             $table->id();
 
             $table->string('name');
-            $table->string('result');
-            $table->text('message');
+            $table->string('status');
+            $table->text('message')->nullable();
             $table->json('meta');
-            $table->timestamp('started_failing_at');
+            $table->timestamp('ended_at');
+            $table->uuid('batch');
 
             $table->timestamps();
         });
