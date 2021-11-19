@@ -5,6 +5,8 @@ namespace Spatie\Health;
 use Spatie\Health\Checks\DiskSpaceCheck;
 use Spatie\Health\Commands\ListchecksCommand;
 use Spatie\Health\Commands\RunChecksCommand;
+use Spatie\Health\ResultStores\ResultStore;
+use Spatie\Health\ResultStores\ResultStores;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -27,6 +29,8 @@ class HealthServiceProvider extends PackageServiceProvider
     {
         $this->app->singleton(Health::class, fn () => new Health());
         $this->app->bind('health', Health::class);
+
+        $this->app->bind(ResultStore::class, fn() => ResultStores::createFromConfig()->first());
     }
 
     /*

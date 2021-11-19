@@ -36,6 +36,6 @@ class Health
     /** @return Collection<int, ResultStore> */
     public function resultStores(): Collection
     {
-        return ResultStores::createFromConfig(config('health.result_stores'));
+        return ResultStores::createFromConfig();
     }
 }

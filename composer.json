@@ -22,7 +22,7 @@
         "illuminate/contracts": "^8.37",
         "illuminate/database": "^8.70",
         "illuminate/support": "^8.70",
-        "ohdearapp/health-check-report": "dev-main",
+        "ohdearapp/health-check-report": "^0.0.3",
         "spatie/enum": "^3.10",
         "spatie/laravel-package-tools": "^1.9.2",
         "spatie/regex": "^3.1",

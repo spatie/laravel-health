@@ -2,10 +2,12 @@
 
 namespace Spatie\Health\Http\Controllers;
 
+use Spatie\Health\ResultStores\ResultStore;
+
 class OhDearHealthSummaryController
 {
-    public function __invoke()
+    public function __invoke(ResultStore $resultStore)
     {
-        return '';
+        return response()->json($resultStore->latestResults()->toJson());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Spatie\Health\ResultStores;
 
+use Exception;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -40,5 +41,20 @@ class JsonFileHeathResultStore implements ResultStore
         $contents = $report->toJson();
 
         $this->disk->write($this->path, $contents);
+    }
+
+    public function latestResults(): ?Report
+    {
+        try {
+            $content = $this->disk->read($this->path);
+        } catch (Exception $exception) {
+            report($exception);
+        }
+
+        if (! $content) {
+            return null;
+        }
+
+        return Report::fromJson($content);
     }
 }
