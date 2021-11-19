@@ -3,7 +3,6 @@
 namespace Spatie\Health\ResultStores;
 
 use Exception;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
