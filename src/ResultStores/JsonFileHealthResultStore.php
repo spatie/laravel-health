@@ -4,6 +4,7 @@ namespace Spatie\Health\ResultStores;
 
 use Exception;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use OhDear\HealthCheckReport\Line;
@@ -12,7 +13,7 @@ use Spatie\Health\Support\Result;
 
 class JsonFileHealthResultStore implements ResultStore
 {
-    protected Filesystem $disk;
+    protected FilesystemAdapter $disk;
     protected string $path;
 
     public function __construct(string $diskName, string $path)

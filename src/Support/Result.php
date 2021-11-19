@@ -17,7 +17,7 @@ class Result
 
     public static function make(string $message = ''): self
     {
-        return new static(Status::ok(), $message);
+        return new self(Status::ok(), $message);
     }
 
     public function __construct(

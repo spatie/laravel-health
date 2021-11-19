@@ -36,7 +36,7 @@ class EloquentHealthResultStore implements ResultStore
 
         /** @var array<int, Line> $reportLines */
         $reportLines = CheckResultHistoryItem::query()
-            ->where('batch', $latestItem->uuid)
+            ->where('batch', $latestItem->batch)
             ->get()
             ->map(function (CheckResultHistoryItem $historyItem) {
                 return new Line(
