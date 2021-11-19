@@ -8,6 +8,5 @@ class CheckStartingEvent
 {
     public function __construct(public Check $check)
     {
-
     }
 }

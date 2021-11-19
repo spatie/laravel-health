@@ -9,8 +9,8 @@ class CheckEndedEvent
 {
     public function __construct(
         public Check $check,
-        public Result $result)
+        public Result $result
+    )
     {
-
     }
 }
