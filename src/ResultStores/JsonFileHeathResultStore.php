@@ -7,8 +7,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use OhDear\HealthCheckReport\Line;
 use OhDear\HealthCheckReport\Report;
-use Spatie\Health\OhDear\CheckResult;
-use Spatie\Health\OhDear\Run;
 use Spatie\Health\Support\Result;
 
 class JsonFileHeathResultStore implements ResultStore
