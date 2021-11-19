@@ -1,7 +1,7 @@
 <?php
 
 use Spatie\Health\ResultStores\EloquentHealthResultStore;
-use Spatie\Health\ResultStores\JsonFileHeathResultStore;
+use Spatie\Health\ResultStores\JsonFileHealthResultStore;
 
 return [
 

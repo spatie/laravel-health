@@ -10,7 +10,7 @@ use OhDear\HealthCheckReport\Line;
 use OhDear\HealthCheckReport\Report;
 use Spatie\Health\Support\Result;
 
-class JsonFileHeathResultStore implements ResultStore
+class JsonFileHealthResultStore implements ResultStore
 {
     protected Filesystem $disk;
     protected string $path;
@@ -22,7 +22,7 @@ class JsonFileHeathResultStore implements ResultStore
         $this->path = $path;
     }
 
-    /** @param Collection<int, \Spatie\Health\Support\Result> */
+    /** @param Collection<int, \Spatie\Health\Support\Result> $checkResults */
     public function save(Collection $checkResults): void
     {
         $report = new Report(now());
@@ -32,11 +32,13 @@ class JsonFileHeathResultStore implements ResultStore
                 return new Line(
                     name: $result->check->name(),
                     message: $result->getMessage(),
-                    status: $result->status->value,
+                    status: (string)$result->status->value,
                     meta: $result->meta,
                 );
             })
-            ->each(fn (Line $line) => $report->addLine($line));
+            ->each(function (Line $line) use ($report) {
+                $report->addLine($line);
+            });
 
         $contents = $report->toJson();
 
@@ -53,7 +55,7 @@ class JsonFileHeathResultStore implements ResultStore
             report($exception);
         }
 
-        if (! $content) {
+        if (!$content) {
             return null;
         }
 

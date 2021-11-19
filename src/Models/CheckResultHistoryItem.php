@@ -19,10 +19,10 @@ class CheckResultHistoryItem extends Model
         'started_failing_at' => 'timestamp',
     ];
 
-    public function prunable()
+    public function prunable(): void
     {
-        $days = config('health.keep_history_for_days');
+        $days = (int)config('health.keep_history_for_days');
 
-        return static::where('created_at', '<=', now()->subDays($days));
+        static::where('created_at', '<=', now()->subDays($days));
     }
 }

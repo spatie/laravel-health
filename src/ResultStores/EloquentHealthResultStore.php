@@ -11,7 +11,7 @@ use Spatie\Health\Support\Result;
 
 class EloquentHealthResultStore implements ResultStore
 {
-    /** @var Collection<int, Result> */
+    /** @param Collection<int, Result> $checkResults */
     public function save(Collection $checkResults): void
     {
         $batch = Str::uuid();
@@ -34,6 +34,7 @@ class EloquentHealthResultStore implements ResultStore
             return null;
         }
 
+        /** @var array<int, Line> $reportLines */
         $reportLines = CheckResultHistoryItem::query()
             ->where('batch', $latestItem->uuid)
             ->get()

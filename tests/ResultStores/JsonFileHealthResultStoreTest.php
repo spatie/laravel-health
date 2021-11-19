@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Storage;
 use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Facades\Health;
-use Spatie\Health\ResultStores\JsonFileHeathResultStore;
+use Spatie\Health\ResultStores\JsonFileHealthResultStore;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
 use function Spatie\PestPluginTestTime\testTime;
@@ -18,7 +18,7 @@ beforeEach(function () {
     Storage::fake('s3');
 
     config()->set('health.result_stores', [
-        JsonFileHeathResultStore::class => [
+        JsonFileHealthResultStore::class => [
             'diskName' => 's3',
             'path' => $this->path,
         ],

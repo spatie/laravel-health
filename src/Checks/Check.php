@@ -14,6 +14,10 @@ abstract class Check
     use ManagesFrequencies;
     protected string $expression = '* * * * *';
 
+    final public function __construct()
+    {
+    }
+
     public static function new(): static
     {
         $instance = new static();
@@ -39,7 +43,7 @@ abstract class Check
 
     abstract public function run(): Result;
 
-    public function markAsCrashed()
+    public function markAsCrashed(): Result
     {
         return new Result(Status::crashed());
     }

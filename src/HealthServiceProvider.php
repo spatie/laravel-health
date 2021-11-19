@@ -24,7 +24,7 @@ class HealthServiceProvider extends PackageServiceProvider
             );
     }
 
-    public function packageBooted()
+    public function packageBooted(): void
     {
         $this->app->singleton(Health::class, fn () => new Health());
         $this->app->bind('health', Health::class);

@@ -19,7 +19,7 @@ class ResultStores
 
                 return [$className => $parameters];
             })
-            ->map(function (array $parameters, string $className) {
+            ->map(function (array $parameters, string $className): ResultStore {
                 return app($className, $parameters);
             });
     }
