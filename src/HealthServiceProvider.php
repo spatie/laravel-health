@@ -2,8 +2,7 @@
 
 namespace Spatie\Health;
 
-use Spatie\Health\Checks\DiskSpaceCheck;
-use Spatie\Health\Commands\ListchecksCommand;
+use Spatie\Health\Commands\ListChecksCommand;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
@@ -20,7 +19,7 @@ class HealthServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_health_tables')
             ->hasCommands(
-                ListchecksCommand::class,
+                ListChecksCommand::class,
                 RunChecksCommand::class,
             );
     }
@@ -32,21 +31,4 @@ class HealthServiceProvider extends PackageServiceProvider
 
         $this->app->bind(ResultStore::class, fn () => ResultStores::createFromConfig()->first());
     }
-
-    /*
-    public function checks()
-    {
-        Health::checks([
-            DiskspaceCheck::new()
-                ->warnWhenFreeSpaceIsBelowPercentage(20)
-                ->errorWhenFreeSpaceIsBelowPercentage(10)
-        ]);
-
-        return [
-            DiskspaceCheck::new()
-                ->warnWhenFreeSpaceIsBelowPercentage(20)
-                ->errorWhenFreeSpaceIsBelowPercentage(10)
-        ];
-    }
-    */
 }
