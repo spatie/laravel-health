@@ -45,6 +45,8 @@ class JsonFileHeathResultStore implements ResultStore
 
     public function latestResults(): ?Report
     {
+        $content = null;
+
         try {
             $content = $this->disk->read($this->path);
         } catch (Exception $exception) {

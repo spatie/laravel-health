@@ -4,6 +4,8 @@ namespace Spatie\Health\ResultStores;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use OhDear\HealthCheckReport\Line;
+use OhDear\HealthCheckReport\Report;
 use Spatie\Health\Models\CheckResultHistoryItem;
 use Spatie\Health\Support\Result;
 
@@ -16,7 +18,7 @@ class EloquentHealthResultStore implements ResultStore
 
         $checkResults->each(function (Result $result) use ($batch) {
             CheckResultHistoryItem::create([
-                'name' => $result->check->name(),
+                'check_name' => $result->check->name(),
                 'status' => $result->status,
                 'message' => $result->getMessage(),
                 'meta' => $result->meta,
@@ -24,5 +26,31 @@ class EloquentHealthResultStore implements ResultStore
                 'ended_at' => $result->ended_at,
             ]);
         });
+    }
+
+    public function latestResults(): ?Report
+    {
+
+        if (!  $latestItem = CheckResultHistoryItem::latest()->first()) {
+            return null;
+        }
+
+        $reportLines = CheckResultHistoryItem::query()
+            ->where('batch', $latestItem->uuid)
+            ->get()
+            ->map(function(CheckResultHistoryItem $historyItem) {
+                return new Line(
+                    name: $historyItem->check_name,
+                    message: $historyItem->message,
+                    status: $historyItem->status,
+                    meta: $historyItem->meta,
+                );
+            })
+            ->toArray();
+
+        return new Report(
+            finishedAt: $latestItem->created_at,
+            lines: $reportLines,
+        );
     }
 }
