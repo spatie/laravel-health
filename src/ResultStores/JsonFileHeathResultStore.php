@@ -5,6 +5,8 @@ namespace Spatie\Health\ResultStores;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use OhDear\HealthCheckReport\Line;
+use OhDear\HealthCheckReport\Report;
 use Spatie\Health\OhDear\CheckResult;
 use Spatie\Health\OhDear\Run;
 use Spatie\Health\Support\Result;
@@ -24,20 +26,20 @@ class JsonFileHeathResultStore implements ResultStore
     /** @param Collection<int, \Spatie\Health\Support\Result> */
     public function save(Collection $checkResults): void
     {
-        $run = new Run(now());
+        $report = new Report(now());
 
         $checkResults
             ->map(function (Result $result) {
-                return new CheckResult(
+                return new Line(
                     name: $result->check->name(),
                     message: $result->getMessage(),
                     status: $result->status->value,
                     meta: $result->meta,
                 );
             })
-            ->each(fn (CheckResult $result) => $run->addCheck($result));
+            ->each(fn (Line $line) => $report->addLine($line));
 
-        $contents = $run->toJson();
+        $contents = $report->toJson();
 
         $this->disk->write($this->path, $contents);
     }

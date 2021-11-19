@@ -32,7 +32,7 @@ class HealthServiceProvider extends PackageServiceProvider
     /*
     public function checks()
     {
-        Health::registerchecks([
+        Health::checks([
             DiskspaceCheck::new()
                 ->warnWhenFreeSpaceIsBelowPercentage(20)
                 ->errorWhenFreeSpaceIsBelowPercentage(10)
