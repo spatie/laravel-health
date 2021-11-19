@@ -50,7 +50,6 @@ class RunChecksCommand extends Command
         try {
             $result = $check->run();
         } catch (Exception $exception) {
-            // return result with status failed
             $exception = CheckDidNotComplete::make($check, $exception);
             report($exception);
 
@@ -64,7 +63,7 @@ class RunChecksCommand extends Command
             ->endedAt(now());
     }
 
-    public function saveResults(Collection $results, ResultStore $store)
+    public function saveResults(Collection $results, ResultStore $store): void
     {
         try {
             $store->save($results);
