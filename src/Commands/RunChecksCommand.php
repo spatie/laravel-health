@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Spatie\Health\Checks\Check;
+use Spatie\Health\Events\CheckEndedEvent;
+use Spatie\Health\Events\CheckStartingEvent;
 use Spatie\Health\Exceptions\CheckDidNotComplete;
 use Spatie\Health\Exceptions\CouldNotSaveResultsInStore;
 use Spatie\Health\Health;
@@ -47,6 +49,8 @@ class RunChecksCommand extends Command
 
     public function runCheck(Check $check): Result
     {
+        event(new CheckStartingEvent($check));
+
         try {
             $result = $check->run();
         } catch (Exception $exception) {
@@ -58,9 +62,13 @@ class RunChecksCommand extends Command
             $result = $check->markAsCrashed();
         }
 
-        return $result
+        $result
             ->check($check)
             ->endedAt(now());
+
+        event(new CheckEndedEvent($check, $result));
+
+        return $result;
     }
 
     public function saveResults(Collection $results, ResultStore $store): void
