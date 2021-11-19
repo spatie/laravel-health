@@ -30,15 +30,14 @@ class EloquentHealthResultStore implements ResultStore
 
     public function latestResults(): ?Report
     {
-
-        if (!  $latestItem = CheckResultHistoryItem::latest()->first()) {
+        if (! $latestItem = CheckResultHistoryItem::latest()->first()) {
             return null;
         }
 
         $reportLines = CheckResultHistoryItem::query()
             ->where('batch', $latestItem->uuid)
             ->get()
-            ->map(function(CheckResultHistoryItem $historyItem) {
+            ->map(function (CheckResultHistoryItem $historyItem) {
                 return new Line(
                     name: $historyItem->check_name,
                     message: $historyItem->message,
