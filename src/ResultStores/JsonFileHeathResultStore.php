@@ -35,7 +35,7 @@ class JsonFileHeathResultStore implements ResultStore
                     meta: $result->meta,
                 );
             })
-            ->each(fn(CheckResult $result) => $run->addCheck($result));
+            ->each(fn (CheckResult $result) => $run->addCheck($result));
 
         $contents = $run->toJson();
 

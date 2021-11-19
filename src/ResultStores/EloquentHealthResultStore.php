@@ -14,7 +14,7 @@ class EloquentHealthResultStore implements ResultStore
     {
         $batch = Str::uuid();
 
-        $checkResults->each(function(Result $result) use ($batch) {
+        $checkResults->each(function (Result $result) use ($batch) {
             CheckResultHistoryItem::create([
                 'name' => $result->check->name(),
                 'status' => $result->status,

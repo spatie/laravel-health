@@ -22,9 +22,9 @@ class Result
 
     public function __construct(
         public Status  $status,
-        public string $message = '')
+        public string $message = ''
+    )
     {
-
     }
 
     public function check(Check $check): self

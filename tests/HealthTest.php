@@ -5,7 +5,7 @@ use Spatie\Health\Facades\Health;
 
 it('can register checks', function () {
     Health::checks([
-        DiskSpaceCheck::new()
+        DiskSpaceCheck::new(),
     ]);
 
     expect(Health::registeredChecks())

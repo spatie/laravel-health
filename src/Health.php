@@ -4,12 +4,12 @@ namespace Spatie\Health;
 
 use Illuminate\Support\Collection;
 use Spatie\Health\Checks\Check;
-use Spatie\Health\ResultStores\ResultStores;
 use Spatie\Health\ResultStores\ResultStore;
+use Spatie\Health\ResultStores\ResultStores;
 
 class Health
 {
-    /** @var array<int, Check>  */
+    /** @var array<int, Check> */
     protected array $checks = [];
 
     /** @param array<int, Check> $checks */
