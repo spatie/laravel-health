@@ -55,7 +55,7 @@ class JsonFileHealthResultStore implements ResultStore
             report($exception);
         }
 
-        if (!$content) {
+        if (! $content) {
             return null;
         }
 
