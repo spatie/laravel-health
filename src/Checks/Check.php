@@ -11,9 +11,8 @@ use Spatie\Health\Support\Result;
 
 abstract class Check
 {
-    protected string $expression = '* * * * *';
-
     use ManagesFrequencies;
+    protected string $expression = '* * * * *';
 
     public static function new(): static
     {
@@ -26,7 +25,7 @@ abstract class Check
 
     public function name(): string
     {
-        $baseName =  class_basename(static::class);
+        $baseName = class_basename(static::class);
 
         return Str::of($baseName)->beforeLast('Check');
     }

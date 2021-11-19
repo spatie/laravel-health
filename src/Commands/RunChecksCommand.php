@@ -18,7 +18,7 @@ class RunChecksCommand extends Command
 
     public $description = 'Run all health checks';
 
-    /** @var array<int, Exception>  */
+    /** @var array<int, Exception> */
     protected array $thrownExceptions = [];
 
     public function handle(): int
@@ -27,15 +27,15 @@ class RunChecksCommand extends Command
 
         $results = app(Health::class)
             ->registeredChecks()
-            ->filter(fn(Check $check) => $check->shouldRun())
-            ->map(fn(Check $check) => $this->runCheck($check));
+            ->filter(fn (Check $check) => $check->shouldRun())
+            ->map(fn (Check $check) => $this->runCheck($check));
 
         app(Health::class)
             ->resultStores()
-            ->each(fn(ResultStore $store) => $store->save($results));
+            ->each(fn (ResultStore $store) => $store->save($results));
 
         if (count($this->thrownExceptions)) {
-            foreach($this->thrownExceptions as $exception) {
+            foreach ($this->thrownExceptions as $exception) {
                 $this->error($exception->getMessage());
             }
 
@@ -49,8 +49,7 @@ class RunChecksCommand extends Command
     {
         try {
             $result = $check->run();
-        } catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             // return result with status failed
             $exception = CheckDidNotComplete::make($check, $exception);
             report($exception);
@@ -74,7 +73,5 @@ class RunChecksCommand extends Command
 
             report($exception);
         }
-
     }
-
 }

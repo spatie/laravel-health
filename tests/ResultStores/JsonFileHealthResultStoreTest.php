@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Storage;
+use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\ResultStores\JsonFileHeathResultStore;
 use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
-use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
-it('can write check results to a json file', function() {
+it('can write check results to a json file', function () {
     testTime()->freeze('2021-01-01 00:00:00');
 
     Storage::fake('s3');

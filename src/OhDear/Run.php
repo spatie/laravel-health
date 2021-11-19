@@ -30,7 +30,7 @@ class Run
 
     public function toJson(): string
     {
-        $checkProperties = array_map(fn(CheckResult $checkResult) => $checkResult->toArray(), $this->checks);
+        $checkProperties = array_map(fn (CheckResult $checkResult) => $checkResult->toArray(), $this->checks);
 
         return json_encode([
             'finishedAt' => $this->finishedAt,

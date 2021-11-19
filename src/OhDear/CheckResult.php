@@ -2,8 +2,6 @@
 
 namespace Spatie\Health\OhDear;
 
-use Spatie\Health\Enums\Status;
-
 class CheckResult
 {
     public static function make(
@@ -11,8 +9,7 @@ class CheckResult
         string $message = '',
         string $status = '',
         array $meta = [],
-    ): self
-    {
+    ): self {
         return new static(...func_get_args());
     }
 
@@ -21,9 +18,7 @@ class CheckResult
         protected string $message = '',
         protected string $status = '',
         protected array $meta = [],
-    )
-    {
-
+    ) {
     }
 
     public function message(string $message): self

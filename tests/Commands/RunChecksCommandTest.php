@@ -1,12 +1,12 @@
 <?php
 
+use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Models\CheckResultHistoryItem;
 use Spatie\Health\Tests\TestClasses\CrashingCheck;
 use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
-use function Pest\Laravel\artisan;
 
 beforeEach(function () {
     $this->fakeDiskSpaceCheck = FakeDiskSpaceCheck::new();

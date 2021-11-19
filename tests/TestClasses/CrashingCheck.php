@@ -2,7 +2,6 @@
 
 namespace Spatie\Health\Tests\TestClasses;
 
-
 use Exception;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Support\Result;
