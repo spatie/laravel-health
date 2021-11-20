@@ -17,6 +17,7 @@ class HealthServiceProvider extends PackageServiceProvider
             ->name('laravel-health')
             ->hasConfigFile()
             ->hasViews()
+            ->hasTranslations()
             ->hasMigration('create_health_tables')
             ->hasCommands(
                 ListChecksCommand::class,

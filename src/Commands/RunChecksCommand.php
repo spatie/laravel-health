@@ -11,6 +11,7 @@ use Spatie\Health\Events\CheckStartingEvent;
 use Spatie\Health\Exceptions\CheckDidNotComplete;
 use Spatie\Health\Exceptions\CouldNotSaveResultsInStore;
 use Spatie\Health\Health;
+use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\Support\Result;
 
@@ -25,16 +26,9 @@ class RunChecksCommand extends Command
 
     public function handle(): int
     {
-        $this->comment('All done');
+        $results = $this->runChecks();
 
-        $results = app(Health::class)
-            ->registeredChecks()
-            ->filter(fn (Check $check) => $check->shouldRun())
-            ->map(fn (Check $check) => $this->runCheck($check));
-
-        app(Health::class)
-            ->resultStores()
-            ->each(fn (ResultStore $store) => $store->save($results));
+        $this->sendNotification($results);
 
         if (count($this->thrownExceptions)) {
             foreach ($this->thrownExceptions as $exception) {
@@ -43,6 +37,8 @@ class RunChecksCommand extends Command
 
             return self::FAILURE;
         }
+
+        $this->comment('All done');
 
         return self::SUCCESS;
     }
@@ -81,4 +77,40 @@ class RunChecksCommand extends Command
             report($exception);
         }
     }
+
+    /** @return Collection<int, Check> */
+    protected function runChecks(): Collection
+    {
+        $results = app(Health::class)
+            ->registeredChecks()
+            ->filter(fn(Check $check) => $check->shouldRun())
+            ->map(fn(Check $check) => $this->runCheck($check));
+
+        app(Health::class)
+            ->resultStores()
+            ->each(fn(ResultStore $store) => $store->save($results));
+
+        return $results;
+    }
+
+    protected function sendNotification(Collection $results): self
+    {
+        $resultsWithMessages = $results->filter(fn(Result $result) => !empty($result->getMessage()));
+
+        if ($resultsWithMessages->count() === 0) {
+            return $this;
+        }
+
+        $notifiableClass = config('health.notifications.notifiable');
+
+        /** @var \Illuminate\Notifications\Notifiable $notifiable */
+        $notifiable = app($notifiableClass);
+
+        $notification = (new CheckFailedNotification($resultsWithMessages->toArray()));
+
+        $notifiable->notify($notification);
+
+        return $this;
+    }
+
 }
