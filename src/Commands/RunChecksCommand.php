@@ -78,7 +78,7 @@ class RunChecksCommand extends Command
         }
     }
 
-    /** @return Collection<int, Check> */
+    /** @return Collection<int, Result> */
     protected function runChecks(): Collection
     {
         $results = app(Health::class)
@@ -103,10 +103,14 @@ class RunChecksCommand extends Command
 
         $notifiableClass = config('health.notifications.notifiable');
 
-        /** @var \Illuminate\Notifications\Notifiable $notifiable */
+        /** @var \Spatie\Health\Notifications\Notifiable $notifiable */
+        /** @phpstan-ignore-next-line */
         $notifiable = app($notifiableClass);
 
-        $notification = (new CheckFailedNotification($resultsWithMessages->toArray()));
+        /** @var array<int, Result> $results */
+        $results = $resultsWithMessages->toArray();
+
+        $notification = (new CheckFailedNotification($results));
 
         $notifiable->notify($notification);
 

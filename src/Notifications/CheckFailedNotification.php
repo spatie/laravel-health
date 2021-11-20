@@ -10,20 +10,23 @@ use Spatie\Health\Support\Result;
 
 class CheckFailedNotification extends Notification
 {
-    /** @param array<int, Result> $checks */
+    /** @param array<int, Result> $results */
     public function __construct(public array $results)
     {
     }
 
+    /** @return array<int,string> */
     public function via(): array
     {
+        /** @var array<int, string> $notificationChannels */
         $notificationChannels = config('health.notifications.notifications.'.static::class);
 
         return array_filter($notificationChannels);
     }
 
-    public function shouldSend($notifiable, $channel)
+    public function shouldSend(Notifiable $notifiable, string $channel): bool
     {
+        /** @var int $throttleMinutes */
         $throttleMinutes = config('health.notifications.throttle_notifications_for_minutes');
 
         if ($throttleMinutes === 0) {
@@ -32,10 +35,14 @@ class CheckFailedNotification extends Notification
 
         $cacheKey = 'health.latestNotificationSentAt';
 
-        $timestamp = cache()->get($cacheKey);
+        /** @var \Illuminate\Cache\CacheManager $cache */
+        $cache = app('cache');
+
+        /** @var string $timestamp */
+        $timestamp = $cache->get($cacheKey);
 
         if (!$timestamp) {
-            cache()->set('health.latestNotificationSentAt', now()->timestamp);
+            $cache->set('health.latestNotificationSentAt', now()->timestamp);
 
             return true;
         }
@@ -44,7 +51,7 @@ class CheckFailedNotification extends Notification
             return false;
         }
 
-        cache()->set('health.latestNotificationSentAt', now()->timestamp);
+        $cache->set('health.latestNotificationSentAt', now()->timestamp);
 
         return true;
     }
@@ -53,6 +60,7 @@ class CheckFailedNotification extends Notification
     {
         $mailMessage = (new MailMessage())
             ->error()
+            /** @phpstan-ignore-next-line */
             ->from(config('health.notifications.mail.from.address', config('mail.from.address')), config('health.notifications.mail.from.name', config('mail.from.name')))
             ->subject(trans('health::notifications.check_failed_subject', ['application_name' => $this->applicationName()]))
             ->line(trans('health::notifications.check_failed_body', ['application_name' => $this->applicationName()]));
@@ -68,13 +76,18 @@ class CheckFailedNotification extends Notification
     {
         return (new SlackMessage())
             ->error()
+            /** @phpstan-ignore-next-line */
             ->from(config('health.notifications.slack.username'), config('health.notifications.slack.icon'))
+            /** @phpstan-ignore-next-line */
             ->to(config('health.notifications.slack.channel'))
             ->content(trans('health::notifications.check_failed_subject', ['application_name' => $this->applicationName()]));
     }
 
     public function applicationName(): string
     {
-        return config('app.name') ?? config('app.url') ?? 'Laravel application';
+        /** @var string $applicationName */
+        $applicationName = config('app.name') ?? config('app.url') ?? 'Laravel application';
+
+        return $applicationName;
     }
 }
