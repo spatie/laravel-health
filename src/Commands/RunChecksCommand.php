@@ -83,19 +83,19 @@ class RunChecksCommand extends Command
     {
         $results = app(Health::class)
             ->registeredChecks()
-            ->filter(fn(Check $check) => $check->shouldRun())
-            ->map(fn(Check $check) => $this->runCheck($check));
+            ->filter(fn (Check $check) => $check->shouldRun())
+            ->map(fn (Check $check) => $this->runCheck($check));
 
         app(Health::class)
             ->resultStores()
-            ->each(fn(ResultStore $store) => $store->save($results));
+            ->each(fn (ResultStore $store) => $store->save($results));
 
         return $results;
     }
 
     protected function sendNotification(Collection $results): self
     {
-        $resultsWithMessages = $results->filter(fn(Result $result) => !empty($result->getMessage()));
+        $resultsWithMessages = $results->filter(fn (Result $result) => ! empty($result->getMessage()));
 
         if ($resultsWithMessages->count() === 0) {
             return $this;
@@ -112,5 +112,4 @@ class RunChecksCommand extends Command
 
         return $this;
     }
-
 }
