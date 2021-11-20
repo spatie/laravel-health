@@ -8,7 +8,7 @@ use Spatie\Health\Enums\Status;
 
 class Result
 {
-    /** @var array<int, mixed> */
+    /** @var array<string, mixed> */
     public array $meta = [];
 
     public Check $check;
@@ -72,6 +72,7 @@ class Result
         return $this;
     }
 
+    /** @param array<string, mixed> $meta */
     public function meta(array $meta): self
     {
         $this->meta = $meta;
