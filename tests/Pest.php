@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Mail;
 use Spatie\Health\Tests\TestCase;
 
 uses(TestCase::class)
-    ->beforeEach(function() {
+    ->beforeEach(function () {
         Mail::fake();
     })
     ->in(__DIR__);
