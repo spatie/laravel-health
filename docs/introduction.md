@@ -3,6 +3,8 @@ title: Introduction
 weight: 1
 ---
 
+**THIS PACKAGE IS IN DEVELOPMENT. DO NOT USE IN PRODUCTION (YET)**
+
 Using this package you can monitor the health of your application by registering checks.
 
 Here's an example where we'll monitor available disk space.
@@ -20,4 +22,4 @@ Health::checks([
 ]);
 ```
 
-When the used diskspace is over 70%, then a notification with a warning will be sent. If it's above 90%, you'll get an error notification. Out of the box, the package can notify you via Mail and Slack.
+When the used disk space is over 70%, then a notification with a warning will be sent. If it's above 90%, you'll get an error notification. Out of the box, the package can notify you via mail and Slack.

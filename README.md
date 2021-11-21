@@ -5,17 +5,26 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-health/Check%20&%20fix%20styling?label=code%20style)](https://github.com/spatie/laravel-health/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
 
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
+**THIS PACKAGE IS IN DEVELOPMENT. DO NOT USE IN PRODUCTION (YET)**
 
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this laravel-health
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files
-3. Remove this block of text.
-4. Have fun creating your package.
-5. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
+Using this package you can monitor the health of your application by registering checks.
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Here's an example where we'll monitor available disk space.
+
+```php
+// typically, in a service provider
+
+use Spatie\Health\Facades\Health;
+use \Spatie\Health\Checks\DiskSpaceCheck;
+
+Health::checks([
+    DiskSpaceCheck::new()
+        ->warnWhenUsedSpaceIsAbovePercentage(70)
+        ->errorWhenUsedSpaceIsAbovePercentage(90);
+]);
+```
+
+When the used disk space is over 70%, then a notification with a warning will be sent. If it's above 90%, you'll get an error notification. Out of the box, the package can notify you via mail and Slack.
 
 ## Support us
 
@@ -25,45 +34,9 @@ We invest a lot of resources into creating [best in class open source packages](
 
 We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
-## Installation
+## Documentation
 
-You can install the package via composer:
-
-```bash
-composer require spatie/laravel-health
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-health_without_prefix-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-```bash
-php artisan vendor:publish --tag="laravel-health_without_prefix-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="example-views"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-## Usage
-
-```php
-$laravel-health = new Spatie\Health();
-echo $laravel-health->echoPhrase('Hello, Spatie!');
-```
+All documentation is available [on our documentation site](https://spatie.be/docs/laravel-health).
 
 ## Testing
 
