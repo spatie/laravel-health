@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Notification;
+use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
-use function Pest\Laravel\artisan;
 
-it('will not send a notification when none of the checks have a message', function() {
+it('will not send a notification when none of the checks have a message', function () {
     Notification::fake();
 
     registerPassingCheck();
@@ -17,7 +17,7 @@ it('will not send a notification when none of the checks have a message', functi
     Notification::assertNothingSent();
 });
 
-it('will send a notification when one of the checks has a message', function() {
+it('will send a notification when one of the checks has a message', function () {
     Notification::fake();
 
     registerFailingCheck();
