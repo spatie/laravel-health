@@ -6,7 +6,7 @@ use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\ResultStores\JsonFileHealthResultStore;
 use Spatie\Health\ResultStores\ResultStore;
-use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
+use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck2;
 use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesJsonSnapshot;
 
@@ -25,7 +25,7 @@ beforeEach(function () {
     ]);
 
     Health::checks([
-        FakeDiskSpaceCheck::new(),
+        FakeDiskSpaceCheck2::new(),
     ]);
 });
 

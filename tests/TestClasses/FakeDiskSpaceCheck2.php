@@ -2,9 +2,9 @@
 
 namespace Spatie\Health\Tests\TestClasses;
 
-use Spatie\Health\Checks\DiskSpaceCheck;
+use Spatie\Health\Checks\DiskSpaceCheck2;
 
-class FakeDiskSpaceCheck extends DiskSpaceCheck
+class FakeDiskSpaceCheck2 extends DiskSpaceCheck2
 {
     protected int $fakeDiskUsagePercentage = 0;
 

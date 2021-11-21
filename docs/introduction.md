@@ -5,16 +5,16 @@ weight: 1
 
 Using this package you can monitor the health of your application by registering checks.
 
-Here's an example where we'll monitor available disk space. 
+Here's an example where we'll monitor available disk space.
 
 ```php
 // typically, in a service provider
 
 use Spatie\Health\Facades\Health;
-use \Spatie\Health\Checks\DiskSpaceCheck;
+use \Spatie\Health\Checks\DiskSpaceCheck2;
 
 Health::checks([
-    DiskSpaceCheck::new()
+    DiskSpaceCheck2::new()
         ->warnWhenUsedSpaceIsAbovePercentage(70)
         ->errorWhenUsedSpaceIsAbovePercentage(90);
 ]);

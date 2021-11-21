@@ -5,7 +5,7 @@ use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
-use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
+use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck2;
 
 beforeEach(function () {
     Notification::fake();
@@ -38,7 +38,7 @@ test('the notification can be rendered to mail', function () {
 function registerPassingCheck()
 {
     Health::checks([
-        FakeDiskSpaceCheck::new()
+        FakeDiskSpaceCheck2::new()
             ->errorWhenUsedSpaceIsAbovePercentage(10)
             ->fakeDiskUsagePercentage(0),
     ]);
@@ -47,7 +47,7 @@ function registerPassingCheck()
 function registerFailingCheck()
 {
     Health::checks([
-        FakeDiskSpaceCheck::new()
+        FakeDiskSpaceCheck2::new()
             ->errorWhenUsedSpaceIsAbovePercentage(10)
             ->fakeDiskUsagePercentage(11),
     ]);
