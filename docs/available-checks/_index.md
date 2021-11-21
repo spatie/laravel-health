@@ -1,5 +1,5 @@
 ---
 title: Available checks
-weight: 2
+weight: 4
 ---
 

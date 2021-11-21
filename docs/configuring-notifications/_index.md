@@ -1,6 +1,4 @@
 ---
 title: Configuring notifications
-weight: 1
+weight: 3
 ---
-
-Coming soon...
