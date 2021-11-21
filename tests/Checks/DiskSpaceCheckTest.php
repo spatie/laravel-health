@@ -1,12 +1,12 @@
 <?php
 
-use Spatie\Health\Checks\DiskSpaceCheck2;
+use Spatie\Health\Checks\DiskSpaceCheck;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Support\Result;
-use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck2;
+use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
 
 it('will return ok if the used disk space does not cross the threshold', function () {
-    $result = FakeDiskSpaceCheck2::new()
+    $result = FakeDiskSpaceCheck::new()
         ->fakeDiskUsagePercentage(10)
         ->warnWhenUsedSpaceIsAbovePercentage(70)
         ->errorWhenUsedSpaceIsAbovePercentage(90)
@@ -19,7 +19,7 @@ it('will return ok if the used disk space does not cross the threshold', functio
 });
 
 it('will return a warning if the used disk space does cross the warning threshold', function () {
-    $result = FakeDiskSpaceCheck2::new()
+    $result = FakeDiskSpaceCheck::new()
         ->fakeDiskUsagePercentage(71)
         ->warnWhenUsedSpaceIsAbovePercentage(70)
         ->errorWhenUsedSpaceIsAbovePercentage(90)
@@ -33,7 +33,7 @@ it('will return a warning if the used disk space does cross the warning threshol
 });
 
 it('will return an error if the used disk space does cross the error threshold', function () {
-    $result = FakeDiskSpaceCheck2::new()
+    $result = FakeDiskSpaceCheck::new()
         ->fakeDiskUsagePercentage(91)
         ->warnWhenUsedSpaceIsAbovePercentage(70)
         ->errorWhenUsedSpaceIsAbovePercentage(90)
@@ -47,7 +47,7 @@ it('will return an error if the used disk space does cross the error threshold',
 });
 
 it('can report the real disk space used', function () {
-    $result = DiskSpaceCheck2::new()->run();
+    $result = DiskSpaceCheck::new()->run();
 
     expect($result->meta['disk_space_used_percentage'])->between(0, 100);
 });

@@ -6,10 +6,10 @@ use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Models\CheckResultHistoryItem;
 use Spatie\Health\Tests\TestClasses\CrashingCheck;
-use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck2;
+use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
 
 beforeEach(function () {
-    $this->fakeDiskSpaceCheck = FakeDiskSpaceCheck2::new();
+    $this->fakeDiskSpaceCheck = FakeDiskSpaceCheck::new();
 
     Health::checks([
         $this->fakeDiskSpaceCheck,
@@ -68,7 +68,7 @@ it('can store the with failures results in the database', function () {
 it('will still run checks when there is a failing one', function () {
     Health::clearChecks()->checks([
         new CrashingCheck(),
-        new FakeDiskSpaceCheck2(),
+        new FakeDiskSpaceCheck(),
     ]);
 
     artisan(RunChecksCommand::class)

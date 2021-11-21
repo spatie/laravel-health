@@ -11,10 +11,10 @@ Here's an example where we'll monitor available disk space.
 // typically, in a service provider
 
 use Spatie\Health\Facades\Health;
-use \Spatie\Health\Checks\DiskSpaceCheck2;
+use \Spatie\Health\Checks\DiskSpaceCheck;
 
 Health::checks([
-    DiskSpaceCheck2::new()
+    DiskSpaceCheck::new()
         ->warnWhenUsedSpaceIsAbovePercentage(70)
         ->errorWhenUsedSpaceIsAbovePercentage(90);
 ]);

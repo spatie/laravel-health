@@ -6,7 +6,7 @@ use Spatie\Health\Support\Result;
 use Spatie\Regex\Regex;
 use Symfony\Component\Process\Process;
 
-class DiskSpaceCheck2 extends Check
+class DiskSpaceCheck extends Check
 {
     protected int $warningThreshold = 70;
     protected int $errorThreshold = 90;
