@@ -39,7 +39,7 @@ function registerPassingCheck()
 {
     Health::checks([
         FakeDiskSpaceCheck::new()
-            ->errorWhenFreeSpaceIsAbovePercentage(10)
+            ->errorWhenUsedSpaceIsAbovePercentage(10)
             ->fakeDiskUsagePercentage(0),
     ]);
 }
@@ -48,7 +48,7 @@ function registerFailingCheck()
 {
     Health::checks([
         FakeDiskSpaceCheck::new()
-            ->errorWhenFreeSpaceIsAbovePercentage(10)
+            ->errorWhenUsedSpaceIsAbovePercentage(10)
             ->fakeDiskUsagePercentage(11),
     ]);
 }

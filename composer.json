@@ -1,6 +1,6 @@
 {
     "name": "spatie/laravel-health",
-    "description": "Check the health of your Laravel app",
+    "description": "Monitor the health of a Laravel application",
     "keywords": [
         "spatie",
         "laravel",

@@ -8,8 +8,8 @@ use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
 it('will return ok if the used disk space does not cross the threshold', function () {
     $result = FakeDiskSpaceCheck::new()
         ->fakeDiskUsagePercentage(10)
-        ->warnWhenFreeSpaceIsAbovePercentage(70)
-        ->errorWhenFreeSpaceIsAbovePercentage(90)
+        ->warnWhenUsedSpaceIsAbovePercentage(70)
+        ->errorWhenUsedSpaceIsAbovePercentage(90)
         ->run();
 
     expect($result)
@@ -21,8 +21,8 @@ it('will return ok if the used disk space does not cross the threshold', functio
 it('will return a warning if the used disk space does cross the warning threshold', function () {
     $result = FakeDiskSpaceCheck::new()
         ->fakeDiskUsagePercentage(71)
-        ->warnWhenFreeSpaceIsAbovePercentage(70)
-        ->errorWhenFreeSpaceIsAbovePercentage(90)
+        ->warnWhenUsedSpaceIsAbovePercentage(70)
+        ->errorWhenUsedSpaceIsAbovePercentage(90)
         ->run();
 
     expect($result)
@@ -35,8 +35,8 @@ it('will return a warning if the used disk space does cross the warning threshol
 it('will return an error if the used disk space does cross the error threshold', function () {
     $result = FakeDiskSpaceCheck::new()
         ->fakeDiskUsagePercentage(91)
-        ->warnWhenFreeSpaceIsAbovePercentage(70)
-        ->errorWhenFreeSpaceIsAbovePercentage(90)
+        ->warnWhenUsedSpaceIsAbovePercentage(70)
+        ->errorWhenUsedSpaceIsAbovePercentage(90)
         ->run();
 
     expect($result)

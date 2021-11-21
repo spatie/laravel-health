@@ -11,14 +11,14 @@ class DiskSpaceCheck extends Check
     protected int $warningThreshold = 70;
     protected int $errorThreshold = 90;
 
-    public function warnWhenFreeSpaceIsAbovePercentage(int $percentage): self
+    public function warnWhenUsedSpaceIsAbovePercentage(int $percentage): self
     {
         $this->warningThreshold = $percentage;
 
         return $this;
     }
 
-    public function errorWhenFreeSpaceIsAbovePercentage(int $percentage): self
+    public function errorWhenUsedSpaceIsAbovePercentage(int $percentage): self
     {
         $this->errorThreshold = $percentage;
 
