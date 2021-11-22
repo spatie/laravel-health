@@ -19,7 +19,9 @@ class DatabaseCheck extends Check
 
     public function run(): Result
     {
-        $result = Result::make();
+        $result = Result::make()->meta([
+            'connection_name' => $this->connectionName,
+        ]);
 
         try {
             DB::connection($this->connectionName)->getPdo();
