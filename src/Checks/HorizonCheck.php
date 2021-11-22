@@ -4,7 +4,6 @@ namespace Spatie\Health\Checks;
 
 use Exception;
 use Laravel\Horizon\Contracts\MasterSupervisorRepository;
-use Spatie\Health\Checks\Check;
 use Spatie\Health\Support\Result;
 
 class HorizonCheck extends Check
@@ -21,8 +20,7 @@ class HorizonCheck extends Check
 
         $masterSupervisors = $horizon->all();
 
-        if (count($masterSupervisors) === 0)
-        {
+        if (count($masterSupervisors) === 0) {
             return $result->failed("Horizon is not running.");
         }
 

@@ -1,8 +1,6 @@
 <?php
 
-use Spatie\Health\Checks\DatabaseCheck;
 use Spatie\Health\Checks\DebugModeCheck;
-use Spatie\Health\Checks\EnvironmentCheck;
 use Spatie\Health\Enums\Status;
 
 it('will determine if that a correct debug mode is ok', function () {

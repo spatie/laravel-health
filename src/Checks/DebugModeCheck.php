@@ -21,7 +21,7 @@ class DebugModeCheck extends Check
 
         $result = Result::make()->meta([
             'actual' => $actual,
-            'expected' => $this->expected
+            'expected' => $this->expected,
         ]);
 
         return $this->expected === $actual
