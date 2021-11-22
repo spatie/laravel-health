@@ -30,6 +30,7 @@
         "symfony/process": "^5.3"
     },
     "require-dev": {
+        "laravel/horizon": "^5.7",
         "laravel/slack-notification-channel": "^2.3",
         "nunomaduro/collision": "^5.10",
         "nunomaduro/larastan": "^1.0",
