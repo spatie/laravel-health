@@ -4,7 +4,6 @@ namespace Spatie\Health\Checks;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Spatie\Health\Models\CheckResultHistoryItem;
 use Spatie\Health\Support\Result;
 
 class DatabaseCheck extends Check
