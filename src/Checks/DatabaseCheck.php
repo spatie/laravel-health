@@ -11,9 +11,6 @@ class DatabaseCheck extends Check
 {
     protected string $connectionName = 'default';
 
-    /** @var class-string */
-    protected string $modelClass = CheckResultHistoryItem::class;
-
     public function connectionName(string $connectionName)
     {
         $this->connectionName = $connectionName;
