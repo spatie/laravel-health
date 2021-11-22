@@ -51,12 +51,6 @@ jobs:
           sudo apt-get install -y mysql-client
           mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
 
-      - name: Verify Redis connection
-        run: node client.js
-        env:
-          REDIS_HOST: redis
-          REDIS_PORT: 6379
-
       - name: Checkout code
         uses: actions/checkout@v2
 
