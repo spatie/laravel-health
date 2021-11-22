@@ -1,7 +1,7 @@
 <?php
 
-use Spatie\Health\ResultStores\Report\ReportedCheck;
 use Spatie\Health\ResultStores\Report\Report;
+use Spatie\Health\ResultStores\Report\ReportedCheck;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can create create report', function () {

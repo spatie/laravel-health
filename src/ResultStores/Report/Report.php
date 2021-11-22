@@ -19,7 +19,7 @@ class Report
         $properties = json_decode($json, true);
 
         $reportedChecks = collect($properties['reportedChecks'])->map(
-            fn(array $lineProperties) => new ReportedCheck(...$lineProperties)
+            fn (array $lineProperties) => new ReportedCheck(...$lineProperties)
         );
 
         return new static(
@@ -34,7 +34,8 @@ class Report
      */
     public function __construct(
         DateTimeInterface $finishedAt = null,
-        ?Collection $reportedChecks = null)
+        ?Collection $reportedChecks = null
+    )
     {
         $this->finishedAt = $finishedAt ?? new DateTime();
 
@@ -51,7 +52,7 @@ class Report
     public function allChecksOk(): bool
     {
         $this->reportedChecks->contains(
-            fn(ReportedCheck $line) => $line->status !== Status::ok()->value
+            fn (ReportedCheck $line) => $line->status !== Status::ok()->value
         );
     }
 
@@ -64,7 +65,7 @@ class Report
     {
         return json_encode([
             'finishedAt' => $this->finishedAt->format('Y-m-d H:i:s'),
-            'reportedChecks' => $this->reportedChecks->map(fn(ReportedCheck $line) => $line->toArray()),
+            'reportedChecks' => $this->reportedChecks->map(fn (ReportedCheck $line) => $line->toArray()),
         ]);
     }
 }

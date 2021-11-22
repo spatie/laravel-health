@@ -3,7 +3,6 @@
 namespace Spatie\Health\Checks;
 
 use Carbon\Carbon;
-use Spatie\Health\Checks\Check;
 use Spatie\Health\Enums\Status;
 use function trans;
 

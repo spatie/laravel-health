@@ -41,13 +41,13 @@ class CheckFailedNotification extends Notification
         /** @var string $timestamp */
         $timestamp = $cache->get($cacheKey);
 
-        if (!$timestamp) {
+        if (! $timestamp) {
             $cache->set('health.latestNotificationSentAt', now()->timestamp);
 
             return true;
         }
 
-        if (Carbon::createFromTimestamp($timestamp)->addMinutes($throttleMinutes)->isFuture())      {
+        if (Carbon::createFromTimestamp($timestamp)->addMinutes($throttleMinutes)->isFuture()) {
             return false;
         }
 
