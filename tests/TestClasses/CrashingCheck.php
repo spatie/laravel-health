@@ -4,7 +4,7 @@ namespace Spatie\Health\Tests\TestClasses;
 
 use Exception;
 use Spatie\Health\Checks\Check;
-use Spatie\Health\Support\Result;
+use Spatie\Health\Checks\Result;
 
 class CrashingCheck extends Check
 {

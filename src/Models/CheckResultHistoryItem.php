@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Model;
 class CheckResultHistoryItem extends Model
 {
     use HasFactory;
-
     use MassPrunable;
 
     public $guarded = [];

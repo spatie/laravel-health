@@ -13,7 +13,7 @@ use Spatie\Health\Exceptions\CouldNotSaveResultsInStore;
 use Spatie\Health\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\ResultStores\ResultStore;
-use Spatie\Health\Support\Result;
+use Spatie\Health\Checks\Result;
 
 class RunChecksCommand extends Command
 {

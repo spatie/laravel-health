@@ -6,9 +6,9 @@ use Exception;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use OhDear\HealthCheckReport\Line;
-use OhDear\HealthCheckReport\Report;
-use Spatie\Health\Support\Result;
+use Spatie\Health\Checks\Result;
+use Spatie\Health\ResultStores\Report\Report;
+use Spatie\Health\ResultStores\Report\ReportedCheck;
 
 class JsonFileHealthResultStore implements ResultStore
 {
@@ -22,22 +22,22 @@ class JsonFileHealthResultStore implements ResultStore
         $this->path = $path;
     }
 
-    /** @param Collection<int, \Spatie\Health\Support\Result> $checkResults */
+    /** @param Collection<int, \Spatie\Health\Checks\Result> $checkResults */
     public function save(Collection $checkResults): void
     {
         $report = new Report(now());
 
         $checkResults
             ->map(function (Result $result) {
-                return new Line(
+                return new ReportedCheck(
                     name: $result->check->getName(),
                     message: $result->getMessage(),
                     status: (string)$result->status->value,
                     meta: $result->meta,
                 );
             })
-            ->each(function (Line $line) use ($report) {
-                $report->addLine($line);
+            ->each(function (ReportedCheck $check) use ($report) {
+                $report->addCheck($check);
             });
 
         $contents = $report->toJson();
@@ -45,7 +45,7 @@ class JsonFileHealthResultStore implements ResultStore
         $this->disk->write($this->path, $contents);
     }
 
-    public function latestResults(): ?Report
+    public function latestReport(): ?Report
     {
         $content = null;
 

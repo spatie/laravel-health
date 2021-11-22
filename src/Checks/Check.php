@@ -6,8 +6,14 @@ use Cron\CronExpression;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
+use Spatie\Health\Checks\Checks\DatabaseCheck;
+use Spatie\Health\Checks\Checks\DebugModeCheck;
+use Spatie\Health\Checks\Checks\DiskSpaceCheck;
+use Spatie\Health\Checks\Checks\EnvironmentCheck;
+use Spatie\Health\Checks\Checks\HorizonCheck;
+use Spatie\Health\Checks\Checks\RedisCheck;
 use Spatie\Health\Enums\Status;
-use Spatie\Health\Support\Result;
+use Spatie\Health\Checks\Result;
 
 abstract class Check
 {

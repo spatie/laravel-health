@@ -1,6 +1,6 @@
 <?php
 
-use Spatie\Health\Checks\EnvironmentCheck;
+use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Enums\Status;
 
 it('will determine if that a correct environment is ok', function () {

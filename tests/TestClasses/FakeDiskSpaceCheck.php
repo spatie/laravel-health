@@ -2,7 +2,7 @@
 
 namespace Spatie\Health\Tests\TestClasses;
 
-use Spatie\Health\Checks\DiskSpaceCheck;
+use Spatie\Health\Checks\Checks\DiskSpaceCheck;
 
 class FakeDiskSpaceCheck extends DiskSpaceCheck
 {

@@ -1,8 +1,8 @@
 <?php
 
-use Spatie\Health\Checks\DiskSpaceCheck;
+use Spatie\Health\Checks\Checks\DiskSpaceCheck;
 use Spatie\Health\Enums\Status;
-use Spatie\Health\Support\Result;
+use Spatie\Health\Checks\Result;
 use Spatie\Health\Tests\TestClasses\FakeDiskSpaceCheck;
 
 it('will return ok if the used disk space does not cross the threshold', function () {

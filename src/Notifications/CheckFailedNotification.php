@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
-use Spatie\Health\Support\Result;
+use Spatie\Health\Checks\Result;
 
 class CheckFailedNotification extends Notification
 {
@@ -19,7 +19,7 @@ class CheckFailedNotification extends Notification
     public function via(): array
     {
         /** @var array<int, string> $notificationChannels */
-        $notificationChannels = config('health.notifications.notifications.'.static::class);
+        $notificationChannels = config('health.notifications.notifications.' . static::class);
 
         return array_filter($notificationChannels);
     }
@@ -41,13 +41,13 @@ class CheckFailedNotification extends Notification
         /** @var string $timestamp */
         $timestamp = $cache->get($cacheKey);
 
-        if (! $timestamp) {
+        if (!$timestamp) {
             $cache->set('health.latestNotificationSentAt', now()->timestamp);
 
             return true;
         }
 
-        if (Carbon::createFromTimestamp($timestamp)->addMinutes($throttleMinutes)->isFuture()) {
+        if (Carbon::createFromTimestamp($timestamp)->addMinutes($throttleMinutes)->isFuture())      {
             return false;
         }
 

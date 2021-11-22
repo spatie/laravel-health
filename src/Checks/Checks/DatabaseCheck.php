@@ -1,10 +1,11 @@
 <?php
 
-namespace Spatie\Health\Checks;
+namespace Spatie\Health\Checks\Checks;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Spatie\Health\Support\Result;
+use Spatie\Health\Checks\Check;
+use Spatie\Health\Checks\Result;
 
 class DatabaseCheck extends Check
 {

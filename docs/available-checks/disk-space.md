@@ -1,5 +1,5 @@
 ---
-title: Diskspace
+title: Disk space
 weight: 2
 ---
 

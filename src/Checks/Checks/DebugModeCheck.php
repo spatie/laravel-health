@@ -1,8 +1,10 @@
 <?php
 
-namespace Spatie\Health\Checks;
+namespace Spatie\Health\Checks\Checks;
 
-use Spatie\Health\Support\Result;
+use Spatie\Health\Checks\Check;
+use Spatie\Health\Checks\Result;
+use function config;
 
 class DebugModeCheck extends Check
 {

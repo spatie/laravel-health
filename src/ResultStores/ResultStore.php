@@ -3,12 +3,12 @@
 namespace Spatie\Health\ResultStores;
 
 use Illuminate\Support\Collection;
-use OhDear\HealthCheckReport\Report;
+use Spatie\Health\ResultStores\Report\Report;
 
 interface ResultStore
 {
-    /** @param Collection<int, \Spatie\Health\Support\Result> $checkResults */
+    /** @param Collection<int, \Spatie\Health\Checks\Result> $checkResults */
     public function save(Collection $checkResults): void;
 
-    public function latestResults(): ?Report;
+    public function latestReport(): ?Report;
 }

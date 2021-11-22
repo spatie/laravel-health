@@ -29,12 +29,12 @@ it('can write check results to the database', function () {
 });
 
 it('can retrieve the latest results from json', function () {
-    $report = app(ResultStore::class)->latestResults();
+    $report = app(ResultStore::class)->latestReport();
     expect($report)->toBeNull();
 
     artisan(RunChecksCommand::class)->assertSuccessful();
 
-    $report = app(ResultStore::class)->latestResults();
+    $report = app(ResultStore::class)->latestReport();
 
     assertMatchesJsonSnapshot($report->toJson());
 });

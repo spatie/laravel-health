@@ -15,7 +15,7 @@ Here's an example where we'll monitor available disk space.
 // typically, in a service provider
 
 use Spatie\Health\Facades\Health;
-use \Spatie\Health\Checks\DiskSpaceCheck;
+use Spatie\Health\Checks\Checks\DiskSpaceCheck;
 
 Health::checks([
     DiskSpaceCheck::new()

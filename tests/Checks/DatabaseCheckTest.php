@@ -1,6 +1,6 @@
 <?php
 
-use Spatie\Health\Checks\DatabaseCheck;
+use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Enums\Status;
 
 it('will determine if that a working database connection is ok', function () {

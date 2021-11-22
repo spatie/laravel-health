@@ -2,7 +2,7 @@
 
 namespace Spatie\Health\Tests\Checks;
 
-use Spatie\Health\Checks\HorizonCheck;
+use Spatie\Health\Checks\Checks\HorizonCheck;
 use Spatie\Health\Enums\Status;
 
 it('will fail when horizon is not running', function () {

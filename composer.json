@@ -23,7 +23,6 @@
         "illuminate/database": "^8.70",
         "illuminate/notifications": "^8.73",
         "illuminate/support": "^8.70",
-        "ohdearapp/health-check-report": "^0.0.3",
         "spatie/enum": "^3.10",
         "spatie/laravel-package-tools": "^1.9.2",
         "spatie/regex": "^3.1",

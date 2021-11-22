@@ -1,6 +1,6 @@
 <?php
 
-use Spatie\Health\Checks\DiskSpaceCheck;
+use Spatie\Health\Checks\Checks\DiskSpaceCheck;
 use Spatie\Health\Facades\Health;
 
 it('can register checks', function () {

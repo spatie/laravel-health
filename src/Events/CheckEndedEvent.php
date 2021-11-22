@@ -3,7 +3,7 @@
 namespace Spatie\Health\Events;
 
 use Spatie\Health\Checks\Check;
-use Spatie\Health\Support\Result;
+use Spatie\Health\Checks\Result;
 
 class CheckEndedEvent
 {

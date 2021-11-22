@@ -3,7 +3,7 @@
 namespace Spatie\Health\Tests\Checks;
 
 use Exception;
-use Spatie\Health\Checks\RedisCheck;
+use Spatie\Health\Checks\Checks\RedisCheck;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Tests\TestClasses\FakeRedisCheck;
 

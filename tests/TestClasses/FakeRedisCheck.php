@@ -3,7 +3,7 @@
 namespace Spatie\Health\Tests\TestClasses;
 
 use Closure;
-use Spatie\Health\Checks\RedisCheck;
+use Spatie\Health\Checks\Checks\RedisCheck;
 
 class FakeRedisCheck extends RedisCheck
 {
