@@ -30,7 +30,7 @@ class JsonFileHealthResultStore implements ResultStore
         $checkResults
             ->map(function (Result $result) {
                 return new Line(
-                    name: $result->check->name(),
+                    name: $result->check->getName(),
                     message: $result->getMessage(),
                     status: (string)$result->status->value,
                     meta: $result->meta,

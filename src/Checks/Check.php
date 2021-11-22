@@ -12,7 +12,10 @@ use Spatie\Health\Support\Result;
 abstract class Check
 {
     use ManagesFrequencies;
+
     protected string $expression = '* * * * *';
+
+    protected ?string $name = null;
 
     final public function __construct()
     {
@@ -27,8 +30,19 @@ abstract class Check
         return $instance;
     }
 
-    public function name(): string
+    public function name(string $name): self
     {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        if ($this->name) {
+            return $this->name;
+        }
+
         $baseName = class_basename(static::class);
 
         return Str::of($baseName)->beforeLast('Check');

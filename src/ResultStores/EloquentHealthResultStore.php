@@ -18,7 +18,7 @@ class EloquentHealthResultStore implements ResultStore
 
         $checkResults->each(function (Result $result) use ($batch) {
             CheckResultHistoryItem::create([
-                'check_name' => $result->check->name(),
+                'check_name' => $result->check->getName(),
                 'status' => $result->status,
                 'message' => $result->getMessage(),
                 'meta' => $result->meta,
