@@ -26,8 +26,7 @@ class DatabaseCheck extends Check
             DB::connection($this->connectionName)->getPdo();
 
             return $result->ok();
-        } catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             return $result->failed("Could not connection to the database");
         }
     }
