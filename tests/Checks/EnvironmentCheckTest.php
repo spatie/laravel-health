@@ -1,6 +1,5 @@
 <?php
 
-use Spatie\Health\Checks\DatabaseCheck;
 use Spatie\Health\Checks\EnvironmentCheck;
 use Spatie\Health\Enums\Status;
 
