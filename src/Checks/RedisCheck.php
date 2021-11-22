@@ -38,6 +38,6 @@ class RedisCheck extends Check
 
     protected function pingRedis(): bool|string
     {
-         return Redis::connection()->ping();
+        return Redis::connection()->ping();
     }
 }
