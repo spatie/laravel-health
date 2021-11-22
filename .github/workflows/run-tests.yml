@@ -36,13 +36,13 @@ jobs:
 
       redis:
         image: redis
+        ports:
+          - 6379/tcp
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
-
 
     steps:
       - name: Verify MySQL connection
@@ -77,4 +77,5 @@ jobs:
           DB_USERNAME: user
           DB_PASSWORD: secret
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          REDIS_PORT: 6379
 
