@@ -3,7 +3,7 @@
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Enums\Status;
 
-it('will determine if that a working database connection is ok', function () {
+it('will determine that a working database connection is ok', function () {
     $result = DatabaseCheck::new()
         ->connectionName('testing')
         ->run();
@@ -11,7 +11,7 @@ it('will determine if that a working database connection is ok', function () {
     expect($result->status)->toBe(Status::ok());
 });
 
-it('will determine if that a non-existing database connection is not ok', function () {
+it('will determine that a non-existing database connection is not ok', function () {
     $result = DatabaseCheck::new()
         ->connectionName('does-not-exist')
         ->run();

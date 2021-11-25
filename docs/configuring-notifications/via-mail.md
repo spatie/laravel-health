@@ -1,6 +1,6 @@
 ---
 title: Via mail
-weight: 1
+weight: 2
 ---
 
 When a check starts returning warnings or failures, you can get notified via mail.

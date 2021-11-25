@@ -3,7 +3,7 @@
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Enums\Status;
 
-it('will determine if that a correct environment is ok', function () {
+it('will determine that a correct environment is ok', function () {
     $result = EnvironmentCheck::new()
         ->expectEnvironment('testing')
         ->run();
@@ -11,7 +11,7 @@ it('will determine if that a correct environment is ok', function () {
     expect($result->status)->toBe(Status::ok());
 });
 
-it('will determine if that a wrong environment is not ok', function () {
+it('will determine that a wrong environment is not ok', function () {
     $result = EnvironmentCheck::new()
         ->expectEnvironment('production')
         ->run();

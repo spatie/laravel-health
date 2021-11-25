@@ -3,7 +3,7 @@
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Enums\Status;
 
-it('will determine if that a correct debug mode is ok', function () {
+it('will determine that a correct debug mode is ok', function () {
     $result = DebugModeCheck::new()
         ->run();
     expect($result->status)->toBe(Status::ok());

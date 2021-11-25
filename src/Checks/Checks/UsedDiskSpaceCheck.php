@@ -33,11 +33,11 @@ class UsedDiskSpaceCheck extends Check
         $result = Result::make()->meta(['disk_space_used_percentage' => $spaceUsedPercentage]);
 
         if ($spaceUsedPercentage > $this->errorThreshold) {
-            return $result->failed("The disk is almost full: (:disk_space_used_percentage % used)");
+            return $result->failed("The disk is almost full (:disk_space_used_percentage % used).");
         }
 
         if ($spaceUsedPercentage > $this->warningThreshold) {
-            return $result->warning("The disk is almost full: (:disk_space_used_percentage % used)");
+            return $result->warning("The disk is almost full (:disk_space_used_percentage % used).");
         }
 
         return $result->ok();
