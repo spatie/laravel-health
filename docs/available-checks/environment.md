@@ -14,7 +14,7 @@ use Spatie\Health\Facades\Health;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 
 Health::checks([
-    \Spatie\Health\Checks\Checks\EnvironmentCheck::new(),
+    EnvironmentCheck::new(),
 ]);
 ```
 

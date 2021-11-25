@@ -18,7 +18,7 @@ use Spatie\Health\Facades\Health;
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 
 Health::checks([
-    \Spatie\Health\Checks\Checks\UsedDiskSpaceCheck::new(),
+    UsedDiskSpaceCheck::new(),
 ]);
 ```
 

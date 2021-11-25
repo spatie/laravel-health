@@ -14,6 +14,6 @@ use Spatie\Health\Facades\Health;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 
 Health::checks([
-    \Spatie\Health\Checks\Checks\DebugModeCheck::new(),
+    DebugModeCheck::new(),
 ]);
 ```
