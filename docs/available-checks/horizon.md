@@ -3,7 +3,7 @@ title: Horizon
 weight: 6
 ---
 
-This check will make sure Horizon is running.  It will report a warning when Horizon is paused, and a failure is Horizon is not running.
+This check will make sure Horizon is running.  It will report a warning when Horizon is paused, and a failure when Horizon is not running.
 
 ## Usage
 
