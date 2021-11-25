@@ -35,8 +35,7 @@ class Report
     public function __construct(
         DateTimeInterface $finishedAt = null,
         ?Collection $reportedChecks = null
-    )
-    {
+    ) {
         $this->finishedAt = $finishedAt ?? new DateTime();
 
         $this->reportedChecks = $reportedChecks ?? collect();
