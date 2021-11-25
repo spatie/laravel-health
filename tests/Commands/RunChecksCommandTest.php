@@ -50,7 +50,7 @@ it('can store the with warnings results in the database', function () {
 it('can store the with failures results in the database', function () {
     $this
         ->fakeDiskSpaceCheck
-        ->errorWhenUsedSpaceIsAbovePercentage(50)
+        ->failWhenUsedSpaceIsAbovePercentage(50)
         ->fakeDiskUsagePercentage(51);
 
     artisan(RunChecksCommand::class)->assertSuccessful();

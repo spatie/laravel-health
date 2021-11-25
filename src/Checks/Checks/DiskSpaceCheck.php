@@ -19,7 +19,7 @@ class DiskSpaceCheck extends Check
         return $this;
     }
 
-    public function errorWhenUsedSpaceIsAbovePercentage(int $percentage): self
+    public function failWhenUsedSpaceIsAbovePercentage(int $percentage): self
     {
         $this->errorThreshold = $percentage;
 

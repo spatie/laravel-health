@@ -5,6 +5,8 @@ namespace Spatie\Health\Tests\Checks;
 use Spatie\Health\Checks\Checks\HorizonCheck;
 use Spatie\Health\Enums\Status;
 
+beforeEach()->markTestSkipped();
+
 it('will fail when horizon is not running', function () {
     $result = HorizonCheck::new()->run();
 

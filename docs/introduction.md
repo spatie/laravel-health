@@ -18,7 +18,7 @@ use Spatie\Health\Checks\Checks\DiskSpaceCheck;
 Health::checks([
     DiskSpaceCheck::new()
         ->warnWhenUsedSpaceIsAbovePercentage(70)
-        ->errorWhenUsedSpaceIsAbovePercentage(90);
+        ->failWhenUsedSpaceIsAbovePercentage(90);
 ]);
 ```
 

@@ -9,7 +9,7 @@ it('will return ok if the used disk space does not cross the threshold', functio
     $result = FakeDiskSpaceCheck::new()
         ->fakeDiskUsagePercentage(10)
         ->warnWhenUsedSpaceIsAbovePercentage(70)
-        ->errorWhenUsedSpaceIsAbovePercentage(90)
+        ->failWhenUsedSpaceIsAbovePercentage(90)
         ->run();
 
     expect($result)
@@ -22,7 +22,7 @@ it('will return a warning if the used disk space does cross the warning threshol
     $result = FakeDiskSpaceCheck::new()
         ->fakeDiskUsagePercentage(71)
         ->warnWhenUsedSpaceIsAbovePercentage(70)
-        ->errorWhenUsedSpaceIsAbovePercentage(90)
+        ->failWhenUsedSpaceIsAbovePercentage(90)
         ->run();
 
     expect($result)
@@ -36,7 +36,7 @@ it('will return an error if the used disk space does cross the error threshold',
     $result = FakeDiskSpaceCheck::new()
         ->fakeDiskUsagePercentage(91)
         ->warnWhenUsedSpaceIsAbovePercentage(70)
-        ->errorWhenUsedSpaceIsAbovePercentage(90)
+        ->failWhenUsedSpaceIsAbovePercentage(90)
         ->run();
 
     expect($result)
