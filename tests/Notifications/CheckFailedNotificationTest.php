@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Notification;
-use Spatie\TestTime\TestTime;
 use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
+use Spatie\TestTime\TestTime;
 
 beforeEach(function () {
     Notification::fake();

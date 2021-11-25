@@ -37,13 +37,13 @@ class ScheduleCheck extends Check
 
         $lastHeartbeatTimestamp = cache()->get($this->cacheKey);
 
-        if (!$lastHeartbeatTimestamp) {
+        if (! $lastHeartbeatTimestamp) {
             return $result->failed('The schedule did not run yet.');
         }
 
         $latestHeartbeatAt = Carbon::createFromTimestamp($lastHeartbeatTimestamp);
 
-        $minutesAgo = $latestHeartbeatAt->diffInMinutes() +1;
+        $minutesAgo = $latestHeartbeatAt->diffInMinutes() + 1;
 
         if ($minutesAgo > $this->heartbeatMaxAgeInMinutes) {
             return $result->failed("The last run of the schedule was more than {$minutesAgo} minutes ago.");

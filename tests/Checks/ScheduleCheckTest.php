@@ -1,23 +1,23 @@
 <?php
 
+use function Pest\Laravel\artisan;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
-use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->scheduleCheck = ScheduleCheck::new();
 
     Health::checks([
-        ScheduleCheck::new()
+        ScheduleCheck::new(),
     ]);
 
     testTime()->freeze();
 });
 
-it('can check whether the scheduler is still running', function() {
+it('can check whether the scheduler is still running', function () {
     artisan(ScheduleCheckHeartbeatCommand::class)->assertSuccessful();
 
     $result = $this->scheduleCheck->run();
@@ -32,7 +32,7 @@ it('can check whether the scheduler is still running', function() {
     expect($result->status)->toBe(Status::failed());
 });
 
-it('can use custom max age of the heartbeat', function() {
+it('can use custom max age of the heartbeat', function () {
     $this->scheduleCheck->heartbeatMaxAgeInMinutes(2);
 
     artisan(ScheduleCheckHeartbeatCommand::class)->assertSuccessful();
