@@ -30,8 +30,6 @@ public function schedule(Schedule $schedule) {
     // your other commands
 
     $schedule->command(ScheduleCheckHeartbeatCommand::class)->everyMinute();
-    
-    
 }
 ```
 
