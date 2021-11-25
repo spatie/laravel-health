@@ -12,19 +12,19 @@ class Report
     protected DateTimeInterface $finishedAt;
 
     /** @var Collection<int, ReportedCheck> */
-    protected Collection $reportedChecks;
+    protected Collection $checkResults;
 
     public static function fromJson(string $json): Report
     {
         $properties = json_decode($json, true);
 
-        $reportedChecks = collect($properties['reportedChecks'])->map(
+        $checkResults = collect($properties['checkResults'])->map(
             fn (array $lineProperties) => new ReportedCheck(...$lineProperties)
         );
 
         return new static(
             finishedAt: new DateTime($properties['finishedAt']),
-            reportedChecks: $reportedChecks,
+            checkResults: $checkResults,
         );
     }
 
@@ -34,23 +34,23 @@ class Report
      */
     public function __construct(
         DateTimeInterface $finishedAt = null,
-        ?Collection $reportedChecks = null
+        ?Collection $checkResults = null
     ) {
         $this->finishedAt = $finishedAt ?? new DateTime();
 
-        $this->reportedChecks = $reportedChecks ?? collect();
+        $this->checkResults = $checkResults ?? collect();
     }
 
     public function addCheck(ReportedCheck $line): self
     {
-        $this->reportedChecks[] = $line;
+        $this->checkResults[] = $line;
 
         return $this;
     }
 
     public function allChecksOk(): bool
     {
-        $this->reportedChecks->contains(
+        $this->checkResults->contains(
             fn (ReportedCheck $line) => $line->status !== Status::ok()->value
         );
     }
@@ -64,7 +64,7 @@ class Report
     {
         return json_encode([
             'finishedAt' => $this->finishedAt->format('Y-m-d H:i:s'),
-            'reportedChecks' => $this->reportedChecks->map(fn (ReportedCheck $line) => $line->toArray()),
+            'checkResults' => $this->checkResults->map(fn (ReportedCheck $line) => $line->toArray()),
         ]);
     }
 }

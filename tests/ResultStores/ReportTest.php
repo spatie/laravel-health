@@ -20,7 +20,7 @@ it('can be created from json', function () {
 
 function getReport(): Report
 {
-    $reportedChecks = collect([
+    $checkResults = collect([
         new ReportedCheck(
             'name',
             'message',
@@ -31,6 +31,6 @@ function getReport(): Report
 
     return new Report(
         finishedAt: new DateTimeImmutable('2001-01-01 00:00:00'),
-        reportedChecks: $reportedChecks,
+        checkResults: $checkResults,
     );
 }

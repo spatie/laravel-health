@@ -1,1 +1,1 @@
-{"finishedAt":"2001-01-01 00:00:00","reportedChecks":[{"name":"name","message":"message","status":"ok","meta":{"name":"value"}}]}
+{"finishedAt":"2001-01-01 00:00:00","checkResults":[{"name":"name","message":"message","status":"ok","meta":{"name":"value"}}]}

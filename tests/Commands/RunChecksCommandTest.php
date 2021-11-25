@@ -42,7 +42,7 @@ it('can store the with warnings results in the database', function () {
     expect($historyItems)
         ->toHaveCount(1)
         ->and($historyItems->first())
-        ->message->toBe('The disk is almost full: (51 % used)')
+        ->message->toBe('The disk is almost full (51% used).')
         ->status->toBe(Status::warning()->value)
         ->meta->toBe(['disk_space_used_percentage' => 51]);
 });
@@ -60,7 +60,7 @@ it('can store the with failures results in the database', function () {
     expect($historyItems)
         ->toHaveCount(1)
         ->and($historyItems->first())
-        ->message->toBe('The disk is almost full: (51 % used)')
+        ->message->toBe('The disk is almost full (51% used).')
         ->status->toBe(Status::failed()->value)
         ->meta->toBe(['disk_space_used_percentage' => 51]);
 });
