@@ -3,7 +3,6 @@
 namespace Spatie\Health\Support;
 
 use Illuminate\Support\Collection;
-use Spatie\Health\Checks\Check;
 
 class Checks extends Collection
 {
@@ -14,6 +13,5 @@ class Checks extends Collection
 
     public function run()
     {
-
     }
 }
