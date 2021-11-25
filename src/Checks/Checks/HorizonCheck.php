@@ -15,7 +15,7 @@ class HorizonCheck extends Check
 
         try {
             $horizon = app(MasterSupervisorRepository::class);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             return $result->failed('Horizon does not seem to be installed correctly.');
         }
 

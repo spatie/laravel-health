@@ -29,7 +29,7 @@ class DatabaseCheck extends Check
 
             return $result->ok();
         } catch (Exception $exception) {
-            return $result->failed("Could not connection to the database");
+            return $result->failed("Could not connect to the database: `{$exception->getMessage()}`");
         }
     }
 }

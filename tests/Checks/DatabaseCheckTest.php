@@ -18,5 +18,5 @@ it('will determine if that a non-existing database connection is not ok', functi
 
     expect($result)
         ->status->toBe(Status::failed())
-        ->getMessage()->toBe('Could not connection to the database');
+        ->getMessage()->toBe('Could not connect to the database: `Database connection [does-not-exist] not configured.`');
 });

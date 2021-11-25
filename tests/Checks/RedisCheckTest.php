@@ -7,9 +7,6 @@ use Spatie\Health\Checks\Checks\RedisCheck;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Tests\TestClasses\FakeRedisCheck;
 
-beforeEach()->markTestSkipped();
-
-
 it('will return ok when redis is running', function () {
     $result = RedisCheck::new()->run();
 

@@ -1,0 +1,46 @@
+---
+title: Schedule
+weight: 10
+---
+
+This check will make sure the schedule is running. If the check detects that the schedule is not run every minute, it will fail.
+
+This check relies on the default cache.
+
+## Usage
+
+First, you must register the `ScheduleCheck`
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\ScheduleCheck;
+
+Health::checks([
+    ScheduleCheck::new(),
+]);
+```
+
+Next, you must schedule the `Spatie\Health\Commands\ScheduleCheckHeartbeatCommand` to run every minute. We recommend to put this command as the very last command in your schedule.
+
+```php
+// in app/Console/Kernel.php
+use \Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
+
+public function schedule(Schedule $schedule) {
+    // your other commands
+
+    $schedule->command(ScheduleCheckHeartbeatCommand::class)->everyMinute();
+    
+    
+}
+```
+
+### Customizing the maximum heart beat age
+
+The `ScheduleCheckHeartbeatCommand` will write the current timestamp into the cache. The `ScheduleCheck` will verify that that timestamp is not over a minute.
+
+Should you get too many false positives, you can change the max age of the timestamp by calling `heartbeatMaxAgeInMinutes`.
+
+```php
+ScheduleCheck::new()->heartbeatMaxAgeInMinutes(5),
+```

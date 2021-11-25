@@ -4,6 +4,7 @@ namespace Spatie\Health;
 
 use Spatie\Health\Commands\ListChecksCommand;
 use Spatie\Health\Commands\RunChecksCommand;
+use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
 use Spatie\LaravelPackageTools\Package;
@@ -22,6 +23,7 @@ class HealthServiceProvider extends PackageServiceProvider
             ->hasCommands(
                 ListChecksCommand::class,
                 RunChecksCommand::class,
+                ScheduleCheckHeartbeatCommand::class,
             );
     }
 

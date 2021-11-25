@@ -2,7 +2,7 @@
     "finishedAt": "2021-01-01 00:00:00",
     "reportedChecks": [
         {
-            "name": "FakeDiskSpace",
+            "name": "FakeUsedDiskSpace",
             "message": "",
             "status": "ok",
             "meta": {
