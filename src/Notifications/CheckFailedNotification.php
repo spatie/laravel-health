@@ -60,7 +60,6 @@ class CheckFailedNotification extends Notification
     {
         $mailMessage = (new MailMessage())
             ->error()
-            /** @phpstan-ignore-next-line */
             ->from(config('health.notifications.mail.from.address', config('mail.from.address')), config('health.notifications.mail.from.name', config('mail.from.name')))
             ->subject(trans('health::notifications.check_failed_subject', ['application_name' => $this->applicationName()]))
             ->line(trans('health::notifications.check_failed_body', ['application_name' => $this->applicationName()]));
@@ -76,9 +75,7 @@ class CheckFailedNotification extends Notification
     {
         return (new SlackMessage())
             ->error()
-            /** @phpstan-ignore-next-line */
             ->from(config('health.notifications.slack.username'), config('health.notifications.slack.icon'))
-            /** @phpstan-ignore-next-line */
             ->to(config('health.notifications.slack.channel'))
             ->content(trans('health::notifications.check_failed_subject', ['application_name' => $this->applicationName()]));
     }

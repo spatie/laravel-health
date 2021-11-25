@@ -22,7 +22,7 @@ class Report
             fn (array $lineProperties) => new ReportedCheck(...$lineProperties)
         );
 
-        return new static(
+        return new self(
             finishedAt: new DateTime($properties['finishedAt']),
             checkResults: $checkResults,
         );
@@ -30,7 +30,7 @@ class Report
 
     /**
      * @param \DateTimeInterface|null $finishedAt
-     * @param array<int, ReportedCheck> $lines
+     * @param Collection<int, ReportedCheck> $checkResults
      */
     public function __construct(
         DateTimeInterface $finishedAt = null,
@@ -50,7 +50,7 @@ class Report
 
     public function allChecksOk(): bool
     {
-        $this->checkResults->contains(
+        return $this->checkResults->contains(
             fn (ReportedCheck $line) => $line->status !== Status::ok()->value
         );
     }
@@ -62,7 +62,7 @@ class Report
 
     public function toJson(): string
     {
-        return json_encode([
+        return (string)json_encode([
             'finishedAt' => $this->finishedAt->format('Y-m-d H:i:s'),
             'checkResults' => $this->checkResults->map(fn (ReportedCheck $line) => $line->toArray()),
         ]);

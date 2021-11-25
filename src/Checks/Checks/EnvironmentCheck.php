@@ -10,7 +10,7 @@ class EnvironmentCheck extends Check
 {
     protected string $expectedEnvironment = 'production';
 
-    public function expectEnvironment(string $expectedEnvironment)
+    public function expectEnvironment(string $expectedEnvironment): self
     {
         $this->expectedEnvironment = $expectedEnvironment;
 

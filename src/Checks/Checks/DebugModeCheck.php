@@ -10,7 +10,7 @@ class DebugModeCheck extends Check
 {
     protected bool $expected = false;
 
-    public function expectedToBe(bool $bool)
+    public function expectedToBe(bool $bool): self
     {
         $this->expected = $bool;
 
@@ -28,10 +28,10 @@ class DebugModeCheck extends Check
 
         return $this->expected === $actual
             ? $result->ok()
-            : $result->failed("The debug mode was expected to be `{$this->convertToWord($this->expected)}`, but actually was `{$this->convertToWord($actual)}`");
+            : $result->failed("The debug mode was expected to be `{$this->convertToWord((bool)$this->expected)}`, but actually was `{$this->convertToWord((bool)$actual)}`");
     }
 
-    protected function convertToWord(bool $boolean)
+    protected function convertToWord(bool $boolean): string
     {
         return $boolean ? 'true' : 'false';
     }

@@ -4,15 +4,29 @@ namespace Spatie\Health\ResultStores\Report;
 
 class ReportedCheck
 {
+    /**
+     * @param string $name
+     * @param string $message
+     * @param string $status
+     * @param array<string, mixed> $meta
+     *
+     * @return self
+     */
     public static function make(
         string $name,
         string $message = '',
         string $status = '',
         array $meta = [],
     ): self {
-        return new static(...func_get_args());
+        return new self(...func_get_args());
     }
 
+    /**
+     * @param string $name
+     * @param string $message
+     * @param string $status
+     * @param array<string, mixed> $meta
+     */
     public function __construct(
         public string $name,
         public string $message = '',
@@ -35,6 +49,11 @@ class ReportedCheck
         return $this;
     }
 
+    /**
+     * @param array<string, mixed> $meta
+     *
+     * @return $this
+     */
     public function meta(array $meta): self
     {
         $this->meta = $meta;
@@ -42,6 +61,7 @@ class ReportedCheck
         return $this;
     }
 
+    /** @return array<string, mixed> */
     public function toArray(): array
     {
         return [

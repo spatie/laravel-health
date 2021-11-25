@@ -11,7 +11,7 @@ class DatabaseCheck extends Check
 {
     protected string $connectionName = 'default';
 
-    public function connectionName(string $connectionName)
+    public function connectionName(string $connectionName): self
     {
         $this->connectionName = $connectionName;
 

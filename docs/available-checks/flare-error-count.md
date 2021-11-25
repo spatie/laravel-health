@@ -26,11 +26,6 @@ Health::checks([
 ]);
 ```
 
-As an alternative to calling `apiToken` and `projectId`, you can set these environment variables:
-
-- `FLARE_API_TOKEN`
-- `FLARE_PROJECT_ID`
-
 ## Customizing the amount of errors
 
 To customize the amount of errors that triggers a warning/failure, you can call `warnWhenMoreErrorsReceivedThan`, and `failWhenMoreErrorsReceivedThan`.

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $batch
  * @property string $ended_at
  * @property string $message
- * @property array<mixed, mixed> $meta
+ * @property array<string, mixed> $meta
  * @property string $status
  * @property string $check_name
  */
@@ -30,8 +30,7 @@ class CheckResultHistoryItem extends Model
 
     public function prunable(): void
     {
-        /** @phpstan-ignore-next-line */
-        $days = (int)config('health.keep_history_for_days');
+        $days = config('health.keep_history_for_days');
 
         static::where('created_at', '<=', now()->subDays($days));
     }

@@ -42,7 +42,7 @@ class FlareErrorOccurrenceCountCheck extends Check
         return $this;
     }
 
-    public function projectId(string $projectId): self
+    public function projectId(int $projectId): self
     {
         $this->flareProjectId = $projectId;
 
@@ -76,10 +76,7 @@ class FlareErrorOccurrenceCountCheck extends Check
         $startDate = now()->subMinutes($this->periodInMinutes)->format('Y-m-d H:i:s');
         $endDate = now()->format('Y-m-d H:i:s');
 
-        $apiToken = $this->flareApiToken ?? env('FLARE_API_TOKEN');
-        $flareProjectId = $this->flareApiToken ?? env('FLARE_PROJECT_ID');
-
-        return Http::get("https://flareapp.io/api/project/{$flareProjectId}?start_date={$startDate}&end_date={$endDate}&api_token={$apiToken}")
+        return (int)Http::get("https://flareapp.io/api/project/{$this->flareProjectId}?start_date={$startDate}&end_date={$endDate}&api_token={$this->flareApiToken}")
 
             ->json('count', 0);
     }

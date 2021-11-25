@@ -104,7 +104,7 @@ class RunChecksCommand extends Command
         $notifiableClass = config('health.notifications.notifiable');
 
         /** @var \Spatie\Health\Notifications\Notifiable $notifiable */
-        /** @phpstan-ignore-next-line */
+
         $notifiable = app($notifiableClass);
 
         /** @var array<int, Result> $results */

@@ -5,7 +5,7 @@ namespace Spatie\Health\Exceptions;
 use Exception;
 use Spatie\Health\ResultStores\ResultStore;
 
-final class CouldNotSaveResultsInStore extends Exception
+class CouldNotSaveResultsInStore extends Exception
 {
     public static function make(ResultStore $store, Exception $exception): self
     {
