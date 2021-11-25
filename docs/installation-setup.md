@@ -14,7 +14,7 @@ composer require spatie/laravel-health
 Optionally, you can publish the `health` config file with this command.
 
 ```bash
-php artisan vendor:publish --provider="Spatie\health\healthServiceProvider" --tag="health-config"
+php artisan vendor:publish --tag="health-config"
 ```
 
 This is the content of the published config file:
@@ -106,9 +106,11 @@ When using the `EloquentHealthResultStore` the check results will be stored in t
 To create the `check_result_history_items` table, you must create and run the migration.
 
 ```bash
-php artisan vendor:publish --provider="Spatie\health\healthServiceProvider" --tag="health-migrations"
+php artisan vendor:publish --tag="health-migrations"
 php artisan migrate
 ```
+
+These steps are not necessary when using the `JsonFileResultStore`.
 
 ## Scheduling the commands
 

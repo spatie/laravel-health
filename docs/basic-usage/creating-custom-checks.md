@@ -65,7 +65,7 @@ class UsedDiskSpaceCheck extends Check
         }
 
         if ($usedDiskSpacePercentage > 70) {
-            return $result->warning("The disk getting full ($usedDiskSpacePercentage% used)");
+            return $result->warning("The disk getting full ({$usedDiskSpacePercentage}% used)");
         }
 
         return $result->ok();

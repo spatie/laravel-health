@@ -26,4 +26,4 @@ All registered checks will run when the `RunChecksCommand` executes. If you foll
 
 When a check results in a warning or a failure, a notification will be sent. You can learn more about notifications in [the section on configuring notifications](https://spatie.be/docs/laravel-health/v1/configuring-notifications/general).
 
-Though it's not required, you can store the results of the checks. This way external services like [Oh Dear](https://ohdear.app) can monitor the health check results, or you can keep a history of [the results in your own database]().
+Though it's not required, you can store the results of the checks. This way external services like [Oh Dear](https://ohdear.app) can monitor the health check results, or you can keep a history of [the results in your own database](https://spatie.be/docs/laravel-health/v1/storing-result-in-the-database).
