@@ -4,9 +4,9 @@ namespace Spatie\Health\ResultStores;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Spatie\Health\Checks\Result;
 use Spatie\Health\Models\CheckResultHistoryItem;
 use Spatie\Health\ResultStores\Report\Report;
-use Spatie\Health\Checks\Result;
 use Spatie\Health\ResultStores\Report\ReportedCheck;
 
 class EloquentHealthResultStore implements ResultStore

@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Spatie\Health\Checks\Check;
+use Spatie\Health\Checks\Result;
 use Spatie\Health\Events\CheckEndedEvent;
 use Spatie\Health\Events\CheckStartingEvent;
 use Spatie\Health\Exceptions\CheckDidNotComplete;
@@ -13,7 +14,6 @@ use Spatie\Health\Exceptions\CouldNotSaveResultsInStore;
 use Spatie\Health\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\ResultStores\ResultStore;
-use Spatie\Health\Checks\Result;
 
 class RunChecksCommand extends Command
 {
