@@ -15,7 +15,7 @@ class ScheduleCheckHeartbeatCommand extends Command
     {
         /** @var ScheduleCheck|null $scheduleCheck */
         $scheduleCheck = Health::registeredChecks()->first(
-            fn(Check $check) => $check instanceof ScheduleCheck
+            fn (Check $check) => $check instanceof ScheduleCheck
         );
 
         if (! $scheduleCheck) {
