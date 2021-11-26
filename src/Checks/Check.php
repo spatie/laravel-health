@@ -6,7 +6,6 @@ use Cron\CronExpression;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
-use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Enums\Status;
 
 abstract class Check
