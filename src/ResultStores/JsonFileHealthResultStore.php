@@ -7,8 +7,8 @@ use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Health\Checks\Result;
-use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 
 class JsonFileHealthResultStore implements ResultStore
 {

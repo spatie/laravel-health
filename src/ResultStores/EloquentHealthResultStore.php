@@ -6,8 +6,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
-use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 
 class EloquentHealthResultStore implements ResultStore
 {

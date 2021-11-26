@@ -6,8 +6,8 @@ use Illuminate\Support\Collection;
 use Pest\Expectation;
 use Pest\Support\Extendable;
 use Spatie\Health\Checks\Result;
-use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use Spatie\Health\ResultStores\ResultStore;
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 
 class InMemoryResultStore implements ResultStore
 {
