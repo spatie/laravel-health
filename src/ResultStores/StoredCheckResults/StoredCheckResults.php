@@ -30,7 +30,7 @@ class StoredCheckResults
 
     /**
      * @param \DateTimeInterface|null $finishedAt
-     * @param Collection<int, StoredCheckResult> $checkResults
+     * @param ?Collection<int, StoredCheckResult> $checkResults
      */
     public function __construct(
         DateTimeInterface $finishedAt = null,
