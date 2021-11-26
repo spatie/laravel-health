@@ -22,7 +22,7 @@ class YourCustomCheck extends Check
 }
 ```
 
-## Exploring results
+## Creating results
 
 The `run` method should always return a `Spatie\Health\Checks\Result`. Using this object you can instruct the package to report a failure, to send a notification, and add meta information.
 

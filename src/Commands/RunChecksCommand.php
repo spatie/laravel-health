@@ -76,17 +76,13 @@ class RunChecksCommand extends Command
     /** @return Collection<int, Result> */
     protected function runChecks(): Collection
     {
-        $results = app(Health::class)
+        return app(Health::class)
             ->registeredChecks()
             ->map(function (Check $check): Result {
                 return $check->shouldRun()
                     ? $this->runCheck($check)
                     : (new Result(Status::skipped()))->check($check);
             });
-
-
-
-        return $results;
     }
 
     /** @param Collection<int, Result> $results */

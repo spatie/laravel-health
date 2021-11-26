@@ -50,7 +50,7 @@ return [
 
         /*
          * When a frequent check starts failing, you could potentially end up getting
-         * a lot of notification. Here you
+         * a lot of notification. Here you TODO
          */
         'throttle_notifications_for_minutes' => 60,
 
@@ -74,7 +74,6 @@ return [
             'username' => null,
 
             'icon' => null,
-
         ],
     ],
 ];

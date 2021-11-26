@@ -28,6 +28,5 @@ it('will determine that a running horizon is ok', function () {
 
     $result = HorizonCheck::new()->run();
 
-    expect($result)
-        ->status->toBe(Status::ok());
+    expect($result)->status->toBe(Status::ok());
 });
