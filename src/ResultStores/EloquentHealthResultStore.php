@@ -6,8 +6,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
-use Spatie\Health\ResultStores\Report\Report;
-use Spatie\Health\ResultStores\Report\ReportedCheck;
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
 
 class EloquentHealthResultStore implements ResultStore
 {
@@ -28,18 +28,18 @@ class EloquentHealthResultStore implements ResultStore
         });
     }
 
-    public function latestReport(): ?Report
+    public function latestReport(): ?StoredCheckResults
     {
         if (! $latestItem = HealthCheckResultHistoryItem::latest()->first()) {
             return null;
         }
 
-        /** @var Collection<int, ReportedCheck> $checkResults */
+        /** @var Collection<int, StoredCheckResult> $checkResults */
         $checkResults = HealthCheckResultHistoryItem::query()
             ->where('batch', $latestItem->batch)
             ->get()
             ->map(function (HealthCheckResultHistoryItem $historyItem) {
-                return new ReportedCheck(
+                return new StoredCheckResult(
                     name: $historyItem->check_name,
                     message: $historyItem->message,
                     status: $historyItem->status,
@@ -47,7 +47,7 @@ class EloquentHealthResultStore implements ResultStore
                 );
             });
 
-        return new Report(
+        return new StoredCheckResults(
             finishedAt: $latestItem->created_at,
             checkResults: $checkResults,
         );

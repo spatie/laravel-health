@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\Health\ResultStores\Report;
+namespace Spatie\Health\ResultStores\StoredCheckResults;
 
-class ReportedCheck
+class StoredCheckResult
 {
     /**
      * @param string $name

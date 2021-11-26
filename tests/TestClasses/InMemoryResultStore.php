@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Pest\Expectation;
 use Pest\Support\Extendable;
 use Spatie\Health\Checks\Result;
-use Spatie\Health\ResultStores\Report\Report;
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use Spatie\Health\ResultStores\ResultStore;
 
 class InMemoryResultStore implements ResultStore
@@ -19,7 +19,7 @@ class InMemoryResultStore implements ResultStore
         self::$checkResults = $checkResults;
     }
 
-    public function latestReport(): ?Report
+    public function latestReport(): ?StoredCheckResults
     {
         // TODO: Implement latestReport() method.
     }

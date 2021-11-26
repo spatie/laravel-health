@@ -7,8 +7,8 @@ use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Health\Checks\Result;
-use Spatie\Health\ResultStores\Report\Report;
-use Spatie\Health\ResultStores\Report\ReportedCheck;
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
 
 class JsonFileHealthResultStore implements ResultStore
 {
@@ -25,18 +25,18 @@ class JsonFileHealthResultStore implements ResultStore
     /** @param Collection<int, \Spatie\Health\Checks\Result> $checkResults */
     public function save(Collection $checkResults): void
     {
-        $report = new Report(now());
+        $report = new StoredCheckResults(now());
 
         $checkResults
             ->map(function (Result $result) {
-                return new ReportedCheck(
+                return new StoredCheckResult(
                     name: $result->check->getName(),
                     message: $result->getMessage(),
                     status: (string)$result->status->value,
                     meta: $result->meta,
                 );
             })
-            ->each(function (ReportedCheck $check) use ($report) {
+            ->each(function (StoredCheckResult $check) use ($report) {
                 $report->addCheck($check);
             });
 
@@ -45,7 +45,7 @@ class JsonFileHealthResultStore implements ResultStore
         $this->disk->write($this->path, $contents);
     }
 
-    public function latestReport(): ?Report
+    public function latestReport(): ?StoredCheckResults
     {
         $content = null;
 
@@ -59,6 +59,6 @@ class JsonFileHealthResultStore implements ResultStore
             return null;
         }
 
-        return Report::fromJson($content);
+        return StoredCheckResults::fromJson($content);
     }
 }

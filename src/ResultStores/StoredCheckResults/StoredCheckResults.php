@@ -1,25 +1,25 @@
 <?php
 
-namespace Spatie\Health\ResultStores\Report;
+namespace Spatie\Health\ResultStores\StoredCheckResults;
 
 use DateTime;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
 use Spatie\Health\Enums\Status;
 
-class Report
+class StoredCheckResults
 {
     protected DateTimeInterface $finishedAt;
 
-    /** @var Collection<int, ReportedCheck> */
-    protected Collection $checkResults;
+    /** @var Collection<int, StoredCheckResult> */
+    protected Collection $storedCheckResults;
 
-    public static function fromJson(string $json): Report
+    public static function fromJson(string $json): StoredCheckResults
     {
         $properties = json_decode($json, true);
 
         $checkResults = collect($properties['checkResults'])->map(
-            fn (array $lineProperties) => new ReportedCheck(...$lineProperties)
+            fn (array $lineProperties) => new StoredCheckResult(...$lineProperties)
         );
 
         return new self(
@@ -30,7 +30,7 @@ class Report
 
     /**
      * @param \DateTimeInterface|null $finishedAt
-     * @param Collection<int, ReportedCheck> $checkResults
+     * @param Collection<int, StoredCheckResult> $checkResults
      */
     public function __construct(
         DateTimeInterface $finishedAt = null,
@@ -38,20 +38,20 @@ class Report
     ) {
         $this->finishedAt = $finishedAt ?? new DateTime();
 
-        $this->checkResults = $checkResults ?? collect();
+        $this->storedCheckResults = $checkResults ?? collect();
     }
 
-    public function addCheck(ReportedCheck $line): self
+    public function addCheck(StoredCheckResult $line): self
     {
-        $this->checkResults[] = $line;
+        $this->storedCheckResults[] = $line;
 
         return $this;
     }
 
     public function allChecksOk(): bool
     {
-        return $this->checkResults->contains(
-            fn (ReportedCheck $line) => $line->status !== Status::ok()->value
+        return $this->storedCheckResults->contains(
+            fn (StoredCheckResult $line) => $line->status !== Status::ok()->value
         );
     }
 
@@ -64,7 +64,7 @@ class Report
     {
         return (string)json_encode([
             'finishedAt' => $this->finishedAt->format('Y-m-d H:i:s'),
-            'checkResults' => $this->checkResults->map(fn (ReportedCheck $line) => $line->toArray()),
+            'checkResults' => $this->storedCheckResults->map(fn (StoredCheckResult $line) => $line->toArray()),
         ]);
     }
 }
