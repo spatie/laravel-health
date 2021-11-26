@@ -3,9 +3,6 @@
 namespace Spatie\Health\Commands;
 
 use Illuminate\Console\Command;
-use Spatie\Health\Checks\Checks\EnvironmentCheck;
-use Spatie\Health\Checks\Checks\HorizonCheck;
-use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\ResultStores\ResultStore;
 use function Termwind\render;
