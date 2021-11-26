@@ -3,7 +3,6 @@
 namespace Spatie\Health\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Spatie\Health\ResultStores\ResultStore;
 
 class JsonSummaryController
