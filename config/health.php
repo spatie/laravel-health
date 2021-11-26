@@ -14,7 +14,7 @@ return [
         EloquentHealthResultStore::class,
 
         /*
-        JsonFileHeathResultStore::class => [
+        JsonFileHealthResultStore::class => [
             'disk' => 's3',
             'file_name' => 'health.json',
         ],
