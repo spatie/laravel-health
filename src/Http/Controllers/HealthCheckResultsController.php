@@ -18,7 +18,8 @@ class HealthCheckResultsController
         if ($request->acceptsHtml()) {
             return view('health::list', [
                 'lastRanAt' => new Carbon($checkResults?->finishedAt),
-                'color' => fn (string $status) => $this->getBackgroundColor($status),
+                'backgroundColor' => fn (string $status) => $this->getBackgroundColor($status),
+                'textColor' => fn (string $status) => $this->getTextColor($status),
                 'checkResults' => $checkResults,
             ]);
         }
@@ -29,10 +30,21 @@ class HealthCheckResultsController
     protected function getBackgroundColor(string $status): string
     {
         return match ($status) {
-            Status::ok()->value => 'bg-green-800',
-            Status::warning()->value => 'bg-orange-800',
-            Status::skipped()->value => 'bg-blue-800',
-            Status::failed()->value, Status::crashed()->value => 'bg-red-800',
+            Status::ok()->value => 'bg-green-200',
+            Status::warning()->value => 'bg-orange-200',
+            Status::skipped()->value => 'bg-blue-200',
+            Status::failed()->value, Status::crashed()->value => 'bg-red-200',
+            default => ''
+        };
+    }
+
+    protected function getTextColor(string $status): string
+    {
+        return match ($status) {
+            Status::ok()->value => 'text-green-900',
+            Status::warning()->value => 'text-orange-900',
+            Status::skipped()->value => 'text-blue-900',
+            Status::failed()->value, Status::crashed()->value => 'text-red-900',
             default => ''
         };
     }
