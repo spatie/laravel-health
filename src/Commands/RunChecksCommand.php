@@ -17,7 +17,7 @@ use Spatie\Health\ResultStores\ResultStore;
 
 class RunChecksCommand extends Command
 {
-    public $signature = 'health:run-checks {--do-not-store-results} {--no-notification}';
+    public $signature = 'health:run {--do-not-store-results} {--no-notification}';
 
     public $description = 'Run all health checks';
 

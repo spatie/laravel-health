@@ -3,8 +3,9 @@
     "checkResults": [
         {
             "name": "FakeUsedDiskSpace",
+            "label": "Fake Used Disk Space",
             "notificationMessage": "",
-            "shortSummary": "",
+            "shortSummary": "0%",
             "status": "ok",
             "meta": {
                 "disk_space_used_percentage": 0

@@ -4,6 +4,7 @@ namespace Spatie\Health\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
@@ -11,29 +12,30 @@ use function Termwind\render;
 
 class ListChecksCommand extends Command
 {
-    public $signature = 'health:list';
+    public $signature = 'health:list {--run}';
 
     public $description = 'List all health checks';
 
     public function handle(): int
     {
+        if ($this->option('run')) {
+            Artisan::call(RunChecksCommand::class);
+        }
+
         $resultStore = app(ResultStore::class);
 
-        /** @var StoredCheckResults $checkResults */
         $checkResults = $resultStore->latestResults();
 
         render(view('health::cli.list', [
-            'lastRanAt' => new Carbon($checkResults->finishedAt),
+            'lastRanAt' => new Carbon($checkResults?->finishedAt),
             'checkResults' => $checkResults,
-            'color' => function (string $status) {
-                return $this->getBackgroundColor($status);
-            },
+            'color' => fn(string $status) => $this->getBackgroundColor($status),
         ]));
 
         return self::SUCCESS;
     }
 
-    protected function getBackgroundColor(string $status)
+    protected function getBackgroundColor(string $status): string
     {
         return match ($status) {
             Status::ok()->value => 'bg-green-800',

@@ -3,6 +3,7 @@
     "checkResults": [
         {
             "name": "FakeUsedDiskSpace",
+            "label": "Fake Used Disk Space",
             "notificationMessage": "",
             "shortSummary": "",
             "status": "ok",

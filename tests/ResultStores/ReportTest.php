@@ -23,6 +23,7 @@ function getReport(): StoredCheckResults
     $checkResults = collect([
         new StoredCheckResult(
             'name',
+            'label',
             'message',
             'summary',
             'ok',

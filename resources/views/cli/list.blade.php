@@ -1,5 +1,5 @@
 <div class="my-1">
-    @if(count($checkResults->storedCheckResults))
+    @if(count($checkResults?->storedCheckResults ?? []))
         <div class="ml-1 underline mb-1">Check results</div>
 
         <div class="ml-1 mb-1">

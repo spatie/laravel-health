@@ -32,7 +32,7 @@ it('can store the ok results in the database', function () {
 });
 
 it('has an option that will not store the results in the database', function () {
-    artisan('health:run-checks --do-not-store-results')->assertSuccessful();
+    artisan('health:run --do-not-store-results')->assertSuccessful();
 
     $historyItems = HealthCheckResultHistoryItem::get();
 
@@ -52,7 +52,7 @@ it('has an option that will prevent notifications being sent', function () {
     Notification::fake();
 
     $this->fakeDiskSpaceCheck->fakeDiskUsagePercentage(100);
-    artisan('health:run-checks --no-notification')->assertSuccessful();
+    artisan('health:run --no-notification')->assertSuccessful();
 
     Notification::assertTimesSent(0, CheckFailedNotification::class);
 });
