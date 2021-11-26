@@ -1,17 +1,17 @@
 <?php
 
+use function Pest\Laravel\artisan;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Tests\TestClasses\InMemoryResultStore;
-use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 
-beforeEach(function() {
+beforeEach(function () {
     config()->set('health.result_stores', InMemoryResultStore::class);
 
-   testTime()->freeze('2021-01-01 00:00:00');
+    testTime()->freeze('2021-01-01 00:00:00');
 
     $this->check = DatabaseCheck::new()
         ->everyFiveMinutes()
@@ -22,7 +22,7 @@ beforeEach(function() {
     ]);
 });
 
-it('will return a skipped result for checks that should not run', function() {
+it('will return a skipped result for checks that should not run', function () {
     artisan(RunChecksCommand::class);
     expect(InMemoryResultStore::$checkResults)->toHaveCount(1);
     expect(InMemoryResultStore::$checkResults[0]->status)->toBe(Status::ok());
