@@ -9,13 +9,13 @@ class JsonSummaryController
 {
     public function __invoke(ResultStore $resultStore): JsonResponse
     {
-        $report = $resultStore->latestReport();
+        $latestResultsCollection = $resultStore->latestResults();
 
-        $status = $report?->allChecksOk()
+        $status = $latestResultsCollection?->allChecksOk()
             ? 200
             : 400;
 
-        $content = $resultStore->latestReport()?->toJson() ?? [];
+        $content = $resultStore->latestResults()?->toJson() ?? [];
 
         return response()->json($content, $status);
     }

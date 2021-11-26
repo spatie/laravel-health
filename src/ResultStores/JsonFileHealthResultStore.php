@@ -15,9 +15,9 @@ class JsonFileHealthResultStore implements ResultStore
     protected FilesystemAdapter $disk;
     protected string $path;
 
-    public function __construct(string $diskName, string $path)
+    public function __construct(string $disk, string $path)
     {
-        $this->disk = Storage::disk($diskName);
+        $this->disk = Storage::disk($disk);
 
         $this->path = $path;
     }
@@ -42,10 +42,13 @@ class JsonFileHealthResultStore implements ResultStore
 
         $contents = $report->toJson();
 
+        if ($this->disk->exists($this->path)) {
+            $this->disk->delete($this->path);
+        }
         $this->disk->write($this->path, $contents);
     }
 
-    public function latestReport(): ?StoredCheckResults
+    public function latestResults(): ?StoredCheckResults
     {
         $content = null;
 

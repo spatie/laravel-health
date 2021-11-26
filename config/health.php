@@ -16,7 +16,7 @@ return [
         /*
         JsonFileHealthResultStore::class => [
             'disk' => 's3',
-            'file_name' => 'health.json',
+            'path' => 'health.json',
         ],
 
         */

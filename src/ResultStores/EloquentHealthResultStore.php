@@ -29,7 +29,7 @@ class EloquentHealthResultStore implements ResultStore
         });
     }
 
-    public function latestReport(): ?StoredCheckResults
+    public function latestResults(): ?StoredCheckResults
     {
         if (! $latestItem = HealthCheckResultHistoryItem::latest()->first()) {
             return null;

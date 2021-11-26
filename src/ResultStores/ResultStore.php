@@ -10,5 +10,5 @@ interface ResultStore
     /** @param Collection<int, \Spatie\Health\Checks\Result> $checkResults */
     public function save(Collection $checkResults): void;
 
-    public function latestReport(): ?StoredCheckResults;
+    public function latestResults(): ?StoredCheckResults;
 }

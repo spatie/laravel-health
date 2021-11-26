@@ -26,6 +26,8 @@ class RunChecksCommand extends Command
 
     public function handle(): int
     {
+        $this->info('Running checks...');
+
         $results = $this->runChecks();
 
         if (! $this->option('do-not-store-results')) {
@@ -44,7 +46,7 @@ class RunChecksCommand extends Command
             return self::FAILURE;
         }
 
-        $this->comment('All done');
+        $this->info('All done!');
 
         return self::SUCCESS;
     }
@@ -54,6 +56,7 @@ class RunChecksCommand extends Command
         event(new CheckStartingEvent($check));
 
         try {
+            $this->comment("Running check: {$check->getName()}");
             $result = $check->run();
         } catch (Exception $exception) {
             $exception = CheckDidNotComplete::make($check, $exception);

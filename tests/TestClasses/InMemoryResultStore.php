@@ -19,7 +19,7 @@ class InMemoryResultStore implements ResultStore
         self::$checkResults = $checkResults;
     }
 
-    public function latestReport(): ?StoredCheckResults
+    public function latestResults(): ?StoredCheckResults
     {
         // TODO: Implement latestReport() method.
     }

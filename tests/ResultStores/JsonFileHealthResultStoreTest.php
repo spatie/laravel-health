@@ -19,7 +19,7 @@ beforeEach(function () {
 
     config()->set('health.result_stores', [
         JsonFileHealthResultStore::class => [
-            'diskName' => 's3',
+            'disk' => 's3',
             'path' => $this->path,
         ],
     ]);
@@ -40,12 +40,12 @@ it('can write check results to a json file', function () {
 });
 
 it('can retrieve the latest results from json', function () {
-    $report = app(ResultStore::class)->latestReport();
+    $report = app(ResultStore::class)->latestResults();
     expect($report)->toBeNull();
 
     artisan(RunChecksCommand::class)->assertSuccessful();
 
-    $report = app(ResultStore::class)->latestReport();
+    $report = app(ResultStore::class)->latestResults();
 
     assertMatchesJsonSnapshot($report->toJson());
 });

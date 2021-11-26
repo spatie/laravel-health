@@ -9,7 +9,7 @@ class SummaryController
 {
     public function __invoke(ResultStore $resultStore): View
     {
-        $report = $resultStore->latestReport();
+        $report = $resultStore->latestResults();
 
         return view('health::summary', compact('report'));
     }
