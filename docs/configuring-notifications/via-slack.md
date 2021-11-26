@@ -1,5 +1,5 @@
 ---
-title: Via mail
+title: Via Slack
 weight: 2
 ---
 
