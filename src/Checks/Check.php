@@ -63,6 +63,5 @@ abstract class Check
 
     public function onTerminate(mixed $request, mixed $response): void
     {
-
     }
 }
