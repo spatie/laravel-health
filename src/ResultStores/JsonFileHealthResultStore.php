@@ -33,7 +33,7 @@ class JsonFileHealthResultStore implements ResultStore
                     name: $result->check->getName(),
                     label: $result->check->getLabel(),
                     notificationMessage: $result->getNotificationMessage(),
-                    shortSummary: $result->shortSummary,
+                    shortSummary: $result->getShortSummary(),
                     status: (string)$result->status->value,
                     meta: $result->meta,
                 );

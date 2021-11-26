@@ -3,6 +3,7 @@
 namespace Spatie\Health\Checks;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Spatie\Health\Enums\Status;
 use function trans;
 
@@ -30,6 +31,15 @@ class Result
         $this->shortSummary = $shortSummary;
 
         return $this;
+    }
+
+    public function getShortSummary(): string
+    {
+        if (! empty($this->shortSummary)) {
+            return $this->shortSummary;
+        }
+
+        return Str::of($this->status)->snake()->replace('_', ' ')->title();
     }
 
     public function check(Check $check): self

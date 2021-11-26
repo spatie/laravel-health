@@ -56,7 +56,7 @@ class RunChecksCommand extends Command
         event(new CheckStartingEvent($check));
 
         try {
-            $this->comment("Running check: {$check->getName()}");
+            $this->comment("Running check: {$check->getLabel()}");
             $result = $check->run();
         } catch (Exception $exception) {
             $exception = CheckDidNotComplete::make($check, $exception);

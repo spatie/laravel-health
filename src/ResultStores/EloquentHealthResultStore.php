@@ -22,7 +22,7 @@ class EloquentHealthResultStore implements ResultStore
                 'check_label' => $result->check->getLabel(),
                 'status' => $result->status,
                 'notification_message' => $result->getNotificationMessage(),
-                'short_summary' => $result->shortSummary,
+                'short_summary' => $result->getShortSummary(),
                 'meta' => $result->meta,
                 'batch' => $batch,
                 'ended_at' => $result->ended_at,
