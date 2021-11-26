@@ -7,7 +7,6 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\ResultStore;
-use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use function Termwind\render;
 
 class ListChecksCommand extends Command
@@ -29,7 +28,7 @@ class ListChecksCommand extends Command
         render(view('health::cli.list', [
             'lastRanAt' => new Carbon($checkResults?->finishedAt),
             'checkResults' => $checkResults,
-            'color' => fn(string $status) => $this->getBackgroundColor($status),
+            'color' => fn (string $status) => $this->getBackgroundColor($status),
         ]));
 
         return self::SUCCESS;
