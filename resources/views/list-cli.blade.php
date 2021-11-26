@@ -1,8 +1,8 @@
-<div class="my-1">
+<div class="ml-2 my-1">
     @if(count($checkResults?->storedCheckResults ?? []))
-        <div class="ml-1 underline mb-1">Check results</div>
+        <div class="underline mb-1">Check results</div>
 
-        <div class="ml-1 mb-1">
+        <div class="mb-1">
             Last ran all the checks {{ $lastRanAt->diffForHumans() }}.
         </div>
 
@@ -25,7 +25,7 @@
             @endforeach
         </table>
     @else
-        <div class="ml-1">
+        <div>
         No checks have run yet...<br/>
         Please execute:
 
