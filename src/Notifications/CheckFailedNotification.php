@@ -42,7 +42,7 @@ class CheckFailedNotification extends Notification
         $timestamp = $cache->get($cacheKey);
 
         if (! $timestamp) {
-            $cache->set('health.latestNotificationSentAt', now()->timestamp);
+            $cache->set($cacheKey, now()->timestamp);
 
             return true;
         }
@@ -51,7 +51,7 @@ class CheckFailedNotification extends Notification
             return false;
         }
 
-        $cache->set('health.latestNotificationSentAt', now()->timestamp);
+        $cache->set($cacheKey, now()->timestamp);
 
         return true;
     }
