@@ -11,7 +11,6 @@ use Spatie\Health\Enums\Status;
 use Spatie\Health\Events\CheckEndedEvent;
 use Spatie\Health\Events\CheckStartingEvent;
 use Spatie\Health\Exceptions\CheckDidNotComplete;
-use Spatie\Health\Exceptions\CouldNotSaveResultsInStore;
 use Spatie\Health\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\ResultStores\ResultStore;
