@@ -10,7 +10,7 @@ In the `health` config file, the store can be configured in the `health_stores` 
 ```php
 return [
     'result_stores' => [
-        JsonFileHeathResultStore::class => [
+        JsonFileHealthResultStore::class => [
             'disk' => 's3',
             'file_name' => 'health.json',
         ],
