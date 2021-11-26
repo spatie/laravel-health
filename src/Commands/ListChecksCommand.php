@@ -25,7 +25,7 @@ class ListChecksCommand extends Command
         render(view('health::cli.list', [
             'lastRanAt' => new Carbon($checkResults->finishedAt),
             'checkResults' => $checkResults,
-            'color' => function(string $status) {
+            'color' => function (string $status) {
                 return $this->getBackgroundColor($status);
             },
         ]));
@@ -35,7 +35,7 @@ class ListChecksCommand extends Command
 
     protected function getBackgroundColor(string $status)
     {
-        return match($status) {
+        return match ($status) {
             Status::ok()->value => 'bg-green-800',
             Status::warning()->value => 'bg-orange-800',
             Status::skipped()->value => 'bg-blue-800',
