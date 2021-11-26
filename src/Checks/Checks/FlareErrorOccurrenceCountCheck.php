@@ -76,7 +76,7 @@ class FlareErrorOccurrenceCountCheck extends Check
         $startDate = now()->subMinutes($this->periodInMinutes)->format('Y-m-d H:i:s');
         $endDate = now()->format('Y-m-d H:i:s');
 
-        return (int)Http::get("https://flareapp.io/api/project/{$this->flareProjectId}?start_date={$startDate}&end_date={$endDate}&api_token={$this->flareApiToken}")
+        return Http::get("https://flareapp.io/api/project/{$this->flareProjectId}?start_date={$startDate}&end_date={$endDate}&api_token={$this->flareApiToken}")
 
             ->json('count', 0);
     }
