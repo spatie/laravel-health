@@ -25,7 +25,7 @@ class ListChecksCommand extends Command
 
         $checkResults = $resultStore->latestResults();
 
-        render(view('health::cli.list', [
+        render(view('health::list-cli', [
             'lastRanAt' => new Carbon($checkResults?->finishedAt),
             'checkResults' => $checkResults,
             'color' => fn (string $status) => $this->getBackgroundColor($status),
