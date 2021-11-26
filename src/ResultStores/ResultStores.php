@@ -3,10 +3,11 @@
 namespace Spatie\Health\ResultStores;
 
 use Illuminate\Support\Collection;
+use Spatie\Health\ResultStores\ResultStore;
 
 class ResultStores
 {
-    /** @return Collection<int, \Spatie\Health\ResultStores\ResultStore> */
+    /** @return Collection<int, ResultStore> */
     public static function createFromConfig(): Collection
     {
         $configValues = config('health.result_stores');
