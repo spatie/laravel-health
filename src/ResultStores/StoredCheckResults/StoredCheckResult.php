@@ -32,6 +32,7 @@ class StoredCheckResult
      */
     public function __construct(
         public string $name,
+        public string $label = '',
         public string $notificationMessage = '',
         public string $shortSummary = '',
         public string $status = '',
@@ -77,6 +78,7 @@ class StoredCheckResult
     {
         return [
             'name' => $this->name,
+            'label' => $this->label,
             'notificationMessage' => $this->notificationMessage,
             'shortSummary' => $this->shortSummary,
             'status' => $this->status,

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property array<string, mixed> $meta
  * @property string $status
  * @property string $check_name
+ * @property string $check_label
  */
 class HealthCheckResultHistoryItem extends Model
 {

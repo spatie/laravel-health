@@ -9,10 +9,10 @@ use Spatie\Health\Enums\Status;
 
 class StoredCheckResults
 {
-    protected DateTimeInterface $finishedAt;
+    public DateTimeInterface $finishedAt;
 
     /** @var Collection<int, StoredCheckResult> */
-    protected Collection $storedCheckResults;
+    public Collection $storedCheckResults;
 
     public static function fromJson(string $json): StoredCheckResults
     {

@@ -13,8 +13,8 @@ abstract class Check
     use ManagesFrequencies;
 
     protected string $expression = '* * * * *';
-
     protected ?string $name = null;
+    protected ?string $label = null;
 
     final public function __construct()
     {
@@ -34,6 +34,24 @@ abstract class Check
         $this->name = $name;
 
         return $this;
+    }
+
+    public function label(string $label): self
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    public function getLabel(): string
+    {
+        if ($this->label) {
+            return $this->label;
+        }
+
+        $name = $this->getName();
+
+        return Str::of($name)->snake()->replace('_', ' ')->title();
     }
 
     public function getName(): string
