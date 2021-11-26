@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Notification;
+use Spatie\Health\Notifications\CheckFailedNotification;
 use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Enums\Status;
@@ -28,6 +30,33 @@ it('can store the ok results in the database', function () {
         ->status->toBe(Status::ok()->value)
         ->meta->toBe(['disk_space_used_percentage' => 0]);
 });
+
+it('has an option that will not store the results in the database', function() {
+    artisan('health:run-checks --do-not-store-results')->assertSuccessful();
+
+    $historyItems = HealthCheckResultHistoryItem::get();
+
+    expect($historyItems)->toHaveCount(0);
+});
+
+it('will send a notification when a checks fails', function() {
+    Notification::fake();
+
+    $this->fakeDiskSpaceCheck->fakeDiskUsagePercentage(100);
+    artisan(RunChecksCommand::class)->assertSuccessful();
+
+    Notification::assertTimesSent(1, CheckFailedNotification::class);
+});
+
+it('has an option that will prevent notifications being sent', function() {
+    Notification::fake();
+
+    $this->fakeDiskSpaceCheck->fakeDiskUsagePercentage(100);
+    artisan('health:run-checks --no-notification')->assertSuccessful();
+
+    Notification::assertTimesSent(0, CheckFailedNotification::class);
+});
+
 
 it('can store the with warnings results in the database', function () {
     $this

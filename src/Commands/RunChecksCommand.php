@@ -18,7 +18,7 @@ use Spatie\Health\ResultStores\ResultStore;
 
 class RunChecksCommand extends Command
 {
-    public $signature = 'health:run-checks';
+    public $signature = 'health:run-checks {--do-not-store-results} {--no-notification}';
 
     public $description = 'Run all health checks';
 
@@ -29,9 +29,13 @@ class RunChecksCommand extends Command
     {
         $results = $this->runChecks();
 
-        $this->storeResults($results);
+        if (! $this->option('do-not-store-results')) {
+            $this->storeResults($results);
+        }
 
-        $this->sendNotification($results);
+        if (! $this->option('no-notification')) {
+            $this->sendNotification($results);
+        }
 
         if (count($this->thrownExceptions)) {
             foreach ($this->thrownExceptions as $exception) {
