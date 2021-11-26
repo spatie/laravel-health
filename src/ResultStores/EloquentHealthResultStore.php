@@ -34,8 +34,8 @@ class EloquentHealthResultStore implements ResultStore
             return null;
         }
 
-        /** @var Collection<int, StoredCheckResult> $checkResults */
-        $checkResults = HealthCheckResultHistoryItem::query()
+        /** @var Collection<int, StoredCheckResult> $storedCheckResults */
+        $storedCheckResults = HealthCheckResultHistoryItem::query()
             ->where('batch', $latestItem->batch)
             ->get()
             ->map(function (HealthCheckResultHistoryItem $historyItem) {
@@ -49,7 +49,7 @@ class EloquentHealthResultStore implements ResultStore
 
         return new StoredCheckResults(
             finishedAt: $latestItem->created_at,
-            checkResults: $checkResults,
+            checkResults: $storedCheckResults,
         );
     }
 }

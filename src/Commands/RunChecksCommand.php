@@ -29,6 +29,8 @@ class RunChecksCommand extends Command
     {
         $results = $this->runChecks();
 
+        $this->storeResults($results);
+
         $this->sendNotification($results);
 
         if (count($this->thrownExceptions)) {
@@ -68,17 +70,6 @@ class RunChecksCommand extends Command
         return $result;
     }
 
-    public function saveResults(Collection $results, ResultStore $store): void
-    {
-        try {
-            $store->save($results);
-        } catch (Exception $exception) {
-            $exception = CouldNotSaveResultsInStore::make($store, $exception);
-
-            report($exception);
-        }
-    }
-
     /** @return Collection<int, Result> */
     protected function runChecks(): Collection
     {
@@ -90,11 +81,19 @@ class RunChecksCommand extends Command
                     : (new Result(Status::skipped()))->check($check);
             });
 
+
+
+        return $results;
+    }
+
+    /** @param Collection<int, Result> $results */
+    protected function storeResults(Collection $results): self
+    {
         app(Health::class)
             ->resultStores()
             ->each(fn (ResultStore $store) => $store->save($results));
 
-        return $results;
+        return $this;
     }
 
     protected function sendNotification(Collection $results): self
