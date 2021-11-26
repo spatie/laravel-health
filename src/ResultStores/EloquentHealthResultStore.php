@@ -15,8 +15,8 @@ class EloquentHealthResultStore implements ResultStore
     public function save(Collection $checkResults): void
     {
         $batch = Str::uuid();
-
         $checkResults->each(function (Result $result) use ($batch) {
+
             HealthCheckResultHistoryItem::create([
                 'check_name' => $result->check->getName(),
                 'check_label' => $result->check->getLabel(),
@@ -45,6 +45,7 @@ class EloquentHealthResultStore implements ResultStore
                     name: $historyItem->check_name,
                     label: $historyItem->check_label,
                     notificationMessage: $historyItem->notification_message,
+                    shortSummary: $historyItem->short_summary,
                     status: $historyItem->status,
                     meta: $historyItem->meta,
                 );
