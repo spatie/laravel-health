@@ -1,4 +1,4 @@
-<div>
+<div class="ml-2 my-1">
     @if(count($checkResults?->storedCheckResults ?? []))
         <div class="underline mb-1">Check results</div>
 
