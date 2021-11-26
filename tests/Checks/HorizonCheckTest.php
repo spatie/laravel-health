@@ -10,7 +10,7 @@ it('will fail when horizon is not running', function () {
 
     expect($result)
         ->status->toBe(Status::failed())
-        ->message->toBe('Horizon is not running.');
+        ->notificationMessage->toBe('Horizon is not running.');
 });
 
 it('will send a warning when horizon is paused', function () {
@@ -20,7 +20,7 @@ it('will send a warning when horizon is paused', function () {
 
     expect($result)
         ->status->toBe(Status::warning())
-        ->message->toBe('Horizon is running, but the status is paused.');
+        ->notificationMessage->toBe('Horizon is running, but the status is paused.');
 });
 
 it('will determine that a running horizon is ok', function () {

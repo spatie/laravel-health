@@ -29,7 +29,7 @@ it('will return a warning if the used disk space does cross the warning threshol
         ->toBeInstanceOf(Result::class)
         ->status->toEqual(Status::warning())
         ->meta->toEqual(['disk_space_used_percentage' => 71])
-        ->getMessage()->toEqual('The disk is almost full (71% used).');
+        ->getNotificationMessage()->toEqual('The disk is almost full (71% used).');
 });
 
 it('will return an error if the used disk space does cross the error threshold', function () {
@@ -43,7 +43,7 @@ it('will return an error if the used disk space does cross the error threshold',
         ->toBeInstanceOf(Result::class)
         ->status->toEqual(Status::failed())
         ->meta->toEqual(['disk_space_used_percentage' => 91])
-        ->getMessage()->toEqual('The disk is almost full (91% used).');
+        ->getNotificationMessage()->toEqual('The disk is almost full (91% used).');
 });
 
 it('can report the real disk space used', function () {

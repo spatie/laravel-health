@@ -13,7 +13,8 @@ return new class extends Migration
 
             $table->string('check_name');
             $table->string('status');
-            $table->text('message')->nullable();
+            $table->text('notification_message')->nullable();
+            $table->string('short_summary')->nullable();
             $table->json('meta');
             $table->timestamp('ended_at');
             $table->uuid('batch');

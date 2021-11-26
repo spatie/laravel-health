@@ -20,7 +20,8 @@ class EloquentHealthResultStore implements ResultStore
             HealthCheckResultHistoryItem::create([
                 'check_name' => $result->check->getName(),
                 'status' => $result->status,
-                'message' => $result->getMessage(),
+                'notification_message' => $result->getNotificationMessage(),
+                'short_summary' => $result->shortSummary,
                 'meta' => $result->meta,
                 'batch' => $batch,
                 'ended_at' => $result->ended_at,
@@ -41,7 +42,7 @@ class EloquentHealthResultStore implements ResultStore
             ->map(function (HealthCheckResultHistoryItem $historyItem) {
                 return new StoredCheckResult(
                     name: $historyItem->check_name,
-                    message: $historyItem->message,
+                    notificationMessage: $historyItem->notification_message,
                     status: $historyItem->status,
                     meta: $historyItem->meta,
                 );

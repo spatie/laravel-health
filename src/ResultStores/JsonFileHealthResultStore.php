@@ -31,7 +31,7 @@ class JsonFileHealthResultStore implements ResultStore
             ->map(function (Result $result) {
                 return new StoredCheckResult(
                     name: $result->check->getName(),
-                    message: $result->getMessage(),
+                    notificationMessage: $result->getNotificationMessage(),
                     status: (string)$result->status->value,
                     meta: $result->meta,
                 );

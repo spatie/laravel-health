@@ -22,13 +22,17 @@ class HorizonCheck extends Check
         $masterSupervisors = $horizon->all();
 
         if (count($masterSupervisors) === 0) {
-            return $result->failed("Horizon is not running.");
+            return $result
+                ->failed("Horizon is not running.")
+                ->shortSummary('Not running');
         }
 
         $masterSupervisor = $masterSupervisors[0];
 
         if ($masterSupervisor->status === 'paused') {
-            return $result->warning('Horizon is running, but the status is paused.');
+            return $result
+                ->warning('Horizon is running, but the status is paused.')
+                ->shortSummary('Paused');
         }
 
         return $result->ok();

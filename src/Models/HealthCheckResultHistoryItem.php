@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $created_at
  * @property string $batch
  * @property string $ended_at
- * @property string $message
+ * @property string $notification_message
+ * @property string $short_summary
  * @property array<string, mixed> $meta
  * @property string $status
  * @property string $check_name

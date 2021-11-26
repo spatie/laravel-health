@@ -65,7 +65,7 @@ class CheckFailedNotification extends Notification
             ->line(trans('health::notifications.check_failed_body', ['application_name' => $this->applicationName()]));
         collect($this->results)
             ->each(function (Result $result) use ($mailMessage) {
-                $mailMessage->line("{$result->check->getName()}: {$result->getMessage()}");
+                $mailMessage->line("{$result->check->getName()}: {$result->getNotificationMessage()}");
             });
 
         return $mailMessage;

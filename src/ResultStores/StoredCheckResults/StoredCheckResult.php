@@ -6,7 +6,8 @@ class StoredCheckResult
 {
     /**
      * @param string $name
-     * @param string $message
+     * @param string $notificationMessage
+     * @param string $shortSummary
      * @param string $status
      * @param array<string, mixed> $meta
      *
@@ -14,30 +15,33 @@ class StoredCheckResult
      */
     public static function make(
         string $name,
-        string $message = '',
+        string $notificationMessage = '',
+        string $shortSummary = '',
         string $status = '',
-        array $meta = [],
+        array  $meta = [],
     ): self {
         return new self(...func_get_args());
     }
 
     /**
      * @param string $name
-     * @param string $message
+     * @param string $notificationMessage
+     * @param string $shortSummary
      * @param string $status
      * @param array<string, mixed> $meta
      */
     public function __construct(
         public string $name,
-        public string $message = '',
+        public string $notificationMessage = '',
+        public string $shortSummary = '',
         public string $status = '',
-        public array $meta = [],
+        public array  $meta = [],
     ) {
     }
 
-    public function message(string $message): self
+    public function notificationMessage(string $message): self
     {
-        $this->message = $message;
+        $this->notificationMessage = $message;
 
         return $this;
     }
@@ -45,6 +49,13 @@ class StoredCheckResult
     public function status(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function shortSummary(string $shortSummary): self
+    {
+        $this->shortSummary = $shortSummary;
 
         return $this;
     }
@@ -66,7 +77,8 @@ class StoredCheckResult
     {
         return [
             'name' => $this->name,
-            'message' => $this->message,
+            'notificationMessage' => $this->notificationMessage,
+            'shortSummary' => $this->shortSummary,
             'status' => $this->status,
             'meta' => $this->meta,
         ];

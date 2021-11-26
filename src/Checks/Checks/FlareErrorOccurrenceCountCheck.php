@@ -3,6 +3,7 @@
 namespace Spatie\Health\Checks\Checks;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
@@ -53,10 +54,14 @@ class FlareErrorOccurrenceCountCheck extends Check
     {
         $errorOccurrenceCount = $this->getFlareErrorOccurrenceCount();
 
+        $shortSummary = $errorOccurrenceCount . ' ' . Str::plural('error', $errorOccurrenceCount);
 
-        $result = Result::make()->ok()->meta([
-            'count' => 0,
-        ]);
+        $result = Result::make()
+            ->ok()
+            ->meta([
+                'count' => $errorOccurrenceCount,
+            ])
+            ->shortSummary($shortSummary);
 
         $message = "In the past {$this->periodInMinutes} minutes, {$errorOccurrenceCount} errors occurred.";
 
@@ -77,7 +82,6 @@ class FlareErrorOccurrenceCountCheck extends Check
         $endDate = now()->format('Y-m-d H:i:s');
 
         return Http::get("https://flareapp.io/api/project/{$this->flareProjectId}?start_date={$startDate}&end_date={$endDate}&api_token={$this->flareApiToken}")
-
             ->json('count', 0);
     }
 }

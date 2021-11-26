@@ -20,7 +20,7 @@ it('will return an error when it cannot connect to Redis', function () {
 
     expect($result)
         ->status->toBe(Status::failed())
-        ->message->toBe('Redis returned a falsy response when try to connection to it.');
+        ->notificationMessage->toBe('Redis returned a falsy response when try to connection to it.');
 });
 
 it('will return an error when connecting to redis throws an exception', function () {
@@ -30,5 +30,5 @@ it('will return an error when connecting to redis throws an exception', function
 
     expect($result)
         ->status->toBe(Status::failed())
-        ->message->toBe('An exception occurred when connecting to Redis: `This is an exception`');
+        ->notificationMessage->toBe('An exception occurred when connecting to Redis: `This is an exception`');
 });

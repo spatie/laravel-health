@@ -18,5 +18,5 @@ it('will determine that a wrong environment is not ok', function () {
 
     expect($result)
         ->status->toBe(Status::failed())
-        ->getMessage()->toBe('The environment was expected to be `production`, but actually was `testing`');
+        ->getNotificationMessage()->toBe('The environment was expected to be `production`, but actually was `testing`');
 });

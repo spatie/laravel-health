@@ -10,9 +10,7 @@ class Result
 {
     /** @var array<string, mixed> */
     public array $meta = [];
-
     public Check $check;
-
     public ?Carbon $ended_at;
 
     public static function make(string $message = ''): self
@@ -22,8 +20,16 @@ class Result
 
     public function __construct(
         public Status  $status,
-        public string $message = ''
+        public string $notificationMessage = '',
+        public string $shortSummary = '',
     ) {
+    }
+
+    public function shortSummary(string $shortSummary): self
+    {
+        $this->shortSummary = $shortSummary;
+
+        return $this;
     }
 
     public function check(Check $check): self
@@ -33,21 +39,21 @@ class Result
         return $this;
     }
 
-    public function message(string $message): self
+    public function notificationMessage(string $notificationMessage): self
     {
-        $this->message = $message;
+        $this->notificationMessage = $notificationMessage;
 
         return $this;
     }
 
-    public function getMessage(): string
+    public function getNotificationMessage(): string
     {
-        return trans($this->message, $this->meta);
+        return trans($this->notificationMessage, $this->meta);
     }
 
     public function ok(string $message = ''): self
     {
-        $this->message = $message;
+        $this->notificationMessage = $message;
 
         $this->status = Status::ok();
 
@@ -56,7 +62,7 @@ class Result
 
     public function warning(string $message = ''): self
     {
-        $this->message = $message;
+        $this->notificationMessage = $message;
 
         $this->status = Status::warning();
 
@@ -65,7 +71,7 @@ class Result
 
     public function failed(string $message = ''): self
     {
-        $this->message = $message;
+        $this->notificationMessage = $message;
 
         $this->status = Status::failed();
 

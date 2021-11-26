@@ -78,11 +78,39 @@ class UsedDiskSpaceCheck extends Check
 }
 ```
 
+## Adding a short summary
+
+Optionally, you can add a short summary of what the check found, using the `shortSummary` method.
+
+```php
+namespace App\Checks;
+
+use Spatie\Health\Checks\Check;
+use Spatie\Health\Checks\Result;
+
+public function run(): Result
+{
+    $usedDiskSpacePercentage = $this->getDiskUsagePercentage();
+
+    $result = Result::make();
+    
+    $result->shortSummary("{$usedDiskSpacePercentage}%")
+
+    // ...
+}
+```
+
+This short summary will be written in [a result store](https://spatie.be/docs/laravel-health/v1/storing-results/general). The summary can be used when displaying all the results on a dashboard.
+
 ## Adding meta information
 
 You can add meta information to a result. This meta information will be written in [a result store](https://spatie.be/docs/laravel-health/v1/storing-results/general). By adding meta information, external services like Oh Dear can display it in their notification, or you can keep a history of this meta information in your own database.
 
 Meta information can be added to a check result, by calling `meta` and passing it with an array of meta data.
+
+
+
+
 
 ```php
 namespace App\Checks;
@@ -106,3 +134,4 @@ class UsedDiskSpaceCheck extends Check
     }
 }
 ```
+

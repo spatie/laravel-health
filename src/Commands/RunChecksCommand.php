@@ -97,7 +97,7 @@ class RunChecksCommand extends Command
 
     protected function sendNotification(Collection $results): self
     {
-        $resultsWithMessages = $results->filter(fn (Result $result) => ! empty($result->getMessage()));
+        $resultsWithMessages = $results->filter(fn (Result $result) => ! empty($result->getNotificationMessage()));
 
         if ($resultsWithMessages->count() === 0) {
             return $this;

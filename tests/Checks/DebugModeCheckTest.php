@@ -14,5 +14,5 @@ it('will determine that a correct debug mode is ok', function () {
 
     expect($result)
         ->status->toBe(Status::failed())
-        ->getMessage()->toBe('The debug mode was expected to be `true`, but actually was `false`');
+        ->getNotificationMessage()->toBe('The debug mode was expected to be `true`, but actually was `false`');
 });

@@ -24,6 +24,7 @@ function getReport(): StoredCheckResults
         new StoredCheckResult(
             'name',
             'message',
+            'summary',
             'ok',
             ['name' => 'value']
         ),
