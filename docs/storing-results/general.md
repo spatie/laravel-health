@@ -8,4 +8,6 @@ When `RunChecksCommand` executes, all checks will be run. The results of these c
 - `EloquentHealthResultStore`: will store all results in the database
 - `JsonFileHealthResultStore`: will store all results in a JSON file.
 
-You can configure the store to be used, by adding the store class name to the `result_stores` key of the `health` config file.
+You can configure the stores to be used, by adding the store class name to the `result_stores` key of the `health` config file. 
+
+Keep in mind, that you can also opt not to store the results at all, but only get notifications when something is wrong.

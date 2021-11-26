@@ -60,4 +60,9 @@ abstract class Check
     {
         return new Result(Status::crashed());
     }
+
+    public function onTerminate(mixed $request, mixed $response): void
+    {
+
+    }
 }

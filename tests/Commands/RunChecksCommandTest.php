@@ -4,7 +4,7 @@ use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
-use Spatie\Health\Models\CheckResultHistoryItem;
+use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\Tests\TestClasses\CrashingCheck;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 
@@ -19,7 +19,7 @@ beforeEach(function () {
 it('can store the ok results in the database', function () {
     artisan(RunChecksCommand::class)->assertSuccessful();
 
-    $historyItems = CheckResultHistoryItem::get();
+    $historyItems = HealthCheckResultHistoryItem::get();
 
     expect($historyItems)
         ->toHaveCount(1)
@@ -37,7 +37,7 @@ it('can store the with warnings results in the database', function () {
 
     artisan(RunChecksCommand::class)->assertSuccessful();
 
-    $historyItems = CheckResultHistoryItem::get();
+    $historyItems = HealthCheckResultHistoryItem::get();
 
     expect($historyItems)
         ->toHaveCount(1)
@@ -55,7 +55,7 @@ it('can store the with failures results in the database', function () {
 
     artisan(RunChecksCommand::class)->assertSuccessful();
 
-    $historyItems = CheckResultHistoryItem::get();
+    $historyItems = HealthCheckResultHistoryItem::get();
 
     expect($historyItems)
         ->toHaveCount(1)
@@ -75,7 +75,7 @@ it('will still run checks when there is a failing one', function () {
         ->assertFailed()
         ->expectsOutput('The check named `Crashing` did not complete. An exception was thrown with this message: `This check will always crash`');
 
-    $historyItems = CheckResultHistoryItem::get();
+    $historyItems = HealthCheckResultHistoryItem::get();
 
     expect($historyItems)
         ->toHaveCount(2)

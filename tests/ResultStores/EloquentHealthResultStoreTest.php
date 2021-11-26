@@ -3,7 +3,7 @@
 use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunChecksCommand;
 use Spatie\Health\Facades\Health;
-use Spatie\Health\Models\CheckResultHistoryItem;
+use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\ResultStores\EloquentHealthResultStore;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
@@ -25,7 +25,7 @@ beforeEach(function () {
 it('can write check results to the database', function () {
     artisan(RunChecksCommand::class)->assertSuccessful();
 
-    expect(CheckResultHistoryItem::get())->toHaveCount(1);
+    expect(HealthCheckResultHistoryItem::get())->toHaveCount(1);
 });
 
 it('can retrieve the latest results from json', function () {

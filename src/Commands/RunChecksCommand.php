@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
+use Spatie\Health\Enums\Status;
 use Spatie\Health\Events\CheckEndedEvent;
 use Spatie\Health\Events\CheckStartingEvent;
 use Spatie\Health\Exceptions\CheckDidNotComplete;
@@ -83,8 +84,11 @@ class RunChecksCommand extends Command
     {
         $results = app(Health::class)
             ->registeredChecks()
-            ->filter(fn (Check $check) => $check->shouldRun())
-            ->map(fn (Check $check) => $this->runCheck($check));
+            ->map(function (Check $check): Result {
+                return $check->shouldRun()
+                    ? $this->runCheck($check)
+                    : (new Result(Status::skipped()))->check($check);
+            });
 
         app(Health::class)
             ->resultStores()

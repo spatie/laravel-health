@@ -5,7 +5,7 @@ namespace Spatie\Health\ResultStores;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Spatie\Health\Checks\Result;
-use Spatie\Health\Models\CheckResultHistoryItem;
+use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\ResultStores\Report\Report;
 use Spatie\Health\ResultStores\Report\ReportedCheck;
 
@@ -17,7 +17,7 @@ class EloquentHealthResultStore implements ResultStore
         $batch = Str::uuid();
 
         $checkResults->each(function (Result $result) use ($batch) {
-            CheckResultHistoryItem::create([
+            HealthCheckResultHistoryItem::create([
                 'check_name' => $result->check->getName(),
                 'status' => $result->status,
                 'message' => $result->getMessage(),
@@ -30,15 +30,15 @@ class EloquentHealthResultStore implements ResultStore
 
     public function latestReport(): ?Report
     {
-        if (! $latestItem = CheckResultHistoryItem::latest()->first()) {
+        if (! $latestItem = HealthCheckResultHistoryItem::latest()->first()) {
             return null;
         }
 
         /** @var Collection<int, ReportedCheck> $checkResults */
-        $checkResults = CheckResultHistoryItem::query()
+        $checkResults = HealthCheckResultHistoryItem::query()
             ->where('batch', $latestItem->batch)
             ->get()
-            ->map(function (CheckResultHistoryItem $historyItem) {
+            ->map(function (HealthCheckResultHistoryItem $historyItem) {
                 return new ReportedCheck(
                     name: $historyItem->check_name,
                     message: $historyItem->message,

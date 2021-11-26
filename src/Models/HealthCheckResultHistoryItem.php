@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $status
  * @property string $check_name
  */
-class CheckResultHistoryItem extends Model
+class HealthCheckResultHistoryItem extends Model
 {
     use HasFactory;
     use MassPrunable;

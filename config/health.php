@@ -27,7 +27,7 @@ return [
      * The amount of days the `EloquentHealthResultStore` will keep history
      * before pruning items.
      */
-    'keep_history_for_days' => 100,
+    'keep_history_for_days' => 5,
 
     /*
          * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
