@@ -3,7 +3,6 @@
 namespace Spatie\Health\ResultStores;
 
 use Illuminate\Support\Collection;
-use Spatie\Health\ResultStores\ResultStore;
 
 class ResultStores
 {
