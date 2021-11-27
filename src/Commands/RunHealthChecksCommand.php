@@ -38,17 +38,10 @@ class RunHealthChecksCommand extends Command
             $this->sendNotification($results);
         }
 
-        if (count($this->thrownExceptions)) {
-            foreach ($this->thrownExceptions as $exception) {
-                $this->error($exception->getMessage());
-            }
-
-            return self::FAILURE;
-        }
-
+        $this->line('');
         $this->info('All done!');
 
-        return self::SUCCESS;
+        return $this->determineCommandResult($results);
     }
 
     public function runCheck(Check $check): Result
@@ -56,7 +49,8 @@ class RunHealthChecksCommand extends Command
         event(new CheckStartingEvent($check));
 
         try {
-            $this->comment("Running check: {$check->getLabel()}");
+            $this->line('');
+            $this->line("Running check: {$check->getLabel()}...");
             $result = $check->run();
         } catch (Exception $exception) {
             $exception = CheckDidNotComplete::make($check, $exception);
@@ -70,6 +64,8 @@ class RunHealthChecksCommand extends Command
         $result
             ->check($check)
             ->endedAt(now());
+
+        $this->outputResult($result, $exception ?? null);
 
         event(new CheckEndedEvent($check, $result));
 
@@ -120,5 +116,44 @@ class RunHealthChecksCommand extends Command
         $notifiable->notify($notification);
 
         return $this;
+    }
+
+    protected function outputResult(Result $result, ?Exception $exception = null): void
+    {
+
+        $status = ucfirst($result->status->value);
+
+        $okMessage = $status;
+
+        if (! empty($result->shortSummary)) {
+            $okMessage .= ": {$result->shortSummary}";
+        }
+
+        match ($result->status->value) {
+            Status::ok()->value => $this->info($okMessage),
+            Status::warning()->value => $this->comment("{$status}: $result->notificationMessage"),
+            Status::failed()->value => $this->error("{$status}: $result->notificationMessage"),
+                        Status::crashed()->value => $this->error("{$status}}: `{$exception->getMessage()}`"),
+            default => null,
+        };
+    }
+
+    protected function determineCommandResult(Collection $results): int
+    {
+        if (count($this->thrownExceptions)) {
+            return static::FAILURE;
+        }
+
+        $allChecksOk = $results->contains(function(Result $result) {
+            return in_array($result->status->value, [
+                Status::crashed()->value,
+                Status::failed()->value,
+                Status::warning()->value,
+            ]);
+        });
+
+        return $allChecksOk
+            ? static::SUCCESS
+            : static::FAILURE;
     }
 }
