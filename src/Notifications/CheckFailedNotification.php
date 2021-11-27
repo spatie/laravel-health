@@ -62,7 +62,6 @@ class CheckFailedNotification extends Notification
             ->from(config('health.notifications.mail.from.address', config('mail.from.address')), config('health.notifications.mail.from.name', config('mail.from.name')))
             ->subject(trans('health::notifications.check_failed_subject', ['application_name' => $this->applicationName()]))
             ->markdown('health::mail.checkFailedNotification', ['results' => $this->results]);
-
     }
 
     public function toSlack(): SlackMessage
