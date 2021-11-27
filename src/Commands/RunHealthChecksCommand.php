@@ -121,7 +121,7 @@ class RunHealthChecksCommand extends Command
     protected function outputResult(Result $result, ?Exception $exception = null): void
     {
 
-        $status = ucfirst($result->status->value);
+        $status = ucfirst((string)$result->status->value);
 
         $okMessage = $status;
 
@@ -133,7 +133,7 @@ class RunHealthChecksCommand extends Command
             Status::ok()->value => $this->info($okMessage),
             Status::warning()->value => $this->comment("{$status}: $result->notificationMessage"),
             Status::failed()->value => $this->error("{$status}: $result->notificationMessage"),
-                        Status::crashed()->value => $this->error("{$status}}: `{$exception->getMessage()}`"),
+            Status::crashed()->value => $this->error("{$status}}: `{$exception?->getMessage()}`"),
             default => null,
         };
     }
