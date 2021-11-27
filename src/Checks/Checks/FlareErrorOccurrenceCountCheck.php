@@ -84,4 +84,13 @@ class FlareErrorOccurrenceCountCheck extends Check
         return Http::get("https://flareapp.io/api/project/{$this->flareProjectId}?start_date={$startDate}&end_date={$endDate}&api_token={$this->flareApiToken}")
             ->json('count', 0);
     }
+
+    public function getLabel(): string
+    {
+        if ($this->label) {
+            return $this->label;
+        }
+
+        return 'Flare error count';
+    }
 }
