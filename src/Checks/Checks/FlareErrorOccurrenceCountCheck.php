@@ -54,7 +54,7 @@ class FlareErrorOccurrenceCountCheck extends Check
     {
         $errorOccurrenceCount = $this->getFlareErrorOccurrenceCount();
 
-        $shortSummary = $errorOccurrenceCount . ' ' . Str::plural('error', $errorOccurrenceCount);
+        $shortSummary = $errorOccurrenceCount . ' ' . Str::plural('error', $errorOccurrenceCount) . " in past {$this->periodInMinutes} minutes"  ;
 
         $result = Result::make()
             ->ok()
