@@ -21,10 +21,12 @@ class DebugModeCheck extends Check
     {
         $actual = config('app.debug');
 
-        $result = Result::make()->meta([
-            'actual' => $actual,
-            'expected' => $this->expected,
-        ]);
+        $result = Result::make()
+            ->meta([
+                'actual' => $actual,
+                'expected' => $this->expected,
+            ])
+            ->shortSummary($actual);
 
         return $this->expected === $actual
             ? $result->ok()

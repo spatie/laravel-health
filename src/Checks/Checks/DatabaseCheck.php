@@ -9,7 +9,7 @@ use Spatie\Health\Checks\Result;
 
 class DatabaseCheck extends Check
 {
-    protected string $connectionName = 'default';
+    protected ?string $connectionName = null;
 
     public function connectionName(string $connectionName): self
     {
@@ -20,16 +20,23 @@ class DatabaseCheck extends Check
 
     public function run(): Result
     {
+        $connectionName = $this->connectionName ?? $this->getDefaultConnectionName();
+
         $result = Result::make()->meta([
-            'connection_name' => $this->connectionName,
+            'connection_name' => $connectionName,
         ]);
 
         try {
-            DB::connection($this->connectionName)->getPdo();
+            DB::connection($connectionName)->getPdo();
 
             return $result->ok();
         } catch (Exception $exception) {
             return $result->failed("Could not connect to the database: `{$exception->getMessage()}`");
         }
+    }
+
+    protected function getDefaultConnectionName(): string
+    {
+        return config('database.default');
     }
 }

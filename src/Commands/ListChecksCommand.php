@@ -38,7 +38,7 @@ class ListChecksCommand extends Command
     {
         return match ($status) {
             Status::ok()->value => 'bg-green-800',
-            Status::warning()->value => 'bg-orange-800',
+            Status::warning()->value => 'bg-yellow-800',
             Status::skipped()->value => 'bg-blue-800',
             Status::failed()->value, Status::crashed()->value => 'bg-red-800',
             default => ''

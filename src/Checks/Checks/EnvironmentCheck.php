@@ -21,10 +21,12 @@ class EnvironmentCheck extends Check
     {
         $actualEnvironment = app()->environment();
 
-        $result = Result::make()->meta([
-            'actual' => $actualEnvironment,
-            'expected' => $this->expectedEnvironment,
-        ]);
+        $result = Result::make()
+            ->meta([
+                'actual' => $actualEnvironment,
+                'expected' => $this->expectedEnvironment,
+            ])
+            ->shortSummary($actualEnvironment);
 
         return $this->expectedEnvironment === $actualEnvironment
             ? $result->ok()

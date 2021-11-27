@@ -35,6 +35,6 @@ class HorizonCheck extends Check
                 ->shortSummary('Paused');
         }
 
-        return $result->ok();
+        return $result->ok()->shortSummary('Running');
     }
 }

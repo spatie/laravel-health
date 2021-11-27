@@ -31,7 +31,7 @@ class HealthCheckResultsController
     {
         return match ($status) {
             Status::ok()->value => 'bg-green-200',
-            Status::warning()->value => 'bg-orange-200',
+            Status::warning()->value => 'bg-yellow-200',
             Status::skipped()->value => 'bg-blue-200',
             Status::failed()->value, Status::crashed()->value => 'bg-red-200',
             default => ''
@@ -42,7 +42,7 @@ class HealthCheckResultsController
     {
         return match ($status) {
             Status::ok()->value => 'text-green-900',
-            Status::warning()->value => 'text-orange-900',
+            Status::warning()->value => 'text-yellow-900',
             Status::skipped()->value => 'text-blue-900',
             Status::failed()->value, Status::crashed()->value => 'text-red-900',
             default => ''
