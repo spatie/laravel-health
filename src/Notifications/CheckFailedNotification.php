@@ -4,9 +4,11 @@ namespace Spatie\Health\Notifications;
 
 use Carbon\Carbon;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 use Spatie\Health\Checks\Result;
+use Spatie\Health\Enums\Status;
 
 class CheckFailedNotification extends Notification
 {
@@ -60,17 +62,29 @@ class CheckFailedNotification extends Notification
     {
         return (new MailMessage())
             ->from(config('health.notifications.mail.from.address', config('mail.from.address')), config('health.notifications.mail.from.name', config('mail.from.name')))
-            ->subject(trans('health::notifications.check_failed_subject', ['application_name' => $this->applicationName()]))
+            ->subject(trans('health::notifications.check_failed_mail_subject', ['application_name' => $this->applicationName()]))
             ->markdown('health::mail.checkFailedNotification', ['results' => $this->results]);
     }
 
     public function toSlack(): SlackMessage
     {
-        return (new SlackMessage())
+        $slackMessage = (new SlackMessage())
             ->error()
             ->from(config('health.notifications.slack.username'), config('health.notifications.slack.icon'))
             ->to(config('health.notifications.slack.channel'))
-            ->content(trans('health::notifications.check_failed_subject', ['application_name' => $this->applicationName()]));
+            ->content(trans('health::notifications.check_failed_slack_message', ['application_name' => $this->applicationName()]));
+
+        foreach ($this->results as $result) {
+            $slackMessage->attachment(function (SlackAttachment $attachment) use ($result) {
+                $attachment
+                    ->color(Status::from($result->status)->getSlackColor())
+                    ->title($result->check->getLabel())
+                    ->content($result->getNotificationMessage());
+        });
+    }
+
+        return $slackMessage;
+
     }
 
     public function applicationName(): string
