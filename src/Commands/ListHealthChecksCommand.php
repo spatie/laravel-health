@@ -9,7 +9,7 @@ use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\ResultStore;
 use function Termwind\render;
 
-class ListChecksCommand extends Command
+class ListHealthChecksCommand extends Command
 {
     public $signature = 'health:list {--run}';
 
@@ -18,7 +18,7 @@ class ListChecksCommand extends Command
     public function handle(): int
     {
         if ($this->option('run')) {
-            Artisan::call(RunChecksCommand::class);
+            Artisan::call(RunHealthChecksCommand::class);
         }
 
         $resultStore = app(ResultStore::class);

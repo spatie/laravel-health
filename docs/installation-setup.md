@@ -121,6 +121,6 @@ The checks will be triggered by executing a command. You should schedule the `Ru
 
 protected function schedule(Schedule $schedule)
 {
-    $schedule->command(\Spatie\Health\Commands\RunChecksCommand::class)->everyMinute();
+    $schedule->command(\Spatie\Health\Commands\RunHealthChecksCommand::class)->everyMinute();
 }
 ```

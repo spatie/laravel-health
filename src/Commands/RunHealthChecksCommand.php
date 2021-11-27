@@ -15,7 +15,7 @@ use Spatie\Health\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\ResultStores\ResultStore;
 
-class RunChecksCommand extends Command
+class RunHealthChecksCommand extends Command
 {
     public $signature = 'health:run {--do-not-store-results} {--no-notification}';
 

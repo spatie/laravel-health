@@ -19,7 +19,7 @@ class EnvironmentCheck extends Check
 
     public function run(): Result
     {
-        $actualEnvironment = app()->environment();
+        $actualEnvironment = (string)app()->environment();
 
         $result = Result::make()
             ->meta([

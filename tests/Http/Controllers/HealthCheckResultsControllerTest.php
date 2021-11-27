@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\get;
 use function Pest\Laravel\getJson;
-use Spatie\Health\Commands\RunChecksCommand;
+use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
@@ -22,7 +22,7 @@ beforeEach(function () {
         $this->check,
     ]);
 
-    artisan(RunChecksCommand::class);
+    artisan(RunHealthChecksCommand::class);
 });
 
 it('can display the results as html', function () {

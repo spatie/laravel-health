@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Storage;
 use function Pest\Laravel\artisan;
-use Spatie\Health\Commands\RunChecksCommand;
+use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\ResultStores\JsonFileHealthResultStore;
 use Spatie\Health\ResultStores\ResultStore;
@@ -30,7 +30,7 @@ beforeEach(function () {
 });
 
 it('can write check results to a json file', function () {
-    artisan(RunChecksCommand::class)->assertSuccessful();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
     Storage::disk('s3')->assertExists($this->path);
 
@@ -43,7 +43,7 @@ it('can retrieve the latest results from json', function () {
     $report = app(ResultStore::class)->latestResults();
     expect($report)->toBeNull();
 
-    artisan(RunChecksCommand::class)->assertSuccessful();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
     $report = app(ResultStore::class)->latestResults();
 

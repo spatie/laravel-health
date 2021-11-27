@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Notification;
 use function Pest\Laravel\artisan;
-use Spatie\Health\Commands\RunChecksCommand;
+use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
@@ -19,7 +19,7 @@ beforeEach(function () {
 });
 
 it('can store the ok results in the database', function () {
-    artisan(RunChecksCommand::class)->assertSuccessful();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
     $historyItems = HealthCheckResultHistoryItem::get();
 
@@ -43,7 +43,7 @@ it('will send a notification when a checks fails', function () {
     Notification::fake();
 
     $this->fakeDiskSpaceCheck->fakeDiskUsagePercentage(100);
-    artisan(RunChecksCommand::class)->assertSuccessful();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
     Notification::assertTimesSent(1, CheckFailedNotification::class);
 });
@@ -64,7 +64,7 @@ it('can store the with warnings results in the database', function () {
         ->warnWhenUsedSpaceIsAbovePercentage(50)
         ->fakeDiskUsagePercentage(51);
 
-    artisan(RunChecksCommand::class)->assertSuccessful();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
     $historyItems = HealthCheckResultHistoryItem::get();
 
@@ -82,7 +82,7 @@ it('can store the with failures results in the database', function () {
         ->failWhenUsedSpaceIsAbovePercentage(50)
         ->fakeDiskUsagePercentage(51);
 
-    artisan(RunChecksCommand::class)->assertSuccessful();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
     $historyItems = HealthCheckResultHistoryItem::get();
 
@@ -100,7 +100,7 @@ it('will still run checks when there is a failing one', function () {
         new FakeUsedDiskSpaceCheck(),
     ]);
 
-    artisan(RunChecksCommand::class)
+    artisan(RunHealthChecksCommand::class)
         ->assertFailed()
         ->expectsOutput('The check named `Crashing` did not complete. An exception was thrown with this message: `This check will always crash`');
 

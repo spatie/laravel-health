@@ -2,8 +2,8 @@
 
 namespace Spatie\Health;
 
-use Spatie\Health\Commands\ListChecksCommand;
-use Spatie\Health\Commands\RunChecksCommand;
+use Spatie\Health\Commands\ListHealthChecksCommand;
+use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
@@ -21,8 +21,8 @@ class HealthServiceProvider extends PackageServiceProvider
             ->hasTranslations()
             ->hasMigration('create_health_tables')
             ->hasCommands(
-                ListChecksCommand::class,
-                RunChecksCommand::class,
+                ListHealthChecksCommand::class,
+                RunHealthChecksCommand::class,
                 ScheduleCheckHeartbeatCommand::class,
             );
     }

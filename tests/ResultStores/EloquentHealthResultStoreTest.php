@@ -1,7 +1,7 @@
 <?php
 
 use function Pest\Laravel\artisan;
-use Spatie\Health\Commands\RunChecksCommand;
+use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\ResultStores\EloquentHealthResultStore;
@@ -23,7 +23,7 @@ beforeEach(function () {
 });
 
 it('can write check results to the database', function () {
-    artisan(RunChecksCommand::class)->assertSuccessful();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
     expect(HealthCheckResultHistoryItem::get())->toHaveCount(1);
 });
@@ -32,7 +32,7 @@ it('can retrieve the latest results from json', function () {
     $report = app(ResultStore::class)->latestResults();
     expect($report)->toBeNull();
 
-    artisan(RunChecksCommand::class)->assertSuccessful();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
     $report = app(ResultStore::class)->latestResults();
 

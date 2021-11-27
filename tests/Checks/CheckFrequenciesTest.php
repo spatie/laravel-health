@@ -2,7 +2,7 @@
 
 use function Pest\Laravel\artisan;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
-use Spatie\Health\Commands\RunChecksCommand;
+use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Tests\TestClasses\InMemoryResultStore;
@@ -23,17 +23,17 @@ beforeEach(function () {
 });
 
 it('will return a skipped result for checks that should not run', function () {
-    artisan(RunChecksCommand::class);
+    artisan(RunHealthChecksCommand::class);
     expect(InMemoryResultStore::$checkResults)->toHaveCount(1);
     expect(InMemoryResultStore::$checkResults[0]->status)->toBe(Status::ok());
 
     testTime()->addMinutes(4);
-    artisan(RunChecksCommand::class);
+    artisan(RunHealthChecksCommand::class);
     expect(InMemoryResultStore::$checkResults)->toHaveCount(1);
     expect(InMemoryResultStore::$checkResults[0]->status)->toBe(Status::skipped());
 
     testTime()->addMinute();
-    artisan(RunChecksCommand::class);
+    artisan(RunHealthChecksCommand::class);
     expect(InMemoryResultStore::$checkResults)->toHaveCount(1);
     expect(InMemoryResultStore::$checkResults[0]->status)->toBe(Status::ok());
 });
