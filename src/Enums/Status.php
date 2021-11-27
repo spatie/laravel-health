@@ -15,10 +15,10 @@ class Status extends Enum
 {
     public function getSlackColor(): string
     {
-        return match ($this->value) {
-            self::ok()->value => '#2EB67D',
-            self::warning()->value => '#ECB22E',
-            self::failed()->value, self::crashed()->value => '#E01E5A',
+        return match ($this) {
+            self::ok() => '#2EB67D',
+            self::warning() => '#ECB22E',
+            self::failed(), self::crashed() => '#E01E5A',
             default => '',
         };
     }

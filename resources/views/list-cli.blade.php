@@ -29,7 +29,7 @@
         No checks have run yet...<br/>
         Please execute:
 
-        php artisan health:run-checks
+        php artisan health:check-checks
         </div>
     @endif
 </div>

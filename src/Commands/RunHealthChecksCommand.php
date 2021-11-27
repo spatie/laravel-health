@@ -17,7 +17,7 @@ use Spatie\Health\ResultStores\ResultStore;
 
 class RunHealthChecksCommand extends Command
 {
-    public $signature = 'health:run {--do-not-store-results} {--no-notification}';
+    public $signature = 'health:check {--do-not-store-results} {--no-notification} {--fail-command-on-failing-check}';
 
     public $description = 'Run all health checks';
 
@@ -129,31 +129,35 @@ class RunHealthChecksCommand extends Command
             $okMessage .= ": {$result->shortSummary}";
         }
 
-        match ($result->status->value) {
-            Status::ok()->value => $this->info($okMessage),
-            Status::warning()->value => $this->comment("{$status}: $result->notificationMessage"),
-            Status::failed()->value => $this->error("{$status}: $result->notificationMessage"),
-            Status::crashed()->value => $this->error("{$status}}: `{$exception?->getMessage()}`"),
+        match ($result->status) {
+            Status::ok() => $this->info($okMessage),
+            Status::warning() => $this->comment("{$status}: $result->notificationMessage"),
+            Status::failed() => $this->error("{$status}: $result->notificationMessage"),
+            Status::crashed() => $this->error("{$status}}: `{$exception?->getMessage()}`"),
             default => null,
         };
     }
 
     protected function determineCommandResult(Collection $results): int
     {
-        if (count($this->thrownExceptions)) {
-            return static::FAILURE;
+        if (! $this->option('fail-command-on-failing-check')) {
+            return self::SUCCESS;
         }
 
-        $allChecksOk = $results->contains(function(Result $result) {
-            return in_array($result->status->value, [
-                Status::crashed()->value,
-                Status::failed()->value,
-                Status::warning()->value,
+        if (count($this->thrownExceptions)) {
+            return self::FAILURE;
+        }
+
+        $containsFailingCheck = $results->contains(function(Result $result) {
+            return in_array($result->status, [
+                Status::crashed(),
+                Status::failed(),
+                Status::warning(),
             ]);
         });
 
-        return $allChecksOk
-            ? static::SUCCESS
-            : static::FAILURE;
+        return $containsFailingCheck
+            ? self::FAILURE
+            : self::SUCCESS;
     }
 }

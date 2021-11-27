@@ -114,7 +114,7 @@ These steps are not necessary when using the `JsonFileResultStore`.
 
 ## Scheduling the commands
 
-The checks will be triggered by executing a command. You should schedule the `RunChecksCommand` to run every minute.
+The checks will be triggered by executing a command. You should schedule the `RunHealthChecksCommand` to run every minute.
 
 ```php
 // in app/Console/Kernel.php

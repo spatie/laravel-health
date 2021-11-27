@@ -32,7 +32,7 @@ it('can store the ok results in the database', function () {
 });
 
 it('has an option that will not store the results in the database', function () {
-    artisan('health:run --do-not-store-results')->assertSuccessful();
+    artisan('health:check --do-not-store-results')->assertSuccessful();
 
     $historyItems = HealthCheckResultHistoryItem::get();
 
@@ -52,11 +52,10 @@ it('has an option that will prevent notifications being sent', function () {
     Notification::fake();
 
     $this->fakeDiskSpaceCheck->fakeDiskUsagePercentage(100);
-    artisan('health:run --no-notification')->assertSuccessful();
+    artisan('health:check --no-notification')->assertSuccessful();
 
     Notification::assertTimesSent(0, CheckFailedNotification::class);
 });
-
 
 it('can store the with warnings results in the database', function () {
     $this
@@ -101,8 +100,7 @@ it('will still run checks when there is a failing one', function () {
     ]);
 
     artisan(RunHealthChecksCommand::class)
-        ->assertFailed()
-        ->expectsOutput('The check named `Crashing` did not complete. An exception was thrown with this message: `This check will always crash`');
+        ->assertSuccessful();
 
     $historyItems = HealthCheckResultHistoryItem::get();
 
@@ -114,4 +112,15 @@ it('will still run checks when there is a failing one', function () {
         ->message->toBeEmpty()
         ->status->toBe(Status::ok()->value)
         ->meta->toBe(['disk_space_used_percentage' => 0]);
+});
+
+it('has an option that will let the command fail when a check fails', function () {
+    $this->fakeDiskSpaceCheck->fakeDiskUsagePercentage(0);
+    artisan('health:check')->assertSuccessful();
+    artisan('health:check --fail-command-on-failing-check')->assertSuccessful();
+
+    $this->fakeDiskSpaceCheck->fakeDiskUsagePercentage(100);
+
+    artisan('health:check')->assertSuccessful();
+    artisan('health:check --fail-command-on-failing-check')->assertFailed();
 });
