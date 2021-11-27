@@ -120,7 +120,6 @@ class RunHealthChecksCommand extends Command
 
     protected function outputResult(Result $result, ?Exception $exception = null): void
     {
-
         $status = ucfirst((string)$result->status->value);
 
         $okMessage = $status;
@@ -144,7 +143,7 @@ class RunHealthChecksCommand extends Command
             return static::FAILURE;
         }
 
-        $allChecksOk = $results->contains(function(Result $result) {
+        $allChecksOk = $results->contains(function (Result $result) {
             return in_array($result->status->value, [
                 Status::crashed()->value,
                 Status::failed()->value,
