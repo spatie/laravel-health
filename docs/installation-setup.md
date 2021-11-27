@@ -20,9 +20,6 @@ php artisan vendor:publish --tag="health-config"
 This is the content of the published config file:
 
 ```php
-use Spatie\Health\ResultStores\EloquentHealthResultStore;
-use Spatie\Health\ResultStores\JsonFileHealthResultStore;
-
 return [
 
     /*
@@ -31,12 +28,12 @@ return [
      * can use multiple stores at the same time.
      */
     'result_stores' => [
-        EloquentHealthResultStore::class,
+        Spatie\Health\ResultStores\EloquentHealthResultStore::class,
 
         /*
-        JsonFileHealthResultStore::class => [
+        Spatie\Health\ResultStores\EloquentHealthResultStore\JsonFileHealthResultStore::class => [
             'disk' => 's3',
-            'file_name' => 'health.json',
+            'path' => 'health.json',
         ],
 
         */
@@ -47,7 +44,7 @@ return [
      * The amount of days the `EloquentHealthResultStore` will keep history
      * before pruning items.
      */
-    'keep_history_for_days' => 100,
+    'keep_history_for_days' => 5,
 
     /*
          * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
@@ -69,8 +66,11 @@ return [
         'notifiable' => Spatie\Health\Notifications\Notifiable::class,
 
         /*
-         * When a frequent check starts failing, you could potentially end up getting
-         * a lot of notification. Here you
+         * When checks start failing, you could potentially end up getting
+         * a notification every minute. 
+         * 
+         * With this setting, notifications are throttled. By default, you'll
+         * only get one notification per hour.
          */
         'throttle_notifications_for_minutes' => 60,
 
