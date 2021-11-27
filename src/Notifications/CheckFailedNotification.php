@@ -80,11 +80,10 @@ class CheckFailedNotification extends Notification
                     ->color(Status::from($result->status)->getSlackColor())
                     ->title($result->check->getLabel())
                     ->content($result->getNotificationMessage());
-        });
-    }
+            });
+        }
 
         return $slackMessage;
-
     }
 
     public function applicationName(): string
