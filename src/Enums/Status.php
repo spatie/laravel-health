@@ -23,5 +23,3 @@ class Status extends Enum
         };
     }
 }
-
-
