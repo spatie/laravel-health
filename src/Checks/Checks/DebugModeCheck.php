@@ -26,7 +26,7 @@ class DebugModeCheck extends Check
                 'actual' => $actual,
                 'expected' => $this->expected,
             ])
-            ->shortSummary($actual);
+            ->shortSummary($this->convertToWord($actual));
 
         return $this->expected === $actual
             ? $result->ok()
