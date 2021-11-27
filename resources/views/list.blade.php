@@ -12,7 +12,7 @@
                 <div class="flex justify-between items-center">
                     <h4 class="text-center text-3xl font-semibold text-gray-700 mb-4">Laravel Health</h4>
                     @if ($lastRanAt)
-                        <div class="text-gray-400 text-sm text-center">
+                        <div class="{{ $lastRanAt->diffInMinutes() > 5 ? 'text-red-400' : 'text-gray-400' }} text-sm text-center">
                             Check results from {{ $lastRanAt->diffForHumans() }}
                         </div>
                     @endif
