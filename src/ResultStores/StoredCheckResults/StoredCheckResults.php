@@ -6,6 +6,7 @@ use DateTime;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
 use Spatie\Health\Enums\Status;
+use function Pest\Laravel\instance;
 
 class StoredCheckResults
 {
@@ -60,10 +61,19 @@ class StoredCheckResults
         return ! $this->allChecksOk();
     }
 
-    public function containsCheckWithStatus(Status $status): bool
+    /**
+     * @param array<int, Status>|Status $statuses
+     *
+     * @return bool
+     */
+    public function containsCheckWithStatus(array|Status $statuses): bool
     {
+        if ($statuses instanceof Status) {
+            $statuses = array($statuses);
+        }
+
         return $this->storedCheckResults->contains(
-            fn (StoredCheckResult $line) => $line->status === $status->value
+            fn (StoredCheckResult $line) => in_array($line->status, $statuses)
         );
     }
 

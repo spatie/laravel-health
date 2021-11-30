@@ -15,6 +15,9 @@ it('has a method to check if the results contain a result with a certain status'
     expect($storedCheckResults->containsCheckWithStatus(Status::warning()))->toBeTrue();
     expect($storedCheckResults->containsCheckWithStatus(Status::failed()))->toBeFalse();
     expect($storedCheckResults->containsCheckWithStatus(Status::crashed()))->toBeFalse();
+
+    expect($storedCheckResults->containsCheckWithStatus([Status::warning(), Status::failed()]))->toBeTrue();
+    expect($storedCheckResults->containsCheckWithStatus([Status::crashed(), Status::failed()]))->toBeFalse();
 });
 
 function makeStoredCheckResultWithStatus(Status $status): StoredCheckResult
