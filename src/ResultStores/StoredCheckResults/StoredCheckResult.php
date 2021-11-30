@@ -6,6 +6,7 @@ class StoredCheckResult
 {
     /**
      * @param string $name
+     * @param string $label
      * @param string $notificationMessage
      * @param string $shortSummary
      * @param string $status
@@ -15,6 +16,7 @@ class StoredCheckResult
      */
     public static function make(
         string $name,
+        string $label = '',
         string $notificationMessage = '',
         string $shortSummary = '',
         string $status = '',
