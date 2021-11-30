@@ -3,8 +3,6 @@ title: Introduction
 weight: 1
 ---
 
-**THIS PACKAGE IS IN DEVELOPMENT. DO NOT USE IN PRODUCTION (YET)**
-
 Using this package you can monitor the health of your application by registering checks.
 
 Here's an example where we'll monitor used disk space.
