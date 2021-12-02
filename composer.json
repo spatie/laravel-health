@@ -23,7 +23,7 @@
         "illuminate/database": "^8.70",
         "illuminate/notifications": "^8.73",
         "illuminate/support": "^8.70",
-        "nunomaduro/termwind": "dev-master",
+        "nunomaduro/termwind": "^1.0",
         "spatie/enum": "^3.10",
         "spatie/laravel-package-tools": "^1.9.2",
         "spatie/regex": "^3.1",
