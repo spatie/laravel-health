@@ -17,9 +17,9 @@ class HealthCheckResultsController
 
         return view('health::list', [
             'lastRanAt' => new Carbon($checkResults?->finishedAt),
-            'backgroundColor' => fn(string $status) => $this->getBackgroundColor($status),
-            'textColor' => fn(string $status) => $this->getTextColor($status),
-            'checkResults' => $checkResults
+            'backgroundColor' => fn (string $status) => $this->getBackgroundColor($status),
+            'textColor' => fn (string $status) => $this->getTextColor($status),
+            'checkResults' => $checkResults,
         ]);
     }
 

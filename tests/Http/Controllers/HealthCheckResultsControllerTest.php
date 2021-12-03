@@ -3,13 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\get;
-use function Pest\Laravel\getJson;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 use function Spatie\PestPluginTestTime\testTime;
-use function Spatie\Snapshots\assertMatchesSnapshot;
 
 beforeEach(function () {
     testTime()->freeze('2021-01-01 00:00:00');

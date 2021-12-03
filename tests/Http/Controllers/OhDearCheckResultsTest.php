@@ -1,13 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\get;
-use function Pest\Laravel\getJson;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
-use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesSnapshot;
@@ -26,7 +22,7 @@ beforeEach(function () {
     config()->set('health.oh_dear_endpoint', [
         'enabled' => true,
         'secret' => 'my-secret',
-        'url' => 'my-url'
+        'url' => 'my-url',
     ]);
 
     $this->refreshServiceProvider();
@@ -44,7 +40,7 @@ it('will not display the results when the endpoint is disabled', function () {
     config()->set('health.oh_dear_endpoint', [
         'enabled' => false,
         'secret' => 'my-secret',
-        'url' => 'my-other-url'
+        'url' => 'my-other-url',
     ]);
 
     $this->refreshServiceProvider();
