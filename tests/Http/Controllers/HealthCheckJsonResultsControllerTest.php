@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\get;
 use function Pest\Laravel\getJson;
@@ -14,7 +15,7 @@ use function Spatie\Snapshots\assertMatchesSnapshot;
 beforeEach(function () {
     testTime()->freeze('2021-01-01 00:00:00');
 
-    Route::get('/', HealthCheckResultsController::class);
+    Route::get('/', HealthCheckJsonResultsController::class);
 
     $this->check = FakeUsedDiskSpaceCheck::new()->fakeDiskUsagePercentage(100);
 
@@ -25,9 +26,10 @@ beforeEach(function () {
     artisan(RunHealthChecksCommand::class);
 });
 
-it('can display the results as html', function () {
-    get('/')
+it('will display the results as json when the request accepts json', function () {
+    $json = getJson('/')
         ->assertSuccessful()
-        ->assertViewIs('health::list')
-        ->assertSee($this->check->getLabel());
+        ->json();
+
+    assertMatchesSnapshot($json);
 });

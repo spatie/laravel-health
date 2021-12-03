@@ -2,9 +2,12 @@
 
 namespace Spatie\Health;
 
+use Illuminate\Support\Facades\Route;
 use Spatie\Health\Commands\ListHealthChecksCommand;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
+use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
+use Spatie\Health\Http\Middleware\RequiresSecret;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
 use Spatie\LaravelPackageTools\Package;
@@ -33,5 +36,23 @@ class HealthServiceProvider extends PackageServiceProvider
         $this->app->bind('health', Health::class);
 
         $this->app->bind(ResultStore::class, fn () => ResultStores::createFromConfig()->first());
+    }
+
+    public function packageBooted(): void
+    {
+        if (! config('health.oh_dear_endpoint.enabled')) {
+            return;
+        }
+
+        if (! config('health.oh_dear_endpoint.secret')) {
+            return;
+        }
+
+        if (! config('health.oh_dear_endpoint.url')) {
+            return;
+        }
+
+        Route::get(config('health.oh_dear_endpoint.url'), HealthCheckJsonResultsController::class)
+           ->middleware(RequiresSecret::class);
     }
 }

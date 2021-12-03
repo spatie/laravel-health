@@ -15,16 +15,12 @@ class HealthCheckResultsController
     {
         $checkResults = $resultStore->latestResults();
 
-        if ($request->acceptsHtml()) {
-            return view('health::list', [
-                'lastRanAt' => new Carbon($checkResults?->finishedAt),
-                'backgroundColor' => fn (string $status) => $this->getBackgroundColor($status),
-                'textColor' => fn (string $status) => $this->getTextColor($status),
-                'checkResults' => $checkResults,
-            ]);
-        }
-
-        return response()->json($checkResults?->toJson() ?? []);
+        return view('health::list', [
+            'lastRanAt' => new Carbon($checkResults?->finishedAt),
+            'backgroundColor' => fn(string $status) => $this->getBackgroundColor($status),
+            'textColor' => fn(string $status) => $this->getTextColor($status),
+            'checkResults' => $checkResults
+        ]);
     }
 
     protected function getBackgroundColor(string $status): string

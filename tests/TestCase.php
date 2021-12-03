@@ -51,4 +51,9 @@ class TestCase extends Orchestra
 
         $this->app->instance(MasterSupervisorRepository::class, $masters);
     }
+
+    public function refreshServiceProvider(): void
+    {
+        (new HealthServiceProvider($this->app))->packageBooted();
+    }
 }

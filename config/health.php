@@ -19,7 +19,6 @@ return [
         */
     ],
 
-
     /*
      * The amount of days the `EloquentHealthResultStore` will keep history
      * before pruning items.
@@ -27,12 +26,9 @@ return [
     'keep_history_for_days' => 5,
 
     /*
-         * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
-         * For Slack you need to install laravel/slack-notification-channel.
-         *
-         * You can also use your own notification classes, just make sure the class is named after one of
-         * the `Spatie\Backup\Notifications\Notifications` classes.
-         */
+     * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
+     * For Slack you need to install laravel/slack-notification-channel.
+     */
     'notifications' => [
 
         'notifications' => [
@@ -75,5 +71,24 @@ return [
 
             'icon' => null,
         ],
+    ],
+
+    /*
+     * You can let Oh Dear monitor the results of all health checks. This way, you'll
+     * get notified of any problems even if your application goes totally down. Via
+     * Oh Dear, you can also have access to more advanced notification options.
+     */
+    'oh_dear_endpoint' => [
+        'enabled' => false,
+
+        /*
+         * The secret that is displayed at the Application Health settings at Oh Dear.
+         */
+        'secret' => env('OH_DEAR_HEALTH_CHECK_SECRET'),
+
+        /*
+         * The URL that should be configured in the Application health settings at Oh Dear.
+         */
+        'url' => '/oh-dear-health-check-results',
     ],
 ];
