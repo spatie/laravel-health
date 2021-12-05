@@ -31,14 +31,16 @@ return [
         Spatie\Health\ResultStores\EloquentHealthResultStore::class,
 
         /*
+        Spatie\Health\ResultStores\CacheHealthResultStore::class => [
+            'store' => 'file',
+        ],
+
         Spatie\Health\ResultStores\EloquentHealthResultStore\JsonFileHealthResultStore::class => [
             'disk' => 's3',
             'path' => 'health.json',
         ],
-
         */
     ],
-
 
     /*
      * The amount of days the `EloquentHealthResultStore` will keep history
@@ -47,12 +49,9 @@ return [
     'keep_history_for_days' => 5,
 
     /*
-         * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
-         * For Slack you need to install laravel/slack-notification-channel.
-         *
-         * You can also use your own notification classes, just make sure the class is named after one of
-         * the `Spatie\Backup\Notifications\Notifications` classes.
-         */
+     * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
+     * For Slack you need to install laravel/slack-notification-channel.
+     */
     'notifications' => [
 
         'notifications' => [
@@ -67,8 +66,8 @@ return [
 
         /*
          * When checks start failing, you could potentially end up getting
-         * a notification every minute. 
-         * 
+         * a notification every minute.
+         *
          * With this setting, notifications are throttled. By default, you'll
          * only get one notification per hour.
          */
@@ -96,14 +95,31 @@ return [
             'icon' => null,
         ],
     ],
+
+    /*
+     * You can let Oh Dear monitor the results of all health checks. This way, you'll
+     * get notified of any problems even if your application goes totally down. Via
+     * Oh Dear, you can also have access to more advanced notification options.
+     */
+    'oh_dear_endpoint' => [
+        'enabled' => false,
+
+        /*
+         * The secret that is displayed at the Application Health settings at Oh Dear.
+         */
+        'secret' => env('OH_DEAR_HEALTH_CHECK_SECRET'),
+
+        /*
+         * The URL that should be configured in the Application health settings at Oh Dear.
+         */
+        'url' => '/oh-dear-health-check-results',
+    ],
 ];
 ```
 
 ## Migrating the database
 
-When using the `EloquentHealthResultStore` the check results will be stored in the database.
-
-To create the `check_result_history_items` table, you must create and run the migration.
+This package can store health check results [in various ways](https://spatie.be/docs/laravel-health/v1/storing-results/general). When using the `EloquentHealthResultStore` the check results will be stored in the database. To create the `check_result_history_items` table, you must create and run the migration.
 
 ```bash
 php artisan vendor:publish --tag="health-migrations"

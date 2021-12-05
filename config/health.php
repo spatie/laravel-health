@@ -11,11 +11,14 @@ return [
         Spatie\Health\ResultStores\EloquentHealthResultStore::class,
 
         /*
+        Spatie\Health\ResultStores\CacheHealthResultStore::class => [
+            'store' => 'file',
+        ],
+
         Spatie\Health\ResultStores\EloquentHealthResultStore\JsonFileHealthResultStore::class => [
             'disk' => 's3',
             'path' => 'health.json',
         ],
-
         */
     ],
 

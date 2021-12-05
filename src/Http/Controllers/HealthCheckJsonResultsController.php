@@ -14,6 +14,6 @@ class HealthCheckJsonResultsController
     {
         $checkResults = $resultStore->latestResults();
 
-        return response($checkResults->toJson() ?? []);
+        return response($checkResults?->toJson() ?? '');
     }
 }
