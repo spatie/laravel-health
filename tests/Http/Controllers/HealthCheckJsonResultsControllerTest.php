@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\getJson;
 use Spatie\Health\Commands\RunHealthChecksCommand;
@@ -30,4 +31,14 @@ it('will display the results as json when the request accepts json', function ()
         ->json();
 
     assertMatchesSnapshot($json);
+});
+
+it('the output of the json endpoint can be used to create a StoredCheckResults object', function () {
+    $jsonString = getJson('/')
+        ->assertSuccessful()
+        ->content();
+
+    $storedCheckResults = StoredCheckResults::fromJson($jsonString);
+
+    expect($storedCheckResults)->toBeInstanceOf(StoredCheckResults::class);
 });
