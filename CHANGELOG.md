@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 0.13.0 - 2021-12-05
+
+- experimental release
+
 ## 0.12.0 - 2021-12-04
 
 - experimental release
