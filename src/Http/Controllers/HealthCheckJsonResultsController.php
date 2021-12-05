@@ -2,10 +2,8 @@
 
 namespace Spatie\Health\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\View\View;
 use Spatie\Health\ResultStores\ResultStore;
 
 class HealthCheckJsonResultsController
