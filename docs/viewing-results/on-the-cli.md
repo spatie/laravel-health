@@ -1,6 +1,6 @@
 ---
 title: On the CLI
-weight: 2
+weight: 3
 ---
 
 To view the results of all checks, you can run this artisan command:

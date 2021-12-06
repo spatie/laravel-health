@@ -21,6 +21,8 @@ return [
             'disk' => 's3',
             'path' => 'health.json',
         ],
+
+        Spatie\Health\ResultStores\EloquentHealthResultStore\InMemoryResultStore::class,
         */
     ],
 

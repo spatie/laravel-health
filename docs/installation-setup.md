@@ -19,7 +19,7 @@ php artisan vendor:publish --tag="health-config"
 
 This is the content of the published config file:
 
-```php``
+```php
 return [
 
     /*
@@ -41,6 +41,8 @@ return [
             'disk' => 's3',
             'path' => 'health.json',
         ],
+        
+         Spatie\Health\ResultStores\EloquentHealthResultStore\InMemoryResultStore::class,
         */
     ],
 
@@ -124,9 +126,9 @@ php artisan migrate
 
 These steps are not necessary when using the `JsonFileResultStore`.
 
-## Scheduling the commands
+## Running the checks by scheduling a command
 
-The checks will be triggered by executing a command. You should schedule the `RunHealthChecksCommand` to run every minute.
+If you want to let your application send notifications when something is wrong, you should schedule the `RunHealthChecksCommand` to run every minute.
 
 ```php
 // in app/Console/Kernel.php
@@ -136,3 +138,8 @@ protected function schedule(Schedule $schedule)
     $schedule->command(\Spatie\Health\Commands\RunHealthChecksCommand::class)->everyMinute();
 }
 ```
+
+## Running the checks by sending HTTP requests
+
+If you don't want let your application send notification, but let a service like Oh Dear monitor the health of your app, you can trigger a run of all health checks by visiting the [HTTP endpoint](docs/laravel-health/v1/viewing-results/on-a-webpage) or [JSON endpoint](https://spatie.be/docs/laravel-health/v1/viewing-results/as-json-via-an-api) and use the `?run` parameter in the URL.
+
