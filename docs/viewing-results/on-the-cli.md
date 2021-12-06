@@ -14,3 +14,10 @@ If you want to first execute all the checks, so you'll see fresh results, add th
 ```bash
 php artisan health:list --run
 ```
+
+When using the `run` option, you can also use the `do-not-store-results` and  `no-notification` options, to avoid storing results and avoid sending a notification.
+
+```bash
+php artisan health:list --run --do-not-store-results --no-notification
+```
+

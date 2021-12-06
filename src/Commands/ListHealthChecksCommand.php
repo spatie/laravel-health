@@ -11,14 +11,22 @@ use function Termwind\render;
 
 class ListHealthChecksCommand extends Command
 {
-    public $signature = 'health:list {--run}';
+    public $signature = 'health:list {--run} {--do-not-store-results} {--no-notification}';
 
     public $description = 'List all health checks';
 
     public function handle(): int
     {
         if ($this->option('run')) {
-            Artisan::call(RunHealthChecksCommand::class);
+            $parameters = [];
+            if ($this->option('do-not-store-results')) {
+                $parameters[] = '--do-not-store-results';
+            }
+            if ($this->option('--no-notification')) {
+                $parameters[] = '--no-notification';
+            }
+
+            Artisan::call(RunHealthChecksCommand::class, $parameters);
         }
 
         $resultStore = app(ResultStore::class);
