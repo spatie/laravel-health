@@ -21,7 +21,6 @@ beforeEach(function () {
     Health::checks([
         $this->check,
     ]);
-
 });
 
 it('will display the results as json when the request accepts json', function () {
@@ -47,7 +46,7 @@ it('the output of the json endpoint can be used to create a StoredCheckResults o
     expect($storedCheckResults)->toBeInstanceOf(StoredCheckResults::class);
 });
 
-it('will run the checks when the run get parameter is passed and return the results as json', function() {
+it('will run the checks when the run get parameter is passed and return the results as json', function () {
     $jsonString = getJson('/?run')
         ->assertSuccessful()
         ->content();

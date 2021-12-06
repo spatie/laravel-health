@@ -19,7 +19,6 @@ beforeEach(function () {
     Health::checks([
         $this->check,
     ]);
-
 });
 
 it('can display the results as html', function () {
@@ -31,10 +30,9 @@ it('can display the results as html', function () {
         ->assertSee($this->check->getLabel());
 });
 
-it('will run the checks when the run get parameter is passed and return the results as json', function() {
+it('will run the checks when the run get parameter is passed and return the results as json', function () {
     get('/?run')
         ->assertSuccessful()
         ->assertViewIs('health::list')
         ->assertSee($this->check->getLabel());
-
 });
