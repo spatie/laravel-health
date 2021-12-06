@@ -9,7 +9,7 @@ use function trans;
 
 class Result
 {
-    /** @var array<string, mixed> */
+    /** @var array<string, string|int|bool> */
     public array $meta = [];
     public Check $check;
     public ?Carbon $ended_at;
