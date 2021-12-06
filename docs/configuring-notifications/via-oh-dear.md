@@ -36,7 +36,7 @@ Follow the instructions at the Application Health settings screen at Oh Dear.
 
 A common way to use this package, is to schedule the `RunHealthChecksCommand` to run the checks every minute. Depending on when Oh Dear will visit the configured URL, the check results could be a maximum 59 seconds old.
 
-If you always what to send fresh results to Oh Dear, append `?run` to the URL you configured. So when Oh Dear visits, `/oh-dear-health-check-results?run` the checks will be run inside that request and the most fresh results will be sent.
+If you always what to send fresh results to Oh Dear, append `?fresh` to the URL you configured. So when Oh Dear visits, `/oh-dear-health-check-results?fresh` the checks will be run inside that request and the most fresh results will be sent.
 
 If you don't want to store any health results locally, you can use the [in memory result store](/docs/laravel-health/v1/storing-results/not-storing-results).
 

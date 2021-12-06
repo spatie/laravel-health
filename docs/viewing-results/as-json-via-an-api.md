@@ -20,7 +20,7 @@ If you don't want these results to be public, be sure to take care of authorizat
 If you want to run the checks in the same request, you can pass the `run` query parameter.
 
 ```
-https://example.com/health?run
+https://example.com/health?fresh
 ```
 
 This way you'll see the latest results in the JSON.

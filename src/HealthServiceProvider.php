@@ -40,19 +40,26 @@ class HealthServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        if (! config('health.oh_dear_endpoint.enabled')) {
-            return;
+        $this->registerOhDearEndpoint();
+    }
+
+    protected function registerOhDearEndpoint(): self
+    {
+        if (!config('health.oh_dear_endpoint.enabled')) {
+            return $this;
         }
 
-        if (! config('health.oh_dear_endpoint.secret')) {
-            return;
+        if (!config('health.oh_dear_endpoint.secret')) {
+            return $this;
         }
 
-        if (! config('health.oh_dear_endpoint.url')) {
-            return;
+        if (!config('health.oh_dear_endpoint.url')) {
+            return $this;
         }
 
         Route::get(config('health.oh_dear_endpoint.url'), HealthCheckJsonResultsController::class)
-           ->middleware(RequiresSecret::class);
+            ->middleware(RequiresSecret::class);
+
+        return $this;
     }
 }

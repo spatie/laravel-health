@@ -47,7 +47,7 @@ it('the output of the json endpoint can be used to create a StoredCheckResults o
 });
 
 it('will run the checks when the run get parameter is passed and return the results as json', function () {
-    $jsonString = getJson('/?run')
+    $jsonString = getJson('/?fresh')
         ->assertSuccessful()
         ->content();
 

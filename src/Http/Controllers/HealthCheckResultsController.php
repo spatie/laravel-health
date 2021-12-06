@@ -15,7 +15,7 @@ class HealthCheckResultsController
 {
     public function __invoke(Request $request, ResultStore $resultStore): JsonResponse|View
     {
-        if ($request->has('run')) {
+        if ($request->has('fresh')) {
             Artisan::call(RunHealthChecksCommand::class);
         }
 

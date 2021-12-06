@@ -12,12 +12,13 @@ class HealthCheckJsonResultsController
 {
     public function __invoke(Request $request, ResultStore $resultStore): Response
     {
-        if ($request->has('run')) {
+        if ($request->has('fresh')) {
             Artisan::call(RunHealthChecksCommand::class);
         }
 
         $checkResults = $resultStore->latestResults();
 
-        return response($checkResults?->toJson() ?? '');
+        return response($checkResults?->toJson() ?? '')
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
     }
 }
