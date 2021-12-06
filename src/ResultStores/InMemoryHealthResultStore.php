@@ -9,7 +9,7 @@ use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 
 class InMemoryHealthResultStore implements ResultStore
 {
-    protected StoredCheckResults $storedCheckResults;
+    protected ?StoredCheckResults $storedCheckResults = null;
 
     public function save(Collection $checkResults): void
     {
