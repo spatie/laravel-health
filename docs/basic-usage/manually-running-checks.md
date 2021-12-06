@@ -11,6 +11,8 @@ You can also decide to manually run the command with:
 php artisan health:check
 ```
 
+Use the command like that will, also stored results and send notifications. Use one or more of the options below to avoid that.
+
 ## Fail the command when a check fails
 
 By default, the `RunHealthChecksCommand` will always return a successful exit code (`1`). When you pass the `--fail-command-on-failing-check`, then the exit code of the command will be non-successful (`0`) when one of the checks fails.
