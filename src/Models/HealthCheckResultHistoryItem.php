@@ -5,7 +5,7 @@ namespace Spatie\Health\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\Health\ResultStores\EloquentHealthResultStore;
 
 /**
