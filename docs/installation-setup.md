@@ -19,7 +19,7 @@ php artisan vendor:publish --tag="health-config"
 
 This is the content of the published config file:
 
-```php
+```php``
 return [
 
     /*
@@ -28,7 +28,9 @@ return [
      * can use multiple stores at the same time.
      */
     'result_stores' => [
-        Spatie\Health\ResultStores\EloquentHealthResultStore::class,
+        Spatie\Health\ResultStores\EloquentHealthResultStore::class => [
+            'keep_history_for_days' => 5,
+        ],
 
         /*
         Spatie\Health\ResultStores\CacheHealthResultStore::class => [
@@ -41,12 +43,6 @@ return [
         ],
         */
     ],
-
-    /*
-     * The amount of days the `EloquentHealthResultStore` will keep history
-     * before pruning items.
-     */
-    'keep_history_for_days' => 5,
 
     /*
      * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.

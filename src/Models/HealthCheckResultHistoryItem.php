@@ -5,6 +5,8 @@ namespace Spatie\Health\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Spatie\Health\ResultStores\EloquentHealthResultStore;
 
 /**
  * @property \Carbon\Carbon $created_at
@@ -30,10 +32,10 @@ class HealthCheckResultHistoryItem extends Model
         'started_failing_at' => 'timestamp',
     ];
 
-    public function prunable(): void
+    public function prunable(): Builder
     {
-        $days = config('health.keep_history_for_days');
+        $days = config('health.result_stores.'  . EloquentHealthResultStore::class.  '.keep_history_for_days') ?? 5;
 
-        static::where('created_at', '<=', now()->subDays($days));
+        return static::where('created_at', '<=', now()->subDays($days));
     }
 }
