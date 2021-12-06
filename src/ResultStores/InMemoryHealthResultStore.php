@@ -9,11 +9,11 @@ use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 
 class InMemoryHealthResultStore implements ResultStore
 {
-    protected ?StoredCheckResults $storedCheckResults = null;
+    protected static ?StoredCheckResults $storedCheckResults = null;
 
     public function save(Collection $checkResults): void
     {
-        $this->storedCheckResults = new StoredCheckResults(now());
+        self::$storedCheckResults = new StoredCheckResults(now());
 
         $checkResults
             ->map(function (Result $result) {
@@ -27,12 +27,12 @@ class InMemoryHealthResultStore implements ResultStore
                 );
             })
             ->each(function (StoredCheckResult $check) {
-                $this->storedCheckResults->addCheck($check);
+                self::$storedCheckResults->addCheck($check);
             });
     }
 
     public function latestResults(): ?StoredCheckResults
     {
-        return $this->storedCheckResults;
+        return self::$storedCheckResults;
     }
 }
