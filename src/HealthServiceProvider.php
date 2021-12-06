@@ -45,15 +45,15 @@ class HealthServiceProvider extends PackageServiceProvider
 
     protected function registerOhDearEndpoint(): self
     {
-        if (!config('health.oh_dear_endpoint.enabled')) {
+        if (! config('health.oh_dear_endpoint.enabled')) {
             return $this;
         }
 
-        if (!config('health.oh_dear_endpoint.secret')) {
+        if (! config('health.oh_dear_endpoint.secret')) {
             return $this;
         }
 
-        if (!config('health.oh_dear_endpoint.url')) {
+        if (! config('health.oh_dear_endpoint.url')) {
             return $this;
         }
 
