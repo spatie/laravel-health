@@ -22,10 +22,12 @@ beforeEach(function () {
         $this->check,
     ]);
 
-    artisan(RunHealthChecksCommand::class);
 });
 
 it('will display the results as json when the request accepts json', function () {
+    artisan(RunHealthChecksCommand::class);
+
+
     $json = getJson('/')
         ->assertSuccessful()
         ->json();
@@ -34,6 +36,8 @@ it('will display the results as json when the request accepts json', function ()
 });
 
 it('the output of the json endpoint can be used to create a StoredCheckResults object', function () {
+    artisan(RunHealthChecksCommand::class);
+
     $jsonString = getJson('/')
         ->assertSuccessful()
         ->content();
@@ -41,4 +45,15 @@ it('the output of the json endpoint can be used to create a StoredCheckResults o
     $storedCheckResults = StoredCheckResults::fromJson($jsonString);
 
     expect($storedCheckResults)->toBeInstanceOf(StoredCheckResults::class);
+});
+
+it('will run the checks when the run get parameter is passed and return the results as json', function() {
+    $jsonString = getJson('/?run')
+        ->assertSuccessful()
+        ->content();
+
+    $storedCheckResults = StoredCheckResults::fromJson($jsonString);
+
+    expect($storedCheckResults)->toBeInstanceOf(StoredCheckResults::class)
+        ->and($storedCheckResults->storedCheckResults)->toHaveCount(1);
 });

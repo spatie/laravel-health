@@ -12,3 +12,13 @@ Route::get('health', HealthCheckResultsController::class);
 ```
 
 If you don't want these results to be public, be sure to take care of authorization yourself.
+
+## Running the checks before rendering the page
+
+If you want to run the checks in the same request, you can pass the `run` query parameter.
+
+```
+https://example.com/health?run
+```
+
+This way you'll see the fresh results in the browser.

@@ -20,12 +20,21 @@ beforeEach(function () {
         $this->check,
     ]);
 
-    artisan(RunHealthChecksCommand::class);
 });
 
 it('can display the results as html', function () {
+    artisan(RunHealthChecksCommand::class);
+
     get('/')
         ->assertSuccessful()
         ->assertViewIs('health::list')
         ->assertSee($this->check->getLabel());
+});
+
+it('will run the checks when the run get parameter is passed and return the results as json', function() {
+    get('/?run')
+        ->assertSuccessful()
+        ->assertViewIs('health::list')
+        ->assertSee($this->check->getLabel());
+
 });

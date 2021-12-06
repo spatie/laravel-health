@@ -5,7 +5,9 @@ namespace Spatie\Health\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\View\View;
+use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\ResultStore;
 
@@ -13,6 +15,10 @@ class HealthCheckResultsController
 {
     public function __invoke(Request $request, ResultStore $resultStore): JsonResponse|View
     {
+        if ($request->has('run')) {
+            Artisan::call(RunHealthChecksCommand::class);
+        }
+
         $checkResults = $resultStore->latestResults();
 
         return view('health::list', [

@@ -14,3 +14,13 @@ Route::get('health', HealthCheckResultsController::class);
 This controller will respond with JSON to any request that accepts JSON.
 
 If you don't want these results to be public, be sure to take care of authorization yourself.
+
+## Running the checks
+
+If you want to run the checks in the same request, you can pass the `run` query parameter.
+
+```
+https://example.com/health?run
+```
+
+This way you'll see the latest results in the JSON.
