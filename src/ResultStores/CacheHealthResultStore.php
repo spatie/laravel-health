@@ -12,8 +12,8 @@ class CacheHealthResultStore implements ResultStore
     public function __construct(
         public string $cacheStore = 'file',
         public string $cacheKey = 'healthStoreResults',
-    ) {}
-
+    ) {
+    }
 
     public function save(Collection $checkResults): void
     {

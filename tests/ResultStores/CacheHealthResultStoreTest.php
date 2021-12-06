@@ -1,9 +1,9 @@
 <?php
 
-use Spatie\Health\ResultStores\CacheHealthResultStore;
 use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
+use Spatie\Health\ResultStores\CacheHealthResultStore;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 use function Spatie\PestPluginTestTime\testTime;
