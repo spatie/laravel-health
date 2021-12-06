@@ -29,7 +29,6 @@ class InMemoryHealthResultStore implements ResultStore
             ->each(function (StoredCheckResult $check) {
                 $this->storedCheckResults->addCheck($check);
             });
-
     }
 
     public function latestResults(): ?StoredCheckResults
