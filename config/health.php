@@ -22,7 +22,7 @@ return [
             'path' => 'health.json',
         ],
 
-        Spatie\Health\ResultStores\EloquentHealthResultStore\InMemoryResultStore::class,
+        Spatie\Health\ResultStores\InMemoryHealthResultStore::class,
         */
     ],
 

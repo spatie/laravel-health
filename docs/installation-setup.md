@@ -20,6 +20,8 @@ php artisan vendor:publish --tag="health-config"
 This is the content of the published config file:
 
 ```php
+<?php
+
 return [
 
     /*
@@ -41,8 +43,8 @@ return [
             'disk' => 's3',
             'path' => 'health.json',
         ],
-        
-         Spatie\Health\ResultStores\EloquentHealthResultStore\InMemoryResultStore::class,
+
+        Spatie\Health\ResultStores\InMemoryHealthResultStore::class,
         */
     ],
 
