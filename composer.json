@@ -18,6 +18,7 @@
     "require": {
         "php": "^8.0",
         "dragonmantank/cron-expression": "^3.1",
+        "guzzlehttp/guzzle": "^7.4",
         "illuminate/console": "^8.75",
         "illuminate/contracts": "^8.75",
         "illuminate/database": "^8.75",
