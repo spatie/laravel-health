@@ -81,10 +81,12 @@ class FlareErrorOccurrenceCountCheck extends Check
         $startDate = urlencode(now()->subMinutes($this->periodInMinutes)->utc()->format('Y-m-d H:i:s'));
         $endDate = urlencode(now()->utc()->format('Y-m-d H:i:s'));
 
-        $url = "https://flareapp.io/api/projects/{$this->flareProjectId}/error-occurrence-count?start_date={$startDate}&end_date={$endDate}&api_token={$this->flareApiToken}";
-
-        return Http::acceptJson()->get($url)
-            ->json('count', 0);
+        return Http::acceptJson()
+            ->get("https://flareapp.io/api/projects/{$this->flareProjectId}/error-occurrence-count", [
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                'api_token' => $this->flareApiToken,
+            ])->json('count', 0);
     }
 
     public function getLabel(): string

@@ -3,12 +3,12 @@ title: As JSON via an API
 weight: 2
 ---
 
-The package contains a controller`Spatie\Health\Http\Controllers\HealthCheckResultsController` that can be used the render the latest results of all checks as JSON.  Simply use that controller in your routes on any URL you desire.
+The package contains a controller `Spatie\Health\Http\Controllers\HealthCheckJsonResultsController` that can be used the render the latest results of all checks as JSON.  Simply use that controller in your routes on any URL you desire.
 
 ```php
-use Spatie\Health\Http\Controllers\HealthCheckResultsController
+use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController
 
-Route::get('health', HealthCheckResultsController::class);
+Route::get('health', HealthCheckJsonResultsController::class);
 ```
 
 This controller will respond with JSON to any request that accepts JSON.
