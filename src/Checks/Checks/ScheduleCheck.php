@@ -10,7 +10,21 @@ class ScheduleCheck extends Check
 {
     protected string $cacheKey = 'health.checks.schedule.latestHeartbeatAt';
 
+    protected ?string $cacheStoreName = null;
+
     protected int $heartbeatMaxAgeInMinutes = 1;
+
+    public function useCacheStore(string $cacheStoreName): self
+    {
+        $this->cacheStoreName = $cacheStoreName;
+
+        return $this;
+    }
+
+    public function getCacheStoreName(): string
+    {
+        return $this->cacheStoreName ?? config('cache.default');
+    }
 
     public function cacheKey(string $cacheKey): self
     {
@@ -36,7 +50,7 @@ class ScheduleCheck extends Check
         $result = Result::make()
             ->ok();
 
-        $lastHeartbeatTimestamp = cache()->get($this->cacheKey);
+        $lastHeartbeatTimestamp = cache()->store($this->cacheStoreName)->get($this->cacheKey);
 
         if (! $lastHeartbeatTimestamp) {
             return $result->failed('The schedule did not run yet.');

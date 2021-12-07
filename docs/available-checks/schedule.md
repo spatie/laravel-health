@@ -5,7 +5,7 @@ weight: 10
 
 This check will make sure the schedule is running. If the check detects that the schedule is not run every minute, it will fail.
 
-This check relies on the default cache.
+This check relies on cache.
 
 ## Usage
 
@@ -33,6 +33,19 @@ public function schedule(Schedule $schedule) {
 }
 ```
 
+### Customize the cache store
+
+This check relies on cache to work. We highly recommend creating a [new cache store](https://laravel.com/docs/8.x/cache#configuration) and pass its name to `useCacheStore`
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\ScheduleCheck;
+
+Health::checks([
+    ScheduleCheck::new()->useCacheStore('your-custom-store-name'),
+]);
+```
+
 ### Customizing the maximum heart beat age
 
 The `ScheduleCheckHeartbeatCommand` will write the current timestamp into the cache. The `ScheduleCheck` will verify that that timestamp is not over a minute.
@@ -40,5 +53,5 @@ The `ScheduleCheckHeartbeatCommand` will write the current timestamp into the ca
 Should you get too many false positives, you can change the max age of the timestamp by calling `heartbeatMaxAgeInMinutes`.
 
 ```php
-ScheduleCheck::new()->heartbeatMaxAgeInMinutes(5),
+ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
 ```

@@ -32,7 +32,7 @@ class ScheduleCheckHeartbeatCommand extends Command
             return static::FAILURE;
         }
 
-        cache()->set($cacheKey, now()->timestamp);
+        cache()->store($scheduleCheck->getCacheStoreName())->set($cacheKey, now()->timestamp);
 
         return static::SUCCESS;
     }
