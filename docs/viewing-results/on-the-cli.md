@@ -9,6 +9,8 @@ To view the results of all checks, you can run this artisan command:
 php artisan health:list
 ```
 
+![image](/docs/laravel-health/v1/images/list-cli.png)
+
 If you want to first execute all the checks, so you'll see fresh results, add the `fresh` option.
 
 ```bash

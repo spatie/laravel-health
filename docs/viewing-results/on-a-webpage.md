@@ -11,6 +11,10 @@ use Spatie\Health\Http\Controllers\HealthCheckResultsController
 Route::get('health', HealthCheckResultsController::class);
 ```
 
+Here's how that page will look like:
+
+![image](/docs/laravel-health/v1/images/list-web.png)
+
 If you don't want these results to be public, be sure to take care of authorization yourself.
 
 ## Running the checks before rendering the page

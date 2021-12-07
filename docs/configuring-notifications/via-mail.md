@@ -29,3 +29,7 @@ In the `mail` key of the `health` config file, you can configure the to/from of 
     ],
 ],
 ```
+
+Here's how the mail will look like (rendered via [Ray](https://myray.app)).
+
+![image](/docs/laravel-health/v1/images/mail.png)
