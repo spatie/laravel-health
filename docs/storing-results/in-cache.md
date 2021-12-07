@@ -1,5 +1,5 @@
 ---
-title: In a JSON file
+title: In the cache
 weight: 2
 ---
 
