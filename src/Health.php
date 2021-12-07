@@ -48,7 +48,7 @@ class Health
     /** @param array<int,mixed> $checks */
     protected function ensureCheckInstances(array $checks): void
     {
-        foreach($checks as $check) {
+        foreach ($checks as $check) {
             if (! $check instanceof Check) {
                 throw InvalidCheck::doesNotExtendCheck($check);
             }
@@ -58,13 +58,11 @@ class Health
     protected function guardAgainstDuplicateCheckNames(): void
     {
         $duplicateCheckNames = collect($this->checks)
-            ->map(fn(Check $check) => $check->getName())
+            ->map(fn (Check $check) => $check->getName())
             ->duplicates();
 
         if ($duplicateCheckNames->isNotEmpty()) {
             throw DuplicateCheckNamesFound::make($duplicateCheckNames);
         }
     }
-
-
 }
