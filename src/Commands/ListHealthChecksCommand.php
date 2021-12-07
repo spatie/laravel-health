@@ -11,18 +11,18 @@ use function Termwind\render;
 
 class ListHealthChecksCommand extends Command
 {
-    public $signature = 'health:list {--run} {--do-not-store-results} {--no-notification}';
+    public $signature = 'health:list {--fresh} {--do-not-store-results} {--no-notification}';
 
     public $description = 'List all health checks';
 
     public function handle(): int
     {
-        if ($this->option('run')) {
+        if ($this->option('fresh')) {
             $parameters = [];
             if ($this->option('do-not-store-results')) {
                 $parameters[] = '--do-not-store-results';
             }
-            if ($this->option('--no-notification')) {
+            if ($this->option('no-notification')) {
                 $parameters[] = '--no-notification';
             }
 

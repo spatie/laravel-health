@@ -9,15 +9,15 @@ To view the results of all checks, you can run this artisan command:
 php artisan health:list
 ```
 
-If you want to first execute all the checks, so you'll see fresh results, add the `run` option.
+If you want to first execute all the checks, so you'll see fresh results, add the `fresh` option.
 
 ```bash
-php artisan health:list --run
+php artisan health:list --fresh
 ```
 
 When using the `run` option, you can also use the `do-not-store-results` and  `no-notification` options, to avoid storing results and avoid sending a notification.
-
+``
 ```bash
-php artisan health:list --run --do-not-store-results --no-notification
+php artisan health:list --fresh --do-not-store-results --no-notification
 ```
 
