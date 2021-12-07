@@ -17,8 +17,8 @@ use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 
 Health::checks([
-    new UsedDiskSpaceCheck(),
-    new DatabaseCheck(),
+    UsedDiskSpaceCheck::new(),
+    DatabaseCheck::new(),
 ]);
 ```
 

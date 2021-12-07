@@ -4,6 +4,8 @@ namespace Spatie\Health;
 
 use Illuminate\Support\Collection;
 use Spatie\Health\Checks\Check;
+use Spatie\Health\Exceptions\DuplicateCheckNamesFound;
+use Spatie\Health\Exceptions\InvalidCheck;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
 
@@ -15,7 +17,11 @@ class Health
     /** @param array<int, Check> $checks */
     public function checks(array $checks): self
     {
+        $this->ensureCheckInstances($checks);
+
         $this->checks = array_merge($this->checks, $checks);
+
+        $this->guardAgainstDuplicateCheckNames();
 
         return $this;
     }
@@ -38,4 +44,27 @@ class Health
     {
         return ResultStores::createFromConfig();
     }
+
+    /** @param array<int,mixed> $checks */
+    protected function ensureCheckInstances(array $checks): void
+    {
+        foreach($checks as $check) {
+            if (! $check instanceof Check) {
+                throw InvalidCheck::doesNotExtendCheck($check);
+            }
+        }
+    }
+
+    protected function guardAgainstDuplicateCheckNames(): void
+    {
+        $duplicateCheckNames = collect($this->checks)
+            ->map(fn(Check $check) => $check->getName())
+            ->duplicates();
+
+        if ($duplicateCheckNames->isNotEmpty()) {
+            throw DuplicateCheckNamesFound::make($duplicateCheckNames);
+        }
+    }
+
+
 }

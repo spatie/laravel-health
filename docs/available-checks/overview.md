@@ -12,6 +12,7 @@ These are the checks created by us:
 - [Environment](environment)
 - [Flare Error Count](flare-error-count)
 - [Horizon](horizon)
+- [Ping](ping)
 - [Redis](redis)
 - [Schedule](schedule)
 - [Used Disk Space](used-disk-space)
