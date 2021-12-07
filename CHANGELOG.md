@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.1.0 - 2021-12-07
+
+## What's Changed
+
+- Use correct controller for JSON response by @tominon in https://github.com/spatie/laravel-health/pull/7
+- Add factory for HealthCheckResultHistoryItem model by @abenerd in https://github.com/spatie/laravel-health/pull/9
+- Simplify url generation for flare error count check by @abenerd in https://github.com/spatie/laravel-health/pull/8
+
+## New Contributors
+
+- @tominon made their first contribution in https://github.com/spatie/laravel-health/pull/7
+- @abenerd made their first contribution in https://github.com/spatie/laravel-health/pull/9
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.0.1...1.1.0
+
 ## 1.0.1 - 2021-12-07
 
 - fix list command
