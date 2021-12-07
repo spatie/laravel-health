@@ -29,7 +29,7 @@ it('will send a notification when one of the checks has a message', function () 
 });
 
 
-it('will not send any notifications if the config option is set to false', function() {
+it('will not send any notifications if the config option is set to false', function () {
     config()->set('health.notifications.enabled', false);
 
     registerFailingCheck();
