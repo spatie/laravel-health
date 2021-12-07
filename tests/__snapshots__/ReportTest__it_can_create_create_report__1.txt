@@ -1,1 +1,1 @@
-{"finishedAt":"2001-01-01 00:00:00","checkResults":[{"name":"name","label":"label","notificationMessage":"message","shortSummary":"summary","status":"ok","meta":{"name":"value"}}]}
+{"finishedAt":978307200,"checkResults":[{"name":"name","label":"label","notificationMessage":"message","shortSummary":"summary","status":"ok","meta":{"name":"value"}}]}

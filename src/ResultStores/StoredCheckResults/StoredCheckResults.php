@@ -23,7 +23,7 @@ class StoredCheckResults
             ->sortBy(fn (StoredCheckResult $result) => strtolower($result->label));
 
         return new self(
-            finishedAt: new DateTime($properties['finishedAt']),
+            finishedAt: (new DateTime())->setTimestamp($properties['finishedAt']),
             checkResults: $checkResults,
         );
     }
@@ -79,7 +79,7 @@ class StoredCheckResults
     public function toJson(): string
     {
         return (string)json_encode([
-            'finishedAt' => $this->finishedAt->format('Y-m-d H:i:s'),
+            'finishedAt' => $this->finishedAt->getTimestamp(),
             'checkResults' => $this->storedCheckResults->map(fn (StoredCheckResult $line) => $line->toArray()),
         ]);
     }
