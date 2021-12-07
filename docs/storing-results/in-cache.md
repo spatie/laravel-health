@@ -1,5 +1,5 @@
 ---
-title: In The Cache
+title: In the cache
 weight: 2
 ---
 
