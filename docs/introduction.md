@@ -3,7 +3,7 @@ title: Introduction
 weight: 1
 ---
 
-Using this package you can monitor the health of your application by registering checks.
+Using this package you can monitor the health of your application by registering one of [the available checks](/docs/laravel-health/v1/available-checks/overview).
 
 Here's an example where we'll monitor used disk space.
 
