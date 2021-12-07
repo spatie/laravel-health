@@ -17,14 +17,14 @@ it('can register checks', function () {
         ->toBeInstanceOf(UsedDiskSpaceCheck::class);
 });
 
-it('will throw an exception when duplicate checks are registered', function() {
+it('will throw an exception when duplicate checks are registered', function () {
     Health::checks([
         PingCheck::new(),
         PingCheck::new(),
     ]);
 })->throws(DuplicateCheckNamesFound::class);
 
-it('will not throw an exception when all checks have unique names', function() {
+it('will not throw an exception when all checks have unique names', function () {
     Health::checks([
         PingCheck::new(),
         PingCheck::new()->name('OtherPingCheck'),
@@ -33,14 +33,14 @@ it('will not throw an exception when all checks have unique names', function() {
     expect(Health::registeredChecks())->toHaveCount(2);
 });
 
-it('will throw an exception when registering a class that does not exist Check', function() {
+it('will throw an exception when registering a class that does not exist Check', function () {
     Health::checks([
         new StdClass(),
     ]);
 })->throws(InvalidCheck::class);
 
 
-it('will throw an exception when registering a string', function() {
+it('will throw an exception when registering a string', function () {
     Health::checks([
         PingCheck::class,
     ]);

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Http;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Exceptions\InvalidCheck;
-use function Pest\Laravel\call;
 
 class PingCheck extends Check
 {
@@ -35,7 +34,7 @@ class PingCheck extends Check
         }
 
         try {
-            if (!Http::timeout(1)->get($this->url)->successful()) {
+            if (! Http::timeout(1)->get($this->url)->successful()) {
                 return $this->failedResult();
             }
         } catch (Exception) {

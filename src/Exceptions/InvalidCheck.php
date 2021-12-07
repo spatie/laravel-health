@@ -4,7 +4,6 @@ namespace Spatie\Health\Exceptions;
 
 use Exception;
 use Spatie\Health\Checks\Check;
-use Spatie\Health\ResultStores\ResultStore;
 
 class InvalidCheck extends Exception
 {
