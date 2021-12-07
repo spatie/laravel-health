@@ -1,6 +1,6 @@
 ---
 title: Redis
-weight: 5
+weight: 8
 ---
 
 This check will make sure Redis is running. By default, this check will make sure the `default` connection is working.
