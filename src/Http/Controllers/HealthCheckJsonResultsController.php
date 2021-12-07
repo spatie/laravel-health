@@ -12,7 +12,7 @@ class HealthCheckJsonResultsController
 {
     public function __invoke(Request $request, ResultStore $resultStore): Response
     {
-        if ($request->has('fresh') || config('health.oh_dear_endpoint.always_send_fresh_results') ) {
+        if ($request->has('fresh') || config('health.oh_dear_endpoint.always_send_fresh_results')) {
             Artisan::call(RunHealthChecksCommand::class);
         }
 
