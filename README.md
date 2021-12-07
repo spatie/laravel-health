@@ -5,8 +5,6 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-health/Check%20&%20fix%20styling?label=code%20style)](https://github.com/spatie/laravel-health/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
 
-**THIS PACKAGE IS IN DEVELOPMENT. DO NOT USE IN PRODUCTION (YET)**
-
 Using this package you can monitor the health of your application by registering checks.
 
 Here's an example where we'll monitor available disk space.
