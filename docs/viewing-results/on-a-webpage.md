@@ -15,7 +15,7 @@ If you don't want these results to be public, be sure to take care of authorizat
 
 ## Running the checks before rendering the page
 
-If you want to run the checks in the same request, you can pass the `run` query parameter.
+If you want to run the checks in the same request, you can pass the `fresh` query parameter.
 
 ```
 https://example.com/health?fresh
