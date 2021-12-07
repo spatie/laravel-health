@@ -20,8 +20,6 @@ php artisan vendor:publish --tag="health-config"
 This is the content of the published config file:
 
 ```php
-<?php
-
 return [
 
     /*
@@ -53,6 +51,10 @@ return [
      * For Slack you need to install laravel/slack-notification-channel.
      */
     'notifications' => [
+        /*
+         * Notifications will only get sent if this option is set to `true`.
+         */
+        'enabled' => true,
 
         'notifications' => [
             Spatie\Health\Notifications\CheckFailedNotification::class => ['mail'],
@@ -103,6 +105,12 @@ return [
      */
     'oh_dear_endpoint' => [
         'enabled' => false,
+
+        /*
+         * When this option is enabled, the checks will run before sending a response.
+         * Otherwise, we'll send the results from the last time the checks have run.
+         */
+        'always_send_fresh_results' => true,
 
         /*
          * The secret that is displayed at the Application Health settings at Oh Dear.

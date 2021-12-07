@@ -27,7 +27,7 @@ class InMemoryHealthResultStore implements ResultStore
                 );
             })
             ->each(function (StoredCheckResult $check) {
-                self::$storedCheckResults->addCheck($check);
+                self::$storedCheckResults?->addCheck($check);
             });
     }
 

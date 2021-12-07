@@ -28,6 +28,10 @@ class CheckFailedNotification extends Notification
 
     public function shouldSend(Notifiable $notifiable, string $channel): bool
     {
+        if (! config('health.notifications.enabled')) {
+            return false;
+        }
+
         /** @var int $throttleMinutes */
         $throttleMinutes = config('health.notifications.throttle_notifications_for_minutes');
 

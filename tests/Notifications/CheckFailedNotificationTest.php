@@ -28,6 +28,17 @@ it('will send a notification when one of the checks has a message', function () 
     Notification::assertTimesSent(1, CheckFailedNotification::class);
 });
 
+
+it('will not send any notifications if the config option is set to false', function() {
+    config()->set('health.notifications.enabled', false);
+
+    registerFailingCheck();
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+
+    Notification::assertTimesSent(0, CheckFailedNotification::class);
+});
+
 it('will only send one failed notification per hour', function () {
     TestTime::freeze();
     registerFailingCheck();

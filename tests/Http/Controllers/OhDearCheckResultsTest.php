@@ -17,8 +17,6 @@ beforeEach(function () {
         $this->check,
     ]);
 
-    artisan(RunHealthChecksCommand::class);
-
     config()->set('health.oh_dear_endpoint', [
         'enabled' => true,
         'secret' => 'my-secret',
@@ -29,6 +27,8 @@ beforeEach(function () {
 });
 
 it('will display the results as json when the endpoint is enabled and the secret is correct', function () {
+    artisan(RunHealthChecksCommand::class);
+
     $json = get('my-url', ['oh-dear-health-check-secret' => 'my-secret'])
         ->assertSuccessful()
         ->json();
@@ -37,6 +37,8 @@ it('will display the results as json when the endpoint is enabled and the secret
 });
 
 it('will not display the results when the endpoint is disabled', function () {
+    artisan(RunHealthChecksCommand::class);
+
     config()->set('health.oh_dear_endpoint', [
         'enabled' => false,
         'secret' => 'my-secret',
@@ -46,6 +48,16 @@ it('will not display the results when the endpoint is disabled', function () {
     $this->refreshServiceProvider();
 
     get('my-other-url', ['oh-dear-health-check-secret' => 'my-secret'])->assertStatus(404);
+});
+
+it('will run the checks when visiting the endpoint if the relevant config option is set to true', function () {
+    config()->set('health.oh_dear_endpoint.always_send_fresh_results', true);
+
+    $json = get('my-url', ['oh-dear-health-check-secret' => 'my-secret'])
+        ->assertSuccessful()
+        ->json();
+
+    assertMatchesSnapshot($json);
 });
 
 it('will not display the results when the secret is wrong', function () {
