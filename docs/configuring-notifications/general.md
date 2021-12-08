@@ -5,7 +5,11 @@ weight: 1
 
 Whenever one of the checks fails, the package can send you a notification. A notification will be sent for all checks that send a message in [their result](/docs/laravel-health/v1/basic-usage/creating-custom-checks#creating-results).
 
-Out of the box, the notification can be sent via mail or Slack.
+Out of the box, the notification can be sent:
+
+- via [mail](/docs/laravel-health/v1/configuring-notifications/via-mail), 
+- via [Slack](/docs/laravel-health/v1/configuring-notifications/via-Slack)
+- via [Oh Dear](/docs/laravel-health/v1/configuring-notifications/via-oh-dear) (enables snoozing notifications, and delivery via Telegram, Discord, MS Teams, webhooks, ...)
 
 ## Throttling notifications
 
