@@ -36,6 +36,13 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 
 All documentation is available [on our documentation site](https://spatie.be/docs/laravel-health).
 
+## Alternatives
+
+If you don't like our package, do try out one of these alternatives:
+
+- [ukfast/laravel-health-check](https://github.com/ukfast/laravel-health-check)
+- [ntonioribeiro/health](https://github.com/antonioribeiro/health)
+
 ## Testing
 
 ```bash
