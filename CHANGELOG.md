@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.2.1 - 2012-12-11
+
+- improve CLI output
+
 ## 1.2.0 - 2021-12-07
 
 - add `PingCheck`
