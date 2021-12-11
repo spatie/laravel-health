@@ -5,7 +5,7 @@ weight: 3
 
 This package offers [a few common checks](https://spatie.be/docs/laravel-health/v1/available-checks/overview) right out of the box. If you want to monitor another aspect of your app, you can create your own custom check.
 
-A check is any class that extends from `Spatie\Health\Checks\Check`. It contains one abstract method that your should implement:  `run`.
+A check is any class that extends from `Spatie\Health\Checks\Check`. It contains one abstract method that you should implement:  `run`.
 
 ```php
 namespace App\Checks;
@@ -28,7 +28,7 @@ The `run` method should always return a `Spatie\Health\Checks\Result`. Using thi
 
 ### Setting a status and sending notifications
 
-The `result` object has a `status` to signify a check is ok, produces a warning, or has failed.
+The `Result` object has a `status` to signify a check is ok, produces a warning, or has failed.
 
 You can use these methods to set the `status` of a result:
 
