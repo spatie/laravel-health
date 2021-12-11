@@ -25,7 +25,7 @@
             </thead>
             @foreach($checkResults->storedCheckResults as $result)
                 <tr>
-                    <td class="{{ $color($result->status) }}"></td>
+                    <td class="{{ $color($result->status) }}">{{ ucfirst($result->status) }}</td>
                     <td>{{ $result->label }}</td>
                     <td>{{ $result->shortSummary }}</td>
                     <td>{{ $result->notificationMessage }}</td>

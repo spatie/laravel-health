@@ -44,11 +44,13 @@ class ListHealthChecksCommand extends Command
 
     protected function getBackgroundColor(string $status): string
     {
+        $status = Status::from($status);
+
         return match ($status) {
-            Status::ok()->value => 'bg-green-800',
-            Status::warning()->value => 'bg-yellow-800',
-            Status::skipped()->value => 'bg-blue-800',
-            Status::failed()->value, Status::crashed()->value => 'bg-red-800',
+            Status::ok() => 'bg-green-800',
+            Status::warning() => 'bg-yellow-800',
+            Status::skipped() => 'bg-blue-800',
+            Status::failed(), Status::crashed() => 'bg-red-800',
             default => ''
         };
     }
