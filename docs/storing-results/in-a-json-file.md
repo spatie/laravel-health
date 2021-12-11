@@ -1,5 +1,5 @@
 ---
-title: In a JSON file
+title: As JSON
 weight: 2
 ---
 

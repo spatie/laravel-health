@@ -108,10 +108,6 @@ You can add meta information to a result. This meta information will be written 
 
 Meta information can be added to a check result, by calling `meta` and passing it with an array of meta data.
 
-
-
-
-
 ```php
 namespace App\Checks;
 
@@ -134,8 +130,4 @@ class UsedDiskSpaceCheck extends Check
     }
 }
 ```
-
-## Adding a label
-
-
 

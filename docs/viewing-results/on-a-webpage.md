@@ -1,6 +1,6 @@
 ---
 title: On a webpage
-weight: 1
+weight: 2
 ---
 
 The package contains a controller`Spatie\Health\Http\Controllers\HealthCheckResultsController` that can be used the render the latest results of all checks.  Simply use that controller in your routes on any URL you desire. 
