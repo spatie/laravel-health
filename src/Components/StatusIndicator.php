@@ -2,6 +2,7 @@
 
 namespace Spatie\Health\Components;
 
+use Illuminate\View\View;
 use Illuminate\View\Component;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
@@ -15,12 +16,12 @@ class StatusIndicator extends Component
         $this->result = $result;
     }
 
-    public function render()
+    public function render(): View
     {
         return view('health::status-indicator', [
             'result' => $this->result,
             'backgroundColor' => fn (string $status) => $this->getBackgroundColor($status),
-            'iconColor' => fn (string $status) => $this->getTextColor($status),
+            'iconColor' => fn (string $status) => $this->getIconColor($status),
             'icon' => fn (string $status) => $this->getIcon($status),
         ]);
     }
@@ -36,7 +37,7 @@ class StatusIndicator extends Component
         };
     }
 
-    protected function getTextColor(string $status): string
+    protected function getIconColor(string $status): string
     {
         return match ($status) {
             Status::ok()->value => 'text-emerald-500',
