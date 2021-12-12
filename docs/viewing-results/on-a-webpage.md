@@ -3,7 +3,7 @@ title: On a webpage
 weight: 2
 ---
 
-The package contains a controller`Spatie\Health\Http\Controllers\HealthCheckResultsController` that can be used the render the latest results of all checks.  Simply use that controller in your routes on any URL you desire. 
+The package contains a controller `Spatie\Health\Http\Controllers\HealthCheckResultsController` that can be used the render the latest results of all checks. Simply use that controller in your routes on any URL you desire.
 
 ```php
 use Spatie\Health\Http\Controllers\HealthCheckResultsController
@@ -14,6 +14,12 @@ Route::get('health', HealthCheckResultsController::class);
 Here's how that page will look like:
 
 ![image](/docs/laravel-health/v1/images/list-web.png)
+
+There is also a dark mode available:
+
+![image](/docs/laravel-health/v1/images/list-web-dark.png)
+
+You can enable dark mode by changing the `theme` key from `light` to `dark` in the config file.
 
 If you don't want these results to be public, be sure to take care of authorization yourself.
 

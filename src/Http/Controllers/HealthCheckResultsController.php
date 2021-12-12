@@ -10,10 +10,11 @@ use Illuminate\View\View;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\ResultStore;
+use Spatie\Health\Health;
 
 class HealthCheckResultsController
 {
-    public function __invoke(Request $request, ResultStore $resultStore): JsonResponse|View
+    public function __invoke(Request $request, ResultStore $resultStore, Health $health): JsonResponse|View
     {
         if ($request->has('fresh')) {
             Artisan::call(RunHealthChecksCommand::class);
@@ -23,31 +24,9 @@ class HealthCheckResultsController
 
         return view('health::list', [
             'lastRanAt' => new Carbon($checkResults?->finishedAt),
-            'backgroundColor' => fn (string $status) => $this->getBackgroundColor($status),
-            'textColor' => fn (string $status) => $this->getTextColor($status),
             'checkResults' => $checkResults,
+            'assets' => $health->assets(),
+            'theme' => config('health.theme'),
         ]);
-    }
-
-    protected function getBackgroundColor(string $status): string
-    {
-        return match ($status) {
-            Status::ok()->value => 'bg-green-200',
-            Status::warning()->value => 'bg-yellow-200',
-            Status::skipped()->value => 'bg-blue-200',
-            Status::failed()->value, Status::crashed()->value => 'bg-red-200',
-            default => ''
-        };
-    }
-
-    protected function getTextColor(string $status): string
-    {
-        return match ($status) {
-            Status::ok()->value => 'text-green-900',
-            Status::warning()->value => 'text-yellow-900',
-            Status::skipped()->value => 'text-blue-900',
-            Status::failed()->value, Status::crashed()->value => 'text-red-900',
-            default => ''
-        };
     }
 }

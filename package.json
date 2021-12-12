@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "watch": "npx tailwindcss -i ./resources/css/health.css -o ./resources/dist/health.min.css --watch",
+    "build": "npx tailwindcss -i ./resources/css/health.css -o ./resources/dist/health.min.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.0.1"
+  }
+}

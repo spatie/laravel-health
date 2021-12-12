@@ -122,6 +122,14 @@ return [
          */
         'url' => '/oh-dear-health-check-results',
     ],
+
+    /*
+     * You can set a theme for the local status page
+     *
+     * - light: light mode
+     * - dark: dark mode
+     */
+    'theme' => 'light',
 ];
 ```
 
@@ -152,4 +160,3 @@ protected function schedule(Schedule $schedule)
 ## Running the checks by sending HTTP requests
 
 If you don't want let your application send notification, but let a service like Oh Dear monitor the health of your app, you can trigger a run of all health checks by visiting the [HTTP endpoint](docs/laravel-health/v1/viewing-results/on-a-webpage) or [JSON endpoint](https://spatie.be/docs/laravel-health/v1/viewing-results/as-json-via-an-api) and use the `?fresh` parameter in the URL.
-
