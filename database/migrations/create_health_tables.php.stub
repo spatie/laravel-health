@@ -3,12 +3,13 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Spatie\Health\ResultStores\EloquentHealthResultStore;
 
 return new class extends Migration
 {
     public function up()
     {
-        Schema::create('health_check_result_history_items', function (Blueprint $table) {
+        Schema::create(EloquentHealthResultStore::getHistoryItemInstance()->getTable(), function (Blueprint $table) {
             $table->id();
 
             $table->string('check_name');
