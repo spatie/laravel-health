@@ -9,7 +9,9 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create(EloquentHealthResultStore::getHistoryItemInstance()->getTable(), function (Blueprint $table) {
+        $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
+    
+        Schema::create($tableName, function (Blueprint $table) {
             $table->id();
 
             $table->string('check_name');
