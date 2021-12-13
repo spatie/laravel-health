@@ -7,6 +7,7 @@ Using this package you can register one or more checks to verify the health of y
 
 These are the checks created by us:
 
+- [CPU Load](cpu-load)
 - [Database Connection](db-connection)
 - [Debug Mode](debug-mode)
 - [Environment](environment)
@@ -17,4 +18,9 @@ These are the checks created by us:
 - [Schedule](schedule)
 - [Used Disk Space](used-disk-space)
 
-If you have created a check, let us know, and we'll add it to this list.
+## Third party checks
+
+If you have created [a custom check](/docs/laravel-health/v1/basic-usage/creating-custom-checks), consider packaging it up so others can make use of it too. Take a look at the [spatie/cpu-load-health-check](https://github.com/spatie/cpu-load-health-check) for a good example of how to package a health check. If you don't know how to create a package, consider watching the [Laravel Package Training](https://laravelpackage.training).
+
+When you've created a custom check, [let us know](mailto:info@spatie.be), and we'll add it to the list above
+
