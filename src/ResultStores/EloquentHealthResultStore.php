@@ -15,21 +15,22 @@ class EloquentHealthResultStore implements ResultStore
 {
     public static function determineHistoryItemModel(): string
     {
-        $historyItemModel = config(
-            'health.result_stores.' . EloquentHealthResultStore::class . '.model',
-            HealthCheckResultHistoryItem::class,
-        );
+        $defaultHistoryClass = HealthCheckResultHistoryItem::class;
+        $eloquentResultStore = EloquentHealthResultStore::class;
 
-        if (! is_a($historyItemModel, HealthCheckResultHistoryItem::class, true)) {
+        $historyItemModel = config("health.result_stores.{$eloquentResultStore}.model",$defaultHistoryClass);
+
+        if (! is_a($historyItemModel, $defaultHistoryClass, true)) {
             throw CouldNotSaveResultsInStore::doesNotExtendHealthCheckResultHistoryItem($historyItemModel);
         }
 
         return $historyItemModel;
     }
 
+    /** @return HealthCheckResultHistoryItem */
     public static function getHistoryItemInstance(): HealthCheckResultHistoryItem
     {
-        $historyItemClassName = self::determineHistoryItemModel();
+        $historyItemClassName = static::determineHistoryItemModel();
 
         return new $historyItemClassName();
     }
@@ -39,7 +40,7 @@ class EloquentHealthResultStore implements ResultStore
     {
         $batch = Str::uuid();
         $checkResults->each(function (Result $result) use ($batch) {
-            (self::determineHistoryItemModel())::create([
+            (static::determineHistoryItemModel())::create([
                 'check_name' => $result->check->getName(),
                 'check_label' => $result->check->getLabel(),
                 'status' => $result->status,
@@ -54,12 +55,12 @@ class EloquentHealthResultStore implements ResultStore
 
     public function latestResults(): ?StoredCheckResults
     {
-        if (! $latestItem = (self::determineHistoryItemModel())::latest()->first()) {
+        if (! $latestItem = (static::determineHistoryItemModel())::latest()->first()) {
             return null;
         }
 
         /** @var Collection<int, StoredCheckResult> $storedCheckResults */
-        $storedCheckResults = (self::determineHistoryItemModel())::query()
+        $storedCheckResults = (static::determineHistoryItemModel())::query()
             ->where('batch', $latestItem->batch)
             ->get()
             ->map(function (HealthCheckResultHistoryItem $historyItem) {
