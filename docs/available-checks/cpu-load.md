@@ -31,7 +31,7 @@ Here's how you can register the check.
 
 ```php
 use Spatie\Health\Facades\Health;
-use Spatie\Health\Checks\Checks\DatabaseCheck;
+use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
 
 Health::checks([
     CpuLoadCheck::new()
