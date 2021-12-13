@@ -27,7 +27,7 @@ class EloquentHealthResultStore implements ResultStore
         return $historyItemModel;
     }
 
-    /** @return HealthCheckResultHistoryItem */
+    /** @return HealthCheckResultHistoryItem|object */
     public static function getHistoryItemInstance()
     {
         $historyItemClassName = static::determineHistoryItemModel();
