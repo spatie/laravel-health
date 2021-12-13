@@ -9,6 +9,7 @@ return [
      */
     'result_stores' => [
         Spatie\Health\ResultStores\EloquentHealthResultStore::class => [
+            'model' => Spatie\Health\Models\HealthCheckResultHistoryItem::class,
             'keep_history_for_days' => 5,
         ],
 
