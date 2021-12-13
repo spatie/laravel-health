@@ -20,8 +20,10 @@ class CouldNotSaveResultsInStore extends Exception
     
     public static function doesNotExtendHealthCheckResultHistoryItem(mixed $invalidValue): self
     {
+        $className = HealthCheckResultHistoryItem::class;
+
         return new self(
-            "You tried to register an invalid HealthCheckResultHistoryItem model: `{$invalidValue}`. A valid model should extend " . HealthCheckResultHistoryItem::class
+            "You tried to register an invalid HealthCheckResultHistoryItem model: `{$invalidValue}`. A valid model should extend `{$className}`"
         );
     }
 }
