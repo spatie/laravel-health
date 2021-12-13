@@ -17,7 +17,7 @@ return [
             'store' => 'file',
         ],
 
-        Spatie\Health\ResultStores\EloquentHealthResultStore\JsonFileHealthResultStore::class => [
+        Spatie\Health\ResultStores\JsonFileHealthResultStore::class => [
             'disk' => 's3',
             'path' => 'health.json',
         ],
