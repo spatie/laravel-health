@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.3.2 - 2021-12-13
+
+## What's Changed
+
+- Fix typos in docs by @JackWH in https://github.com/spatie/laravel-health/pull/17
+- Fix typos in cpu load documentation by @marcreichel in https://github.com/spatie/laravel-health/pull/19
+- Remove `@ray` from view by @marcreichel in https://github.com/spatie/laravel-health/pull/20
+
+## New Contributors
+
+- @JackWH made their first contribution in https://github.com/spatie/laravel-health/pull/17
+- @marcreichel made their first contribution in https://github.com/spatie/laravel-health/pull/19
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.3.1...1.3.2
+
 ## 1.3.1 - 2021-12-13
 
 ## What's Changed
