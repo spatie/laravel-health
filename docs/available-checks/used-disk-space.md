@@ -28,6 +28,6 @@ To customize the usage disk space percentages, you can use `warnWhenUsedSpaceIsA
 
 ```php
 UsedDiskSpaceCheck::new()
-    ->warnWhenUsedSpaceIsAbovePercentage(60),
+    ->warnWhenUsedSpaceIsAbovePercentage(60)
     ->failWhenUsedSpaceIsAbovePercentage(80),
 ```
