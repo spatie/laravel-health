@@ -16,7 +16,7 @@ class EloquentHealthResultStore implements ResultStore
     public static function determineHistoryItemModel(): string
     {
         $historyItemModel = config(
-        'health.result_stores.' . EloquentHealthResultStore::class . '.model',
+            'health.result_stores.' . EloquentHealthResultStore::class . '.model',
             HealthCheckResultHistoryItem::class,
         );
 
