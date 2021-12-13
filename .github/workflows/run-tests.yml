@@ -47,9 +47,9 @@ jobs:
     steps:
       - name: Verify MySQL connection
         run: |
-          mysql --version
           sudo apt-get install -y mysql-common
           sudo apt-get install -y mysql-client-8.0
+          mysql --version
           mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
 
       - name: Checkout code
