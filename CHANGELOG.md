@@ -2,6 +2,24 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.3.1 - 2021-12-13
+
+## What's Changed
+
+- Update introduction.md by @RichardStyles in https://github.com/spatie/laravel-health/pull/15
+- Fix incorrect class name by @vmitchell85 in https://github.com/spatie/laravel-health/pull/14
+- Update used-disk-space.md by @tomhrtly in https://github.com/spatie/laravel-health/pull/13
+- Fix regular expression for used disk space check output by @SamuelNitsche in https://github.com/spatie/laravel-health/pull/12
+
+## New Contributors
+
+- @RichardStyles made their first contribution in https://github.com/spatie/laravel-health/pull/15
+- @vmitchell85 made their first contribution in https://github.com/spatie/laravel-health/pull/14
+- @tomhrtly made their first contribution in https://github.com/spatie/laravel-health/pull/13
+- @SamuelNitsche made their first contribution in https://github.com/spatie/laravel-health/pull/12
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.3.0...1.3.1
+
 ## 1.3.0 - 2021-12-13
 
 ## What's Changed
