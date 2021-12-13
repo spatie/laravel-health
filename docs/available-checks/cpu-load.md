@@ -7,10 +7,10 @@ This check makes sure that your CPU load isn't too high.
 
 ## Installation
 
-To use this check, you must install the `spatie/cpu-load-health-check-package`
+To use this check, you must install the `spatie/cpu-load-health-check` package
 
 ```bash
-composer require spatie/cpu-load-check
+composer require spatie/cpu-load-health-check
 ```
 
 ## Usage
