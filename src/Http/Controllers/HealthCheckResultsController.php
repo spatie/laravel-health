@@ -8,9 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\View\View;
 use Spatie\Health\Commands\RunHealthChecksCommand;
-use Spatie\Health\Enums\Status;
-use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\Health;
+use Spatie\Health\ResultStores\ResultStore;
 
 class HealthCheckResultsController
 {

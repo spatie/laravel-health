@@ -3,12 +3,12 @@
 namespace Spatie\Health;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Exceptions\DuplicateCheckNamesFound;
 use Spatie\Health\Exceptions\InvalidCheck;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
-use Illuminate\Support\HtmlString;
 
 class Health
 {
