@@ -31,6 +31,11 @@ class HealthCheckResultHistoryItem extends Model
         'meta' => 'array',
         'started_failing_at' => 'timestamp',
     ];
+    
+    public function getTable()
+    {
+        return config('health.result_stores.'  . EloquentHealthResultStore::class.  '.table') ?? parent::getTable();
+    }
 
     public function prunable(): Builder
     {
