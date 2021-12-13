@@ -53,6 +53,6 @@ class UsedDiskSpaceCheck extends Check
 
         $output = $process->getOutput();
 
-        return (int) Regex::match('/(\d?\d)%/', $output)->group(1);
+        return (int) Regex::match('/(\d*)%/', $output)->group(1);
     }
 }
