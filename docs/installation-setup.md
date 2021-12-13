@@ -37,7 +37,7 @@ return [
             'store' => 'file',
         ],
 
-        Spatie\Health\ResultStores\EloquentHealthResultStore\JsonFileHealthResultStore::class => [
+        Spatie\Health\ResultStores\JsonFileHealthResultStore::class => [
             'disk' => 's3',
             'path' => 'health.json',
         ],
@@ -135,7 +135,7 @@ return [
 
 ## Migrating the database
 
-This package can store health check results [in various ways](https://spatie.be/docs/laravel-health/v1/storing-results/general). When using the `EloquentHealthResultStore` the check results will be stored in the database. To create the `check_result_history_items` table, you must create and run the migration.
+This package can store health check results [in various ways](https://spatie.be/docs/laravel-health/v1/storing-results/general). When using the `EloquentHealthResultStore` the check results will be stored in the database. To create the `health_check_result_history_items` table, you must create and run the migration.
 
 ```bash
 php artisan vendor:publish --tag="health-migrations"
