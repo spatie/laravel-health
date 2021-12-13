@@ -9,11 +9,8 @@ use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
 
 class StatusIndicator extends Component
 {
-    public StoredCheckResult $result;
-
-    public function __construct($result)
+    public function __construct(public StoredCheckResult $result)
     {
-        $this->result = $result;
     }
 
     public function render(): View

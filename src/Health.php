@@ -15,6 +15,7 @@ class Health
     /** @var array<int, Check> */
     protected array $checks = [];
 
+    /** @var array<int, string> */
     public array $inlineStylesheets = [];
 
     /** @param array<int, Check> $checks */
