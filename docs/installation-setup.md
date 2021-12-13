@@ -37,7 +37,7 @@ return [
             'store' => 'file',
         ],
 
-        Spatie\Health\ResultStores\EloquentHealthResultStore\JsonFileHealthResultStore::class => [
+        Spatie\Health\ResultStores\JsonFileHealthResultStore::class => [
             'disk' => 's3',
             'path' => 'health.json',
         ],
@@ -135,7 +135,7 @@ return [
 
 ## Migrating the database
 
-This package can store health check results [in various ways](https://spatie.be/docs/laravel-health/v1/storing-results/general). When using the `EloquentHealthResultStore` the check results will be stored in the database. To create the `check_result_history_items` table, you must create and run the migration.
+This package can store health check results [in various ways](https://spatie.be/docs/laravel-health/v1/storing-results/general). When using the `EloquentHealthResultStore` the check results will be stored in the database. To create the `health_check_result_history_items` table, you must create and run the migration.
 
 ```bash
 php artisan vendor:publish --tag="health-migrations"
@@ -143,6 +143,20 @@ php artisan migrate
 ```
 
 These steps are not necessary when using the `JsonFileResultStore`.
+
+## Using a custom table name with `EloquentHealthResultStore`
+
+By default, `EloquentHealthResultStore` will save results to a table called `health_check_result_history_items`. To change the table name, update the `health.php` config file and add a `table` key to the `EloquentHealthResultStore` array:
+
+```php
+//...
+'result_stores'    => [
+    Spatie\Health\ResultStores\EloquentHealthResultStore::class => [
+        'keep_history_for_days' => 7,
+        'table'                 => 'my_health_checks',
+    ],
+    // ...
+```
 
 ## Running the checks by scheduling a command
 
