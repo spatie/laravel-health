@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.3.0 - 2021-12-13
+
+## What's Changed
+
+- Updated UI for the local results page + support for dark mode by @nckrtl in https://github.com/spatie/laravel-health/pull/11
+
+## New Contributors
+
+- @nckrtl made their first contribution in https://github.com/spatie/laravel-health/pull/11
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.2.1...1.3.0
+
 ## 1.2.1 - 2012-12-11
 
 - improve CLI output
