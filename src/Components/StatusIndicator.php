@@ -2,8 +2,8 @@
 
 namespace Spatie\Health\Components;
 
-use Illuminate\View\View;
 use Illuminate\View\Component;
+use Illuminate\View\View;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
 

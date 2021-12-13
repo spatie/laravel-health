@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Route;
 use Spatie\Health\Commands\ListHealthChecksCommand;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
+use Spatie\Health\Components\Logo;
+use Spatie\Health\Components\StatusIndicator;
 use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
 use Spatie\Health\Http\Middleware\RequiresSecret;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\Health\Components\Logo;
-use Spatie\Health\Components\StatusIndicator;
 
 class HealthServiceProvider extends PackageServiceProvider
 {
@@ -31,7 +31,7 @@ class HealthServiceProvider extends PackageServiceProvider
                 ListHealthChecksCommand::class,
                 RunHealthChecksCommand::class,
                 ScheduleCheckHeartbeatCommand::class,
-            );            
+            );
     }
 
     public function packageRegistered(): void
