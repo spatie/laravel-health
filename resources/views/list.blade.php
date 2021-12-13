@@ -1,48 +1,47 @@
-<html lang="en">
+<html lang="en" class="{{$theme == 'dark' ? 'dark' : ''}}">
 <head>
     <title>Health results</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    {{$assets}}
 </head>
 
-<body class="bg-gray-100 pt-8">
-    <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white rounded-md px-8 pb-8 pt-4 shadow mb-4">
-                <div class="flex justify-between items-center">
-                    <h4 class="text-center text-3xl font-semibold text-gray-700 mb-4">Laravel Health</h4>
-                    @if ($lastRanAt)
-                        <div class="{{ $lastRanAt->diffInMinutes() > 5 ? 'text-red-400' : 'text-gray-400' }} text-sm text-center">
-                            Check results from {{ $lastRanAt->diffForHumans() }}
-                        </div>
-                    @endif
-                </div>
-                <div class="pt-8">
-                    @if (count($checkResults?->storedCheckResults ?? []))
-                        <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-                            @foreach ($checkResults->storedCheckResults as $result)
-                                @ray($result)
-                                <div
-                                    class="text-opacity-0 px-4 py-5 {{ $backgroundColor($result->status) }} hover:shadow transition transform rounded overflow-hidden sm:p-6">
-                                    <dd class="mt-1 text-xl mb-1 font-semibold {{ $textColor($result->status) }}">
-                                        {{ $result->label }}
-                                    </dd>
-                                    <dt class="text-sm font-medium {{ $textColor($result->status) }} opacity-50">
-                                        @if (!empty($result->notificationMessage))
-                                            {{ $result->notificationMessage }}
-                                        @else
-                                            {{ $result->shortSummary }}
-                                        @endif
-
-                                    </dt>
-                                </div>
-                            @endforeach
-                        </dl>
-                    @endif
-                </div>
+<body class="antialiased bg-gray-100 mt-7 md:mt-12 dark:bg-gray-900">
+    <div class="mx-auto max-w-7xl lg:px-8 sm:px-6">
+        <div class="flex flex-wrap justify-center space-y-3">
+            <h4 class="w-full text-2xl font-bold text-center text-gray-900 dark:text-white">Laravel Health</h4>
+            <div class="flex justify-center w-full">
+                <x-health-logo/>
             </div>
+            @if ($lastRanAt)
+                <div class="{{ $lastRanAt->diffInMinutes() > 5 ? 'text-red-400' : 'text-gray-400 dark:text-gray-500' }} text-sm text-center font-medium">
+                    Check results from {{ $lastRanAt->diffForHumans() }}
+                </div>
+            @endif
+        </div>
+        <div class="px-2 mt-6 md:mt-8 md:px-0">
+            @if (count($checkResults?->storedCheckResults ?? []))
+                <dl class=" grid grid-cols-1 gap-2.5 sm:gap-3 md:gap-5 md:grid-cols-2 lg:grid-cols-3">
+                    @foreach ($checkResults->storedCheckResults as $result)
+                        @ray($result)
+                        <div class="flex items-start px-4 space-x-2 overflow-hidden py-5 text-opacity-0 transition transform bg-white shadow-md shadow-gray-200 dark:shadow-black/25 dark:shadow-md dark:bg-gray-800 rounded-xl sm:p-6 md:space-x-3 md:min-h-[130px] dark:border-t dark:border-gray-700">
+                            <x-health-status-indicator :result="$result" />
+                            <div>
+                                <dd class="-mt-1 font-bold text-gray-900 dark:text-white md:mt-1 md:text-xl">
+                                    {{ $result->label }}
+                                </dd>
+                                <dt class="mt-0 text-sm font-medium text-gray-600 dark:text-gray-300 md:mt-1">
+                                    @if (!empty($result->notificationMessage))
+                                        {{ $result->notificationMessage }}
+                                    @else
+                                        {{ $result->shortSummary }}
+                                    @endif
+                                </dt>
+                            </div>
+                        </div>
+                    @endforeach
+                </dl>
+            @endif
         </div>
     </div>
-
 </body>
 </html>

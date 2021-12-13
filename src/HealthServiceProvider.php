@@ -12,6 +12,8 @@ use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\Health\Components\Logo;
+use Spatie\Health\Components\StatusIndicator;
 
 class HealthServiceProvider extends PackageServiceProvider
 {
@@ -21,13 +23,15 @@ class HealthServiceProvider extends PackageServiceProvider
             ->name('laravel-health')
             ->hasConfigFile()
             ->hasViews()
+            ->hasViewComponents('health', Logo::class)
+            ->hasViewComponents('health', StatusIndicator::class)
             ->hasTranslations()
             ->hasMigration('create_health_tables')
             ->hasCommands(
                 ListHealthChecksCommand::class,
                 RunHealthChecksCommand::class,
                 ScheduleCheckHeartbeatCommand::class,
-            );
+            );            
     }
 
     public function packageRegistered(): void
@@ -40,6 +44,8 @@ class HealthServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
+        $this->app->make(Health::class)->inlineStylesheet(file_get_contents(__DIR__.'/../resources/dist/health.min.css'));
+
         $this->registerOhDearEndpoint();
     }
 

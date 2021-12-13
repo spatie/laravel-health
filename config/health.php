@@ -102,4 +102,12 @@ return [
          */
         'url' => '/oh-dear-health-check-results',
     ],
+
+    /*
+     * You can set a theme for the local results page
+     *
+     * - light: light mode
+     * - dark: dark mode
+     */
+    'theme' => 'light',
 ];

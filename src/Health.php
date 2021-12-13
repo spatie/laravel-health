@@ -8,11 +8,14 @@ use Spatie\Health\Exceptions\DuplicateCheckNamesFound;
 use Spatie\Health\Exceptions\InvalidCheck;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
+use Illuminate\Support\HtmlString;
 
 class Health
 {
     /** @var array<int, Check> */
     protected array $checks = [];
+
+    public array $inlineStylesheets = [];
 
     /** @param array<int, Check> $checks */
     public function checks(array $checks): self
@@ -43,6 +46,24 @@ class Health
     public function resultStores(): Collection
     {
         return ResultStores::createFromConfig();
+    }
+
+    public function inlineStylesheet(string $stylesheet): self
+    {
+        $this->inlineStylesheets[] = $stylesheet;
+
+        return $this;
+    }
+
+    public function assets(): HtmlString
+    {
+        $assets = [];
+
+        foreach ($this->inlineStylesheets as $inlineStylesheet) {
+            $assets[] = "<style>{$inlineStylesheet}</style>";
+        }
+
+        return new HtmlString(implode('', $assets));
     }
 
     /** @param array<int,mixed> $checks */
