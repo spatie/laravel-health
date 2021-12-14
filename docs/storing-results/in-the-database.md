@@ -16,6 +16,19 @@ return [
 
 The results will be written in the `health_check_result_history_items` table. All field names should be self-explanatory. Using the `App\Spatie\Models\HealthCheckResultHistoryItem` model, you can easily query all results.
 
+## Using a custom model
+
+If you'd like to use a custom model for storing health check results, extend the `Spatie\Health\Models\HealthCheckResultHistoryItem` class, and add it to the `EloquentHealthResultStore` configuration:
+
+```php
+return [
+    'result_stores' => [
+        Spatie\Health\ResultStores\EloquentHealthResultStore::class => [
+            'model' => App\Models\CustomHealthCheckResultModel::class,
+        ],
+    ],
+```
+
 ## Pruning the results table
 
 The model uses the [Laravel's `MassPrunable` trait](https://laravel.com/docs/8.x/eloquent#mass-pruning). In the `health` config file, you can specify the maximum age of a model in the `keep_history_for_days` key. Don't forget to schedule the `model:prune` command, as instructed in Laravel's docs.
