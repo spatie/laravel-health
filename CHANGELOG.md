@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.4.0 - 2021-12-14
+
+## What's Changed
+
+- Add support for custom HealthCheckResultHistoryItem models by @JackWH in https://github.com/spatie/laravel-health/pull/18
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.3.4...1.4.0
+
 ## 1.3.4 - 2021-12-14
 
 - fix output of run command
