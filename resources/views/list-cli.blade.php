@@ -37,7 +37,7 @@
             No checks have run yet...<br/>
             Please execute this command:
 
-            php artisan health:run --fresh
+            php artisan health:check
         </div>
     @endif
 </div>
