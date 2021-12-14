@@ -110,7 +110,7 @@ return [
      * - dark: dark mode
      *
      * You can also override the theme dynamically.
-     * For example, in a service provider you could call:
+     * For example, in the boot() method of a service provider, you could call:
      * 
      *     \Spatie\Health\Facades\Health::setTheme('light');
      */
