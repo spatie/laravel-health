@@ -25,7 +25,7 @@ class HealthCheckResultsController
             'lastRanAt' => new Carbon($checkResults?->finishedAt),
             'checkResults' => $checkResults,
             'assets' => $health->assets(),
-            'theme' => config('health.theme'),
+            'theme' => $health->getTheme(),
         ]);
     }
 }
