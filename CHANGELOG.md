@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.3.4 - 2021-12-14
+
+- fix output of run command
+
 ## 1.3.3 - 2021-12-14
 
 - fix suggested command
