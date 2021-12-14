@@ -11,7 +11,7 @@ A check is any class that extends from `Spatie\Health\Checks\Check`. It contains
 namespace App\Checks;
 
 use Spatie\Health\Checks\Check;
-use use Spatie\Health\Checks\Result;
+use Spatie\Health\Checks\Result;
 
 class YourCustomCheck extends Check
 {
@@ -37,7 +37,7 @@ $result = Spatie\Health\Checks\Result::make();
 
 $result->ok(); // the check ran ok
 $result->warning(); // the check ran ok, but with a warning
-$result->fail(); // the check failed
+$result->failed(); // the check failed
 ```
 
 You should call `ok()` when everything your check verifies is ok. You should call `fail()` if you detected that there was something wrong. The `warning()` should be used when the check did pass, but might fail soon.
