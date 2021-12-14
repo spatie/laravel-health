@@ -21,6 +21,15 @@ There is also a dark mode available:
 
 You can enable dark mode by changing the `theme` key from `light` to `dark` in the config file.
 
+The theme set in the config will be used by default, but you can also override it in the `boot()` method of a service provider:
+
+```php
+public function boot(): void
+{
+    Health::setTheme(now()->hour >= 18 ? 'dark' : 'light');
+}
+```
+
 If you don't want these results to be public, be sure to take care of authorization yourself.
 
 ## Running the checks before rendering the page
