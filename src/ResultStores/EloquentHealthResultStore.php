@@ -2,11 +2,10 @@
 
 namespace Spatie\Health\ResultStores;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Spatie\Health\Exceptions\CouldNotSaveResultsInStore;
 use Spatie\Health\Checks\Result;
+use Spatie\Health\Exceptions\CouldNotSaveResultsInStore;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
@@ -18,7 +17,7 @@ class EloquentHealthResultStore implements ResultStore
         $defaultHistoryClass = HealthCheckResultHistoryItem::class;
         $eloquentResultStore = EloquentHealthResultStore::class;
 
-        $historyItemModel = config("health.result_stores.{$eloquentResultStore}.model",$defaultHistoryClass);
+        $historyItemModel = config("health.result_stores.{$eloquentResultStore}.model", $defaultHistoryClass);
 
         if (! is_a($historyItemModel, $defaultHistoryClass, true)) {
             throw CouldNotSaveResultsInStore::doesNotExtendHealthCheckResultHistoryItem($historyItemModel);

@@ -3,8 +3,8 @@
 namespace Spatie\Health\Exceptions;
 
 use Exception;
-use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
+use Spatie\Health\ResultStores\ResultStore;
 
 class CouldNotSaveResultsInStore extends Exception
 {
@@ -17,7 +17,7 @@ class CouldNotSaveResultsInStore extends Exception
             previous: $exception,
         );
     }
-    
+
     public static function doesNotExtendHealthCheckResultHistoryItem(mixed $invalidValue): self
     {
         $className = HealthCheckResultHistoryItem::class;
