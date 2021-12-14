@@ -108,6 +108,11 @@ return [
      *
      * - light: light mode
      * - dark: dark mode
+     *
+     * You can also override the theme dynamically.
+     * For example, in a service provider you could call:
+     * 
+     *     \Spatie\Health\Facades\Health::setTheme('light');
      */
     'theme' => 'light',
 ];
