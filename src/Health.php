@@ -7,6 +7,7 @@ use Illuminate\Support\HtmlString;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Exceptions\DuplicateCheckNamesFound;
 use Spatie\Health\Exceptions\InvalidCheck;
+use Spatie\Health\Exceptions\InvalidTheme;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
 
@@ -17,6 +18,8 @@ class Health
 
     /** @var array<int, string> */
     public array $inlineStylesheets = [];
+    
+    protected ?string $theme = null;
 
     /** @param array<int, Check> $checks */
     public function checks(array $checks): self
@@ -65,6 +68,27 @@ class Health
         }
 
         return new HtmlString(implode('', $assets));
+    }
+    
+    public function setTheme(?string $theme): self
+    {
+        $this->theme = $theme ?? config('health.theme');
+
+        $this->validateTheme();
+
+        return $this;
+    }
+
+    protected function validateTheme(): void
+    {
+        if (! in_array($this->theme, ['light', 'dark'], true)) {
+            throw InvalidTheme::themeIsInvalid($this->theme);
+        }
+    }
+
+    public function getTheme(): string
+    {
+        return $this->theme ?? config('health.theme');
     }
 
     /** @param array<int,mixed> $checks */
