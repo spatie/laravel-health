@@ -1,4 +1,4 @@
-``---
+---
 title: CPU load
 weight: 2
 ---
