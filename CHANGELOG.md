@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.4.2 - 2021-12-15
+
+## What's Changed
+
+- fix a tiny typo by @dbakan in https://github.com/spatie/laravel-health/pull/27
+- More translations support on health status page by @ahinkle in https://github.com/spatie/laravel-health/pull/24
+
+## New Contributors
+
+- @dbakan made their first contribution in https://github.com/spatie/laravel-health/pull/27
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.4.1...1.4.2
+
 ## 1.4.1 - 2021-12-15
 
 ## What's Changed
