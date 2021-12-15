@@ -19,7 +19,6 @@ use Spatie\Health\Facades\Health;
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 
 Health::checks([
-    UsedDiskSpaceCheck::new()->label('Disk space on main disk');
+    UsedDiskSpaceCheck::new()->label('Disk space on main disk'),
 ]);
 ```
-
