@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.4.1 - 2021-12-15
+
+## What's Changed
+
+- Fix syntax docs on health checks by @ahinkle in https://github.com/spatie/laravel-health/pull/25
+- Use the Logging Slack URL by default by @ahinkle in https://github.com/spatie/laravel-health/pull/26
+
+## New Contributors
+
+- @ahinkle made their first contribution in https://github.com/spatie/laravel-health/pull/25
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.4.0...1.4.1
+
 ## 1.4.0 - 2021-12-14
 
 ## What's Changed
