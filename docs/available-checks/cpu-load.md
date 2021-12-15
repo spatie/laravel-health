@@ -36,7 +36,6 @@ use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
 Health::checks([
     CpuLoadCheck::new()
         ->failWhenLoadIsHigherInTheLast5Minutes(2.0)
-        ->failWhenLoadIsHigherInTheLast15Minutes(1.5);
+        ->failWhenLoadIsHigherInTheLast15Minutes(1.5),
 ]);
 ```
-
