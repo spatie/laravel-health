@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.5.1 - 2021-12-17
+
+## What's Changed
+
+- Remove url encoding from start/end date in Flare check by @patrickbrouwers in https://github.com/spatie/laravel-health/pull/31
+
+## New Contributors
+
+- @patrickbrouwers made their first contribution in https://github.com/spatie/laravel-health/pull/31
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.5.0...1.5.1
+
 ## 1.5.0 - 2021-12-17
 
 ## What's Changed
