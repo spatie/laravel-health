@@ -3,12 +3,10 @@
 namespace Spatie\Health\Checks\Checks;
 
 use Exception;
-use function app;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
-use Throwable;
 
 class CacheCheck extends Check
 {
