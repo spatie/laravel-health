@@ -14,7 +14,7 @@ use Spatie\Health\Facades\Health;
 use Spatie\Health\Checks\Checks\CacheCheck;
 
 Health::checks([
-    CheckCheck::new(),
+    CacheCheck::new(),
 ]);
 ```
 
@@ -24,5 +24,5 @@ Health::checks([
 To check another cache driver, call `driver()`.
 
 ```php
-CheckCheck::new()->driver('another-cache-driver'),
+CacheCheck::new()->driver('another-cache-driver'),
 ```
