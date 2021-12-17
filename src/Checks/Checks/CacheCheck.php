@@ -40,12 +40,12 @@ class CacheCheck extends Check
         }
     }
 
-    protected function defaultDriver()
+    protected function defaultDriver(): string
     {
         return config('cache.default', 'file');
     }
 
-    protected function pingCache($driver)
+    protected function pingCache(string $driver): bool
     {
         $payload = Str::random(5);
 
