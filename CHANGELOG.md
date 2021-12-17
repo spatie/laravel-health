@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.5.0 - 2021-12-17
+
+## What's Changed
+
+- Add Cache Status by @ahinkle in https://github.com/spatie/laravel-health/pull/30
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.4.2...1.5.0
+
 ## 1.4.2 - 2021-12-15
 
 ## What's Changed
