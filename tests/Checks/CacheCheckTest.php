@@ -17,5 +17,5 @@ it('will determine that a non-existing cache is not ok', function () {
 
     expect($result)
         ->status->toBe(Status::failed())
-        ->getNotificationMessage()->toBe('An exception occured with the application cache: `Cache store [does-not-exist] is not defined.`');
+        ->getNotificationMessage()->toBe('An exception occurred with the application cache: `Cache store [does-not-exist] is not defined.`');
 });
