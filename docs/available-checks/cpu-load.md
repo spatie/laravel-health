@@ -1,6 +1,6 @@
 ---
 title: CPU load
-weight: 2
+weight: 3
 ---
 
 This check makes sure that your CPU load isn't too high.
@@ -39,4 +39,3 @@ Health::checks([
         ->failWhenLoadIsHigherInTheLast15Minutes(1.5);
 ]);
 ```
-

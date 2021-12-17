@@ -1,6 +1,6 @@
 ---
 title: Environment
-weight: 4
+weight: 6
 ---
 
 This check will make sure your application is running used the right environment. By default, this check will fail when the environment is not equal to `production`.

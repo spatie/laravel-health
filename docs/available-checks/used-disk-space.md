@@ -1,6 +1,6 @@
 ---
 title: Used disk space
-weight: 10
+weight: 12
 ---
 
 This check will monitor the percentage of available disk space.
