@@ -78,8 +78,8 @@ class FlareErrorOccurrenceCountCheck extends Check
 
     protected function getFlareErrorOccurrenceCount(): int
     {
-        $startDate = urlencode(now()->subMinutes($this->periodInMinutes)->utc()->format('Y-m-d H:i:s'));
-        $endDate = urlencode(now()->utc()->format('Y-m-d H:i:s'));
+        $startDate = now()->subMinutes($this->periodInMinutes)->utc()->format('Y-m-d H:i:s');
+        $endDate = now()->utc()->format('Y-m-d H:i:s');
 
         return Http::acceptJson()
             ->get("https://flareapp.io/api/projects/{$this->flareProjectId}/error-occurrence-count", [
