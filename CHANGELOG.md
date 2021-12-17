@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.6.0 - 2021-12-17
+
+## What's Changed
+
+- Allow for PingCheck timeout customisation by @JackWH in https://github.com/spatie/laravel-health/pull/32
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.5.1...1.6.0
+
 ## 1.5.1 - 2021-12-17
 
 ## What's Changed
