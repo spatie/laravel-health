@@ -17,3 +17,12 @@ Health::checks([
     PingCheck::new()->url('https://example.com'),
 ]);
 ```
+
+
+### Customizing the timeout
+
+You can use `timeout()` to set the maximum number of seconds the HTTP request should run for before the `PingCheck` fails.
+
+```php
+    PingCheck::new()->timeout(10)
+```
