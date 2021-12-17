@@ -12,10 +12,18 @@ class PingCheck extends Check
 {
     public ?string $url = null;
     public ?string $failureMessage = null;
+    public int $timeout = 1;
 
     public function url(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function timeout(int $seconds): self
+    {
+        $this->timeout = $seconds;
 
         return $this;
     }
@@ -34,7 +42,7 @@ class PingCheck extends Check
         }
 
         try {
-            if (! Http::timeout(1)->get($this->url)->successful()) {
+            if (! Http::timeout($this->timeout)->get($this->url)->successful()) {
                 return $this->failedResult();
             }
         } catch (Exception) {
