@@ -30,9 +30,7 @@ class CacheCheck extends Check
         ]);
 
         try {
-            $response = $this->pingCache($driver);
-
-            return $response
+            return $this->canWriteValuesToCache($driver)
                 ? $result->ok()
                 : $result->failed("Could not set or retrieve an application cache value.");
         } catch (Exception $exception) {
@@ -45,12 +43,14 @@ class CacheCheck extends Check
         return config('cache.default', 'file');
     }
 
-    protected function pingCache(string $driver): bool
+    protected function canWriteValuesToCache(string $driver): bool
     {
-        $payload = Str::random(5);
+        $expectedValue = Str::random(5);
 
-        Cache::driver($driver)->put('laravel-health:check', $payload, 10);
+        Cache::driver($driver)->put('laravel-health:check', $expectedValue, 10);
 
-        return (Cache::driver($driver)->get('laravel-health:check') === $payload);
+        $actualValue = Cache::driver($driver)->get('laravel-health:check');
+
+        return $actualValue === $expectedValue;
     }
 }

@@ -16,7 +16,7 @@ class FakeCacheCheck extends CacheCheck
         return $this;
     }
 
-    public function pingCache(string $driver): bool
+    public function canWriteValuesToCache(string $driver): bool
     {
         return ($this->closure)();
     }
