@@ -1,6 +1,6 @@
 ---
 title: DB connection
-weight: 2
+weight: 4
 ---
 
 This check makes sure your application can connect to a database. If the `default` database connection does not work, this check will fail.
@@ -26,4 +26,3 @@ To check another database connection, call `connectionName()`
 ```php
 DatabaseCheck::new()->connectionName('another-connection-name'),
 ```
-
