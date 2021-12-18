@@ -22,5 +22,7 @@ These are the checks created by us:
 
 If you have created [a custom check](/docs/laravel-health/v1/basic-usage/creating-custom-checks), consider packaging it up so others can make use of it too. Take a look at the [spatie/cpu-load-health-check](https://github.com/spatie/cpu-load-health-check) for a good example of how to package a health check. If you don't know how to create a package, consider watching the [Laravel Package Training](https://laravelpackage.training).
 
-When you've created a custom check, [let us know](mailto:info@spatie.be), and we'll add it to the list above
+Here's a list of third party packages:
+
+- [SSL certificate expiration](ssl-certificate-expiration)
 
