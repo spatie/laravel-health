@@ -7,7 +7,7 @@ This third party check makes sure that your SSL certificate isn't expired.
 
 ## Installation
 
-To use this check, you must install the [spatie/cpu-load-health-check](https://github.com/victord11/ssl-certification-health-check) package
+To use this check, you must install the [victord11/ssl-certification-health-check](https://github.com/victord11/ssl-certification-health-check) package
 
 ```bash
 composer require victord11/ssl-certification-health-check
