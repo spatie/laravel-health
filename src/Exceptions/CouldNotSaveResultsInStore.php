@@ -10,7 +10,7 @@ class CouldNotSaveResultsInStore extends Exception
 {
     public static function make(ResultStore $store, Exception $exception): self
     {
-        $storeClass = get_class($store);
+        $storeClass = $store::class;
 
         return new self(
             message: "Could not save results in the `{$storeClass}` did not complete. An exception was thrown with this message: `{$exception->getMessage()}`",
