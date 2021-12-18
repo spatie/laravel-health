@@ -26,6 +26,6 @@ Health::checks([
     SslCertificationExpiredCheck::new()
         ->url('google.com')
         ->warnWhenSslCertificationExpiringDay(24)
-        ->faiWhenSslCertificationExpiringDay(14),
+        ->failWhenSslCertificationExpiringDay(14),
 ]);
 ```
