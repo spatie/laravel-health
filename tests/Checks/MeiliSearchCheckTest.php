@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Http;
 use Spatie\Health\Checks\Checks\MeiliSearchCheck;
-use Spatie\Health\Checks\Checks\PingCheck;
 use Spatie\Health\Enums\Status;
 
 it('will determine that a working meilisearch is ok', function () {

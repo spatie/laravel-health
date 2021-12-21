@@ -3,10 +3,10 @@
 namespace Spatie\Health\Checks\Checks;
 
 use Exception;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
-use Illuminate\Support\Arr;
 
 class MeiliSearchCheck extends Check
 {
@@ -30,7 +30,7 @@ class MeiliSearchCheck extends Check
     public function run(): Result
     {
         try {
-            $response =  Http::timeout($this->timeout)->asJson()->get($this->url);
+            $response = Http::timeout($this->timeout)->asJson()->get($this->url);
         } catch (Exception) {
             return Result::make()
                 ->failed()
