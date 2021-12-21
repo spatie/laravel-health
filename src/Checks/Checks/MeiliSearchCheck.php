@@ -63,7 +63,7 @@ class MeiliSearchCheck extends Check
         if ($status !== 'available') {
             return Result::make()
                 ->failed()
-                ->shortSummary("$status")
+                ->shortSummary(ucfirst($status))
                 ->notificationMessage("The health check returned a status `{$status}`.");
         }
 
