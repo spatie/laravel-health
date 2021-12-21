@@ -28,7 +28,7 @@ it('will determine that a non-existing site is not ok', function () {
     expect($result->status)->toBe(Status::failed());
 });
 
-it('when the http client throws and exception, then the check will failed', function () {
+it('when the http client throws an exception, then the check will fail', function () {
     $result = PingCheck::new()
         ->url('https://test.com')
         ->run();

@@ -13,6 +13,7 @@ These are the checks created by us:
 - [Environment](environment)
 - [Flare Error Count](flare-error-count)
 - [Horizon](horizon)
+- [MeiliSearch](meilisearch.md)
 - [Ping](ping)
 - [Redis](redis)
 - [Schedule](schedule)

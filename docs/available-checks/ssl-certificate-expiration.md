@@ -1,6 +1,6 @@
 ---
 title: SSL certificate expiration
-weight: 12
+weight: 13
 ---
 
 This third party check makes sure that your SSL certificate isn't expired.
