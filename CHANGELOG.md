@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.7.0 - 2021-12-21
+
+- add `MeiliSearchCheck`
+
 ## 1.6.0 - 2021-12-17
 
 ## What's Changed
