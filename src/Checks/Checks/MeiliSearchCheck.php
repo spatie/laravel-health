@@ -27,6 +27,11 @@ class MeiliSearchCheck extends Check
         return $this;
     }
 
+    public function getLabel(): string
+    {
+        return $this->getName();
+    }
+
     public function run(): Result
     {
         try {
