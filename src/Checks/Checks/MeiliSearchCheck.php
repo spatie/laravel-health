@@ -69,6 +69,6 @@ class MeiliSearchCheck extends Check
 
         return Result::make()
             ->ok()
-            ->shortSummary('reachable');
+            ->shortSummary(ucfirst($status));
     }
 }
