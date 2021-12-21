@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.7.4 - 2021-12-21
+
+- improve meilisearch check
+
 ## 1.7.3 - 2021-12-21
 
 - fix label
