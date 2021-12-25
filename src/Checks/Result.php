@@ -2,7 +2,7 @@
 
 namespace Spatie\Health\Checks;
 
-use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Illuminate\Support\Str;
 use Spatie\Health\Enums\Status;
 use function trans;
@@ -12,7 +12,7 @@ class Result
     /** @var array<string, string|int|bool> */
     public array $meta = [];
     public Check $check;
-    public ?Carbon $ended_at;
+    public ?CarbonInterface $ended_at;
 
     public static function make(string $message = ''): self
     {
@@ -96,7 +96,7 @@ class Result
         return $this;
     }
 
-    public function endedAt(Carbon $carbon): self
+    public function endedAt(CarbonInterface $carbon): self
     {
         $this->ended_at = $carbon;
 
