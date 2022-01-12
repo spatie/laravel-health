@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.7.5 - 2021-12-25
+
+## What's Changed
+
+- Add Application Cache check by @michellaurent in https://github.com/spatie/laravel-health/pull/34
+- Use CarbonInterface to account for CarbonImmutable by @abenerd in https://github.com/spatie/laravel-health/pull/35
+
+## New Contributors
+
+- @michellaurent made their first contribution in https://github.com/spatie/laravel-health/pull/34
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.4...1.7.5
+
 ## 1.7.4 - 2021-12-21
 
 - improve meilisearch check

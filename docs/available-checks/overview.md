@@ -7,13 +7,14 @@ Using this package you can register one or more checks to verify the health of y
 
 These are the checks created by us:
 
+- [Application Cache](cache)
 - [CPU Load](cpu-load)
 - [Database Connection](db-connection)
 - [Debug Mode](debug-mode)
 - [Environment](environment)
 - [Flare Error Count](flare-error-count)
 - [Horizon](horizon)
-- [MeiliSearch](meilisearch.md)
+- [MeiliSearch](meilisearch)
 - [Ping](ping)
 - [Redis](redis)
 - [Schedule](schedule)
