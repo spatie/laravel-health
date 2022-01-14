@@ -78,9 +78,14 @@ class StoredCheckResults
 
     public function toJson(): string
     {
-        return (string)json_encode([
+        return (string)json_encode($this->toArray());
+    }
+
+    public function toArray(): array
+    {
+        return [
             'finishedAt' => $this->finishedAt->getTimestamp(),
             'checkResults' => $this->storedCheckResults->map(fn (StoredCheckResult $line) => $line->toArray()),
-        ]);
+        ];
     }
 }
