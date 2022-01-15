@@ -1,19 +1,16 @@
 <div class="mx-2 my-1">
     @if(count($checkResults?->storedCheckResults ?? []))
-        <div class="w-full text-white text-center bg-blue-800"></div>
-        <div class="w-full text-white bg-blue-800">
-            <span class="p-2 text-left w-1/2">Laravel Health Check Results</span>
-            <span class="p-2 text-right w-1/2">
+        <div class="w-full py-1 text-white bg-blue-800">
+            <span class="px-2 text-left w-1/2">Laravel Health Check Results</span>
+            <span class="px-2 text-right w-1/2">
                Last ran all the checks
                 @if ($lastRanAt->diffInMinutes() < 1)
                     just now
                 @else
                     {{ $lastRanAt->diffForHumans() }}
                 @endif
-        </span>
+            </span>
         </div>
-        <div class="w-full text-white text-center bg-blue-800 mb-1"></div>
-
         <table style="box">
             <thead>
             <tr>
@@ -34,10 +31,10 @@
         </table>
     @else
         <div>
-            No checks have run yet...<br/>
+            No checks have run yet...<br />
             Please execute this command:
-
-            php artisan health:check
+            <br /><br />
+            <b>php artisan health:check</b>
         </div>
     @endif
 </div>
