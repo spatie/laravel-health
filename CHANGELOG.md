@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.7.7 - 2022-01-18
+
+## What's Changed
+
+- Bugfixes RedisCheck to take the named connection by @ndberg in https://github.com/spatie/laravel-health/pull/51
+
+## New Contributors
+
+- @ndberg made their first contribution in https://github.com/spatie/laravel-health/pull/51
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.6...1.7.7
+
 ## 1.7.5 - 2021-12-25
 
 ## What's Changed
