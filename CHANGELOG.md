@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.7.8 - 2022-01-19
+
+## What's Changed
+
+- Fixed json response header by @Elnadrion in https://github.com/spatie/laravel-health/pull/53
+
+## New Contributors
+
+- @Elnadrion made their first contribution in https://github.com/spatie/laravel-health/pull/53
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.7...1.7.8
+
 ## 1.7.7 - 2022-01-18
 
 ## What's Changed
