@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.7.9 - 2022-01-19
+
+## What's Changed
+
+- Added meta tags for improved (mobile) experience by @nckrtl in https://github.com/spatie/laravel-health/pull/55
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.8...1.7.9
+
 ## 1.7.8 - 2022-01-19
 
 ## What's Changed
