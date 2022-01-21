@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.7.10 - 2022-01-21
+
+- add Bulgarian translation
+
 ## 1.7.9 - 2022-01-19
 
 ## What's Changed
