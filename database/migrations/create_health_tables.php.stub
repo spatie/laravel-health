@@ -10,7 +10,7 @@ return new class extends Migration
     public function up()
     {
         $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
-    
+
         Schema::create($tableName, function (Blueprint $table) {
             $table->id();
 
@@ -25,5 +25,12 @@ return new class extends Migration
 
             $table->timestamps();
         });
+    }
+
+    public function down()
+    {
+        $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
+
+        Schema::dropIfExists($tableName);
     }
 };
