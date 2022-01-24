@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.7.11 - 2022-01-24
+
+## What's Changed
+
+- Grammar correction by @atoaugustyn in https://github.com/spatie/laravel-health/pull/58
+- Add French translation by @lobotomised in https://github.com/spatie/laravel-health/pull/61
+
+## New Contributors
+
+- @atoaugustyn made their first contribution in https://github.com/spatie/laravel-health/pull/58
+- @lobotomised made their first contribution in https://github.com/spatie/laravel-health/pull/61
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.10...1.7.11
+
 ## 1.7.10 - 2022-01-21
 
 - add Bulgarian translation
