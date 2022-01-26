@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.7.12 - 2022-01-26
+
+## What's Changed
+
+- Add Russian translation by @saundefined in https://github.com/spatie/laravel-health/pull/62
+
+## New Contributors
+
+- @saundefined made their first contribution in https://github.com/spatie/laravel-health/pull/62
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.11...1.7.12
+
 ## 1.7.11 - 2022-01-24
 
 ## What's Changed
