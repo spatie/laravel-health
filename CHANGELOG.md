@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.7.14 - 2022-01-26
+
+## What's Changed
+
+- Add Italian translation by @michele-grifa in https://github.com/spatie/laravel-health/pull/64
+
+## New Contributors
+
+- @michele-grifa made their first contribution in https://github.com/spatie/laravel-health/pull/64
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.13...1.7.14
+
 ## 1.7.13 - 2022-01-26
 
 ## What's Changed
