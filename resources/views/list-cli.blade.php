@@ -17,7 +17,6 @@
                     <b class="uppercase {{ $color($result->status) }}">
                         {{ ucfirst($result->status) }}
                     </b>
-                    <span class="text-gray ml-1">..........</span>
                 </span>
                 <span>{{ $result->label }}</span>
                 <span class="text-gray">›</span>
