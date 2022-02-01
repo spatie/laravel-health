@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.8.0 - 2022-02-01
+
+## What's Changed
+
+- feat: Improve `health:list` cli output by @xiCO2k in https://github.com/spatie/laravel-health/pull/66
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.14...1.8.0
+
 ## 1.7.14 - 2022-01-26
 
 ## What's Changed
