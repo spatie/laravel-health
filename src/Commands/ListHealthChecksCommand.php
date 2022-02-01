@@ -47,10 +47,10 @@ class ListHealthChecksCommand extends Command
         $status = Status::from($status);
 
         return match ($status) {
-            Status::ok() => 'bg-green-800',
-            Status::warning() => 'bg-yellow-800',
-            Status::skipped() => 'bg-blue-800',
-            Status::failed(), Status::crashed() => 'bg-red-800',
+            Status::ok() => 'text-green-600',
+            Status::warning() => 'text-yellow-600',
+            Status::skipped() => 'text-blue-600',
+            Status::failed(), Status::crashed() => 'text-red-600',
             default => ''
         };
     }
