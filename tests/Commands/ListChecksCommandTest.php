@@ -1,7 +1,6 @@
 <?php
 
 use Spatie\Health\Commands\ListHealthChecksCommand;
-use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 use function Pest\Laravel\artisan;
