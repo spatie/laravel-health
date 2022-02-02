@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.8.1 - 2022-02-02
+
+## What's Changed
+
+- Add NL translation by @ndeblauw in https://github.com/spatie/laravel-health/pull/67
+
+## New Contributors
+
+- @ndeblauw made their first contribution in https://github.com/spatie/laravel-health/pull/67
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.8.0...1.8.1
+
 ## 1.8.0 - 2022-02-01
 
 ## What's Changed
