@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.8.2 - 2022-02-09
+
+## What's Changed
+
+- Fix allChecksOk and containsFailingCheck behaviour by @dominikkukacka in https://github.com/spatie/laravel-health/pull/71
+
+## New Contributors
+
+- @dominikkukacka made their first contribution in https://github.com/spatie/laravel-health/pull/71
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.8.1...1.8.2
+
 ## 1.8.1 - 2022-02-02
 
 ## What's Changed
