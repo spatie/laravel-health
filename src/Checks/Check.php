@@ -4,6 +4,7 @@ namespace Spatie\Health\Checks;
 
 use Cron\CronExpression;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use Spatie\Health\Enums\Status;
@@ -15,6 +16,11 @@ abstract class Check
     protected string $expression = '* * * * *';
     protected ?string $name = null;
     protected ?string $label = null;
+
+    /**
+     * @var string[]
+     */
+    protected array $groups = [];
 
     final public function __construct()
     {
@@ -65,11 +71,40 @@ abstract class Check
         return Str::of($baseName)->beforeLast('Check');
     }
 
-    public function shouldRun(): bool
+    /**
+     * @param  string|string[]  $groups
+     *
+     * @return $this
+     */
+    public function groups(string|array $groups): self
+    {
+        $this->groups = Arr::wrap($groups);
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getGroups(): array
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @param  string|null  $group
+     *
+     * @return bool
+     */
+    public function shouldRun(?string $group = null): bool
     {
         $date = Date::now();
 
-        return (new CronExpression($this->expression))->isDue($date->toDateTimeString());
+        $cron = (new CronExpression($this->expression))->isDue($date->toDateTimeString());
+
+        return $group === null ?
+          $cron :
+          $cron && in_array($group, $this->groups, true);
     }
 
     abstract public function run(): Result;

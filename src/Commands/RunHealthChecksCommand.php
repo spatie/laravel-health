@@ -17,7 +17,7 @@ use Spatie\Health\ResultStores\ResultStore;
 
 class RunHealthChecksCommand extends Command
 {
-    public $signature = 'health:check {--do-not-store-results} {--no-notification} {--fail-command-on-failing-check}';
+    public $signature = 'health:check {--do-not-store-results} {--no-notification} {--fail-command-on-failing-check} {--group=}';
 
     public $description = 'Run all health checks';
 
@@ -26,7 +26,13 @@ class RunHealthChecksCommand extends Command
 
     public function handle(): int
     {
-        $this->info('Running checks...');
+        $group = $this->option('group');
+
+        if (is_string($group)) {
+            $this->info("Running checks for group ${group}...");
+        } else {
+            $this->info('Running checks...');
+        }
 
         $results = $this->runChecks();
 
@@ -72,13 +78,17 @@ class RunHealthChecksCommand extends Command
         return $result;
     }
 
-    /** @return Collection<int, Result> */
-    protected function runChecks(): Collection
+    /**
+     * @param  string|null  $group
+     *
+     * @return Collection<int, Result>
+     */
+    protected function runChecks(?string $group = null): Collection
     {
         return app(Health::class)
             ->registeredChecks()
-            ->map(function (Check $check): Result {
-                return $check->shouldRun()
+            ->map(function (Check $check) use ($group): Result {
+                return $check->shouldRun($group)
                     ? $this->runCheck($check)
                     : (new Result(Status::skipped()))->check($check);
             });

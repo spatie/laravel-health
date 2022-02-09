@@ -124,3 +124,14 @@ it('has an option that will let the command fail when a check fails', function (
     artisan('health:check')->assertSuccessful();
     artisan('health:check --fail-command-on-failing-check')->assertFailed();
 });
+
+it('has an option that runs only tests of a certain group', function () {
+    Health::clearChecks();
+    Health::checks([
+      CrashingCheck::new()->groups('failing'),
+      FakeUsedDiskSpaceCheck::new()->groups('success')->fakeDiskUsagePercentage(0),
+    ]);
+
+    artisan('health:check --fail-command-on-failing-check --group=failing')->assertFailed();
+    artisan('health:check --fail-command-on-failing-check --group=success')->assertSuccessful();
+});
