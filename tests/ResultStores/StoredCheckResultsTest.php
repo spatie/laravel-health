@@ -28,7 +28,7 @@ it('has a method to check if one or more checks are failing', function () {
     expect($storedCheckResults->containsFailingCheck())->toBeTrue();
 });
 
-it('has a method to check if all cheks are good', function () {
+it('has a method to check if all checks are good', function () {
     $storedCheckResults = new StoredCheckResults(new DateTime(), collect([
         makeStoredCheckResultWithStatus(Status::ok()),
         makeStoredCheckResultWithStatus(Status::ok()),
