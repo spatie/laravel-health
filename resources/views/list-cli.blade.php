@@ -1,43 +1,39 @@
 <div class="mx-2 my-1">
     @if(count($checkResults?->storedCheckResults ?? []))
-        <div class="w-full text-white text-center bg-blue-800"></div>
-        <div class="w-full text-white bg-blue-800">
-            <span class="p-2 text-left w-1/2">Laravel Health Check Results</span>
-            <span class="p-2 text-right w-1/2">
+        <div class="w-full max-w-120 mb-1 py-1 text-white bg-blue-800">
+            <span class="px-2 text-left w-1/2">Laravel Health Check Results</span>
+            <span class="px-2 text-right w-1/2">
                Last ran all the checks
                 @if ($lastRanAt->diffInMinutes() < 1)
                     just now
                 @else
                     {{ $lastRanAt->diffForHumans() }}
                 @endif
-        </span>
+            </span>
         </div>
-        <div class="w-full text-white text-center bg-blue-800 mb-1"></div>
-
-        <table style="box">
-            <thead>
-            <tr>
-                <td></td>
-                <td>Check</td>
-                <td>Summary</td>
-                <td>Error message</td>
-            </tr>
-            </thead>
-            @foreach($checkResults->storedCheckResults as $result)
-                <tr>
-                    <td class="{{ $color($result->status) }}">{{ ucfirst($result->status) }}</td>
-                    <td>{{ $result->label }}</td>
-                    <td>{{ $result->shortSummary }}</td>
-                    <td>{{ $result->notificationMessage }}</td>
-                </tr>
-            @endforeach
-        </table>
+        @foreach ($checkResults->storedCheckResults as $result)
+            <div class="space-x-1">
+                <span class="w-10">
+                    <b class="uppercase {{ $color($result->status) }}">
+                        {{ ucfirst($result->status) }}
+                    </b>
+                </span>
+                <span>{{ $result->label }}</span>
+                <span class="text-gray">›</span>
+                <span class="{{ $color($result->status) }}"> {{ $result->shortSummary }}</span>
+            </div>
+            @if ($result->notificationMessage)
+            <div class="ml-11 text-gray">
+                ⇂ {{ $result->notificationMessage }}
+            </div>
+            @endif
+        @endforeach
     @else
         <div>
-            No checks have run yet...<br/>
+            No checks have run yet...<br />
             Please execute this command:
-
-            php artisan health:check
+            <br /><br />
+            <b>php artisan health:check</b>
         </div>
     @endif
 </div>

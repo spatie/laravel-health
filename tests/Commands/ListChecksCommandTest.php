@@ -14,5 +14,5 @@ it('thrown no exceptions with a check registered', function () {
         FakeUsedDiskSpaceCheck::new(),
     ]);
 
-    artisan(ListHealthChecksCommand::class)->assertSuccessful();
+    artisan(ListHealthChecksCommand::class, ['--fresh' => true])->assertSuccessful();
 });

@@ -50,14 +50,14 @@ class StoredCheckResults
 
     public function allChecksOk(): bool
     {
-        return $this->storedCheckResults->contains(
-            fn (StoredCheckResult $line) => $line->status !== Status::ok()->value
-        );
+        return ! $this->containsFailingCheck();
     }
 
     public function containsFailingCheck(): bool
     {
-        return ! $this->allChecksOk();
+        return $this->storedCheckResults->contains(
+            fn (StoredCheckResult $line) => $line->status !== Status::ok()->value
+        );
     }
 
     /**

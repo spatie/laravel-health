@@ -2,6 +2,124 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.8.2 - 2022-02-09
+
+## What's Changed
+
+- Fix allChecksOk and containsFailingCheck behaviour by @dominikkukacka in https://github.com/spatie/laravel-health/pull/71
+
+## New Contributors
+
+- @dominikkukacka made their first contribution in https://github.com/spatie/laravel-health/pull/71
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.8.1...1.8.2
+
+## 1.8.1 - 2022-02-02
+
+## What's Changed
+
+- Add NL translation by @ndeblauw in https://github.com/spatie/laravel-health/pull/67
+
+## New Contributors
+
+- @ndeblauw made their first contribution in https://github.com/spatie/laravel-health/pull/67
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.8.0...1.8.1
+
+## 1.8.0 - 2022-02-01
+
+## What's Changed
+
+- feat: Improve `health:list` cli output by @xiCO2k in https://github.com/spatie/laravel-health/pull/66
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.14...1.8.0
+
+## 1.7.14 - 2022-01-26
+
+## What's Changed
+
+- Add Italian translation by @michele-grifa in https://github.com/spatie/laravel-health/pull/64
+
+## New Contributors
+
+- @michele-grifa made their first contribution in https://github.com/spatie/laravel-health/pull/64
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.13...1.7.14
+
+## 1.7.13 - 2022-01-26
+
+## What's Changed
+
+- Add Portuguese locale by @st693ava in https://github.com/spatie/laravel-health/pull/63
+
+## New Contributors
+
+- @st693ava made their first contribution in https://github.com/spatie/laravel-health/pull/63
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.12...1.7.13
+
+## 1.7.12 - 2022-01-26
+
+## What's Changed
+
+- Add Russian translation by @saundefined in https://github.com/spatie/laravel-health/pull/62
+
+## New Contributors
+
+- @saundefined made their first contribution in https://github.com/spatie/laravel-health/pull/62
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.11...1.7.12
+
+## 1.7.11 - 2022-01-24
+
+## What's Changed
+
+- Grammar correction by @atoaugustyn in https://github.com/spatie/laravel-health/pull/58
+- Add French translation by @lobotomised in https://github.com/spatie/laravel-health/pull/61
+
+## New Contributors
+
+- @atoaugustyn made their first contribution in https://github.com/spatie/laravel-health/pull/58
+- @lobotomised made their first contribution in https://github.com/spatie/laravel-health/pull/61
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.10...1.7.11
+
+## 1.7.10 - 2022-01-21
+
+- add Bulgarian translation
+
+## 1.7.9 - 2022-01-19
+
+## What's Changed
+
+- Added meta tags for improved (mobile) experience by @nckrtl in https://github.com/spatie/laravel-health/pull/55
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.8...1.7.9
+
+## 1.7.8 - 2022-01-19
+
+## What's Changed
+
+- Fixed json response header by @Elnadrion in https://github.com/spatie/laravel-health/pull/53
+
+## New Contributors
+
+- @Elnadrion made their first contribution in https://github.com/spatie/laravel-health/pull/53
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.7...1.7.8
+
+## 1.7.7 - 2022-01-18
+
+## What's Changed
+
+- Bugfixes RedisCheck to take the named connection by @ndberg in https://github.com/spatie/laravel-health/pull/51
+
+## New Contributors
+
+- @ndberg made their first contribution in https://github.com/spatie/laravel-health/pull/51
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.7.6...1.7.7
+
 ## 1.7.5 - 2021-12-25
 
 ## What's Changed
