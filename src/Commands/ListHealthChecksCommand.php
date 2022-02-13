@@ -4,9 +4,7 @@ namespace Spatie\Health\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
-use Spatie\Health\Checks\Result;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
