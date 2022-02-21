@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.8.5 - 2022-02-21
+
+## What's Changed
+
+- Fix grammar in german translations by @marcreichel in https://github.com/spatie/laravel-health/pull/79
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.8.4...1.8.5
+
 ## 1.8.4 - 2022-02-21
 
 ## What's Changed
