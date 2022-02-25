@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Notification;
+use Spatie\Health\Tests\TestClasses\FakeCheck;
 use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Enums\Status;
@@ -125,13 +126,23 @@ it('has an option that will let the command fail when a check fails', function (
     artisan('health:check --fail-command-on-failing-check')->assertFailed();
 });
 
+
 it('has an option that runs only tests of a certain group', function () {
     Health::clearChecks();
+
+    $fakeCheck1 = FakeCheck::new()->name('group 1')->groups('group1');
+    $fakeCheck2 = FakeCheck::new()->name('group 2')->groups('group2');
+
     Health::checks([
-      CrashingCheck::new()->groups('failing'),
-      FakeUsedDiskSpaceCheck::new()->groups('success')->fakeDiskUsagePercentage(0),
+      $fakeCheck1,
+      $fakeCheck2,
     ]);
 
-    artisan('health:check --fail-command-on-failing-check --group=failing')->assertFailed();
-    artisan('health:check --fail-command-on-failing-check --group=success')->assertSuccessful();
+    artisan('health:check --fail-command-on-failing-check --group=group1');
+    $this->assertTrue($fakeCheck1->hasRun);
+    $this->assertFalse($fakeCheck2->hasRun);
+
+    artisan('health:check --fail-command-on-failing-check --group=group2');
+    $this->assertTrue($fakeCheck2->hasRun);
+
 });
