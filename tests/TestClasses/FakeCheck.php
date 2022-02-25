@@ -13,7 +13,7 @@ class FakeCheck extends Check
     public function run(): Result
     {
         $this->hasRun = true;
+
         return new Result(Status::ok());
     }
-
 }

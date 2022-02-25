@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Notification;
-use Spatie\Health\Tests\TestClasses\FakeCheck;
 use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Enums\Status;
@@ -9,6 +8,7 @@ use Spatie\Health\Facades\Health;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\Tests\TestClasses\CrashingCheck;
+use Spatie\Health\Tests\TestClasses\FakeCheck;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 
 beforeEach(function () {
@@ -144,5 +144,4 @@ it('has an option that runs only tests of a certain group', function () {
 
     artisan('health:check --fail-command-on-failing-check --group=group2');
     $this->assertTrue($fakeCheck2->hasRun);
-
 });
