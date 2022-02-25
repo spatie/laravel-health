@@ -7,11 +7,16 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\ResultStore;
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
+
+use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
+
 use function Termwind\render;
 
 class ListHealthChecksCommand extends Command
 {
-    public $signature = 'health:list {--fresh} {--do-not-store-results} {--no-notification}';
+    public $signature = 'health:list {--fresh} {--do-not-store-results} {--no-notification}
+                         {--fail-command-on-failing-check}';
 
     public $description = 'List all health checks';
 
@@ -39,7 +44,7 @@ class ListHealthChecksCommand extends Command
             'color' => fn (string $status) => $this->getBackgroundColor($status),
         ]));
 
-        return self::SUCCESS;
+        return $this->determineCommandResult($checkResults);
     }
 
     protected function getBackgroundColor(string $status): string
@@ -53,5 +58,24 @@ class ListHealthChecksCommand extends Command
             Status::failed(), Status::crashed() => 'text-red-600',
             default => ''
         };
+    }
+
+    protected function determineCommandResult(?StoredCheckResults $results): int
+    {
+        if (! $this->option('fail-command-on-failing-check') || is_null($results)) {
+            return self::SUCCESS;
+        }
+
+        $containsFailingCheck = $results->storedCheckResults->contains(function (StoredCheckResult $result) {
+            return in_array($result->status, [
+                Status::crashed(),
+                Status::failed(),
+                Status::warning(),
+            ]);
+        });
+
+        return $containsFailingCheck
+            ? self::FAILURE
+            : self::SUCCESS;
     }
 }
