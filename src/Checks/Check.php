@@ -18,7 +18,7 @@ abstract class Check
     protected ?string $label = null;
 
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected array $groups = [];
 
