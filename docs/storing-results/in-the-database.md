@@ -31,4 +31,22 @@ return [
 
 ## Pruning the results table
 
-The model uses the [Laravel's `MassPrunable` trait](https://laravel.com/docs/8.x/eloquent#mass-pruning). In the `health` config file, you can specify the maximum age of a model in the `keep_history_for_days` key. Don't forget to schedule the `model:prune` command, as instructed in Laravel's docs.
+The model uses the [Laravel's `MassPrunable` trait](https://laravel.com/docs/8.x/eloquent#mass-pruning). In the `health` config file, you can specify the maximum age of a model in the `keep_history_for_days` key. Don't forget to schedule the `model:prune` command, as instructed in Laravel's docs. You'll have to explicitly add the model class:
+
+```php
+// in app/Console/Kernel.php
+
+class Kernel extends ConsoleKernel
+{
+    protected function schedule(Schedule $schedule)
+    {
+         $schedule->command('model:prune', [
+                    '--model' => [
+                        \Spatie\Health\Models\HealthCheckResultHistoryItem::class,
+                    ],
+        ])->daily();
+    
+        // ...   
+    }
+}
+```
