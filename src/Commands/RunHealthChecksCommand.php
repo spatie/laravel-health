@@ -29,7 +29,8 @@ class RunHealthChecksCommand extends Command
         $group = $this->option('group');
 
 
-        $this->info(is_string($group) ?
+        $this->info(
+            is_string($group) ?
           "Running checks for group ${group}..." :
           'Running checks...'
         );
