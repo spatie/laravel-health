@@ -35,7 +35,7 @@ class RunHealthChecksCommand extends Command
           'Running checks...'
         );
 
-        $results = $this->runChecks();
+        $results = $this->runChecks($group);
 
         if (! $this->option('do-not-store-results')) {
             $this->storeResults($results);
