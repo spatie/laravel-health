@@ -2,6 +2,42 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.8.5 - 2022-02-21
+
+## What's Changed
+
+- Fix grammar in german translations by @marcreichel in https://github.com/spatie/laravel-health/pull/79
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.8.4...1.8.5
+
+## 1.8.4 - 2022-02-21
+
+## What's Changed
+
+- Add German and Turkish Translations by @remzikocak in https://github.com/spatie/laravel-health/pull/78
+
+## New Contributors
+
+- @remzikocak made their first contribution in https://github.com/spatie/laravel-health/pull/78
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.8.3...1.8.4
+
+## 1.8.3 - 2022-02-20
+
+## What's Changed
+
+- Add arabic translation by @ousid in https://github.com/spatie/laravel-health/pull/76
+- Add --fail-command-on-failing-check to health:list artisan command by @eleftrik in https://github.com/spatie/laravel-health/pull/75
+- Fix name of the Cache health result store parameter by @andrzejkupczyk in https://github.com/spatie/laravel-health/pull/68
+
+## New Contributors
+
+- @ousid made their first contribution in https://github.com/spatie/laravel-health/pull/76
+- @eleftrik made their first contribution in https://github.com/spatie/laravel-health/pull/75
+- @andrzejkupczyk made their first contribution in https://github.com/spatie/laravel-health/pull/68
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.8.2...1.8.3
+
 ## 1.8.2 - 2022-02-09
 
 ## What's Changed

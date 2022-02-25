@@ -18,8 +18,14 @@ php artisan health:list --fresh
 ```
 
 When using the `run` option, you can also use the `do-not-store-results` and  `no-notification` options, to avoid storing results and avoid sending a notification.
-``
+
 ```bash
 php artisan health:list --fresh --do-not-store-results --no-notification
 ```
 
+By default, if some check is failing, this artisan command will return a zero exit status.
+If you want it to return a non-zero exit code, just use the `--fail-command-on-failing-check` option. 
+
+```bash
+php artisan health:list --fail-command-on-failing-check
+```
