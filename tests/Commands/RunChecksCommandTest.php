@@ -142,6 +142,9 @@ it('has an option that runs only tests of a certain group', function () {
     $this->assertTrue($fakeCheck1->hasRun);
     $this->assertFalse($fakeCheck2->hasRun);
 
+    $fakeCheck1->hasRun =  false;
+
     artisan('health:check --fail-command-on-failing-check --group=group2');
+    $this->assertFalse($fakeCheck1->hasRun);
     $this->assertTrue($fakeCheck2->hasRun);
 });
