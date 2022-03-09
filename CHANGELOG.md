@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.8.7 - 2022-03-09
+
+- fix issue #77
+
 ## 1.8.6 - 2022-03-08
 
 ## What's Changed
