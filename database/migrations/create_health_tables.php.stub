@@ -27,8 +27,8 @@ return new class extends Migration
         });
         
         Schema::table($tableName, function(Blueprint $table) {
-            $table->index(['created_at']);
-            $table->index(['batch']);
+            $table->index('created_at');
+            $table->index('batch');
         });
     }
 };
