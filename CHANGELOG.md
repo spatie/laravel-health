@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.8.8 - 2022-03-14
+
+## What's Changed
+
+- Add indexes to Eloquent health check results table by @JackWH in https://github.com/spatie/laravel-health/pull/83
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.8.7...1.8.8
+
 ## 1.8.7 - 2022-03-09
 
 - fix issue #77
