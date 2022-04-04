@@ -44,7 +44,7 @@ All documentation is available [on our documentation site](https://spatie.be/doc
 If you don't like our package, do try out one of these alternatives:
 
 - [ukfast/laravel-health-check](https://github.com/ukfast/laravel-health-check)
-- [ntonioribeiro/health](https://github.com/antonioribeiro/health)
+- [Antonioribeiro/health](https://github.com/antonioribeiro/health)
 
 ## Testing
 
