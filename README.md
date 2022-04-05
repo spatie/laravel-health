@@ -1,3 +1,6 @@
+
+[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
+
 # Check the health of your Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
@@ -41,7 +44,7 @@ All documentation is available [on our documentation site](https://spatie.be/doc
 If you don't like our package, do try out one of these alternatives:
 
 - [ukfast/laravel-health-check](https://github.com/ukfast/laravel-health-check)
-- [ntonioribeiro/health](https://github.com/antonioribeiro/health)
+- [Antonioribeiro/health](https://github.com/antonioribeiro/health)
 
 ## Testing
 
@@ -55,7 +58,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
