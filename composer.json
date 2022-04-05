@@ -60,6 +60,7 @@
     },
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse",
+        "baseline": "vendor/bin/phpstan --generate-baseline",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest coverage"
     },
