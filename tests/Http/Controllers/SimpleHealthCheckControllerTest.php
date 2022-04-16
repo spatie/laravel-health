@@ -1,14 +1,14 @@
 <?php
 
+use function Pest\Laravel\artisan;
+use function Pest\Laravel\getJson;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Http\Controllers\SimpleHealthCheckController;
 use Spatie\Health\Tests\TestClasses\FakeRedisCheck;
-use Symfony\Component\HttpFoundation\Response;
-use function Pest\Laravel\artisan;
-use function Pest\Laravel\getJson;
 use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesSnapshot;
+use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
     testTime()->freeze('2021-01-01 00:00:00');

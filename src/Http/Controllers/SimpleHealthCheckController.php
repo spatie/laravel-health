@@ -16,7 +16,7 @@ class SimpleHealthCheckController
             Artisan::call(RunHealthChecksCommand::class);
         }
 
-        if (!($resultStore->latestResults()?->allChecksOk())) {
+        if (! ($resultStore->latestResults()?->allChecksOk())) {
             throw new ServiceUnavailableHttpException(message: 'Application not healthy');
         }
 
