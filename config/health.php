@@ -104,21 +104,6 @@ return [
         'url' => '/oh-dear-health-check-results',
     ],
 
-    'simple_health_check_endpoint' => [
-        'enabled' => false,
-
-        /*
-         * When this option is enabled, the checks will run before sending a response.
-         * Otherwise, we'll send the results from the last time the checks have run.
-         */
-        'always_send_fresh_results' => true,
-
-        /*
-         * The URL that should be configured in the Application health settings at Oh Dear.
-         */
-        'url' => '/simple-health-check',
-    ],
-
     /*
      * You can set a theme for the local results page
      *

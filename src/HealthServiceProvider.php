@@ -9,7 +9,6 @@ use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 use Spatie\Health\Components\Logo;
 use Spatie\Health\Components\StatusIndicator;
 use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
-use Spatie\Health\Http\Controllers\SimpleHealthCheckController;
 use Spatie\Health\Http\Middleware\RequiresSecret;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
@@ -48,7 +47,6 @@ class HealthServiceProvider extends PackageServiceProvider
         $this->app->make(Health::class)->inlineStylesheet(file_get_contents(__DIR__.'/../resources/dist/health.min.css'));
 
         $this->registerOhDearEndpoint();
-        $this->registerSimpleHealthCheckEndpoint();
     }
 
     protected function registerOhDearEndpoint(): self
@@ -67,21 +65,6 @@ class HealthServiceProvider extends PackageServiceProvider
 
         Route::get(config('health.oh_dear_endpoint.url'), HealthCheckJsonResultsController::class)
             ->middleware(RequiresSecret::class);
-
-        return $this;
-    }
-
-    protected function registerSimpleHealthCheckEndpoint(): self
-    {
-        if (! config('health.simple_health_check_endpoint.enabled')) {
-            return $this;
-        }
-
-        if (! config('health.oh_dear_endpoint.url')) {
-            return $this;
-        }
-
-        Route::get(config('health.simple_health_check_endpoint.url'), SimpleHealthCheckController::class);
 
         return $this;
     }
