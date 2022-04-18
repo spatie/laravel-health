@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.9.0 - 2022-04-18
+
+## What's Changed
+
+- Fixing typo on Antonio Ribeiro's name. by @eduardocruz in https://github.com/spatie/laravel-health/pull/85
+- Add Simple Health Check Endpoint by @abenerd in https://github.com/spatie/laravel-health/pull/89
+
+## New Contributors
+
+- @eduardocruz made their first contribution in https://github.com/spatie/laravel-health/pull/85
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.8.8...1.8.9
+
 ## 1.8.8 - 2022-03-14
 
 ## What's Changed
