@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.9.1 - 2022-05-03
+
+## What's Changed
+
+- chore: exclude docs from package archive by @owenvoke in https://github.com/spatie/laravel-health/pull/95
+
+## New Contributors
+
+- @owenvoke made their first contribution in https://github.com/spatie/laravel-health/pull/95
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.9.0...1.9.1
+
 ## 1.9.0 - 2022-04-18
 
 ## What's Changed
