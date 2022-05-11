@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.9.2 - 2022-05-11
+
+## What's Changed
+
+- Don't set notification message on `ok` by default by @riasvdv in https://github.com/spatie/laravel-health/pull/96
+
+## New Contributors
+
+- @riasvdv made their first contribution in https://github.com/spatie/laravel-health/pull/96
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.9.1...1.9.2
+
 ## 1.9.1 - 2022-05-03
 
 ## What's Changed
