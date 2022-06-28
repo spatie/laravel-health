@@ -13,7 +13,7 @@ class PingCheck extends Check
     public ?string $url = null;
     public ?string $failureMessage = null;
     public int $timeout = 1;
-    public string $method = 'HEAD';
+    public string $method = 'GET';
     public array $headers = [];
 
     public function url(string $url): self
