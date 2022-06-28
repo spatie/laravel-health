@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.10.0 - 2022-06-28
+
+### What's Changed
+
+- Get the exception class name by @mtawil in https://github.com/spatie/laravel-health/pull/100
+- Added method and headers helpers to PingCheck by @rcerljenko in https://github.com/spatie/laravel-health/pull/101
+
+### New Contributors
+
+- @mtawil made their first contribution in https://github.com/spatie/laravel-health/pull/100
+- @rcerljenko made their first contribution in https://github.com/spatie/laravel-health/pull/101
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.9.2...1.10.0
+
 ## 1.9.2 - 2022-05-11
 
 ## What's Changed
