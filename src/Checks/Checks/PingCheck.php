@@ -13,6 +13,8 @@ class PingCheck extends Check
     public ?string $url = null;
     public ?string $failureMessage = null;
     public int $timeout = 1;
+    public string $method = 'HEAD';
+    public array $headers = [];
 
     public function url(string $url): self
     {
@@ -24,6 +26,20 @@ class PingCheck extends Check
     public function timeout(int $seconds): self
     {
         $this->timeout = $seconds;
+
+        return $this;
+    }
+
+    public function method(string $method): self
+    {
+        $this->method = $method;
+
+        return $this;
+    }
+
+    public function headers(array $headers = []): self
+    {
+        $this->headers = $headers;
 
         return $this;
     }
@@ -42,7 +58,7 @@ class PingCheck extends Check
         }
 
         try {
-            if (! Http::timeout($this->timeout)->get($this->url)->successful()) {
+            if (! Http::timeout($this->timeout)->withHeaders($this->headers)->send($this->method, $this->url)->successful()) {
                 return $this->failedResult();
             }
         } catch (Exception) {
