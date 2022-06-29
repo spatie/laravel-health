@@ -12,7 +12,6 @@ use Spatie\Health\Events\CheckEndedEvent;
 use Spatie\Health\Events\CheckStartingEvent;
 use Spatie\Health\Exceptions\CheckDidNotComplete;
 use Spatie\Health\Health;
-use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\ResultStores\ResultStore;
 
 class RunHealthChecksCommand extends Command
@@ -111,7 +110,9 @@ class RunHealthChecksCommand extends Command
         /** @var array<int, Result> $results */
         $results = $resultsWithMessages->toArray();
 
-        $notification = (new CheckFailedNotification($results));
+        $failedNotificationClass = array_first(array_keys(config('health.notifications.notifications')));
+
+        $notification = app($failedNotificationClass, ['results' => $results]);
 
         $notifiable->notify($notification);
 
