@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.10.1 - 2022-06-29
+
+- make it easy to override the notification class name in the run checks command.
+
 ## 1.10.0 - 2022-06-28
 
 ### What's Changed
