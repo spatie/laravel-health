@@ -111,7 +111,9 @@ class RunHealthChecksCommand extends Command
         /** @var array<int, Result> $results */
         $results = $resultsWithMessages->toArray();
 
-        $notification = (new CheckFailedNotification($results));
+        $failedNotificationClass = $this->getFailedNotificationClass();
+
+        $notification = (new $failedNotificationClass($results));
 
         $notifiable->notify($notification);
 
@@ -158,5 +160,13 @@ class RunHealthChecksCommand extends Command
         return $containsFailingCheck
             ? self::FAILURE
             : self::SUCCESS;
+    }
+
+    /**
+     * @return string<CheckFailedNotification>
+     */
+    protected function getFailedNotificationClass(): string
+    {
+        return CheckFailedNotification::class;
     }
 }

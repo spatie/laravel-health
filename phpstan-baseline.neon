@@ -10,3 +10,33 @@ parameters:
 			count: 1
 			path: src/Checks/Checks/PingCheck.php
 
+		-
+			message: "#^PHPDoc tag @return contains unresolvable type\\.$#"
+			count: 1
+			path: src/Commands/RunHealthChecksCommand.php
+
+		-
+			message: "#^Unable to resolve the template type TKey in call to function collect$#"
+			count: 1
+			path: src/ResultStores/ResultStores.php
+
+		-
+			message: "#^Unable to resolve the template type TValue in call to function collect$#"
+			count: 1
+			path: src/ResultStores/ResultStores.php
+
+		-
+			message: "#^Property Spatie\\\\Health\\\\ResultStores\\\\StoredCheckResults\\\\StoredCheckResults\\:\\:\\$storedCheckResults \\(Illuminate\\\\Support\\\\Collection\\<int, Spatie\\\\Health\\\\ResultStores\\\\StoredCheckResults\\\\StoredCheckResult\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<int, Spatie\\\\Health\\\\ResultStores\\\\StoredCheckResults\\\\StoredCheckResult\\>\\|Illuminate\\\\Support\\\\Collection\\<TKey of \\(int\\|string\\), TValue\\>\\.$#"
+			count: 1
+			path: src/ResultStores/StoredCheckResults/StoredCheckResults.php
+
+		-
+			message: "#^Unable to resolve the template type TKey in call to function collect$#"
+			count: 2
+			path: src/ResultStores/StoredCheckResults/StoredCheckResults.php
+
+		-
+			message: "#^Unable to resolve the template type TValue in call to function collect$#"
+			count: 2
+			path: src/ResultStores/StoredCheckResults/StoredCheckResults.php
+
