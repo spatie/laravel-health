@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.11.0 - 2022-06-30
+
+### What's Changed
+
+- Notification Message - Add Environment Name with Application Name by @moisish in https://github.com/spatie/laravel-health/pull/103
+
+### New Contributors
+
+- @moisish made their first contribution in https://github.com/spatie/laravel-health/pull/103
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.10.1...1.11.0
+
 ## 1.10.1 - 2022-06-29
 
 - make it easy to override the notification class name in the run checks command.
