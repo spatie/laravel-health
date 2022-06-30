@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.11.1 - 2022-06-30
+
+### What's Changed
+
+- Added translation for Bangla by @rakibdevs in https://github.com/spatie/laravel-health/pull/104
+
+### New Contributors
+
+- @rakibdevs made their first contribution in https://github.com/spatie/laravel-health/pull/104
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.11.0...1.11.1
+
 ## 1.11.0 - 2022-06-30
 
 ### What's Changed
