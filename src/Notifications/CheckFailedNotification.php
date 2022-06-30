@@ -94,7 +94,7 @@ class CheckFailedNotification extends Notification
     {
         return [
             'application_name' => config('app.name') ?? config('app.url') ?? 'Laravel application',
-            'env_name' => app()->environment()
+            'env_name' => app()->environment(),
         ];
     }
 }
