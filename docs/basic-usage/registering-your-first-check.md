@@ -24,7 +24,7 @@ Health::checks([
 
 All registered checks will run when the `RunHealthChecksCommand` executes. If you followed [the installation instructions](https://spatie.be/docs/laravel-health/v1/installation-setup), you have already scheduled that command to execute every minute.
 
-If you haven't, scheduled that command you could run the checks and view the results [via HTTP](https://spatie.be/docs/laravel-health/v1/viewing-results/on-a-webpage) or [JSON](https://spatie.be/docs/laravel-health/v1/viewing-results/as-json).
+If you haven't scheduled that command, you could run the checks and view the results [via HTTP](https://spatie.be/docs/laravel-health/v1/viewing-results/on-a-webpage) or [JSON](https://spatie.be/docs/laravel-health/v1/viewing-results/as-json).
 
 When a check results in a warning or a failure, a notification will be sent. You can learn more about notifications in [the section on configuring notifications](https://spatie.be/docs/laravel-health/v1/configuring-notifications/general).
 

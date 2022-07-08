@@ -70,14 +70,14 @@ In the application health check settings screen of a site at Oh Dear, you should
 
 Oh Dear will notify you when something goes wrong with one of your health checks, so you can safely disable the notifications sent by the package itself.
 
-You can set the `notifications.enabled` option to `false.
+You can set the `notifications.enabled` option to `false`.
 
 ```php
 'notifications' => [
     /*
      * Notifications will only get sent if this option is set to `true`.
      */
-    'enabled' => true,
+    'enabled' => false,
 ```
 
 If you don't want to keep health results in your local application, set the `result_stores` option in the `health` config file to the `InMemoryHealthResultStore`.
