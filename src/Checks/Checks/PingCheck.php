@@ -11,8 +11,11 @@ use Spatie\Health\Exceptions\InvalidCheck;
 class PingCheck extends Check
 {
     public ?string $url = null;
+
     public ?string $failureMessage = null;
+
     public int $timeout = 1;
+
     public string $method = 'GET';
 
     /** @var array<string, string> */
@@ -40,8 +43,7 @@ class PingCheck extends Check
     }
 
     /**
-     * @param array<string, string> $headers
-     *
+     * @param  array<string, string>  $headers
      * @return $this
      */
     public function headers(array $headers = []): self

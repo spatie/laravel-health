@@ -84,7 +84,7 @@ class RunHealthChecksCommand extends Command
             });
     }
 
-    /** @param Collection<int, Result> $results */
+    /** @param  Collection<int, Result>  $results */
     protected function storeResults(Collection $results): self
     {
         app(Health::class)
@@ -105,7 +105,6 @@ class RunHealthChecksCommand extends Command
         $notifiableClass = config('health.notifications.notifiable');
 
         /** @var \Spatie\Health\Notifications\Notifiable $notifiable */
-
         $notifiable = app($notifiableClass);
 
         /** @var array<int, Result> $results */
@@ -122,7 +121,7 @@ class RunHealthChecksCommand extends Command
 
     protected function outputResult(Result $result, ?Exception $exception = null): void
     {
-        $status = ucfirst((string)$result->status->value);
+        $status = ucfirst((string) $result->status->value);
 
         $okMessage = $status;
 

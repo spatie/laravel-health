@@ -23,7 +23,7 @@ class HorizonCheck extends Check
 
         if (count($masterSupervisors) === 0) {
             return $result
-                ->failed("Horizon is not running.")
+                ->failed('Horizon is not running.')
                 ->shortSummary('Not running');
         }
 

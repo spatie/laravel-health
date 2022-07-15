@@ -11,6 +11,7 @@ use Spatie\Health\Checks\Result;
 class MeiliSearchCheck extends Check
 {
     public int $timeout = 1;
+
     public string $url = 'http://127.0.0.1:7700/health';
 
     public function timeout(int $seconds): self
@@ -55,7 +56,7 @@ class MeiliSearchCheck extends Check
             return Result::make()
                 ->failed()
                 ->shortSummary('Invalid response')
-                ->notificationMessage("The response did not contain a `status` key.");
+                ->notificationMessage('The response did not contain a `status` key.');
         }
 
         $status = Arr::get($response, 'status');

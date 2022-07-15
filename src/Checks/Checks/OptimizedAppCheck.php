@@ -8,7 +8,9 @@ use Spatie\Health\Checks\Result;
 class OptimizedAppCheck extends Check
 {
     public const CONFIG = 'config';
+
     public const ROUTES = 'routes';
+
     public const EVENTS = 'events';
 
     /** @var array<string>|null */

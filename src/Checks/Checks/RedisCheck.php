@@ -31,7 +31,7 @@ class RedisCheck extends Check
         }
 
         if ($response === false) {
-            return $result->failed("Redis returned a falsy response when try to connection to it.");
+            return $result->failed('Redis returned a falsy response when try to connection to it.');
         }
 
         return $result->ok();

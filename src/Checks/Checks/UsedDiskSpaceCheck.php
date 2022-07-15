@@ -10,6 +10,7 @@ use Symfony\Component\Process\Process;
 class UsedDiskSpaceCheck extends Check
 {
     protected int $warningThreshold = 70;
+
     protected int $errorThreshold = 90;
 
     public function warnWhenUsedSpaceIsAbovePercentage(int $percentage): self
@@ -32,7 +33,7 @@ class UsedDiskSpaceCheck extends Check
 
         $result = Result::make()
             ->meta(['disk_space_used_percentage' => $diskSpaceUsedPercentage])
-            ->shortSummary($diskSpaceUsedPercentage . '%');
+            ->shortSummary($diskSpaceUsedPercentage.'%');
 
         if ($diskSpaceUsedPercentage > $this->errorThreshold) {
             return $result->failed("The disk is almost full ({$diskSpaceUsedPercentage}% used).");

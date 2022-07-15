@@ -29,12 +29,12 @@ class StoredCheckResults
     }
 
     /**
-     * @param \DateTimeInterface|null $finishedAt
-     * @param ?Collection<int, StoredCheckResult> $checkResults
+     * @param  \DateTimeInterface|null  $finishedAt
+     * @param  ?Collection<int, StoredCheckResult>  $checkResults
      */
     public function __construct(
         DateTimeInterface $finishedAt = null,
-        ?Collection       $checkResults = null
+        ?Collection $checkResults = null
     ) {
         $this->finishedAt = $finishedAt ?? new DateTime();
 
@@ -61,8 +61,7 @@ class StoredCheckResults
     }
 
     /**
-     * @param array<int, Status>|Status $statuses
-     *
+     * @param  array<int, Status>|Status  $statuses
      * @return bool
      */
     public function containsCheckWithStatus(array|Status $statuses): bool
@@ -78,7 +77,7 @@ class StoredCheckResults
 
     public function toJson(): string
     {
-        return (string)json_encode([
+        return (string) json_encode([
             'finishedAt' => $this->finishedAt->getTimestamp(),
             'checkResults' => $this->storedCheckResults->map(fn (StoredCheckResult $line) => $line->toArray()),
         ]);

@@ -10,6 +10,6 @@ class CrashingResultStore implements ResultStore
 {
     public function save(Collection $checkResults): void
     {
-        throw new Exception("Store is crashing");
+        throw new Exception('Store is crashing');
     }
 }

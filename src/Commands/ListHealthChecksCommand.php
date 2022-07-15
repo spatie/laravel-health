@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
-
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
-
 use function Termwind\render;
 
 class ListHealthChecksCommand extends Command

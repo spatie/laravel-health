@@ -12,7 +12,7 @@ use Spatie\Health\Enums\Status;
 
 class CheckFailedNotification extends Notification
 {
-    /** @param array<int, Result> $results */
+    /** @param  array<int, Result>  $results */
     public function __construct(public array $results)
     {
     }
@@ -21,7 +21,7 @@ class CheckFailedNotification extends Notification
     public function via(): array
     {
         /** @var array<int, string> $notificationChannels */
-        $notificationChannels = config('health.notifications.notifications.' . static::class);
+        $notificationChannels = config('health.notifications.notifications.'.static::class);
 
         return array_filter($notificationChannels);
     }

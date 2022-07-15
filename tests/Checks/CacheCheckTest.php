@@ -10,7 +10,6 @@ it('will determine that a working cache is ok', function () {
     expect($result->status)->toBe(Status::ok());
 });
 
-
 it('will determine that a non-existing cache is not ok', function () {
     $result = CacheCheck::new()
         ->driver('does-not-exist')
