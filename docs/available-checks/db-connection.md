@@ -1,6 +1,6 @@
 ---
 title: DB connection
-weight: 4
+weight: 5
 ---
 
 This check makes sure your application can connect to a database. If the `default` database connection does not work, this check will fail.

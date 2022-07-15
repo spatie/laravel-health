@@ -1,6 +1,6 @@
 ---
 title: Schedule
-weight: 12
+weight: 13
 ---
 
 This check will make sure the schedule is running. If the check detects that the schedule is not run every minute, it will fail.
@@ -55,3 +55,7 @@ Should you get too many false positives, you can change the max age of the times
 ```php
 ScheduleCheck::new()->heartbeatMaxAgeInMinutes(2),
 ```
+
+### Checking individual scheduled tasks
+
+To monitor your individual scheduled tasks, take a look at [our schedule monitor package](https://github.com/spatie/laravel-schedule-monitor).
