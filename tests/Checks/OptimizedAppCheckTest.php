@@ -9,7 +9,7 @@ it('will check if services are cached', function () {
     expect($result)->status->toBe(Status::failed());
 });
 
-it('can perform only selected checks', function() {
+it('can perform only selected checks', function () {
     $check = OptimizedAppCheck::new();
 
     expect($check->checks)->toBeNull();
@@ -19,7 +19,7 @@ it('can perform only selected checks', function() {
     expect($check->checks)->toBe([OptimizedAppCheck::ROUTES]);
 });
 
-it('can perform all checks explicitly', function() {
+it('can perform all checks explicitly', function () {
     $check = OptimizedAppCheck::new();
 
     expect($check->checks)->toBeNull();
@@ -37,4 +37,3 @@ it('can perform all checks explicitly', function() {
 
     ]);
 });
-

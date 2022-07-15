@@ -19,19 +19,19 @@ class OptimizedAppCheck extends Check
         $result = Result::make();
 
         if ($this->shouldPerformCheck(self::CONFIG)) {
-            if (!app()->configurationIsCached()) {
+            if (! app()->configurationIsCached()) {
                 return $result->failed('Configs are not cached.');
             }
         }
 
         if ($this->shouldPerformCheck(self::ROUTES)) {
-            if (!app()->routesAreCached()) {
+            if (! app()->routesAreCached()) {
                 return $result->failed('Routes are not cached.');
             }
         }
 
         if ($this->shouldPerformCheck(self::EVENTS)) {
-            if (!app()->eventsAreCached()) {
+            if (! app()->eventsAreCached()) {
                 return $result->failed('The events are not cached.');
             }
         }
