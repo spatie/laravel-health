@@ -16,6 +16,11 @@ parameters:
 			path: src/Commands/RunHealthChecksCommand.php
 
 		-
+			message: "#^Method Spatie\\\\Health\\\\Notifications\\\\CheckFailedNotification\\:\\:transParameters\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Notifications/CheckFailedNotification.php
+
+		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
 			count: 1
 			path: src/ResultStores/ResultStores.php
