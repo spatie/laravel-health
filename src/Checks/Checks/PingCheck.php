@@ -15,7 +15,7 @@ class PingCheck extends Check
     public int $timeout = 1;
     public string $method = 'GET';
 
-    /** @var array<string, string>  */
+    /** @var array<string, string> */
     public array $headers = [];
 
     public function url(string $url): self
