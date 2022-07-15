@@ -11,6 +11,7 @@ class OptimizedAppCheck extends Check
     public const ROUTES = 'routes';
     public const EVENTS = 'events';
 
+    /** @var array<string>|null */
     public ?array $checks = null;
 
     public function run(): Result

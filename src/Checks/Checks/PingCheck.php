@@ -14,6 +14,8 @@ class PingCheck extends Check
     public ?string $failureMessage = null;
     public int $timeout = 1;
     public string $method = 'GET';
+
+    /** @var array<string, string>  */
     public array $headers = [];
 
     public function url(string $url): self
@@ -37,6 +39,11 @@ class PingCheck extends Check
         return $this;
     }
 
+    /**
+     * @param array<string, string> $headers
+     *
+     * @return $this
+     */
     public function headers(array $headers = []): self
     {
         $this->headers = $headers;

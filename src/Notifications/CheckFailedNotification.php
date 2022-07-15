@@ -90,6 +90,9 @@ class CheckFailedNotification extends Notification
         return $slackMessage;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function transParameters(): array
     {
         return [

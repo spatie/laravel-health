@@ -163,7 +163,7 @@ class RunHealthChecksCommand extends Command
     }
 
     /**
-     * @return string<CheckFailedNotification>
+     * @return class-string<CheckFailedNotification>
      */
     protected function getFailedNotificationClass(): string
     {
