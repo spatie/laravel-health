@@ -26,7 +26,6 @@ beforeEach(function () {
 it('will display the results as json when the request accepts json', function () {
     artisan(RunHealthChecksCommand::class);
 
-
     $json = getJson('/')
         ->assertSuccessful()
         ->json();

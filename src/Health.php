@@ -18,7 +18,7 @@ class Health
     /** @var array<int, string> */
     public array $inlineStylesheets = [];
 
-    /** @param array<int, Check> $checks */
+    /** @param  array<int, Check>  $checks */
     public function checks(array $checks): self
     {
         $this->ensureCheckInstances($checks);
@@ -67,7 +67,7 @@ class Health
         return new HtmlString(implode('', $assets));
     }
 
-    /** @param array<int,mixed> $checks */
+    /** @param  array<int,mixed>  $checks */
     protected function ensureCheckInstances(array $checks): void
     {
         foreach ($checks as $check) {

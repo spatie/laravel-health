@@ -13,7 +13,9 @@ abstract class Check
     use ManagesFrequencies;
 
     protected string $expression = '* * * * *';
+
     protected ?string $name = null;
+
     protected ?string $label = null;
 
     final public function __construct()

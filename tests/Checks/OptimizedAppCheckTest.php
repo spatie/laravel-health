@@ -34,6 +34,5 @@ it('can perform all checks explicitly', function () {
         OptimizedAppCheck::CONFIG,
         OptimizedAppCheck::EVENTS,
 
-
     ]);
 });

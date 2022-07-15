@@ -7,7 +7,7 @@ use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 
 interface ResultStore
 {
-    /** @param Collection<int, \Spatie\Health\Checks\Result> $checkResults */
+    /** @param  Collection<int, \Spatie\Health\Checks\Result>  $checkResults */
     public function save(Collection $checkResults): void;
 
     public function latestResults(): ?StoredCheckResults;

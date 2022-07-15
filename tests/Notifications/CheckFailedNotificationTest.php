@@ -28,7 +28,6 @@ it('will send a notification when one of the checks has a message', function () 
     Notification::assertTimesSent(1, CheckFailedNotification::class);
 });
 
-
 it('will not send any notifications if the config option is set to false', function () {
     config()->set('health.notifications.enabled', false);
 
@@ -55,11 +54,10 @@ it('will only send one failed notification per hour', function () {
     Notification::assertTimesSent(2, CheckFailedNotification::class);
 });
 
-
 test('the notification can be rendered to mail', function () {
     $mailable = (new CheckFailedNotification([]))->toMail();
 
-    $html = (string)$mailable->render();
+    $html = (string) $mailable->render();
 
     expect($html)->toBeString();
 });

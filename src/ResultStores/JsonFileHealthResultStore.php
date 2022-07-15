@@ -13,6 +13,7 @@ use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 class JsonFileHealthResultStore implements ResultStore
 {
     protected FilesystemAdapter $disk;
+
     protected string $path;
 
     public function __construct(string $disk, string $path)
@@ -22,7 +23,7 @@ class JsonFileHealthResultStore implements ResultStore
         $this->path = $path;
     }
 
-    /** @param Collection<int, \Spatie\Health\Checks\Result> $checkResults */
+    /** @param  Collection<int, \Spatie\Health\Checks\Result>  $checkResults */
     public function save(Collection $checkResults): void
     {
         $report = new StoredCheckResults(now());
@@ -34,7 +35,7 @@ class JsonFileHealthResultStore implements ResultStore
                     label: $result->check->getLabel(),
                     notificationMessage: $result->getNotificationMessage(),
                     shortSummary: $result->getShortSummary(),
-                    status: (string)$result->status->value,
+                    status: (string) $result->status->value,
                     meta: $result->meta,
                 );
             })

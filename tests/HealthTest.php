@@ -39,7 +39,6 @@ it('will throw an exception when registering a class that does not exist Check',
     ]);
 })->throws(InvalidCheck::class);
 
-
 it('will throw an exception when registering a string', function () {
     Health::checks([
         PingCheck::class,

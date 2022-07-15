@@ -34,7 +34,7 @@ class EloquentHealthResultStore implements ResultStore
         return new $historyItemClassName();
     }
 
-    /** @param Collection<int, Result> $checkResults */
+    /** @param  Collection<int, Result>  $checkResults */
     public function save(Collection $checkResults): void
     {
         $batch = Str::uuid();

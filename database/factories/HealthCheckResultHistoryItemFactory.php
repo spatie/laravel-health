@@ -21,7 +21,7 @@ class HealthCheckResultHistoryItemFactory extends Factory
             'short_summary' => $this->faker->sentences(asText: true),
             'meta' => [],
             'batch' => (string) Str::uuid(),
-            'ended_at' => $this->faker->dateTime()
+            'ended_at' => $this->faker->dateTime(),
         ];
     }
 }

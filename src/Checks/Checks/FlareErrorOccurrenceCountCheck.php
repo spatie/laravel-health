@@ -10,9 +10,13 @@ use Spatie\Health\Checks\Result;
 class FlareErrorOccurrenceCountCheck extends Check
 {
     protected int $warningThreshold = 500;
+
     protected int $errorThreshold = 1000;
+
     protected int $periodInMinutes = 60;
+
     protected ?int $flareProjectId = null;
+
     protected ?string $flareApiToken = null;
 
     public function warnWhenMoreErrorsReceivedThan(int $warningThreshold): self
@@ -54,7 +58,7 @@ class FlareErrorOccurrenceCountCheck extends Check
     {
         $errorOccurrenceCount = $this->getFlareErrorOccurrenceCount();
 
-        $shortSummary = $errorOccurrenceCount . ' ' . Str::plural('error', $errorOccurrenceCount) . " in past {$this->periodInMinutes} minutes"  ;
+        $shortSummary = $errorOccurrenceCount.' '.Str::plural('error', $errorOccurrenceCount)." in past {$this->periodInMinutes} minutes";
 
         $result = Result::make()
             ->ok()
