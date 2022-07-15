@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.12.0 - 2022-07-15
+
+### What's Changed
+
+- Minor fix docs by @Joel-Jensen in https://github.com/spatie/laravel-health/pull/105
+- Added "cached services" check by @rcerljenko and @freekmurze in https://github.com/spatie/laravel-health/pull/106
+
+### New Contributors
+
+- @Joel-Jensen made their first contribution in https://github.com/spatie/laravel-health/pull/105
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.11.1...1.12.0
+
 ## 1.11.1 - 2022-06-30
 
 ### What's Changed
