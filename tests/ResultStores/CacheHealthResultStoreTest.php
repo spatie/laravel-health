@@ -26,7 +26,7 @@ beforeEach(function () {
 it('can cache check results', function () {
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
-    $json = cache()->store('file')->get('healthStoreResults');
+    $json = cache()->store('file')->get('health:storeResults');
 
     assertMatchesJsonSnapshot($json);
 });
