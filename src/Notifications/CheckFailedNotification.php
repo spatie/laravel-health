@@ -39,7 +39,7 @@ class CheckFailedNotification extends Notification
             return true;
         }
 
-        $cacheKey = 'health.latestNotificationSentAt:'.$channel;
+        $cacheKey = 'health:latestNotificationSentAt:'.$channel;
 
         /** @var \Illuminate\Cache\CacheManager $cache */
         $cache = app('cache');
