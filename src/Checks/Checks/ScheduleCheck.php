@@ -8,7 +8,7 @@ use Spatie\Health\Checks\Result;
 
 class ScheduleCheck extends Check
 {
-    protected string $cacheKey = 'health.checks.schedule.latestHeartbeatAt';
+    protected string $cacheKey = 'health:checks:schedule:latestHeartbeatAt';
 
     protected ?string $cacheStoreName = null;
 
