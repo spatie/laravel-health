@@ -66,7 +66,7 @@ class Result
     public function ok(string $message = ''): self
     {
         $this->notificationMessage = $message;
-        
+
         $this->status = Status::ok();
 
         return $this;
