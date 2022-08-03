@@ -18,6 +18,7 @@ These are the checks created by us:
 - [Ping](ping)
 - [Redis](redis)
 - [Schedule](schedule)
+- [Security advisories](security-advisories)
 - [Used Disk Space](used-disk-space)
 
 ## Third party checks
