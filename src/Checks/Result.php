@@ -25,7 +25,8 @@ class Result
         public Status $status,
         public string $notificationMessage = '',
         public string $shortSummary = '',
-    ) {
+    )
+    {
     }
 
     public function shortSummary(string $shortSummary): self
@@ -37,7 +38,7 @@ class Result
 
     public function getShortSummary(): string
     {
-        if (! empty($this->shortSummary)) {
+        if (!empty($this->shortSummary)) {
             return $this->shortSummary;
         }
 
@@ -60,7 +61,12 @@ class Result
 
     public function getNotificationMessage(): string
     {
-        return trans($this->notificationMessage, $this->meta);
+        $meta = collect($this->meta)
+            ->filter(function ($item) {
+                return is_scalar($item);
+            })->toArray();
+
+        return trans($this->notificationMessage, $meta);
     }
 
     public function ok(string $message = ''): self
@@ -90,7 +96,7 @@ class Result
         return $this;
     }
 
-    /** @param  array<string, mixed>  $meta */
+    /** @param array<string, mixed> $meta */
     public function meta(array $meta): self
     {
         $this->meta = $meta;
