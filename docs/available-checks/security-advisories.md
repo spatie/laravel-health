@@ -9,7 +9,7 @@ This check will check if the PHP packages installed in your project have known s
 
 You must first install the check using composer
 
-```php
+```bash
 composer require spatie/security-advisories-health-check
 ```
 
