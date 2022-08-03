@@ -30,7 +30,7 @@ The check will pass if there are no security advisories for the packages current
 
 If security advisories are found, the check will fail. The failure message will contain the names of package that have security issues. In the `meta` key of history item of the check, the full vulnerability advisories will be saved. Alternatively, you can run `composer audit` in the root directory of your application to see a list of security issues.
 
-### Ignoring certain package
+### Ignoring packages
 
 To ignore certain packages, you can use the `ignorePackage` method.
 
