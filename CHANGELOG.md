@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.12.2 - 2022-08-03
+
+### What's Changed
+
+- Failed Notification Cache Per Channel by @moisish in https://github.com/spatie/laravel-health/pull/107
+- Missing setting $message by @gizburdt in https://github.com/spatie/laravel-health/pull/108
+
+### New Contributors
+
+- @gizburdt made their first contribution in https://github.com/spatie/laravel-health/pull/108
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.12.0...1.12.2
+
 ## 1.12.1 - 2022-07-29
 
 ### What's Changed
