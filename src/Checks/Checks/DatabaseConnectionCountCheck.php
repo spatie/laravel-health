@@ -18,14 +18,14 @@ class DatabaseConnectionCountCheck extends Check
 
     protected int $errorThreshold = 50;
 
-    public function warnWhenMoreConnectionsThan(int $warningThreshold)
+    public function warnWhenMoreConnectionsThan(int $warningThreshold): self
     {
         $this->warningThreshold = $warningThreshold;
 
         return $this;
     }
 
-    public function failWhenMoreConnectionsThan(int $errorThreshold)
+    public function failWhenMoreConnectionsThan(int $errorThreshold): self
     {
         $this->errorThreshold = $errorThreshold;
 
