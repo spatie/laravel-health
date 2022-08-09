@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.13.0 - 2022-08-09
+
+- add "database table size" and "database connection count" checks.
+
 ## 1.12.3 - 2022-08-03
 
 - fix for when not all items is the meta array are scalars
