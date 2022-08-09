@@ -1,6 +1,5 @@
 <?php
 
-use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DatabaseTableSizeCheck;
 use Spatie\Health\Enums\Status;
 
@@ -23,4 +22,3 @@ it('will determine that table size is not ok if it does cross the maximum', func
     expect($result->status)->toBe(Status::failed());
     expect($result->getNotificationMessage())->toStartWith('This table is too big:');
 });
-
