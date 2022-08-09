@@ -1,11 +1,20 @@
 ---
 title: DB table size
-weight: 6
+weight: 7
 ---
 
-This check makes sure your the tables of your database are not too big. This check support MySQL and Postgres.
+This check makes sure the tables of your database are not too big. This check support MySQL and Postgres.
 
 If one of the given tables is bigger than the specific maximum, the check will fail.
+
+## Requirements
+
+You'll need to install the `doctrine/dbal` package in your project.
+
+```bash
+composer require doctrine/dbal
+```
+
 
 ## Usage
 
@@ -27,5 +36,5 @@ Health::checks([
 To check another database connection, call `connectionName()`
 
 ```php
-DatabaseCheck::new()->connectionName('another-connection-name'),
+DatabaseTableSizeCheck::new()->connectionName('another-connection-name'),
 ```

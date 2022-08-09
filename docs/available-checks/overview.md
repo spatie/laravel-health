@@ -10,6 +10,8 @@ These are the checks created by us:
 - [Application Cache](cache)
 - [CPU Load](cpu-load)
 - [Database Connection](db-connection)
+- [Database Connection Count](db-connection-count)
+- [Database Table Size](db-table-size-check)
 - [Debug Mode](debug-mode)
 - [Environment](environment)
 - [Flare Error Count](flare-error-count)

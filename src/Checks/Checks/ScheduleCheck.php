@@ -47,8 +47,7 @@ class ScheduleCheck extends Check
 
     public function run(): Result
     {
-        $result = Result::make()
-            ->ok();
+        $result = Result::make()->ok();
 
         $lastHeartbeatTimestamp = cache()->store($this->cacheStoreName)->get($this->cacheKey);
 

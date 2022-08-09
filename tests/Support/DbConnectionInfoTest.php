@@ -12,3 +12,13 @@ it('can determine the table size in mb', function() {
 
    expect($size)->toBeGreaterThan(0);
 });
+
+it('can determine the connection count', function() {
+    $connection = app(ConnectionResolverInterface::class)->connection('mysql');
+
+    $connectionInfo = new DbConnectionInfo();
+
+    $size = $connectionInfo->connectionCount($connection);
+
+    expect($size)->toBeGreaterThan(0);
+});
