@@ -1,8 +1,6 @@
 <?php
 
-use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DatabaseConnectionCountCheck;
-use Spatie\Health\Checks\Checks\DatabaseTableSizeCheck;
 use Spatie\Health\Enums\Status;
 
 it('will determine that connection count is ok if it does not cross the maximum', function () {
