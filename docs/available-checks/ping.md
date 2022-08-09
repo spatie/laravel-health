@@ -1,6 +1,6 @@
 ---
 title: Ping
-weight: 11
+weight: 12
 ---
 
 This check will send a request to a given URL.  It will report a failure when that URL doesn't respond with a successful response code within a second.

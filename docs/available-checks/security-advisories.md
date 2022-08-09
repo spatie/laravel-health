@@ -1,6 +1,6 @@
 ---
 title: Security advisories
-weight: 14
+weight: 15
 ---
 
 This check will check if the PHP packages installed in your project have known security vulnerabilities. This check works using [Packagist's security vulnerability API](https://php.watch/articles/composer-audit#packagist-vuln-list-api). 
