@@ -2,9 +2,7 @@
 
 namespace Spatie\Health\Checks\Checks;
 
-use Exception;
 use Illuminate\Database\ConnectionResolverInterface;
-use Illuminate\Support\Facades\DB;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\DbConnectionInfo;
@@ -44,21 +42,20 @@ class DatabaseTableSizeCheck extends Check
         $result = Result::make()->meta($tableSizes->toArray());
 
         $tooBigTables = $tableSizes->filter(
-            fn(array $tableProperties) => $tableProperties['actualSize'] > $tableProperties['maxSize']
+            fn (array $tableProperties) => $tableProperties['actualSize'] > $tableProperties['maxSize']
         );
 
         if ($tooBigTables->isEmpty()) {
-            return $result->ok("Table sizes are ok");
+            return $result->ok('Table sizes are ok');
         }
 
-        $tablesString = $tooBigTables->map(function(array $tableProperties) {
+        $tablesString = $tooBigTables->map(function (array $tableProperties) {
             return "`{$tableProperties['name']}` ({$tableProperties['actualSize']} MB)";
         })->join(', ', ' and ');
 
         $messageStart = $tooBigTables->count() === 1
             ? 'This table is'
             : 'These tables are';
-
 
         $message = "{$messageStart} too big: {$tablesString}";
 
