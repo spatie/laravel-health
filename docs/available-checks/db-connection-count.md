@@ -3,7 +3,9 @@ title: DB connection count
 weight: 6
 ---
 
-This check makes sure your database doesn't have too much active connections. If there are more than 50 connections, this check will fail. Of course, you can customize that amount.
+This check makes sure your database doesn't have too much active connections. This check supports MySQL and Postgres.
+
+If there are more than 50 connections, this check will fail. Of course, you can customize that amount.
 
 ## Requirements
 

@@ -3,7 +3,7 @@ title: DB table size
 weight: 7
 ---
 
-This check makes sure the tables of your database are not too big. This check support MySQL and Postgres.
+This check makes sure the tables of your database are not too big. This check supports MySQL and Postgres.
 
 If one of the given tables is bigger than the specific maximum, the check will fail.
 
