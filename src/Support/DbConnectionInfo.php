@@ -12,8 +12,8 @@ class DbConnectionInfo
     public function connectionCount(ConnectionInterface $connection): int
     {
         return match (true) {
-            $connection instanceof MySqlConnection => (int)$connection->selectOne($connection->raw('show status where variable_name = "threads_connected"'))->Value,
-            $connection instanceof PostgresConnection => (int)$connection->selectOne('select count(*) as connections from pg_stat_activity')->connections,
+            $connection instanceof MySqlConnection => (int) $connection->selectOne($connection->raw('show status where variable_name = "threads_connected"'))->Value,
+            $connection instanceof PostgresConnection => (int) $connection->selectOne('select count(*) as connections from pg_stat_activity')->connections,
             default => throw new DatabaseNotSupported()
         };
     }

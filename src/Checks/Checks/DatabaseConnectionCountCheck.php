@@ -2,9 +2,7 @@
 
 namespace Spatie\Health\Checks\Checks;
 
-use Exception;
 use Illuminate\Database\ConnectionResolverInterface;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
@@ -53,7 +51,6 @@ class DatabaseConnectionCountCheck extends Check
                 'connection_count' => $connectionCount,
             ])
             ->shortSummary($shortSummary);
-
 
         if ($connectionCount > $this->errorThreshold) {
             return $result->failed("There are too many database connections ({$connectionCount} connections)");
