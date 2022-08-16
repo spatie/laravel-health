@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.14.0 - 2022-08-16
+
+- Allows you to configure the notification throttle cache key
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.13.0...1.14.0
+
 ## 1.13.0 - 2022-08-09
 
 - add "database table size" and "database connection count" checks.
