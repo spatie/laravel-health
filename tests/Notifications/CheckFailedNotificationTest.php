@@ -54,6 +54,22 @@ it('will only send one failed notification per hour', function () {
     Notification::assertTimesSent(2, CheckFailedNotification::class);
 });
 
+it('can configure the throttle notifications key', function () {
+    TestTime::freeze();
+    registerFailingCheck();
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertTimesSent(1, CheckFailedNotification::class);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertTimesSent(1, CheckFailedNotification::class);
+
+    config()->set('health.notifications.throttle_notifications_key', 'some-other-key');
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertTimesSent(2, CheckFailedNotification::class);
+});
+
 test('the notification can be rendered to mail', function () {
     $mailable = (new CheckFailedNotification([]))->toMail();
 

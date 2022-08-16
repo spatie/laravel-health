@@ -55,6 +55,7 @@ return [
          * only get one notification per hour.
          */
         'throttle_notifications_for_minutes' => 60,
+        'throttle_notifications_key' => 'health:latestNotificationSentAt:',
 
         'mail' => [
             'to' => 'your@example.com',
