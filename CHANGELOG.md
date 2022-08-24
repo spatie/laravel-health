@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.14.1 - 2022-08-24
+
+### What's Changed
+
+- Support PHP 8.0 by @HajMo in https://github.com/spatie/laravel-health/pull/114
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.0...1.14.1
+
 ## 1.14.0 - 2022-08-16
 
 - Allows you to configure the notification throttle cache key
