@@ -5,7 +5,7 @@ weight: 2
 
 When a check starts returning warnings or failures, you can get notified via mail.
 
-Do use this channel, you must install the Slack notification channel.
+To use this channel, you must install the Slack notification channel.
 
 ```bash
 composer require laravel/slack-notification-channel
