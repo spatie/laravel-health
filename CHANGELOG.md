@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.14.2 - 2022-08-31
+
+### What's Changed
+
+- Slack notification fix by @patrick-levesque in https://github.com/spatie/laravel-health/pull/115
+
+### New Contributors
+
+- @patrick-levesque made their first contribution in https://github.com/spatie/laravel-health/pull/115
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.1...1.14.2
+
 ## 1.14.1 - 2022-08-24
 
 ### What's Changed
