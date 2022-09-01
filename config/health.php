@@ -55,6 +55,7 @@ return [
          * only get one notification per hour.
          */
         'throttle_notifications_for_minutes' => 60,
+        'throttle_notifications_key' => 'health:latestNotificationSentAt:',
 
         'mail' => [
             'to' => 'your@example.com',
@@ -66,7 +67,7 @@ return [
         ],
 
         'slack' => [
-            'webhook_url' => config('logging.channels.slack.url', ''),
+            'webhook_url' => env('HEALTH_SLACK_WEBHOOK_URL', ''),
 
             /*
              * If this is set to null the default channel of the webhook will be used.

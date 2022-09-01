@@ -2,6 +2,32 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.14.2 - 2022-08-31
+
+### What's Changed
+
+- Slack notification fix by @patrick-levesque in https://github.com/spatie/laravel-health/pull/115
+
+### New Contributors
+
+- @patrick-levesque made their first contribution in https://github.com/spatie/laravel-health/pull/115
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.1...1.14.2
+
+## 1.14.1 - 2022-08-24
+
+### What's Changed
+
+- Support PHP 8.0 by @HajMo in https://github.com/spatie/laravel-health/pull/114
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.0...1.14.1
+
+## 1.14.0 - 2022-08-16
+
+- Allows you to configure the notification throttle cache key
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.13.0...1.14.0
+
 ## 1.13.0 - 2022-08-09
 
 - add "database table size" and "database connection count" checks.
