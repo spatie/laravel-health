@@ -3,7 +3,7 @@ title: Via Slack
 weight: 2
 ---
 
-When a check starts returning warnings or failures, you can get notified via mail.
+When a check starts returning warnings or failures, you can get notified via slack.
 
 To use this channel, you must install the Slack notification channel.
 
