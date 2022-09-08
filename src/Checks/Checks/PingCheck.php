@@ -76,14 +76,14 @@ class PingCheck extends Check
 
         return Result::make()
             ->ok()
-            ->shortSummary('reachable');
+            ->shortSummary('Reachable');
     }
 
     protected function failedResult(): Result
     {
         return Result::make()
             ->failed()
-            ->shortSummary('unreachable')
+            ->shortSummary('Unreachable')
             ->notificationMessage($this->failureMessage ?? "Pinging {$this->getName()} failed.");
     }
 }
