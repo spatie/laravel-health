@@ -20,6 +20,7 @@ class StoredCheckResults
 
         $checkResults = collect($properties['checkResults'])
             ->map(fn (array $lineProperties) => new StoredCheckResult(...$lineProperties))
+            ->unique('name')
             ->sortBy(fn (StoredCheckResult $result) => strtolower($result->label));
 
         return new self(
