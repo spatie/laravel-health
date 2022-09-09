@@ -31,3 +31,18 @@ Health::checks([
     PingCheck::new()->url('https://example.com')->timeout(2),
 ]);
 ```
+
+
+### Customizing the name
+
+You can use `name()` to change the title of the `PingCheck`. This is useful when you have multiple `PingCheck`s and you want to distinguish them from each other easily.
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\PingCheck;
+
+Health::checks([
+    PingCheck::new()->url('https://example.com')->name('Example'),
+    PingCheck::new()->url('https://spatie.be')->name('Spatie'),
+]);
+```
