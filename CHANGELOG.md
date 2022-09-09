@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.14.4 - 2022-09-09
+
+Only report unique checks
+
 ## 1.14.3 - 2022-09-08
 
 ### What's Changed
