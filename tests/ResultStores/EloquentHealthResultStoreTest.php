@@ -1,12 +1,14 @@
 <?php
 
-use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunHealthChecksCommand;
+use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\ResultStores\EloquentHealthResultStore;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
+
+use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesJsonSnapshot;
 
@@ -17,8 +19,10 @@ beforeEach(function () {
         EloquentHealthResultStore::class,
     ]);
 
+    $this->fakeDiskSpaceCheck = FakeUsedDiskSpaceCheck::new();
+
     Health::checks([
-        FakeUsedDiskSpaceCheck::new(),
+        $this->fakeDiskSpaceCheck,
     ]);
 });
 
@@ -37,4 +41,20 @@ it('can retrieve the latest results from json', function () {
     $report = app(ResultStore::class)->latestResults();
 
     assertMatchesJsonSnapshot($report->toJson());
+});
+
+it('can write skipped results to the database', function () {
+    $this
+        ->fakeDiskSpaceCheck
+        ->everyFiveMinutes();
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+
+    testTime()->addMinutes(4);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+
+    $report = app(ResultStore::class)->latestResults();
+
+    expect($report->containsCheckWithStatus(Status::skipped()))->toBeTrue();
 });
