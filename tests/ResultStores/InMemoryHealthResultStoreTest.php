@@ -1,14 +1,13 @@
 <?php
 
-use Spatie\Health\Enums\Status;
+use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunHealthChecksCommand;
+use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\ResultStores\InMemoryHealthResultStore;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
-
-use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
