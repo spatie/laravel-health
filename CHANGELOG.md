@@ -2,6 +2,26 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.14.4 - 2022-09-09
+
+Only report unique checks
+
+## 1.14.3 - 2022-09-08
+
+### What's Changed
+
+- Update via-slack.md by @tomsgad in https://github.com/spatie/laravel-health/pull/116
+- fix/removes a comma which should not be there by @Enaah in https://github.com/spatie/laravel-health/pull/117
+- Capitalize short summary for PingCheck by @HassanZahirnia in https://github.com/spatie/laravel-health/pull/118
+
+### New Contributors
+
+- @tomsgad made their first contribution in https://github.com/spatie/laravel-health/pull/116
+- @Enaah made their first contribution in https://github.com/spatie/laravel-health/pull/117
+- @HassanZahirnia made their first contribution in https://github.com/spatie/laravel-health/pull/118
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.2...1.14.3
+
 ## 1.14.2 - 2022-08-31
 
 ### What's Changed

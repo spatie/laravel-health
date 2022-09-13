@@ -26,7 +26,7 @@ use Spatie\Health\Checks\Checks\DatabaseTableSizeCheck;
 
 Health::checks([
     DatabaseTableSizeCheck::new()
-        ->table('your_table_name', maxSizeInMb: 1_000),
+        ->table('your_table_name', maxSizeInMb: 1_000)
         ->table('another_table_name', maxSizeInMb: 2_000),
 ]);
 ```
