@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.14.5 - 2022-09-13
+
+### What's Changed
+
+- Fix store skipped checks results by @patrick-levesque in https://github.com/spatie/laravel-health/pull/120
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.4...1.14.5
+
 ## 1.14.4 - 2022-09-09
 
 Only report unique checks
