@@ -28,5 +28,6 @@ it('will determine that connection count is not ok if it does cross the warning 
         ->run();
 
     expect($result->status)->toBe(Status::warning());
-    expect($result->getNotificationMessage())->toContain('connections');
+
+    expect($result->getNotificationMessage())->toContain('connection');
 });

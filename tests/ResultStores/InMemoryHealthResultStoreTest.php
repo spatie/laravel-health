@@ -1,19 +1,51 @@
 <?php
 
-use Spatie\Health\Checks\Result;
+use Spatie\Health\Enums\Status;
+use Spatie\Health\Commands\RunHealthChecksCommand;
+use Spatie\Health\Facades\Health;
 use Spatie\Health\ResultStores\InMemoryHealthResultStore;
+use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 
+use function Pest\Laravel\artisan;
+use function Spatie\PestPluginTestTime\testTime;
+
+beforeEach(function () {
+    testTime()->freeze('2021-01-01 00:00:00');
+
+    config()->set('health.result_stores', [
+        InMemoryHealthResultStore::class,
+    ]);
+
+    $this->fakeDiskSpaceCheck = FakeUsedDiskSpaceCheck::new();
+
+    Health::checks([
+        $this->fakeDiskSpaceCheck,
+    ]);
+});
+
 it('can keep results in memory', function () {
-    $store = new InMemoryHealthResultStore();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
-    $check = FakeUsedDiskSpaceCheck::new();
+    $report = app(ResultStore::class)->latestResults();
 
-    $checkResults = collect([Result::make('disk')->check($check)]);
+    expect($report)->toBeInstanceOf(StoredCheckResults::class);
+    expect($report->storedCheckResults)->toHaveCount(1);
+});
 
-    $store->save($checkResults);
+it('can store skipped results in memory', function () {
+    $this
+        ->fakeDiskSpaceCheck
+        ->everyFiveMinutes();
 
-    expect($store->latestResults())->toBeInstanceOf(StoredCheckResults::class)
-        ->and($store->latestResults()->storedCheckResults)->toHaveCount(1);
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+
+    testTime()->addMinutes(4);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+
+    $report = app(ResultStore::class)->latestResults();
+
+    expect($report->containsCheckWithStatus(Status::skipped()))->toBeTrue();
 });
