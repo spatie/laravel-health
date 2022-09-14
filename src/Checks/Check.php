@@ -4,6 +4,7 @@ namespace Spatie\Health\Checks;
 
 use Cron\CronExpression;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use Spatie\Health\Enums\Status;
@@ -17,6 +18,8 @@ abstract class Check
     protected ?string $name = null;
 
     protected ?string $label = null;
+
+    protected string|array $environments = [];
 
     final public function __construct()
     {
@@ -41,6 +44,13 @@ abstract class Check
     public function label(string $label): self
     {
         $this->label = $label;
+
+        return $this;
+    }
+
+    public function environments(string|array $environments): self
+    {
+        $this->environments = is_array($environments) ? $environments : func_get_args();
 
         return $this;
     }
@@ -70,8 +80,15 @@ abstract class Check
     public function shouldRun(): bool
     {
         $date = Date::now();
+        $appEnvironment = App::environment();
 
-        return (new CronExpression($this->expression))->isDue($date->toDateTimeString());
+        return (new CronExpression($this->expression))->isDue($date->toDateTimeString()) &&
+               $this->runsInEnvironment($appEnvironment);
+    }
+
+    public function runsInEnvironment(string $environment): bool
+    {
+        return empty($this->environments) || in_array($environment, $this->environments);
     }
 
     abstract public function run(): Result;
