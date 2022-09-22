@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.14.6 - 2022-09-22
+
+### What's Changed
+
+- Added filesystemName to UsedDiskSpaceCheck by @davidrushton in https://github.com/spatie/laravel-health/pull/122
+
+### New Contributors
+
+- @davidrushton made their first contribution in https://github.com/spatie/laravel-health/pull/122
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.5...1.14.6
+
 ## 1.14.5 - 2022-09-13
 
 ### What's Changed
