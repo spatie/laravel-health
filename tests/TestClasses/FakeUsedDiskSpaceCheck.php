@@ -24,5 +24,4 @@ class FakeUsedDiskSpaceCheck extends UsedDiskSpaceCheck
     {
         return $this->filesystemName;
     }
-
 }
