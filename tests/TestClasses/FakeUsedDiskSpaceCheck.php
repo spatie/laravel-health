@@ -19,4 +19,10 @@ class FakeUsedDiskSpaceCheck extends UsedDiskSpaceCheck
     {
         return $this->fakeDiskUsagePercentage;
     }
+
+    public function getFilesystemName(): string|null
+    {
+        return $this->filesystemName;
+    }
+
 }
