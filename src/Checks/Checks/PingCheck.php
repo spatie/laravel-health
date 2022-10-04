@@ -44,7 +44,7 @@ class PingCheck extends Check
         return $this;
     }
 
-    public function retry(int $times): self
+    public function retryTimes(int $times): self
     {
         $this->retry = $times;
 
