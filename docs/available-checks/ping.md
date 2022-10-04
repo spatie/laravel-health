@@ -46,3 +46,17 @@ Health::checks([
     PingCheck::new()->url('https://spatie.be')->name('Spatie'),
 ]);
 ```
+
+
+### Customizing the retry times
+
+You can use `retryTimes()` to set the number of times to retry the `PingCheck` before failing.
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\PingCheck;
+
+Health::checks([
+    PingCheck::new()->url('https://example.com')->retryTimes(3),
+]);
+```
