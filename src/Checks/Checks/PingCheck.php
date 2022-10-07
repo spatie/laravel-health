@@ -15,7 +15,7 @@ class PingCheck extends Check
     public ?string $failureMessage = null;
 
     public int $timeout = 1;
-    
+
     public int $retryTimes = 1;
 
     public string $method = 'GET';
