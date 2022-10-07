@@ -16,7 +16,7 @@ class PingCheck extends Check
 
     public int $timeout = 1;
     
-    public int $retry = 1;
+    public int $retryTimes = 1;
 
     public string $method = 'GET';
 
@@ -46,7 +46,7 @@ class PingCheck extends Check
 
     public function retryTimes(int $times): self
     {
-        $this->retry = $times;
+        $this->retryTimes = $times;
 
         return $this;
     }
@@ -78,7 +78,7 @@ class PingCheck extends Check
         try {
             $request = Http::timeout($this->timeout)
                 ->withHeaders($this->headers)
-                ->retry($this->retry)
+                ->retry($this->retryTimes)
                 ->send($this->method, $this->url);
 
             if (! $request->successful()) {
