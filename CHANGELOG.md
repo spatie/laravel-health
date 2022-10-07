@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.15.0 - 2022-10-07
+
+### What's Changed
+
+- Update endpoints.md by @WouterBrouwers in https://github.com/spatie/laravel-health/pull/124
+- Add `retryTimes` method by @mtawil in https://github.com/spatie/laravel-health/pull/123
+
+### New Contributors
+
+- @WouterBrouwers made their first contribution in https://github.com/spatie/laravel-health/pull/124
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.6...1.15.0
+
 ## 1.14.6 - 2022-09-22
 
 ### What's Changed
