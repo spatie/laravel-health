@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.15.1 - 2022-10-17
+
+### What's Changed
+
+- Add Danish translation by @prip in https://github.com/spatie/laravel-health/pull/128
+
+### New Contributors
+
+- @prip made their first contribution in https://github.com/spatie/laravel-health/pull/128
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.15.0...1.15.1
+
 ## 1.15.0 - 2022-10-07
 
 ### What's Changed
