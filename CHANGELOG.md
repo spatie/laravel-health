@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.15.2 - 2022-10-21
+
+### What's Changed
+
+- Alias `health` in lieu of a separate binding by @mabdullahsari in https://github.com/spatie/laravel-health/pull/129
+
+### New Contributors
+
+- @mabdullahsari made their first contribution in https://github.com/spatie/laravel-health/pull/129
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.15.1...1.15.2
+
 ## 1.15.1 - 2022-10-17
 
 ### What's Changed
