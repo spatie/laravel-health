@@ -4,8 +4,6 @@ namespace Spatie\Health\Checks\Checks;
 
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
-use Spatie\Regex\Regex;
-use Symfony\Component\Process\Process;
 
 class UsedDiskSpaceCheck extends Check
 {
@@ -57,12 +55,9 @@ class UsedDiskSpaceCheck extends Check
 
     protected function getDiskUsagePercentage(): int
     {
-        $process = Process::fromShellCommandline('df -P '.($this->filesystemName ?: '.'));
+        $freeSpace = disk_free_space($this->filesystemName ?: '/');
+        $totalSpace = disk_total_space($this->filesystemName ?: '/');
 
-        $process->run();
-
-        $output = $process->getOutput();
-
-        return (int) Regex::match('/(\d*)%/', $output)->group(1);
+        return (int) 100 - ($freeSpace * 100 / $totalSpace);
     }
 }
