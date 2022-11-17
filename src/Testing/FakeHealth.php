@@ -13,7 +13,10 @@ class FakeHealth extends Health
     /**
      * @param array<class-string<Check>, Result|FakeValues|(Closure(Check): Result|FakeValues)> $fakeChecks
      */
-    public function __construct(private Health $decoratedHealth, private array $fakeChecks)
+    public function __construct(
+        private Health $decoratedHealth,
+        private array $fakeChecks
+    )
     {
     }
 
