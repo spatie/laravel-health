@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.16.0 - 2022-11-17
+
+### What's Changed
+
+- Adds the ability to fake registered checks. by @lukeraymonddowning in https://github.com/spatie/laravel-health/pull/135
+
+### New Contributors
+
+- @lukeraymonddowning made their first contribution in https://github.com/spatie/laravel-health/pull/135
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.15.2...1.16.0
+
 ## 1.15.2 - 2022-10-21
 
 ### What's Changed
