@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\PingCheck;
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
@@ -67,9 +68,18 @@ it('can fake checks', function () {
         ),
     ]);
 
-    $this->artisan('health:check')
-        ->expectsOutputToContain(ucfirst((string) Status::crashed()->value))
-        ->expectsOutputToContain(ucfirst((string) Status::warning()->value));
+    /**
+     * expectsOutputToContain() is not available before Laravel 9.2.0,
+     * so we'll just check that the command fails in that case.
+     */
+    if (version_compare(App::version(), '9.2.0', '>=')) {
+        $this->artisan('health:check', ['--fail-command-on-failing-check' => true])
+            ->expectsOutputToContain(ucfirst((string) Status::crashed()->value))
+            ->expectsOutputToContain(ucfirst((string) Status::warning()->value))
+            ->assertFailed();
+    } else {
+        $this->artisan('health:check', ['--fail-command-on-failing-check' => true])->assertFailed();
+    }
 });
 
 it('can pass a closure to fake checks', function () {
@@ -86,7 +96,16 @@ it('can pass a closure to fake checks', function () {
         }
     ]);
 
-    $this->artisan('health:check')
-        ->expectsOutputToContain(ucfirst((string) Status::crashed()->value))
-        ->expectsOutputToContain(ucfirst((string) Status::warning()->value));
+    /**
+     * expectsOutputToContain() is not available before Laravel 9.2.0,
+     * so we'll just check that the command fails in that case.
+     */
+    if (version_compare(App::version(), '9.2.0', '>=')) {
+        $this->artisan('health:check', ['--fail-command-on-failing-check' => true])
+            ->expectsOutputToContain(ucfirst((string) Status::crashed()->value))
+            ->expectsOutputToContain(ucfirst((string) Status::warning()->value))
+            ->assertFailed();
+    } else {
+        $this->artisan('health:check', ['--fail-command-on-failing-check' => true])->assertFailed();
+    }
 });
