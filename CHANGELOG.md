@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.16.1 - 2022-11-17
+
+### What's Changed
+
+- Minor fix fake default argument by @patrick-levesque in https://github.com/spatie/laravel-health/pull/136
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.16.0...1.16.1
+
 ## 1.16.0 - 2022-11-17
 
 ### What's Changed
