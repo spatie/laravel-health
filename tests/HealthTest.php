@@ -60,7 +60,7 @@ it('can fake checks', function () {
         DatabaseCheck::class => new Result(
             Status::crashed(),
             "We're just making sure faking works",
-            "Hey, faking works!",
+            'Hey, faking works!',
         ),
         PingCheck::class => FakeCheck::result(
             new Result(Status::warning()),
@@ -93,7 +93,7 @@ it('can pass a closure to fake checks', function () {
             return $check->getName() === 'MySQL'
                 ? new Result(Status::crashed())
                 : new Result(Status::warning());
-        }
+        },
     ]);
 
     /**

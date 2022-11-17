@@ -16,14 +16,13 @@ class FakeHealth extends Health
     public function __construct(
         private Health $decoratedHealth,
         private array $fakeChecks
-    )
-    {
+    ) {
     }
 
     public function registeredChecks(): Collection
     {
         return $this->decoratedHealth->registeredChecks()->map(
-            fn(Check $check) => array_key_exists($check::class, $this->fakeChecks)
+            fn (Check $check) => array_key_exists($check::class, $this->fakeChecks)
                 ? $this->buildFakeCheck($check, $this->fakeChecks[$check::class])
                 : $check
         );

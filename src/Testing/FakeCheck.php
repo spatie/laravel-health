@@ -8,6 +8,7 @@ use Spatie\Health\Checks\Result;
 class FakeCheck extends Check
 {
     private Check $fakedCheck;
+
     private FakeValues $fakeValues;
 
     public static function result(Result $result, bool $shouldRun = null): FakeValues
