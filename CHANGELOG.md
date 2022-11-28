@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.16.2 - 2022-11-28
+
+### What's Changed
+
+- Add Slovak translation by @wamesro in https://github.com/spatie/laravel-health/pull/137
+
+### New Contributors
+
+- @wamesro made their first contribution in https://github.com/spatie/laravel-health/pull/137
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.16.1...1.16.2
+
 ## 1.16.1 - 2022-11-17
 
 ### What's Changed
