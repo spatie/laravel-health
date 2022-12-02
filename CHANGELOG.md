@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.16.3 - 2022-12-02
+
+### What's Changed
+
+- Add Persian translation by @mohammad6006 in https://github.com/spatie/laravel-health/pull/138
+
+### New Contributors
+
+- @mohammad6006 made their first contribution in https://github.com/spatie/laravel-health/pull/138
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.16.2...1.16.3
+
 ## 1.16.2 - 2022-11-28
 
 ### What's Changed
