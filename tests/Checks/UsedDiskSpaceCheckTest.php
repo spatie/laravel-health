@@ -46,6 +46,16 @@ it('will return an error if the used disk space does cross the error threshold',
         ->getNotificationMessage()->toEqual('The disk is almost full (91% used).');
 });
 
+it('can set a custom filesystem name', function () {
+    $filesystem = '/mnt/temp';
+
+    $check = FakeUsedDiskSpaceCheck::new()
+        ->filesystemName('/mnt/temp');
+
+    expect($check->getFilesystemName())
+        ->toEqual($filesystem);
+});
+
 it('can report the real disk space used', function () {
     $result = UsedDiskSpaceCheck::new()->run();
 

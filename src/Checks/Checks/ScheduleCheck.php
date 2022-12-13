@@ -8,7 +8,7 @@ use Spatie\Health\Checks\Result;
 
 class ScheduleCheck extends Check
 {
-    protected string $cacheKey = 'health.checks.schedule.latestHeartbeatAt';
+    protected string $cacheKey = 'health:checks:schedule:latestHeartbeatAt';
 
     protected ?string $cacheStoreName = null;
 
@@ -47,8 +47,7 @@ class ScheduleCheck extends Check
 
     public function run(): Result
     {
-        $result = Result::make()
-            ->ok();
+        $result = Result::make()->ok();
 
         $lastHeartbeatTimestamp = cache()->store($this->cacheStoreName)->get($this->cacheKey);
 

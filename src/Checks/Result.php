@@ -60,11 +60,18 @@ class Result
 
     public function getNotificationMessage(): string
     {
-        return trans($this->notificationMessage, $this->meta);
+        $meta = collect($this->meta)
+            ->filter(function ($item) {
+                return is_scalar($item);
+            })->toArray();
+
+        return trans($this->notificationMessage, $meta);
     }
 
     public function ok(string $message = ''): self
     {
+        $this->notificationMessage = $message;
+
         $this->status = Status::ok();
 
         return $this;

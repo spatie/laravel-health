@@ -13,6 +13,15 @@ class UsedDiskSpaceCheck extends Check
 
     protected int $errorThreshold = 90;
 
+    protected ?string $filesystemName = null;
+
+    public function filesystemName(string $filesystemName): self
+    {
+        $this->filesystemName = $filesystemName;
+
+        return $this;
+    }
+
     public function warnWhenUsedSpaceIsAbovePercentage(int $percentage): self
     {
         $this->warningThreshold = $percentage;
@@ -48,7 +57,7 @@ class UsedDiskSpaceCheck extends Check
 
     protected function getDiskUsagePercentage(): int
     {
-        $process = Process::fromShellCommandline('df -P .');
+        $process = Process::fromShellCommandline('df -P '.($this->filesystemName ?: '.'));
 
         $process->run();
 

@@ -9,7 +9,7 @@ class Notifiable
     use NotifiableTrait;
 
     /** @return string|array<int, string> */
-    public function routeNotificationForMail(): string | array
+    public function routeNotificationForMail(): string|array
     {
         return config('health.notifications.mail.to');
     }

@@ -1,6 +1,6 @@
 ---
 title: Horizon
-weight: 9
+weight: 11
 ---
 
 This check will make sure Horizon is running.  It will report a warning when Horizon is paused, and a failure when Horizon is not running.

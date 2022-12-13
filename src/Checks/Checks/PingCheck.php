@@ -16,6 +16,8 @@ class PingCheck extends Check
 
     public int $timeout = 1;
 
+    public int $retryTimes = 1;
+
     public string $method = 'GET';
 
     /** @var array<string, string> */
@@ -38,6 +40,13 @@ class PingCheck extends Check
     public function method(string $method): self
     {
         $this->method = $method;
+
+        return $this;
+    }
+
+    public function retryTimes(int $times): self
+    {
+        $this->retryTimes = $times;
 
         return $this;
     }
@@ -67,7 +76,12 @@ class PingCheck extends Check
         }
 
         try {
-            if (! Http::timeout($this->timeout)->withHeaders($this->headers)->send($this->method, $this->url)->successful()) {
+            $request = Http::timeout($this->timeout)
+                ->withHeaders($this->headers)
+                ->retry($this->retryTimes)
+                ->send($this->method, $this->url);
+
+            if (! $request->successful()) {
                 return $this->failedResult();
             }
         } catch (Exception) {
@@ -76,14 +90,14 @@ class PingCheck extends Check
 
         return Result::make()
             ->ok()
-            ->shortSummary('reachable');
+            ->shortSummary('Reachable');
     }
 
     protected function failedResult(): Result
     {
         return Result::make()
             ->failed()
-            ->shortSummary('unreachable')
+            ->shortSummary('Unreachable')
             ->notificationMessage($this->failureMessage ?? "Pinging {$this->getName()} failed.");
     }
 }

@@ -8,7 +8,7 @@ The package offers a couple of controllers that can be used to check the health 
 
 ## A beautiful status page
 
-The `HealthCheckResultsController` will display a beautiful page with all health check results. You can find more detailed information on this page [here](/docs/viewing-results/on-a-webpage).
+The `HealthCheckResultsController` will display a beautiful page with all health check results. You can find more detailed information on this page [here](/docs/laravel-health/v1/viewing-results/on-a-webpage).
 
 ## Simple health check
 

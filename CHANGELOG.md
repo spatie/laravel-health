@@ -2,6 +2,187 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.16.3 - 2022-12-02
+
+### What's Changed
+
+- Add Persian translation by @mohammad6006 in https://github.com/spatie/laravel-health/pull/138
+
+### New Contributors
+
+- @mohammad6006 made their first contribution in https://github.com/spatie/laravel-health/pull/138
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.16.2...1.16.3
+
+## 1.16.2 - 2022-11-28
+
+### What's Changed
+
+- Add Slovak translation by @wamesro in https://github.com/spatie/laravel-health/pull/137
+
+### New Contributors
+
+- @wamesro made their first contribution in https://github.com/spatie/laravel-health/pull/137
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.16.1...1.16.2
+
+## 1.16.1 - 2022-11-17
+
+### What's Changed
+
+- Minor fix fake default argument by @patrick-levesque in https://github.com/spatie/laravel-health/pull/136
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.16.0...1.16.1
+
+## 1.16.0 - 2022-11-17
+
+### What's Changed
+
+- Adds the ability to fake registered checks. by @lukeraymonddowning in https://github.com/spatie/laravel-health/pull/135
+
+### New Contributors
+
+- @lukeraymonddowning made their first contribution in https://github.com/spatie/laravel-health/pull/135
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.15.2...1.16.0
+
+## 1.15.2 - 2022-10-21
+
+### What's Changed
+
+- Alias `health` in lieu of a separate binding by @mabdullahsari in https://github.com/spatie/laravel-health/pull/129
+
+### New Contributors
+
+- @mabdullahsari made their first contribution in https://github.com/spatie/laravel-health/pull/129
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.15.1...1.15.2
+
+## 1.15.1 - 2022-10-17
+
+### What's Changed
+
+- Add Danish translation by @prip in https://github.com/spatie/laravel-health/pull/128
+
+### New Contributors
+
+- @prip made their first contribution in https://github.com/spatie/laravel-health/pull/128
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.15.0...1.15.1
+
+## 1.15.0 - 2022-10-07
+
+### What's Changed
+
+- Update endpoints.md by @WouterBrouwers in https://github.com/spatie/laravel-health/pull/124
+- Add `retryTimes` method by @mtawil in https://github.com/spatie/laravel-health/pull/123
+
+### New Contributors
+
+- @WouterBrouwers made their first contribution in https://github.com/spatie/laravel-health/pull/124
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.6...1.15.0
+
+## 1.14.6 - 2022-09-22
+
+### What's Changed
+
+- Added filesystemName to UsedDiskSpaceCheck by @davidrushton in https://github.com/spatie/laravel-health/pull/122
+
+### New Contributors
+
+- @davidrushton made their first contribution in https://github.com/spatie/laravel-health/pull/122
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.5...1.14.6
+
+## 1.14.5 - 2022-09-13
+
+### What's Changed
+
+- Fix store skipped checks results by @patrick-levesque in https://github.com/spatie/laravel-health/pull/120
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.4...1.14.5
+
+## 1.14.4 - 2022-09-09
+
+Only report unique checks
+
+## 1.14.3 - 2022-09-08
+
+### What's Changed
+
+- Update via-slack.md by @tomsgad in https://github.com/spatie/laravel-health/pull/116
+- fix/removes a comma which should not be there by @Enaah in https://github.com/spatie/laravel-health/pull/117
+- Capitalize short summary for PingCheck by @HassanZahirnia in https://github.com/spatie/laravel-health/pull/118
+
+### New Contributors
+
+- @tomsgad made their first contribution in https://github.com/spatie/laravel-health/pull/116
+- @Enaah made their first contribution in https://github.com/spatie/laravel-health/pull/117
+- @HassanZahirnia made their first contribution in https://github.com/spatie/laravel-health/pull/118
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.2...1.14.3
+
+## 1.14.2 - 2022-08-31
+
+### What's Changed
+
+- Slack notification fix by @patrick-levesque in https://github.com/spatie/laravel-health/pull/115
+
+### New Contributors
+
+- @patrick-levesque made their first contribution in https://github.com/spatie/laravel-health/pull/115
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.1...1.14.2
+
+## 1.14.1 - 2022-08-24
+
+### What's Changed
+
+- Support PHP 8.0 by @HajMo in https://github.com/spatie/laravel-health/pull/114
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.14.0...1.14.1
+
+## 1.14.0 - 2022-08-16
+
+- Allows you to configure the notification throttle cache key
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.13.0...1.14.0
+
+## 1.13.0 - 2022-08-09
+
+- add "database table size" and "database connection count" checks.
+
+## 1.12.3 - 2022-08-03
+
+- fix for when not all items is the meta array are scalars
+
+## 1.12.2 - 2022-08-03
+
+### What's Changed
+
+- Failed Notification Cache Per Channel by @moisish in https://github.com/spatie/laravel-health/pull/107
+- Missing setting $message by @gizburdt in https://github.com/spatie/laravel-health/pull/108
+
+### New Contributors
+
+- @gizburdt made their first contribution in https://github.com/spatie/laravel-health/pull/108
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.12.0...1.12.2
+
+## 1.12.1 - 2022-07-29
+
+### What's Changed
+
+- Failed Notification Cache Per Channel by @moisish in https://github.com/spatie/laravel-health/pull/107
+- Missing setting $message by @gizburdt in https://github.com/spatie/laravel-health/pull/108
+
+### New Contributors
+
+- @gizburdt made their first contribution in https://github.com/spatie/laravel-health/pull/108
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.12.0...1.12.1
+
 ## 1.12.0 - 2022-07-15
 
 ### What's Changed

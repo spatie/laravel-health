@@ -80,7 +80,7 @@ class RunHealthChecksCommand extends Command
             ->map(function (Check $check): Result {
                 return $check->shouldRun()
                     ? $this->runCheck($check)
-                    : (new Result(Status::skipped()))->check($check);
+                    : (new Result(Status::skipped()))->check($check)->endedAt(now());
             });
     }
 

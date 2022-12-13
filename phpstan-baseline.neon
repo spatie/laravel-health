@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\ConnectionInterface\\:\\:getDriverName\\(\\)\\.$#"
+			count: 1
+			path: src/Exceptions/DatabaseNotSupported.php
+
+		-
 			message: "#^Method Spatie\\\\Health\\\\Notifications\\\\CheckFailedNotification\\:\\:transParameters\\(\\) should return array\\<string, string\\> but returns array\\<string, mixed\\>\\.$#"
 			count: 1
 			path: src/Notifications/CheckFailedNotification.php
