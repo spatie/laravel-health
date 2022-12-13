@@ -24,7 +24,7 @@ class HealthCheckResultHistoryItem extends Model
     use HasFactory;
     use MassPrunable;
 
-    public $guarded = [];
+    protected $guarded = [];
 
     /** @var array<string,string> */
     public $casts = [
