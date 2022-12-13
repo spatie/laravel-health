@@ -18,6 +18,8 @@ abstract class Check
 
     protected ?string $label = null;
 
+    protected bool $shouldRun = true;
+
     final public function __construct()
     {
     }
@@ -69,9 +71,27 @@ abstract class Check
 
     public function shouldRun(): bool
     {
+        if (! $this->shouldRun) {
+            return false;
+        }
+
         $date = Date::now();
 
         return (new CronExpression($this->expression))->isDue($date->toDateTimeString());
+    }
+
+    public function if(bool $condition)
+    {
+        $this->shouldRun = $condition;
+
+        return $this;
+    }
+
+    public function unless(bool $condition)
+    {
+        $this->shouldRun = !$condition;
+
+        return $this;
     }
 
     abstract public function run(): Result;

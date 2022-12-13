@@ -22,3 +22,18 @@ Health::checks([
     UsedDiskSpaceCheck::new()->label('Disk space on main disk'),
 ]);
 ```
+
+## Running checks conditionally
+
+If you would like to conditionally run a checks, you can use the if and unless methods.
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\DebugModeCheck;
+use Spatie\Health\Checks\Checks\RedisCheck;
+
+Health::checks([
+    DebugModeCheck::new()->if(app()->isProduction()),
+    RedisCheck::new()->unless(app()->environment('development')),
+]);
+```
