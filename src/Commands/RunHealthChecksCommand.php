@@ -17,9 +17,9 @@ use Spatie\Health\ResultStores\ResultStore;
 
 class RunHealthChecksCommand extends Command
 {
-    public $signature = 'health:check {--do-not-store-results} {--no-notification} {--fail-command-on-failing-check}';
+    protected $signature = 'health:check {--do-not-store-results} {--no-notification} {--fail-command-on-failing-check}';
 
-    public $description = 'Run all health checks';
+    protected $description = 'Run all health checks';
 
     /** @var array<int, Exception> */
     protected array $thrownExceptions = [];
