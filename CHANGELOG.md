@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.17.0 - 2022-12-14
+
+### What's Changed
+
+- Running checks conditionally by @stfndamjanovic in https://github.com/spatie/laravel-health/pull/139
+
+### New Contributors
+
+- @stfndamjanovic made their first contribution in https://github.com/spatie/laravel-health/pull/139
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.16.3...1.17.0
+
 ## 1.16.3 - 2022-12-02
 
 ### What's Changed
