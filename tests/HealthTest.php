@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\App;
+use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
+use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\PingCheck;
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Result;
@@ -10,8 +12,6 @@ use Spatie\Health\Exceptions\DuplicateCheckNamesFound;
 use Spatie\Health\Exceptions\InvalidCheck;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Testing\FakeCheck;
-use Spatie\Health\Checks\Checks\DebugModeCheck;
-use Spatie\Health\Checks\Check;
 
 it('can register checks', function () {
     Health::checks([

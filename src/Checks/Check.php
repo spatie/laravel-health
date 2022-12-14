@@ -89,7 +89,7 @@ abstract class Check
 
     public function unless(bool $condition)
     {
-        $this->shouldRun = !$condition;
+        $this->shouldRun = ! $condition;
 
         return $this;
     }
