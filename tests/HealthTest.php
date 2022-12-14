@@ -10,6 +10,8 @@ use Spatie\Health\Exceptions\DuplicateCheckNamesFound;
 use Spatie\Health\Exceptions\InvalidCheck;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Testing\FakeCheck;
+use Spatie\Health\Checks\Checks\DebugModeCheck;
+use Spatie\Health\Checks\Check;
 
 it('can register checks', function () {
     Health::checks([
@@ -20,6 +22,70 @@ it('can register checks', function () {
         ->toHaveCount(1)
         ->and(Health::registeredChecks()[0])
         ->toBeInstanceOf(UsedDiskSpaceCheck::class);
+});
+
+it('can run checks conditionally using if method', function () {
+    Health::checks([
+        UsedDiskSpaceCheck::new(),
+        DebugModeCheck::new()->if(false),
+    ]);
+
+    $checks = Health::registeredChecks()->filter(function (Check $check) {
+        return $check->shouldRun();
+    });
+
+    expect($checks)
+        ->toHaveCount(1)
+        ->and($checks->first())
+        ->toBeInstanceOf(UsedDiskSpaceCheck::class);
+
+    Health::clearChecks();
+
+    Health::checks([
+        UsedDiskSpaceCheck::new(),
+        DebugModeCheck::new()->if(true),
+    ]);
+
+    $checks = Health::registeredChecks()->filter(function (Check $check) {
+        return $check->shouldRun();
+    });
+
+    expect($checks)
+        ->toHaveCount(2)
+        ->and($checks[1])
+        ->toBeInstanceOf(DebugModeCheck::class);
+});
+
+it('can run checks conditionally using unless method', function () {
+    Health::checks([
+        UsedDiskSpaceCheck::new(),
+        DebugModeCheck::new()->unless(true),
+    ]);
+
+    $checks = Health::registeredChecks()->filter(function (Check $check) {
+        return $check->shouldRun();
+    });
+
+    expect($checks)
+        ->toHaveCount(1)
+        ->and($checks->first())
+        ->toBeInstanceOf(UsedDiskSpaceCheck::class);
+
+    Health::clearChecks();
+
+    Health::checks([
+        UsedDiskSpaceCheck::new(),
+        DebugModeCheck::new()->unless(false),
+    ]);
+
+    $checks = Health::registeredChecks()->filter(function (Check $check) {
+        return $check->shouldRun();
+    });
+
+    expect($checks)
+        ->toHaveCount(2)
+        ->and($checks[1])
+        ->toBeInstanceOf(DebugModeCheck::class);
 });
 
 it('will throw an exception when duplicate checks are registered', function () {
