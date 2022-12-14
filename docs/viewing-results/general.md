@@ -25,7 +25,7 @@ Health::checks([
 
 ## Running checks conditionally
 
-If you would like to conditionally run a checks, you can use the if and unless methods.
+If you would like to conditionally run a check, you can use the `if` and `unless` methods.
 
 ```php
 use Spatie\Health\Facades\Health;
