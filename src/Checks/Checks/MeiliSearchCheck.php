@@ -10,9 +10,9 @@ use Spatie\Health\Checks\Result;
 
 class MeiliSearchCheck extends Check
 {
-    public int $timeout = 1;
+    protected int $timeout = 1;
 
-    public string $url = 'http://127.0.0.1:7700/health';
+    protected string $url = 'http://127.0.0.1:7700/health';
 
     public function timeout(int $seconds): self
     {

@@ -11,7 +11,7 @@ it('will fail when horizon is not running', function () {
     expect($result)
         ->status->toBe(Status::failed())
         ->notificationMessage->toBe('Horizon is not running.');
-});
+})->skip(fn () => extension_loaded('redis') !== true, 'The redis extension is not loaded.');
 
 it('will send a warning when horizon is paused', function () {
     $this->fakeHorizonStatus('paused');

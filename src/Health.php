@@ -16,7 +16,7 @@ class Health
     protected array $checks = [];
 
     /** @var array<int, string> */
-    public array $inlineStylesheets = [];
+    protected array $inlineStylesheets = [];
 
     /** @param  array<int, Check>  $checks */
     public function checks(array $checks): self

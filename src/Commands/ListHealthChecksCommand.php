@@ -13,10 +13,10 @@ use function Termwind\render;
 
 class ListHealthChecksCommand extends Command
 {
-    public $signature = 'health:list {--fresh} {--do-not-store-results} {--no-notification}
+    protected $signature = 'health:list {--fresh} {--do-not-store-results} {--no-notification}
                          {--fail-command-on-failing-check}';
 
-    public $description = 'List all health checks';
+    protected $description = 'List all health checks';
 
     public function handle(): int
     {

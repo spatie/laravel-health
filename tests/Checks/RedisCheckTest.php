@@ -11,7 +11,7 @@ it('will return ok when redis is running', function () {
     $result = RedisCheck::new()->run();
 
     expect($result->status)->toBe(Status::ok());
-});
+})->skip(fn () => extension_loaded('redis') !== true, 'The redis extension is not loaded.');
 
 it('will return an error when it cannot connect to Redis', function () {
     $result = FakeRedisCheck::new()

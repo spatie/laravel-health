@@ -10,18 +10,18 @@ use Spatie\Health\Exceptions\InvalidCheck;
 
 class PingCheck extends Check
 {
-    public ?string $url = null;
+    protected ?string $url = null;
 
-    public ?string $failureMessage = null;
+    protected ?string $failureMessage = null;
 
-    public int $timeout = 1;
+    protected int $timeout = 1;
 
-    public int $retryTimes = 1;
+    protected int $retryTimes = 1;
 
-    public string $method = 'GET';
+    protected string $method = 'GET';
 
     /** @var array<string, string> */
-    public array $headers = [];
+    protected array $headers = [];
 
     public function url(string $url): self
     {
