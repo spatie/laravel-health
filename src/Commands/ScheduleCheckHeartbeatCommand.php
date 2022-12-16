@@ -2,38 +2,23 @@
 
 namespace Spatie\Health\Commands;
 
-use Illuminate\Console\Command;
-use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
-use Spatie\Health\Facades\Health;
 
-class ScheduleCheckHeartbeatCommand extends Command
+class ScheduleCheckHeartbeatCommand extends HeartbeatCommand
 {
     protected $signature = 'health:schedule-check-heartbeat';
 
-    public function handle(): int
+    public function runHeartbeat(): int
     {
-        /** @var ScheduleCheck|null $scheduleCheck */
-        $scheduleCheck = Health::registeredChecks()->first(
-            fn (Check $check) => $check instanceof ScheduleCheck
-        );
+        $check = $this->getCheckInstance();
 
-        if (! $scheduleCheck) {
-            $this->error("In order to use this command, you should register the `Spatie\Health\Checks\Checks\ScheduleCheck`");
-
-            return static::FAILURE;
-        }
-
-        $cacheKey = $scheduleCheck->getCacheKey();
-
-        if (! $cacheKey) {
-            $this->error("You must set the `cacheKey` of `Spatie\Health\Checks\Checks\ScheduleCheck` to a non-empty value");
-
-            return static::FAILURE;
-        }
-
-        cache()->store($scheduleCheck->getCacheStoreName())->set($cacheKey, now()->timestamp);
+        cache()->store($check->getCacheStoreName())->set($check->getCacheKey(), now()->timestamp);
 
         return static::SUCCESS;
+    }
+
+    public function getCheckClass(): string
+    {
+        return ScheduleCheck::class;
     }
 }
