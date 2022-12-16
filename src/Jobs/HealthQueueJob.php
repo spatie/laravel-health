@@ -3,16 +3,10 @@
 namespace Spatie\Health\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Spatie\Health\Checks\Checks\HeartbeatCheck;
 
 class HealthQueueJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     protected HeartbeatCheck $queueCheck;
 
     public function __construct(HeartbeatCheck $queueCheck)
@@ -20,7 +14,7 @@ class HealthQueueJob implements ShouldQueue
         $this->queueCheck = $queueCheck;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $cacheStore = $this->queueCheck->getCacheStoreName();
         $cacheKey = $this->queueCheck->getCacheKey();
