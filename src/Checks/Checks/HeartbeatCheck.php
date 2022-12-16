@@ -10,5 +10,7 @@ interface HeartbeatCheck
 
     public function getCacheKey(): string;
 
+    public function cacheKey(string $cacheKey): self;
+
     public function heartbeatMaxAgeInMinutes(int $heartbeatMaxAgeInMinutes): self;
 }

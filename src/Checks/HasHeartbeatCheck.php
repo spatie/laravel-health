@@ -12,11 +12,6 @@ trait HasHeartbeatCheck
 
     protected int $heartbeatMaxAgeInMinutes = 1;
 
-    public function getCacheStoreName(): string
-    {
-        return $this->cacheStoreName ?? config('cache.default');
-    }
-
     public function useCacheStore(string $cacheStoreName): self
     {
         $this->cacheStoreName = $cacheStoreName;
@@ -24,9 +19,16 @@ trait HasHeartbeatCheck
         return $this;
     }
 
-    public function getCacheKey(): string
+    public function getCacheStoreName(): string
     {
-        return $this->cacheKey;
+        return $this->cacheStoreName ?? config('cache.default');
+    }
+
+    public function cacheKey(string $cacheKey): self
+    {
+        $this->cacheKey = $cacheKey;
+
+        return $this;
     }
 
     public function heartbeatMaxAgeInMinutes(int $heartbeatMaxAgeInMinutes): self
@@ -34,6 +36,11 @@ trait HasHeartbeatCheck
         $this->heartbeatMaxAgeInMinutes = $heartbeatMaxAgeInMinutes;
 
         return $this;
+    }
+
+    public function getCacheKey(): string
+    {
+        return $this->cacheKey;
     }
 
     public function run(): Result
