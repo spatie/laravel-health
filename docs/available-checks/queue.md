@@ -33,6 +33,30 @@ public function schedule(Schedule $schedule) {
 }
 ```
 
+### Tracking different queues
+
+By default, the package will track the default queue. If you want, you can specify which queue you want to track.
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\QueueCheck;
+
+Health::checks([
+    QueueCheck::new()->onQueue('email'),
+]);
+```
+
+Also, you can specify more than one queue that you want to track.
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\QueueCheck;
+
+Health::checks([
+    QueueCheck::new()->onQueue(['email', 'payment']),
+]);
+```
+
 ### Customize the cache store
 
 This check relies on cache to work. We highly recommend creating a [new cache store](https://laravel.com/docs/8.x/cache#configuration) and pass its name to `useCacheStore`

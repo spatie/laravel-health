@@ -2,14 +2,18 @@
 
 namespace Spatie\Health\Jobs;
 
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Spatie\Health\Checks\Checks\HeartbeatCheck;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Spatie\Health\Checks\Checks\QueueCheck;
 
 class HealthQueueJob implements ShouldQueue
 {
-    protected HeartbeatCheck $queueCheck;
+    use Queueable, Dispatchable;
 
-    public function __construct(HeartbeatCheck $queueCheck)
+    protected QueueCheck $queueCheck;
+
+    public function __construct(QueueCheck $queueCheck)
     {
         $this->queueCheck = $queueCheck;
     }
@@ -17,8 +21,7 @@ class HealthQueueJob implements ShouldQueue
     public function handle(): void
     {
         $cacheStore = $this->queueCheck->getCacheStoreName();
-        $cacheKey = $this->queueCheck->getCacheKey();
-
-        cache()->store($cacheStore)->set($cacheKey, now()->timestamp);
+        
+        cache()->store($cacheStore)->set($this->queueCheck->getCacheKey($this->queue), now()->timestamp);
     }
 }
