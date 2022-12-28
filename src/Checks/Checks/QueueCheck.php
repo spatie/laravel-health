@@ -3,7 +3,6 @@
 namespace Spatie\Health\Checks\Checks;
 
 use Carbon\Carbon;
-use Illuminate\Queue\QueueManager;
 use Illuminate\Support\Arr;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
@@ -75,6 +74,7 @@ class QueueCheck extends Check
 
             if (! $lastHeartbeatTimestamp) {
                 $fails[] = "The `{$queue}` queue did not run yet.";
+
                 continue;
             }
 
@@ -89,9 +89,10 @@ class QueueCheck extends Check
 
         $result = Result::make();
 
-        if (!empty($fails)) {
+        if (! empty($fails)) {
             $result->meta($fails);
-            return $result->failed("Queue jobs running failed. Check meta for more information.");
+
+            return $result->failed('Queue jobs running failed. Check meta for more information.');
         }
 
         return $result->ok();

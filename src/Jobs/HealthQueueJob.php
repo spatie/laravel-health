@@ -21,7 +21,7 @@ class HealthQueueJob implements ShouldQueue
     public function handle(): void
     {
         $cacheStore = $this->queueCheck->getCacheStoreName();
-        
+
         cache()->store($cacheStore)->set($this->queueCheck->getCacheKey($this->queue), now()->timestamp);
     }
 }
