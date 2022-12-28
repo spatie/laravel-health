@@ -4,7 +4,7 @@ use Spatie\Health\Facades\Health;
 use function Spatie\PestPluginTestTime\testTime;
 use Spatie\Health\Checks\Checks\QueueCheck;
 use function Pest\Laravel\artisan;
-use Spatie\Health\Commands\QueueCheckHeartbeatCommand;
+use Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
 use Spatie\Health\Enums\Status;
 use Illuminate\Support\Facades\Queue;
 use Spatie\Health\Jobs\HealthQueueJob;
@@ -20,7 +20,7 @@ beforeEach(function () {
 });
 
 it('can check whether the queue jobs are still running', function () {
-    artisan(QueueCheckHeartbeatCommand::class)->assertSuccessful();
+    artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
 
     $result = $this->queueCheck->run();
     expect($result->status)->toBe(Status::ok());
@@ -35,9 +35,9 @@ it('can check whether the queue jobs are still running', function () {
 });
 
 it('can use custom max age of the heartbeat for queue jobs', function () {
-    $this->queueCheck->heartbeatMaxAgeInMinutes(10);
+    $this->queueCheck->failWhenHealthJobTakesLongerThanMinutes(10);
 
-    artisan(QueueCheckHeartbeatCommand::class)->assertSuccessful();
+    artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
 
     $result = $this->queueCheck->run();
     expect($result->status)->toBe(Status::ok());
@@ -58,7 +58,7 @@ it('will fail if only one queue is not working', function () {
 
     Health::checks([$queueCheck]);
 
-    artisan(QueueCheckHeartbeatCommand::class)->assertSuccessful();
+    artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
 
     $result = $queueCheck->run();
     expect($result->status)->toBe(Status::ok());
@@ -77,7 +77,7 @@ it('can specify on which queue check should be performed', function () {
         QueueCheck::new()->onQueue('email'),
     ]);
 
-    artisan(QueueCheckHeartbeatCommand::class)->assertSuccessful();
+    artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
 
     Queue::assertPushedOn('email', HealthQueueJob::class);
 });
@@ -91,7 +91,7 @@ it('can specify on which queues check should be performed', function () {
         QueueCheck::new()->onQueue(['email', 'payment']),
     ]);
 
-    artisan(QueueCheckHeartbeatCommand::class)->assertSuccessful();
+    artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
 
     Queue::assertPushedOn('email', HealthQueueJob::class);
     Queue::assertPushedOn('payment', HealthQueueJob::class);

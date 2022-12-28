@@ -14,7 +14,7 @@ class QueueCheck extends Check
 
     protected ?string $cacheStoreName = null;
 
-    protected int $heartbeatMaxAgeInMinutes = 5;
+    protected int $failWhenTestJobTakesLongerThanMinutes = 5;
 
     protected ?array $onQueues;
 
@@ -37,9 +37,9 @@ class QueueCheck extends Check
         return $this;
     }
 
-    public function heartbeatMaxAgeInMinutes(int $heartbeatMaxAgeInMinutes): self
+    public function failWhenHealthJobTakesLongerThanMinutes(int $minutes): self
     {
-        $this->heartbeatMaxAgeInMinutes = $heartbeatMaxAgeInMinutes;
+        $this->failWhenTestJobTakesLongerThanMinutes = $minutes;
 
         return $this;
     }
@@ -82,7 +82,7 @@ class QueueCheck extends Check
 
             $minutesAgo = $latestHeartbeatAt->diffInMinutes() + 1;
 
-            if ($minutesAgo > $this->heartbeatMaxAgeInMinutes) {
+            if ($minutesAgo > $this->failWhenTestJobTakesLongerThanMinutes) {
                 $fails[] = "The last run of the `{$queue}` queue was more than {$minutesAgo} minutes ago.";
             }
         }

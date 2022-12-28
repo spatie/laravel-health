@@ -3,13 +3,26 @@ title: Queue
 weight: 18
 ---
 
-This check will make sure that queue jobs are running. If the check detects that the queue job is not to run for more than five minutes, it will fail.
+This check will make sure that queued jobs are running. This check works by dispatching a test job (this will be done via a scheduled command), and verify if that test job is handled on time.
 
 This check relies on cache.
 
 ## Usage
 
-First, you must register the `QueueCheck`
+First, you must schedule the `Spatie\Health\Commands\DispatchQueueCheckJobsCommand` to run every minute. This command will dispatch a very light job on the queue you wish to monitor.
+
+```php
+// in app/Console/Kernel.php
+use \Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
+
+public function schedule(Schedule $schedule) {
+    // your other commands
+
+    $schedule->command(DispatchQueueCheckJobsCommand::class)->everyMinute();
+}
+```
+
+Next, you must register a `QueueCheck`. When providing no options, this check will monitor the `default` queue, and will fail if the job dispatched by the `DispatchQueueCheckJobsCommand` isn't handled within 5 minutes.
 
 ```php
 use Spatie\Health\Facades\Health;
@@ -20,22 +33,7 @@ Health::checks([
 ]);
 ```
 
-Next, you must schedule the `Spatie\Health\Commands\QueueCheckHeartbeatCommand` to run every minute. We recommend putting this command as the very last command in your schedule.
-
-```php
-// in app/Console/Kernel.php
-use \Spatie\Health\Commands\QueueCheckHeartbeatCommand;
-
-public function schedule(Schedule $schedule) {
-    // your other commands
-
-    $schedule->command(QueueCheckHeartbeatCommand::class)->everyMinute();
-}
-```
-
-### Tracking different queues
-
-By default, the package will track the default queue. If you want, you can specify which queue you want to track.
+You can monitor a different queue, by tacking on `onQueue`.
 
 ```php
 use Spatie\Health\Facades\Health;
@@ -46,7 +44,7 @@ Health::checks([
 ]);
 ```
 
-Also, you can specify more than one queue that you want to track.
+The `onQueue` method can accept multiple queues.
 
 ```php
 use Spatie\Health\Facades\Health;
@@ -57,9 +55,17 @@ Health::checks([
 ]);
 ```
 
+### Customizing job time
+
+By default, the `QueueCheck` will fail when the job dispatched by `DispatchQueueCheckJobsCommand` isn't handled within 5 minutes. You can customize the amount of minutes using the `failWhenHealthJobTakesLongerThanMinutes` method.
+
+```php
+QueueCheck::new()->failWhenHealthJobTakesLongerThanMinutes(10),
+```
+
 ### Customize the cache store
 
-This check relies on cache to work. We highly recommend creating a [new cache store](https://laravel.com/docs/8.x/cache#configuration) and pass its name to `useCacheStore`
+This queue check relies on cache to work. The test job dispatched by `DispatchQueueCheckJobsCommand` will write a timestamp in that cache that will be verified by `QueueCheck`.  We highly recommend creating a [new cache store](https://laravel.com/docs/9.x/cache#configuration) and pass its name to `useCacheStore`.
 
 ```php
 use Spatie\Health\Facades\Health;
@@ -70,12 +76,4 @@ Health::checks([
 ]);
 ```
 
-### Customizing the maximum heart beat age
 
-The `QueueCheckHeartbeatCommand` will write the current timestamp into the cache. The `QueueCheck` will verify that that timestamp is not over 5 minutes.
-
-Should you get too many false positives, you can change the max age of the timestamp by calling `heartbeatMaxAgeInMinutes`.
-
-```php
-QueueCheck::new()->heartbeatMaxAgeInMinutes(10),
-```

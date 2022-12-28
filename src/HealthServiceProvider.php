@@ -4,7 +4,7 @@ namespace Spatie\Health;
 
 use Illuminate\Support\Facades\Route;
 use Spatie\Health\Commands\ListHealthChecksCommand;
-use Spatie\Health\Commands\QueueCheckHeartbeatCommand;
+use Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 use Spatie\Health\Components\Logo;
@@ -32,7 +32,7 @@ class HealthServiceProvider extends PackageServiceProvider
                 ListHealthChecksCommand::class,
                 RunHealthChecksCommand::class,
                 ScheduleCheckHeartbeatCommand::class,
-                QueueCheckHeartbeatCommand::class
+                DispatchQueueCheckJobsCommand::class
             );
     }
 

@@ -8,7 +8,7 @@ use Spatie\Health\Checks\Checks\QueueCheck;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Jobs\HealthQueueJob;
 
-class QueueCheckHeartbeatCommand extends Command
+class DispatchQueueCheckJobsCommand extends Command
 {
     protected $signature = 'health:queue-check-heartbeat';
 
@@ -18,12 +18,6 @@ class QueueCheckHeartbeatCommand extends Command
         $queueCheck = Health::registeredChecks()->first(
             fn (Check $check) => $check instanceof QueueCheck
         );
-
-        if (! $queueCheck) {
-            $this->error("In order to use this command, you should register the `Spatie\Health\Checks\Checks\QueueCheck`");
-
-            return static::FAILURE;
-        }
 
         foreach ($queueCheck->getQueues() as $queue) {
             HealthQueueJob::dispatch($queueCheck)->onQueue($queue);
