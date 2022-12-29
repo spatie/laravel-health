@@ -29,7 +29,7 @@ class CheckOctane extends Check
             return $result->failed('Octane does not seem to be installed correctly.');
         }
 
-        if (!$isRunning) {
+        if (! $isRunning) {
             return $result
                 ->failed('Octane Server is not Running')
                 ->shortSummary('Not Running');

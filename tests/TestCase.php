@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Horizon\Contracts\MasterSupervisorRepository;
 use Laravel\Horizon\HorizonServiceProvider;
+use Laravel\Octane\Swoole\ServerProcessInspector;
 use Mockery;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Health\HealthServiceProvider;
-use Laravel\Octane\Swoole\ServerProcessInspector;
 
 class TestCase extends Orchestra
 {
