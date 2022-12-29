@@ -53,18 +53,6 @@ class TestCase extends Orchestra
         $this->app->instance(MasterSupervisorRepository::class, $masters);
     }
 
-    protected function fakeOctaneStatus(string $status)
-    {
-        $masters = Mockery::mock(ServerProcessInspector::class);
-        $masters->shouldReceive('all')->andReturn([
-            (object) [
-                'status' => $status,
-            ]
-        ]);
-
-        $this->app->instance(ServerProcessInspector::class, $masters);
-    }
-
     public function refreshServiceProvider(): void
     {
         (new HealthServiceProvider($this->app))->packageBooted();
