@@ -9,6 +9,7 @@ use Laravel\Horizon\HorizonServiceProvider;
 use Mockery;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Health\HealthServiceProvider;
+use Laravel\Octane\Swoole\ServerProcessInspector;
 
 class TestCase extends Orchestra
 {
@@ -50,6 +51,21 @@ class TestCase extends Orchestra
         ]);
 
         $this->app->instance(MasterSupervisorRepository::class, $masters);
+    }
+
+    protected function fakeOctaneStatus(string $status)
+    {
+        $masters = Mockery::mock(ServerProcessInspector::class);
+        $masters->shouldReceive('all')->andReturn([
+            (object) [
+                'status' => $status,
+            ],
+            (object) [
+                'status' => $status,
+            ],
+        ]);
+
+        $this->app->instance(ServerProcessInspector::class, $masters);
     }
 
     public function refreshServiceProvider(): void
