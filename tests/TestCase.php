@@ -59,10 +59,7 @@ class TestCase extends Orchestra
         $masters->shouldReceive('all')->andReturn([
             (object) [
                 'status' => $status,
-            ],
-            (object) [
-                'status' => $status,
-            ],
+            ]
         ]);
 
         $this->app->instance(ServerProcessInspector::class, $masters);
