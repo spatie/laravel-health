@@ -18,6 +18,7 @@ These are the checks created by us:
 - [Horizon](horizon)
 - [MeiliSearch](meilisearch)
 - [Ping](ping)
+- [Queue](queue)
 - [Redis](redis)
 - [Schedule](schedule)
 - [Security advisories](security-advisories)
