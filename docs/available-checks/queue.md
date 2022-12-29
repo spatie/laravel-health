@@ -65,7 +65,7 @@ QueueCheck::new()->failWhenHealthJobTakesLongerThanMinutes(10),
 
 ### Customize the cache store
 
-This queue check relies on cache to work. The test job dispatched by `DispatchQueueCheckJobsCommand` will write a timestamp in that cache that will be verified by `QueueCheck`.  We highly recommend creating a [new cache store](https://laravel.com/docs/9.x/cache#configuration) and pass its name to `useCacheStore`.
+This queue check relies on cache to work. The test job dispatched by `DispatchQueueCheckJobsCommand` will write a timestamp in that cache that will be verified by `QueueCheck`.
 
 ```php
 use Spatie\Health\Facades\Health;
