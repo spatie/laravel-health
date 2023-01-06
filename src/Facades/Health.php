@@ -10,7 +10,7 @@ use Spatie\Health\Testing\FakeHealth;
 use Spatie\Health\Testing\FakeValues;
 
 /**
- * @see \Spatie\Health\Health
+ * @mixin \Spatie\Health\Health
  */
 class Health extends Facade
 {
