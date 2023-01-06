@@ -3,8 +3,8 @@
 namespace Spatie\Health;
 
 use Illuminate\Support\Facades\Route;
-use Spatie\Health\Commands\ListHealthChecksCommand;
 use Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
+use Spatie\Health\Commands\ListHealthChecksCommand;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 use Spatie\Health\Components\Logo;

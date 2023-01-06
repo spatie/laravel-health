@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.18.0 - 2022-12-28
+
+### What's Changed
+
+- Add support for PHP 8.2 by @kudashevs in https://github.com/spatie/laravel-health/pull/141
+- Some improvements by @kudashevs in https://github.com/spatie/laravel-health/pull/140
+- Add queue jobs check by @stfndamjanovic in https://github.com/spatie/laravel-health/pull/143
+
+### New Contributors
+
+- @kudashevs made their first contribution in https://github.com/spatie/laravel-health/pull/141
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.17.0...1.18.0
+
 ## 1.17.0 - 2022-12-14
 
 ### What's Changed
