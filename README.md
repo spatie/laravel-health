@@ -1,9 +1,9 @@
 # Check the health of your Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-health/run-tests?label=tests)](https://github.com/spatie/laravel-health/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-health/Check%20&%20fix%20styling?label=code%20style)](https://github.com/spatie/laravel-health/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
+[![run-tests](https://github.com/spatie/laravel-health/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/laravel-health/actions/workflows/run-tests.yml)[![Check & fix styling](https://github.com/spatie/laravel-health/actions/workflows/pint.yml/badge.svg)](https://github.com/spatie/laravel-health/actions/workflows/pint.yml)[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
+
+
 
 Using this package you can monitor the health of your application by registering checks.
 
