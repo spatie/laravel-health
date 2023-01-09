@@ -1,7 +1,9 @@
 # Check the health of your Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
-[![run-tests](https://github.com/spatie/laravel-health/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/laravel-health/actions/workflows/run-tests.yml)[![Check & fix styling](https://github.com/spatie/laravel-health/actions/workflows/pint.yml/badge.svg)](https://github.com/spatie/laravel-health/actions/workflows/pint.yml)[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
+[![run-tests](https://github.com/spatie/laravel-health/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/laravel-health/actions/workflows/run-tests.yml)
+[![Check & fix styling](https://github.com/spatie/laravel-health/actions/workflows/pint.yml/badge.svg)](https://github.com/spatie/laravel-health/actions/workflows/pint.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
 
 
 
