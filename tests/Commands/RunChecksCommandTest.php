@@ -45,7 +45,7 @@ it('will send a notification when a checks fails', function () {
     $this->fakeDiskSpaceCheck->fakeDiskUsagePercentage(100);
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
-    Notification::assertTimesSent(1, CheckFailedNotification::class);
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
 });
 
 it('has an option that will prevent notifications being sent', function () {
@@ -54,7 +54,7 @@ it('has an option that will prevent notifications being sent', function () {
     $this->fakeDiskSpaceCheck->fakeDiskUsagePercentage(100);
     artisan('health:check --no-notification')->assertSuccessful();
 
-    Notification::assertTimesSent(0, CheckFailedNotification::class);
+    Notification::assertSentTimes(CheckFailedNotification::class, 0);
 });
 
 it('can store the with warnings results in the database', function () {

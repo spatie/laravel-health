@@ -25,7 +25,7 @@ it('will send a notification when one of the checks has a message', function () 
 
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
-    Notification::assertTimesSent(1, CheckFailedNotification::class);
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
 });
 
 it('will not send any notifications if the config option is set to false', function () {
@@ -35,7 +35,7 @@ it('will not send any notifications if the config option is set to false', funct
 
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
-    Notification::assertTimesSent(0, CheckFailedNotification::class);
+    Notification::assertSentTimes(CheckFailedNotification::class, 0);
 });
 
 it('will only send one failed notification per hour', function () {
@@ -43,15 +43,15 @@ it('will only send one failed notification per hour', function () {
     registerFailingCheck();
 
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
-    Notification::assertTimesSent(1, CheckFailedNotification::class);
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
 
     TestTime::addHour()->subSecond();
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
-    Notification::assertTimesSent(1, CheckFailedNotification::class);
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
 
     TestTime::addSecond();
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
-    Notification::assertTimesSent(2, CheckFailedNotification::class);
+    Notification::assertSentTimes(CheckFailedNotification::class, 2);
 });
 
 it('can configure the throttle notifications key', function () {
@@ -59,15 +59,15 @@ it('can configure the throttle notifications key', function () {
     registerFailingCheck();
 
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
-    Notification::assertTimesSent(1, CheckFailedNotification::class);
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
 
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
-    Notification::assertTimesSent(1, CheckFailedNotification::class);
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
 
     config()->set('health.notifications.throttle_notifications_key', 'some-other-key');
 
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
-    Notification::assertTimesSent(2, CheckFailedNotification::class);
+    Notification::assertSentTimes(CheckFailedNotification::class, 2);
 });
 
 test('the notification can be rendered to mail', function () {
