@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.18.2 - 2023-01-24
+
+### What's Changed
+
+- Laravel 10.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-health/pull/152
+
+### New Contributors
+
+- @laravel-shift made their first contribution in https://github.com/spatie/laravel-health/pull/152
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.18.1...1.18.2
+
 ## 1.18.1 - 2023-01-06
 
 ### What's Changed
