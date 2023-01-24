@@ -10,6 +10,7 @@ use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use function Termwind\render;
+use function Termwind\renderUsing;
 
 class ListHealthChecksCommand extends Command
 {
