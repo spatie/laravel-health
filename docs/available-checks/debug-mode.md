@@ -1,6 +1,6 @@
 ---
 title: Debug mode
-weight: 8
+weight: 9
 ---
 
 This check will make sure that debug mode is set to `false`. It will fail when debug mode is `true`.

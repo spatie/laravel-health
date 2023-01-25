@@ -12,9 +12,9 @@ class DbConnectionInfo
     public function connectionCount(ConnectionInterface $connection): int
     {
         return match (true) {
-            $connection instanceof MySqlConnection => (int) $connection->selectOne($connection->raw('show status where variable_name = "threads_connected"'))->Value,
-            $connection instanceof PostgresConnection => (int) $connection->selectOne('select count(*) as connections from pg_stat_activity')->connections,
-            default => throw new DatabaseNotSupported()
+            $connection instanceof MySqlConnection => (int)$connection->selectOne($connection->raw('show status where variable_name = "threads_connected"'))->Value,
+            $connection instanceof PostgresConnection => (int)$connection->selectOne('select count(*) as connections from pg_stat_activity')->connections,
+            default => throw DatabaseNotSupported::make($connection),
         };
     }
 
@@ -29,6 +29,15 @@ class DbConnectionInfo
         return $sizeInBytes / 1024 / 1024;
     }
 
+    public function databaseSizeInMb(ConnectionInterface $connection): float
+    {
+        return match (true) {
+            $connection instanceof MySqlConnection => $this->getMySQlDatabaseSize($connection),
+            $connection instanceof PostgresConnection => $this->getPostgresDatabaseSize($connection),
+            default => throw DatabaseNotSupported::make($connection),
+        };
+    }
+
     protected function getMySQLTableSize(ConnectionInterface $connection, string $table): int
     {
         return $connection->selectOne('SELECT (data_length + index_length) AS size FROM information_schema.TABLES WHERE table_schema = ? AND table_name = ?', [
@@ -41,6 +50,20 @@ class DbConnectionInfo
     {
         return $connection->selectOne('SELECT pg_total_relation_size(?) AS size;', [
             $table,
+        ])->size;
+    }
+
+    protected function getMySQLDatabaseSize(ConnectionInterface $connection): int
+    {
+        return $connection->selectOne('SELECT size from (SELECT table_schema "name", ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) as size FROM information_schema.tables GROUP BY table_schema) alias_one where name = ?', [
+            $connection->getDatabaseName(),
+        ])->size;
+    }
+
+    protected function getPostgresDatabaseSize(ConnectionInterface $connection): int
+    {
+        return $connection->selectOne('SELECT pg_size_pretty(pg_database_size(?)) AS size;', [
+            $connection->getDatabaseName(),
         ])->size;
     }
 }
