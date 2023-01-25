@@ -11,7 +11,7 @@ class DatabaseSizeCheck extends Check
 {
     protected ?string $connectionName = null;
 
-	protected float $failWhenSizeAboveGb = 1;
+    protected float $failWhenSizeAboveGb = 1;
 
     public function connectionName(string $connectionName): self
     {
@@ -20,22 +20,22 @@ class DatabaseSizeCheck extends Check
         return $this;
     }
 
-	public function failWhenSizeAboveGb(float $errorThresholdGb): self
-	{
-		$this->failWhenSizeAboveGb = $errorThresholdGb;
+    public function failWhenSizeAboveGb(float $errorThresholdGb): self
+    {
+        $this->failWhenSizeAboveGb = $errorThresholdGb;
 
-		return $this;
-	}
+        return $this;
+    }
 
     public function run(): Result
     {
-		$result = Result::make();
+        $result = Result::make();
 
-		$databaseSizeInGb = $this->getDatabaseSizeInGb();
+        $databaseSizeInGb = $this->getDatabaseSizeInGb();
 
-		return $databaseSizeInGb >= $this->failWhenSizeAboveGb
-			? $result->failed("Database size is {$databaseSizeInGb} GB, which is above the threshold of {$this->failWhenSizeAboveGb} GB")
-			: $result->ok("{$databaseSizeInGb} GB");
+        return $databaseSizeInGb >= $this->failWhenSizeAboveGb
+            ? $result->failed("Database size is {$databaseSizeInGb} GB, which is above the threshold of {$this->failWhenSizeAboveGb} GB")
+            : $result->ok("{$databaseSizeInGb} GB");
     }
 
     protected function getDefaultConnectionName(): string
