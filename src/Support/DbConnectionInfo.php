@@ -62,7 +62,7 @@ class DbConnectionInfo
 
     protected function getPostgresDatabaseSize(ConnectionInterface $connection): int
     {
-        return $connection->selectOne('SELECT pg_size_pretty(pg_database_size(?));', [
+        return $connection->selectOne('SELECT pg_size_pretty(pg_database_size(?)) AS size;', [
             $connection->getDatabaseName(),
         ])->size;
     }
