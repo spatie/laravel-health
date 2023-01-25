@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.18.3 - 2023-01-25
+
+### What's Changed
+
+- Fix empty output when running `artisan health:list --fresh` by @emiliopedrollo in https://github.com/spatie/laravel-health/pull/150
+
+### New Contributors
+
+- @emiliopedrollo made their first contribution in https://github.com/spatie/laravel-health/pull/150
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.18.2...1.18.3
+
 ## 1.18.2 - 2023-01-24
 
 ### What's Changed
