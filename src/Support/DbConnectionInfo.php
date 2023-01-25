@@ -55,9 +55,9 @@ class DbConnectionInfo
 
     protected function getMySQLDatabaseSize(ConnectionInterface $connection): int
     {
-        return $connection->scalar('SELECT size_mb from (SELECT table_schema "name", ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) "size_mb" FROM information_schema.tables GROUP BY table_schema) alias_one where name = ?', [
+        return $connection->selectOne('SELECT size_mb from (SELECT table_schema "name", ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) "size_mb" FROM information_schema.tables GROUP BY table_schema) alias_one where name = ?', [
             $connection->getDatabaseName(),
-        ]);
+        ])->size;
     }
 
     protected function getPostgresDatabaseSize(ConnectionInterface $connection): int

@@ -35,5 +35,5 @@ Health::checks([
 To check another database connection, call `connectionName()`
 
 ```php
-DatabaseTableSizeCheck::new()->connectionName('another-connection-name')->failWhenSizeAboveGb(5.0),
+DatabaseSizeCheck::new()->connectionName('another-connection-name')->failWhenSizeAboveGb(5.0),
 ```
