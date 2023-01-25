@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.19.0 - 2023-01-25
+
+### What's Changed
+
+- Add DatabaseSizeCheck by @ralphjsmit in https://github.com/spatie/laravel-health/pull/151
+
+### New Contributors
+
+- @ralphjsmit made their first contribution in https://github.com/spatie/laravel-health/pull/151
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.18.3...1.19.0
+
 ## 1.18.3 - 2023-01-25
 
 ### What's Changed
