@@ -3,7 +3,7 @@ title: Redis memory usage
 weight: 17
 ---
 
-This check makes sure that your Redis is not consuming too much memory.
+This check makes sure that Redis is not consuming too much memory.
 
 If the memory usage is larger than the specified maximum, this check will fail.
 
