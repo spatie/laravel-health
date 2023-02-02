@@ -20,13 +20,13 @@ abstract class Check
 
     protected bool $shouldRun = true;
 
-    final public function __construct()
+    public function __construct()
     {
     }
 
     public static function new(): static
     {
-        $instance = new static();
+        $instance = app(static::class);
 
         $instance->everyMinute();
 
