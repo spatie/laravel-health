@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.22.0 - 2023-02-02
+
+### What's Changed
+
+- Enable dependency injection in check constructors by @dennis-koster in https://github.com/spatie/laravel-health/pull/157
+
+### New Contributors
+
+- @dennis-koster made their first contribution in https://github.com/spatie/laravel-health/pull/157
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.21.0...1.22.0
+
 ## 1.21.0 - 2023-02-02
 
 - add `silence_health_queue_job` config option
