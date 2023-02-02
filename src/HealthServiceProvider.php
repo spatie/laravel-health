@@ -16,7 +16,6 @@ use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\ScheduleMonitor\Jobs\PingOhDearJob;
 
 class HealthServiceProvider extends PackageServiceProvider
 {
