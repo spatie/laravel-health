@@ -11,10 +11,12 @@ use Spatie\Health\Components\Logo;
 use Spatie\Health\Components\StatusIndicator;
 use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
 use Spatie\Health\Http\Middleware\RequiresSecret;
+use Spatie\Health\Jobs\HealthQueueJob;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\ResultStores;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\ScheduleMonitor\Jobs\PingOhDearJob;
 
 class HealthServiceProvider extends PackageServiceProvider
 {
@@ -48,7 +50,9 @@ class HealthServiceProvider extends PackageServiceProvider
     {
         $this->app->make(Health::class)->inlineStylesheet(file_get_contents(__DIR__.'/../resources/dist/health.min.css'));
 
-        $this->registerOhDearEndpoint();
+        $this
+            ->registerOhDearEndpoint()
+            ->silenceHealthQueueJob();
     }
 
     protected function registerOhDearEndpoint(): self
@@ -67,6 +71,25 @@ class HealthServiceProvider extends PackageServiceProvider
 
         Route::get(config('health.oh_dear_endpoint.url'), HealthCheckJsonResultsController::class)
             ->middleware(RequiresSecret::class);
+
+        return $this;
+    }
+
+    protected function silenceHealthQueueJob(): self
+    {
+        if (! config('health.silence_health_queue_job', true)) {
+            return $this;
+        }
+
+        $silencedJobs = config('horizon.silenced', []);
+
+        if (in_array(HealthQueueJob::class, $silencedJobs)) {
+            return $this;
+        }
+
+        $silencedJobs[] = HealthQueueJob::class;
+
+        config()->set('horizon.silenced', $silencedJobs);
 
         return $this;
     }

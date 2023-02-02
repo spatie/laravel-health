@@ -112,4 +112,10 @@ return [
      * - dark: dark mode
      */
     'theme' => 'light',
+
+    /*
+     * When enabled,  completed `HealthQueueJob`s will be displayed
+     * in Horizon's silenced jobs screen.
+     */
+    'silence_health_queue_job' => true,
 ];

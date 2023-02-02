@@ -27,6 +27,8 @@ it('will determine that database size is not ok if it does cross the maximum', f
 });
 
 it('should not send a notification on a successful check', function () {
+    Notification::fake();
+
     registerPassingDatabaseSizeCheck();
 
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
