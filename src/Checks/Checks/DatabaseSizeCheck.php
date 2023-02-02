@@ -29,13 +29,17 @@ class DatabaseSizeCheck extends Check
 
     public function run(): Result
     {
-        $result = Result::make();
-
         $databaseSizeInGb = $this->getDatabaseSizeInGb();
+
+        $result = Result::make()
+            ->meta([
+                'database_size' => $databaseSizeInGb,
+            ])
+            ->shortSummary("{$databaseSizeInGb} GB");
 
         return $databaseSizeInGb >= $this->failWhenSizeAboveGb
             ? $result->failed("Database size is {$databaseSizeInGb} GB, which is above the threshold of {$this->failWhenSizeAboveGb} GB")
-            : $result->ok("{$databaseSizeInGb} GB");
+            : $result->ok();
     }
 
     protected function getDefaultConnectionName(): string
