@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.20.1 - 2023-02-02
+
+### What's Changed
+
+- Fix `DatabaseSizeCheck` to not send notifications on passed checks by @felly in https://github.com/spatie/laravel-health/pull/156
+
+### New Contributors
+
+- @felly made their first contribution in https://github.com/spatie/laravel-health/pull/156
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.20.0...1.20.1
+
 ## 1.20.0 - 2023-02-01
 
 ### What's Changed
