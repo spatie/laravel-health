@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.21.0 - 2023-02-02
+
+- add `silence_health_queue_job` config option
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.20.1...1.21.0
+
 ## 1.20.1 - 2023-02-02
 
 ### What's Changed
