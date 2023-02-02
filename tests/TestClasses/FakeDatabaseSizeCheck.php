@@ -2,7 +2,6 @@
 
 namespace Spatie\Health\Tests\TestClasses;
 
-use Closure;
 use Spatie\Health\Checks\Checks\DatabaseSizeCheck;
 
 class FakeDatabaseSizeCheck extends DatabaseSizeCheck
