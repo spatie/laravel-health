@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.22.1 - 2023-02-05
+
+### What's Changed
+
+- Fix redis memory usage check when phpredis is used by @kirba in https://github.com/spatie/laravel-health/pull/158
+
+### New Contributors
+
+- @kirba made their first contribution in https://github.com/spatie/laravel-health/pull/158
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.22.0...1.22.1
+
 ## 1.22.0 - 2023-02-02
 
 ### What's Changed
