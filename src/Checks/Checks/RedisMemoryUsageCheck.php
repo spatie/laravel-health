@@ -2,6 +2,8 @@
 
 namespace Spatie\Health\Checks\Checks;
 
+use Illuminate\Redis\Connections\PhpRedisConnection;
+use Illuminate\Redis\Connections\PredisConnection;
 use Illuminate\Support\Facades\Redis;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
@@ -43,7 +45,13 @@ class RedisMemoryUsageCheck extends Check
 
     protected function getMemoryUsageInMb(): float
     {
-        $memoryUsage = (int) Redis::connection($this->connectionName)->info()['Memory']['used_memory'];
+        $redis = Redis::connection($this->connectionName);
+
+        $memoryUsage = (int) match (get_class($redis)) {
+            PhpRedisConnection::class => $redis->info()['used_memory'],
+            PredisConnection::class => $redis->info()['Memory']['used_memory'],
+            default => null,
+        };
 
         return round($memoryUsage / 1024 / 1024, 2);
     }
