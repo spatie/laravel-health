@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.22.2 - 2023-02-15
+
+### What's Changed
+
+- mysql connection count fix by @maxkalahur in https://github.com/spatie/laravel-health/pull/160
+
+### New Contributors
+
+- @maxkalahur made their first contribution in https://github.com/spatie/laravel-health/pull/160
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.22.1...1.22.2
+
 ## 1.22.1 - 2023-02-05
 
 ### What's Changed
