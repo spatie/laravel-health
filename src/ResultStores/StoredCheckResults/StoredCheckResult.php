@@ -5,13 +5,7 @@ namespace Spatie\Health\ResultStores\StoredCheckResults;
 class StoredCheckResult
 {
     /**
-     * @param  string  $name
-     * @param  string  $label
-     * @param  string  $notificationMessage
-     * @param  string  $shortSummary
-     * @param  string  $status
      * @param  array<string, mixed>  $meta
-     * @return self
      */
     public static function make(
         string $name,
@@ -25,10 +19,6 @@ class StoredCheckResult
     }
 
     /**
-     * @param  string  $name
-     * @param  string  $notificationMessage
-     * @param  string  $shortSummary
-     * @param  string  $status
      * @param  array<string, mixed>  $meta
      */
     public function __construct(

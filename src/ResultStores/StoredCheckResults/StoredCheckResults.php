@@ -30,7 +30,6 @@ class StoredCheckResults
     }
 
     /**
-     * @param  DateTimeInterface|null  $finishedAt
      * @param  ?Collection<int, StoredCheckResult>  $checkResults
      */
     public function __construct(
@@ -63,7 +62,6 @@ class StoredCheckResults
 
     /**
      * @param  array<int, Status>|Status  $statuses
-     * @return bool
      */
     public function containsCheckWithStatus(array|Status $statuses): bool
     {
