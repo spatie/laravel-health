@@ -43,11 +43,12 @@ class CacheCheck extends Check
 
     protected function canWriteValuesToCache(string $driver): bool
     {
+        $key = 'laravel-health:check:'. $_SERVER['HOSTNAME'];
         $expectedValue = Str::random(5);
 
-        Cache::driver($driver)->put('laravel-health:check', $expectedValue, 10);
+        Cache::driver($driver)->put($key, $expectedValue, 10);
 
-        $actualValue = Cache::driver($driver)->get('laravel-health:check');
+        $actualValue = Cache::driver($driver)->get($key);
 
         return $actualValue === $expectedValue;
     }
