@@ -15,12 +15,14 @@ class DispatchQueueCheckJobsCommand extends Command
     public function handle(): int
     {
         /** @var QueueCheck|null $queueCheck */
-        $queueCheck = Health::registeredChecks()->first(
+        $queueChecks = Health::registeredChecks()->filter(
             fn (Check $check) => $check instanceof QueueCheck
         );
 
-        foreach ($queueCheck->getQueues() as $queue) {
-            HealthQueueJob::dispatch($queueCheck)->onQueue($queue);
+        foreach ($queueChecks as $queueCheck) {
+            foreach ($queueCheck->getQueues() as $queue) {
+                HealthQueueJob::dispatch($queueCheck)->onQueue($queue);
+            }
         }
 
         return static::SUCCESS;
