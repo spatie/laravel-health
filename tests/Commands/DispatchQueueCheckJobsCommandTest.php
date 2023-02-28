@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Bus;
+use function Pest\Laravel\artisan;
 use Spatie\Health\Checks\Checks\QueueCheck;
 use Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
-use Spatie\Health\Jobs\HealthQueueJob;
-use function Pest\Laravel\artisan;
 use Spatie\Health\Facades\Health;
+use Spatie\Health\Jobs\HealthQueueJob;
 
 it('dispatch to default queue by default', function () {
     Bus::fake();
