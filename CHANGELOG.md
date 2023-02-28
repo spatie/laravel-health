@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.22.3 - 2023-02-28
+
+### What's Changed
+
+- Update vendor name for Laravel Health Check by @rbibby in https://github.com/spatie/laravel-health/pull/161
+- Fix dispatch HealthQueueJob for multiple checks by @faustoFF in https://github.com/spatie/laravel-health/pull/166
+
+### New Contributors
+
+- @rbibby made their first contribution in https://github.com/spatie/laravel-health/pull/161
+- @faustoFF made their first contribution in https://github.com/spatie/laravel-health/pull/166
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.22.2...1.22.3
+
 ## 1.22.2 - 2023-02-15
 
 ### What's Changed
