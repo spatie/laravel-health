@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.22.4 - 2023-03-21
+
+- do not send notification when table sizes are ok
+
 ## 1.22.3 - 2023-02-28
 
 ### What's Changed
