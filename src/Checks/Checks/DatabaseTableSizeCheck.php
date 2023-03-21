@@ -46,7 +46,9 @@ class DatabaseTableSizeCheck extends Check
         );
 
         if ($tooBigTables->isEmpty()) {
-            return $result->ok('Table sizes are ok');
+            return $result
+                ->ok()
+                ->shortSummary('Table sizes are ok');
         }
 
         $tablesString = $tooBigTables->map(function (array $tableProperties) {
