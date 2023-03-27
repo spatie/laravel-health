@@ -8,6 +8,7 @@ class StoredCheckResult
      * @param  array<string, mixed>  $meta
      */
     public static function make(
+        ?string $serverKey,
         string $name,
         string $label = '',
         string $notificationMessage = '',
@@ -22,6 +23,7 @@ class StoredCheckResult
      * @param  array<string, mixed>  $meta
      */
     public function __construct(
+        public ?string $serverKey,
         public string $name,
         public string $label = '',
         public string $notificationMessage = '',
@@ -67,6 +69,7 @@ class StoredCheckResult
     public function toArray(): array
     {
         return [
+            'serverKey' => $this->serverKey,
             'name' => $this->name,
             'label' => $this->label,
             'notificationMessage' => $this->notificationMessage,

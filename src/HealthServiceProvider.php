@@ -29,6 +29,8 @@ class HealthServiceProvider extends PackageServiceProvider
             ->hasViewComponents('health', StatusIndicator::class)
             ->hasTranslations()
             ->hasMigration('create_health_tables')
+            ->hasMigration('add_server_key')
+            ->runsMigrations()
             ->hasCommands(
                 ListHealthChecksCommand::class,
                 RunHealthChecksCommand::class,

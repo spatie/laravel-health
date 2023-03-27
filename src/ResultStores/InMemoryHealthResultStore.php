@@ -14,10 +14,12 @@ class InMemoryHealthResultStore implements ResultStore
     public function save(Collection $checkResults): void
     {
         self::$storedCheckResults = new StoredCheckResults(now());
+        $serverKey = \Spatie\Health\Facades\Health::getServerKey();
 
         $checkResults
-            ->map(function (Result $result) {
+            ->map(function (Result $result) use ($serverKey) {
                 return new StoredCheckResult(
+                    serverKey: $serverKey,
                     name: $result->check->getName(),
                     label: $result->check->getLabel(),
                     notificationMessage: $result->getNotificationMessage(),

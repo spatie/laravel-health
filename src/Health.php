@@ -12,6 +12,9 @@ use Spatie\Health\ResultStores\ResultStores;
 
 class Health
 {
+    
+    protected ?string $serverKey;
+
     /** @var array<int, Check> */
     protected array $checks = [];
 
@@ -86,5 +89,24 @@ class Health
         if ($duplicateCheckNames->isNotEmpty()) {
             throw DuplicateCheckNamesFound::make($duplicateCheckNames);
         }
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getServerKey(): ?string
+    {
+        return $this->serverKey;
+    }
+
+    /**
+     * @param string|null $serverKey
+     * @return Health
+     */
+    public function setServerKey(?string $serverKey): self
+    {
+        $this->serverKey = $serverKey;
+
+        return $this;
     }
 }

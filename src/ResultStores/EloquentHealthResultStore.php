@@ -2,10 +2,14 @@
 
 namespace Spatie\Health\ResultStores;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Exceptions\CouldNotSaveResultsInStore;
+use Spatie\Health\Facades\Health;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
@@ -37,9 +41,12 @@ class EloquentHealthResultStore implements ResultStore
     /** @param  Collection<int, Result>  $checkResults */
     public function save(Collection $checkResults): void
     {
+        $serverKey = \Spatie\Health\Facades\Health::getServerKey();
+
         $batch = Str::uuid();
-        $checkResults->each(function (Result $result) use ($batch) {
+        $checkResults->each(function (Result $result) use ($batch, $serverKey) {
             (static::determineHistoryItemModel())::create([
+                'server_key' => $serverKey,
                 'check_name' => $result->check->getName(),
                 'check_label' => $result->check->getLabel(),
                 'status' => $result->status,
@@ -52,18 +59,35 @@ class EloquentHealthResultStore implements ResultStore
         });
     }
 
-    public function latestResults(): ?StoredCheckResults
+    public function latestResults($onlySameServerKey = true): ?StoredCheckResults
     {
-        if (! $latestItem = (static::determineHistoryItemModel())::latest()->first()) {
+        /** @var Model $modelInstance */
+        $modelInstance = new (static::determineHistoryItemModel());
+        if ($latestItem = $modelInstance->newQuery()->latest()->first()) {
             return null;
         }
 
+        $latestChecksForServerKey = $modelInstance->newQuery()
+            ->select(DB::raw("MAX(id) as max_id"), "server_key")
+            ->where("created_at", ">", now()->subHour())
+            ->when($onlySameServerKey, function (Builder $q) {
+                $q->where("server_key", Health::getServerKey());
+            })
+            ->groupBy("server_key")
+            ->get()
+            ->pluck("max_id", "server_key");
+
+        $latestBatches = $modelInstance->newQuery()
+            ->whereKey($latestChecksForServerKey)
+            ->pluck("batch");
+
         /** @var Collection<int, StoredCheckResult> $storedCheckResults */
-        $storedCheckResults = (static::determineHistoryItemModel())::query()
-            ->where('batch', $latestItem->batch)
+        $storedCheckResults = $modelInstance->newQuery()
+            ->whereIn('batch', $latestBatches)
             ->get()
             ->map(function (HealthCheckResultHistoryItem $historyItem) {
                 return new StoredCheckResult(
+                    serverKey: $historyItem->server_key,
                     name: $historyItem->check_name,
                     label: $historyItem->check_label,
                     notificationMessage: $historyItem->notification_message,

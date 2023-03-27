@@ -10,6 +10,7 @@ use Spatie\Health\ResultStores\EloquentHealthResultStore;
 
 /**
  * @property \Carbon\Carbon $created_at
+ * @property string $server_key
  * @property string $batch
  * @property string $ended_at
  * @property string $notification_message
@@ -32,7 +33,7 @@ class HealthCheckResultHistoryItem extends Model
         'started_failing_at' => 'timestamp',
     ];
 
-    public function prunable(): Builder
+    public function prunable(): Builder 
     {
         $days = config('health.result_stores.'.EloquentHealthResultStore::class.'.keep_history_for_days') ?? 5;
 
