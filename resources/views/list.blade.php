@@ -24,7 +24,11 @@
         @if (count($checkResults?->storedCheckResults ?? []))
             <dl class=" grid grid-cols-1 gap-2.5 sm:gap-3 md:gap-5 md:grid-cols-2 lg:grid-cols-3">
                 @foreach (collect($checkResults->storedCheckResults)->groupBy(fn(Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult $r) => $r->serverKey) as $serverKey => $results)
-                    <h1>SERVER KEY: {{ $serverKey }}</h1>
+                    <div></div>
+                    <div class="flex justify-center">
+                        <h1 class="-mt-1 font-bold text-gray-900 dark:text-white md:mt-1 md:text-l">{{ $serverKey }}</h1>
+                    </div>
+                    <div></div>
                     @foreach ($results as $result)
                         <div class="flex items-start px-4 space-x-2 overflow-hidden py-5 text-opacity-0 transition transform bg-white shadow-md shadow-gray-200 dark:shadow-black/25 dark:shadow-md dark:bg-gray-800 rounded-xl sm:p-6 md:space-x-3 md:min-h-[130px] dark:border-t dark:border-gray-700">
                             <x-health-status-indicator :result="$result" />
