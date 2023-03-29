@@ -106,6 +106,7 @@ class Health
     public function setServerKey(?string $serverKey): self
     {
         $this->serverKey = $serverKey;
+
         return $this;
     }
 }
