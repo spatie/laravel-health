@@ -12,7 +12,7 @@ use Spatie\Health\ResultStores\ResultStores;
 
 class Health
 {
-    
+
     protected ?string $serverKey;
 
     /** @var array<int, Check> */
@@ -106,7 +106,6 @@ class Health
     public function setServerKey(?string $serverKey): self
     {
         $this->serverKey = $serverKey;
-
         return $this;
     }
 }
