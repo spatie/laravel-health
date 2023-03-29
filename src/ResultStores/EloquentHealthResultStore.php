@@ -63,7 +63,7 @@ class EloquentHealthResultStore implements ResultStore
     {
         /** @var Model $modelInstance */
         $modelInstance = new (static::determineHistoryItemModel());
-        if ($latestItem = $modelInstance->newQuery()->latest()->first()) {
+        if (!$latestItem = $modelInstance->newQuery()->latest()->first()) {
             return null;
         }
 
