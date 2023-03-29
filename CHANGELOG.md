@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.22.5 - 2023-03-29
+
+### What's Changed
+
+- postgresql database size fix by @SUXUMI in https://github.com/spatie/laravel-health/pull/170
+
+### New Contributors
+
+- @SUXUMI made their first contribution in https://github.com/spatie/laravel-health/pull/170
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.22.4...1.22.5
+
 ## 1.22.4 - 2023-03-21
 
 - do not send notification when table sizes are ok
