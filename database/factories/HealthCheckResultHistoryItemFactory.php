@@ -21,6 +21,7 @@ class HealthCheckResultHistoryItemFactory extends Factory
             'short_summary' => $this->faker->sentences(asText: true),
             'meta' => [],
             'batch' => (string) Str::uuid(),
+            'ignore_fail' => $this->faker->boolean(),
             'ended_at' => now(),
         ];
     }
