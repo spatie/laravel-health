@@ -11,6 +11,7 @@ use Spatie\Health\ResultStores\EloquentHealthResultStore;
 /**
  * @property \Carbon\Carbon $created_at
  * @property string $batch
+ * @property boolean $ignore_fail
  * @property string $ended_at
  * @property string $notification_message
  * @property string $short_summary
@@ -28,6 +29,7 @@ class HealthCheckResultHistoryItem extends Model
 
     /** @var array<string,string> */
     public $casts = [
+        'ignore_fail' => 'boolean',
         'meta' => 'array',
         'started_failing_at' => 'timestamp',
     ];
