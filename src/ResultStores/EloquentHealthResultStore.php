@@ -47,6 +47,7 @@ class EloquentHealthResultStore implements ResultStore
                 'short_summary' => $result->getShortSummary(),
                 'meta' => $result->meta,
                 'batch' => $batch,
+                'ignore_fail' => $result->check->ignoreFail,
                 'ended_at' => $result->ended_at,
             ]);
         });
@@ -69,6 +70,7 @@ class EloquentHealthResultStore implements ResultStore
                     notificationMessage: $historyItem->notification_message,
                     shortSummary: $historyItem->short_summary,
                     status: $historyItem->status,
+                    ignoreFail: $historyItem->ignore_fail,
                     meta: $historyItem->meta,
                 );
             });
