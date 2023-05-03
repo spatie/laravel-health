@@ -20,6 +20,8 @@ abstract class Check
 
     protected bool $shouldRun = true;
 
+    public bool $ignoreFail = false;
+
     public function __construct()
     {
     }
@@ -71,7 +73,7 @@ abstract class Check
 
     public function shouldRun(): bool
     {
-        if (! $this->shouldRun) {
+        if (!$this->shouldRun) {
             return false;
         }
 
@@ -89,7 +91,7 @@ abstract class Check
 
     public function unless(bool $condition)
     {
-        $this->shouldRun = ! $condition;
+        $this->shouldRun = !$condition;
 
         return $this;
     }
@@ -103,5 +105,12 @@ abstract class Check
 
     public function onTerminate(mixed $request, mixed $response): void
     {
+    }
+
+    public function ignoreFail()
+    {
+        $this->ignoreFail = true;
+
+        return $this;
     }
 }
