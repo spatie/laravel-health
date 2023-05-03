@@ -53,9 +53,15 @@ class StoredCheckResults
         return ! $this->containsFailingCheck();
     }
 
-    public function containsFailingCheck(): bool
+    public function containsFailingCheck(bool $ignoreFails = true): bool
     {
-        return $this->storedCheckResults->contains(
+        $result = $this->storedCheckResults;
+
+        if ($ignoreFails) {
+            $result = $result->where('ignoreFail', false);
+        }
+
+        return $result->contains(
             fn (StoredCheckResult $line) => $line->status !== Status::ok()->value
         );
     }

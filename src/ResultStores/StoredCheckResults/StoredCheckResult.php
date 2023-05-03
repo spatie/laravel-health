@@ -13,6 +13,7 @@ class StoredCheckResult
         string $notificationMessage = '',
         string $shortSummary = '',
         string $status = '',
+        bool $ignoreFail = false,
         array $meta = [],
     ): self {
         return new self(...func_get_args());
@@ -27,6 +28,7 @@ class StoredCheckResult
         public string $notificationMessage = '',
         public string $shortSummary = '',
         public string $status = '',
+        public bool $ignoreFail = false,
         public array $meta = [],
     ) {
     }
@@ -72,6 +74,7 @@ class StoredCheckResult
             'notificationMessage' => $this->notificationMessage,
             'shortSummary' => $this->shortSummary,
             'status' => $this->status,
+            'ignoreFail' => $this->ignoreFail,
             'meta' => $this->meta,
         ];
     }

@@ -36,6 +36,7 @@ class JsonFileHealthResultStore implements ResultStore
                     notificationMessage: $result->getNotificationMessage(),
                     shortSummary: $result->getShortSummary(),
                     status: (string) $result->status->value,
+                    ignoreFail: $result->check->ignoreFail,
                     meta: $result->meta,
                 );
             })
