@@ -73,7 +73,7 @@ abstract class Check
 
     public function shouldRun(): bool
     {
-        if (!$this->shouldRun) {
+        if (! $this->shouldRun) {
             return false;
         }
 
@@ -91,7 +91,7 @@ abstract class Check
 
     public function unless(bool $condition)
     {
-        $this->shouldRun = !$condition;
+        $this->shouldRun = ! $condition;
 
         return $this;
     }
