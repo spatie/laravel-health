@@ -54,6 +54,7 @@ class EloquentHealthResultStore implements ResultStore
                 'short_summary' => $result->getShortSummary(),
                 'meta' => $result->meta,
                 'batch' => $batch,
+
                 'ended_at' => $result->ended_at,
             ]);
         });
@@ -88,6 +89,7 @@ class EloquentHealthResultStore implements ResultStore
             ->map(function (HealthCheckResultHistoryItem $historyItem) {
                 return new StoredCheckResult(
                     batch: $historyItem->batch,
+                    
                     serverKey: $historyItem->server_key,
                     name: $historyItem->check_name,
                     label: $historyItem->check_label,
