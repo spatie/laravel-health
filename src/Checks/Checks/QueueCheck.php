@@ -87,8 +87,10 @@ class QueueCheck extends Check
             }
         }
 
-        $result = Result::make();
-
+        $result = Result::make()->meta([
+            'driver' => "beanstalk",
+        ]);
+        
         if (! empty($fails)) {
             $result->meta($fails);
 

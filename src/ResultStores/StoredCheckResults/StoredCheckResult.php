@@ -23,6 +23,7 @@ class StoredCheckResult
      * @param  array<string, mixed>  $meta
      */
     public function __construct(
+        public ?string $batch,
         public ?string $serverKey,
         public string $name,
         public string $label = '',
@@ -69,6 +70,7 @@ class StoredCheckResult
     public function toArray(): array
     {
         return [
+            'batch' =>$this->batch,
             'serverKey' => $this->serverKey,
             'name' => $this->name,
             'label' => $this->label,

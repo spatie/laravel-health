@@ -87,6 +87,7 @@ class EloquentHealthResultStore implements ResultStore
             ->get()
             ->map(function (HealthCheckResultHistoryItem $historyItem) {
                 return new StoredCheckResult(
+                    batch: $historyItem->batch,
                     serverKey: $historyItem->server_key,
                     name: $historyItem->check_name,
                     label: $historyItem->check_label,
