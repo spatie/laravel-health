@@ -1,5 +1,5 @@
 {
-    "name": "spatie/laravel-health",
+    "name": "paymeservice/laravel-health",
     "description": "Monitor the health of a Laravel application",
     "keywords": [
         "spatie",
