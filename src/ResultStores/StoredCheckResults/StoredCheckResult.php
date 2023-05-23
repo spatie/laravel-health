@@ -72,7 +72,6 @@ class StoredCheckResult
     {
         return [
             'batch' =>$this->batch,
-            
             'serverKey' => $this->serverKey,
             'name' => $this->name,
             'label' => $this->label,
