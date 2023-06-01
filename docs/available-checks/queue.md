@@ -15,7 +15,7 @@ First, you must schedule the `Spatie\Health\Commands\DispatchQueueCheckJobsComma
 // in app/Console/Kernel.php
 use \Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
 
-public function schedule(Schedule $schedule) {
+protected function schedule(Schedule $schedule) {
     // your other commands
 
     $schedule->command(DispatchQueueCheckJobsCommand::class)->everyMinute();
