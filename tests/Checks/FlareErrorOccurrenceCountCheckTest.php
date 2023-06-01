@@ -6,11 +6,11 @@ use Spatie\Health\Enums\Status;
 
 beforeEach(function () {
     $this->check = FlareErrorOccurrenceCountCheck::new()
-       ->projectId(1)
-       ->apiToken('fake-token')
-       ->periodInMinutes(60)
-       ->warnWhenMoreErrorsReceivedThan(10)
-       ->failWhenMoreErrorsReceivedThan(20);
+        ->projectId(1)
+        ->apiToken('fake-token')
+        ->periodInMinutes(60)
+        ->warnWhenMoreErrorsReceivedThan(10)
+        ->failWhenMoreErrorsReceivedThan(20);
 });
 
 it('can check the error occurrence count in flare', function (int $actualErrorCount, Status $expectedStatus) {
