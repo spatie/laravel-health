@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.22.6 - 2023-06-06
+
+### What's Changed
+
+- Just a minor updated in the function type by @Enaah in https://github.com/spatie/laravel-health/pull/177
+- fix(ListChecksCommand): run multiple options at once by @alexmanase in https://github.com/spatie/laravel-health/pull/178
+
+### New Contributors
+
+- @alexmanase made their first contribution in https://github.com/spatie/laravel-health/pull/178
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.22.5...1.22.6
+
 ## 1.22.5 - 2023-03-29
 
 ### What's Changed
