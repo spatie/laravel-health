@@ -62,7 +62,7 @@ class ListHealthChecksCommand extends Command
 
     protected function determineCommandResult(?StoredCheckResults $results): int
     {
-        if (!$this->option('fail-command-on-failing-check') || is_null($results)) {
+        if (! $this->option('fail-command-on-failing-check') || is_null($results)) {
             return self::SUCCESS;
         }
 
