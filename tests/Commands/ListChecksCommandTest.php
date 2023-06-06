@@ -34,3 +34,13 @@ it('has an option that will let the command fail when a check fails', function (
     artisan('health:list')->assertSuccessful();
     artisan('health:list --fail-command-on-failing-check')->assertFailed();
 });
+
+it('can use multiple options at once', function () {
+    $fakeDiskSpaceCheck = FakeUsedDiskSpaceCheck::new();
+
+    Health::checks([
+        $fakeDiskSpaceCheck,
+    ]);
+
+    artisan('health:list --fresh --do-not-store-results --no-notification')->assertSuccessful();
+});

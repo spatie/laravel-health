@@ -24,10 +24,10 @@ class ListHealthChecksCommand extends Command
         if ($this->option('fresh')) {
             $parameters = [];
             if ($this->option('do-not-store-results')) {
-                $parameters[] = '--do-not-store-results';
+                $parameters['--do-not-store-results'] = true;
             }
             if ($this->option('no-notification')) {
-                $parameters[] = '--no-notification';
+                $parameters['--no-notification'] = true;
             }
 
             Artisan::call(RunHealthChecksCommand::class, $parameters);
@@ -62,7 +62,7 @@ class ListHealthChecksCommand extends Command
 
     protected function determineCommandResult(?StoredCheckResults $results): int
     {
-        if (! $this->option('fail-command-on-failing-check') || is_null($results)) {
+        if (!$this->option('fail-command-on-failing-check') || is_null($results)) {
             return self::SUCCESS;
         }
 
