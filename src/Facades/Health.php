@@ -15,7 +15,7 @@ use Spatie\Health\Testing\FakeValues;
 class Health extends Facade
 {
     /**
-     * @param array<class-string<Check>, Result|FakeValues|(Closure(Check): Result|FakeValues)> $checks
+     * @param  array<class-string<Check>, Result|FakeValues|(Closure(Check): Result|FakeValues)>  $checks
      */
     public static function fake(array $checks = []): FakeHealth
     {

@@ -11,7 +11,7 @@ use Spatie\Health\Health;
 class FakeHealth extends Health
 {
     /**
-     * @param array<class-string<Check>, Result|FakeValues|(Closure(Check): Result|FakeValues)> $fakeChecks
+     * @param  array<class-string<Check>, Result|FakeValues|(Closure(Check): Result|FakeValues)>  $fakeChecks
      */
     public function __construct(
         private Health $decoratedHealth,
@@ -29,7 +29,7 @@ class FakeHealth extends Health
     }
 
     /**
-     * @param Result|FakeValues|(Closure(Check): Result|FakeValues) $result
+     * @param  Result|FakeValues|(Closure(Check): Result|FakeValues)  $result
      */
     protected function buildFakeCheck(Check $decoratedCheck, Result|FakeValues|Closure $result): FakeCheck
     {
