@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.22.7 - 2023-06-28
+
+### What's Changed
+
+- Round MySQL Database Size to Nearest Integer to Prevent Precision Loss by @mozex in https://github.com/spatie/laravel-health/pull/182
+
+### New Contributors
+
+- @mozex made their first contribution in https://github.com/spatie/laravel-health/pull/182
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.22.6...1.22.7
+
 ## 1.22.6 - 2023-06-06
 
 ### What's Changed
