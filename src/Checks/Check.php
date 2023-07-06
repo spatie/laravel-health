@@ -77,7 +77,7 @@ abstract class Check
     public function shouldRun(): bool
     {
         foreach ($this->shouldRun as $shouldRun) {
-            $shouldRun = is_bool($shouldRun) ?: $shouldRun();
+            $shouldRun = is_callable($shouldRun) ? $shouldRun() : $shouldRun;
 
             if (!$shouldRun) {
                 return false;
