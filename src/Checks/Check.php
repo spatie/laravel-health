@@ -21,9 +21,9 @@ abstract class Check
     protected ?string $label = null;
 
     /**
-     * @var bool|callable(): bool
+     * @var array<bool|callable(): bool>
      */
-    protected mixed $shouldRun = true;
+    protected array $shouldRun = [];
 
     public function __construct()
     {
@@ -76,10 +76,12 @@ abstract class Check
 
     public function shouldRun(): bool
     {
-        $shouldRun = is_callable($this->shouldRun) ? ($this->shouldRun)() : $this->shouldRun;
+        foreach ($this->shouldRun as $shouldRun) {
+            $shouldRun = is_bool($shouldRun) ?: $shouldRun();
 
-        if (! $shouldRun) {
-            return false;
+            if (!$shouldRun) {
+                return false;
+            }
         }
 
         $date = Date::now();
@@ -89,16 +91,16 @@ abstract class Check
 
     public function if(bool|callable $condition)
     {
-        $this->shouldRun = $condition;
+        $this->shouldRun[] = $condition;
 
         return $this;
     }
 
     public function unless(bool|callable $condition)
     {
-        $this->shouldRun = is_callable($condition) ?
+        $this->shouldRun[] = is_callable($condition) ?
             fn () => !$condition() :
-            $condition;
+            ! $condition;
 
         return $this;
     }

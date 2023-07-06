@@ -29,6 +29,7 @@ it('can run checks conditionally using if method', function () {
     Health::checks([
         UsedDiskSpaceCheck::new(),
         DebugModeCheck::new()->if(false),
+        DebugModeCheck::new()->if(true)->if(false),
         EnvironmentCheck::new()->if(fn () => false),
     ]);
 
@@ -46,6 +47,7 @@ it('can run checks conditionally using if method', function () {
     Health::checks([
         UsedDiskSpaceCheck::new(),
         DebugModeCheck::new()->if(true),
+        DebugModeCheck::new()->if(true)->if(true),
         EnvironmentCheck::new()->if(fn () => true),
     ]);
 
@@ -54,10 +56,12 @@ it('can run checks conditionally using if method', function () {
     });
 
     expect($checks)
-        ->toHaveCount(3)
+        ->toHaveCount(4)
         ->and($checks[1])
         ->toBeInstanceOf(DebugModeCheck::class)
         ->and($checks[2])
+        ->toBeInstanceOf(DebugModeCheck::class)
+        ->and($checks[3])
         ->toBeInstanceOf(EnvironmentCheck::class);
 });
 
@@ -65,6 +69,7 @@ it('can run checks conditionally using unless method', function () {
     Health::checks([
         UsedDiskSpaceCheck::new(),
         DebugModeCheck::new()->unless(true),
+        DebugModeCheck::new()->unless(false)->unless(true),
         EnvironmentCheck::new()->unless(fn () => true),
     ]);
 
@@ -82,6 +87,7 @@ it('can run checks conditionally using unless method', function () {
     Health::checks([
         UsedDiskSpaceCheck::new(),
         DebugModeCheck::new()->unless(false),
+        DebugModeCheck::new()->unless(false)->unless(false),
         EnvironmentCheck::new()->unless(fn () => false),
     ]);
 
@@ -90,10 +96,12 @@ it('can run checks conditionally using unless method', function () {
     });
 
     expect($checks)
-        ->toHaveCount(3)
+        ->toHaveCount(4)
         ->and($checks[1])
         ->toBeInstanceOf(DebugModeCheck::class)
         ->and($checks[2])
+        ->toBeInstanceOf(DebugModeCheck::class)
+        ->and($checks[3])
         ->toBeInstanceOf(EnvironmentCheck::class);
 });
 
