@@ -6,6 +6,7 @@ use Cron\CronExpression;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Traits\Macroable;
 use Spatie\Health\Enums\Status;
 
@@ -13,6 +14,7 @@ abstract class Check
 {
     use ManagesFrequencies;
     use Macroable;
+    use Conditionable;
 
     protected string $expression = '* * * * *';
 
