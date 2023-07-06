@@ -6,11 +6,13 @@ use Cron\CronExpression;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Macroable;
 use Spatie\Health\Enums\Status;
 
 abstract class Check
 {
     use ManagesFrequencies;
+    use Macroable;
 
     protected string $expression = '* * * * *';
 
@@ -18,7 +20,10 @@ abstract class Check
 
     protected ?string $label = null;
 
-    protected bool $shouldRun = true;
+    /**
+     * @var bool|callable(): bool
+     */
+    protected mixed $shouldRun = true;
 
     public function __construct()
     {
@@ -71,7 +76,9 @@ abstract class Check
 
     public function shouldRun(): bool
     {
-        if (! $this->shouldRun) {
+        $shouldRun = is_callable($this->shouldRun) ? ($this->shouldRun)() : $this->shouldRun;
+
+        if (! $shouldRun) {
             return false;
         }
 
@@ -80,16 +87,18 @@ abstract class Check
         return (new CronExpression($this->expression))->isDue($date->toDateTimeString());
     }
 
-    public function if(bool $condition)
+    public function if(bool|callable $condition)
     {
         $this->shouldRun = $condition;
 
         return $this;
     }
 
-    public function unless(bool $condition)
+    public function unless(bool|callable $condition)
     {
-        $this->shouldRun = ! $condition;
+        $this->shouldRun = is_callable($condition) ?
+            fn () => !$condition() :
+            $condition;
 
         return $this;
     }

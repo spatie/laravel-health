@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\App;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
+use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\PingCheck;
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Result;
@@ -28,6 +29,7 @@ it('can run checks conditionally using if method', function () {
     Health::checks([
         UsedDiskSpaceCheck::new(),
         DebugModeCheck::new()->if(false),
+        EnvironmentCheck::new()->if(fn () => false),
     ]);
 
     $checks = Health::registeredChecks()->filter(function (Check $check) {
@@ -44,6 +46,7 @@ it('can run checks conditionally using if method', function () {
     Health::checks([
         UsedDiskSpaceCheck::new(),
         DebugModeCheck::new()->if(true),
+        EnvironmentCheck::new()->if(fn () => true),
     ]);
 
     $checks = Health::registeredChecks()->filter(function (Check $check) {
@@ -51,15 +54,18 @@ it('can run checks conditionally using if method', function () {
     });
 
     expect($checks)
-        ->toHaveCount(2)
+        ->toHaveCount(3)
         ->and($checks[1])
-        ->toBeInstanceOf(DebugModeCheck::class);
+        ->toBeInstanceOf(DebugModeCheck::class)
+        ->and($checks[2])
+        ->toBeInstanceOf(EnvironmentCheck::class);
 });
 
 it('can run checks conditionally using unless method', function () {
     Health::checks([
         UsedDiskSpaceCheck::new(),
         DebugModeCheck::new()->unless(true),
+        EnvironmentCheck::new()->unless(fn () => true),
     ]);
 
     $checks = Health::registeredChecks()->filter(function (Check $check) {
@@ -76,6 +82,7 @@ it('can run checks conditionally using unless method', function () {
     Health::checks([
         UsedDiskSpaceCheck::new(),
         DebugModeCheck::new()->unless(false),
+        EnvironmentCheck::new()->unless(fn () => false),
     ]);
 
     $checks = Health::registeredChecks()->filter(function (Check $check) {
@@ -83,9 +90,11 @@ it('can run checks conditionally using unless method', function () {
     });
 
     expect($checks)
-        ->toHaveCount(2)
+        ->toHaveCount(3)
         ->and($checks[1])
-        ->toBeInstanceOf(DebugModeCheck::class);
+        ->toBeInstanceOf(DebugModeCheck::class)
+        ->and($checks[2])
+        ->toBeInstanceOf(EnvironmentCheck::class);
 });
 
 it('will throw an exception when duplicate checks are registered', function () {
