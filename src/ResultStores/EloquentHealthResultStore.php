@@ -66,7 +66,7 @@ class EloquentHealthResultStore implements ResultStore
         if (!$latestItem = $modelInstance->newQuery()->latest()->first()) {
             return null;
         }
-        \Payme::logDB();
+        \PayMe::logDB();
 
         $latestChecksForServerKey = $modelInstance->newQuery()
             ->select(DB::raw("MAX(id) as max_id"), "server_key")
