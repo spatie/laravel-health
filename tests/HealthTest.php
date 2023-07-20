@@ -28,8 +28,8 @@ it('can register checks', function () {
 it('can run checks conditionally using if method', function () {
     Health::checks([
         UsedDiskSpaceCheck::new(),
-        DebugModeCheck::new()->if(false),
-        DebugModeCheck::new()->if(true)->if(false),
+        DebugModeCheck::new()->name('Debug 1')->if(false),
+        DebugModeCheck::new()->name('Debug 2')->if(true)->if(false),
         EnvironmentCheck::new()->if(fn () => false),
     ]);
 
@@ -46,8 +46,8 @@ it('can run checks conditionally using if method', function () {
 
     Health::checks([
         UsedDiskSpaceCheck::new(),
-        DebugModeCheck::new()->if(true),
-        DebugModeCheck::new()->if(true)->if(true),
+        DebugModeCheck::new()->name('Debug 1')->if(true),
+        DebugModeCheck::new()->name('Debug 2')->if(true)->if(true),
         EnvironmentCheck::new()->if(fn () => true),
     ]);
 
@@ -68,8 +68,8 @@ it('can run checks conditionally using if method', function () {
 it('can run checks conditionally using unless method', function () {
     Health::checks([
         UsedDiskSpaceCheck::new(),
-        DebugModeCheck::new()->unless(true),
-        DebugModeCheck::new()->unless(false)->unless(true),
+        DebugModeCheck::new()->name('Debug 1')->unless(true),
+        DebugModeCheck::new()->name('Debug 2')->unless(false)->unless(true),
         EnvironmentCheck::new()->unless(fn () => true),
     ]);
 
@@ -86,8 +86,8 @@ it('can run checks conditionally using unless method', function () {
 
     Health::checks([
         UsedDiskSpaceCheck::new(),
-        DebugModeCheck::new()->unless(false),
-        DebugModeCheck::new()->unless(false)->unless(false),
+        DebugModeCheck::new()->name('Debug 1')->unless(false),
+        DebugModeCheck::new()->name('Debug 2')->unless(false)->unless(false),
         EnvironmentCheck::new()->unless(fn () => false),
     ]);
 
@@ -103,6 +103,22 @@ it('can run checks conditionally using unless method', function () {
         ->toBeInstanceOf(DebugModeCheck::class)
         ->and($checks[3])
         ->toBeInstanceOf(EnvironmentCheck::class);
+});
+
+it('can conditionally modify a check using when method', function () {
+    $check = DebugModeCheck::new()
+        ->when(true, fn (DebugModeCheck $check) => $check->name('Debug 1'))
+        ->when(false, fn (DebugModeCheck $check) => $check->name('Debug 2'));
+
+    expect($check->getName())->toBe('Debug 1');
+});
+
+it('can conditionally modify a check using doUnless method', function () {
+    $check = DebugModeCheck::new()
+        ->doUnless(false, fn (DebugModeCheck $check) => $check->name('Debug 1'))
+        ->doUnless(true, fn (DebugModeCheck $check) => $check->name('Debug 2'));
+
+    expect($check->getName())->toBe('Debug 1');
 });
 
 it('will throw an exception when duplicate checks are registered', function () {

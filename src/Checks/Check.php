@@ -15,7 +15,7 @@ abstract class Check
     use ManagesFrequencies;
     use Macroable;
     use Conditionable {
-        unless as whenUnless;
+        unless as doUnless;
     }
 
     protected string $expression = '* * * * *';
