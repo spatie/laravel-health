@@ -6,11 +6,17 @@ use Cron\CronExpression;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Conditionable;
+use Illuminate\Support\Traits\Macroable;
 use Spatie\Health\Enums\Status;
 
 abstract class Check
 {
     use ManagesFrequencies;
+    use Macroable;
+    use Conditionable {
+        unless as doUnless;
+    }
 
     protected string $expression = '* * * * *';
 
@@ -18,7 +24,10 @@ abstract class Check
 
     protected ?string $label = null;
 
-    protected bool $shouldRun = true;
+    /**
+     * @var array<bool|callable(): bool>
+     */
+    protected array $shouldRun = [];
 
     public function __construct()
     {
@@ -33,14 +42,14 @@ abstract class Check
         return $instance;
     }
 
-    public function name(string $name): self
+    public function name(string $name): static
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function label(string $label): self
+    public function label(string $label): static
     {
         $this->label = $label;
 
@@ -71,8 +80,12 @@ abstract class Check
 
     public function shouldRun(): bool
     {
-        if (! $this->shouldRun) {
-            return false;
+        foreach ($this->shouldRun as $shouldRun) {
+            $shouldRun = is_callable($shouldRun) ? $shouldRun() : $shouldRun;
+
+            if (!$shouldRun) {
+                return false;
+            }
         }
 
         $date = Date::now();
@@ -80,16 +93,18 @@ abstract class Check
         return (new CronExpression($this->expression))->isDue($date->toDateTimeString());
     }
 
-    public function if(bool $condition)
+    public function if(bool|callable $condition)
     {
-        $this->shouldRun = $condition;
+        $this->shouldRun[] = $condition;
 
         return $this;
     }
 
-    public function unless(bool $condition)
+    public function unless(bool|callable $condition)
     {
-        $this->shouldRun = ! $condition;
+        $this->shouldRun[] = is_callable($condition) ?
+            fn () => !$condition() :
+            ! $condition;
 
         return $this;
     }
