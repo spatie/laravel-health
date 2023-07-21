@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.23.0 - 2023-07-21
+
+### What's Changed
+
+- Make Check macroable and allow chaining callables in if() and unless() by @oprypkhantc in https://github.com/spatie/laravel-health/pull/184
+
+### New Contributors
+
+- @oprypkhantc made their first contribution in https://github.com/spatie/laravel-health/pull/184
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.22.7...1.23.0
+
 ## 1.22.7 - 2023-06-28
 
 ### What's Changed
