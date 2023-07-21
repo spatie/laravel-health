@@ -33,8 +33,8 @@ class StoredCheckResults
      * @param  ?Collection<int, StoredCheckResult>  $checkResults
      */
     public function __construct(
-        ?DateTimeInterface $finishedAt = null,
-        ?Collection $checkResults = null
+        DateTimeInterface $finishedAt = null,
+        Collection $checkResults = null
     ) {
         $this->finishedAt = $finishedAt ?? new DateTime();
 

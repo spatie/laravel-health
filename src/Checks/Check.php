@@ -83,7 +83,7 @@ abstract class Check
         foreach ($this->shouldRun as $shouldRun) {
             $shouldRun = is_callable($shouldRun) ? $shouldRun() : $shouldRun;
 
-            if (!$shouldRun) {
+            if (! $shouldRun) {
                 return false;
             }
         }
@@ -103,7 +103,7 @@ abstract class Check
     public function unless(bool|callable $condition)
     {
         $this->shouldRun[] = is_callable($condition) ?
-            fn () => !$condition() :
+            fn () => ! $condition() :
             ! $condition;
 
         return $this;
