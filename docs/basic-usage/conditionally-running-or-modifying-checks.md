@@ -3,11 +3,10 @@ title: Conditionally running or modifying checks
 weight: 5
 ---
 
-You may need to only run specific checks on a specific environment or with a specific config
-enabled. This package provides methods to run checks only when specified conditions are met.
+This package provides methods to run certain checks only when specified conditions are met.
 
 If you would like to conditionally run a check, you can use the `if` and `unless` methods.
-For more control, you can also use callables. They are evaluated every time a health check is ran.
+For more control, you can also use callables. They are evaluated every time a health check is run.
 
 ```php
 use Spatie\Health\Facades\Health;
