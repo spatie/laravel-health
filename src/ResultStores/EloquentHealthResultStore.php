@@ -69,7 +69,6 @@ class EloquentHealthResultStore implements ResultStore
 
         $latestChecksForServerKey = $modelInstance->newQuery()
             ->select(DB::raw("MAX(id) as max_id"), "server_key")
-            ->where("created_at", ">", now()->subHour())
             ->when($onlySameServerKey, function (Builder $q) {
                 $q->where("server_key", Health::getServerKey());
             })

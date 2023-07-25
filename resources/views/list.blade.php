@@ -22,30 +22,36 @@
     </div>
     <div class="px-2 mt-6 md:mt-8 md:px-0">
         @if (count($checkResults?->storedCheckResults ?? []))
-            <dl class=" grid grid-cols-1 gap-2.5 sm:gap-3 md:gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <dl class=" grid grid-cols-1 gap-2.5 sm:gap-3 md:gap-5 md:grid-cols-6 ">
                 @foreach (collect($checkResults->storedCheckResults)->groupBy(fn(Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult $r) => $r->serverKey) as $serverKey => $results)
-                    <div></div>
-                    <div class="flex justify-center">
-                        <h1 class="-mt-1 font-bold text-gray-900 dark:text-white md:mt-1 md:text-l">{{ $serverKey }}</h1>
-                    </div>
-                    <div></div>
-                    @foreach ($results as $result)
-                        <div class="flex items-start px-4 space-x-2 overflow-hidden py-5 text-opacity-0 transition transform bg-white shadow-md shadow-gray-200 dark:shadow-black/25 dark:shadow-md dark:bg-gray-800 rounded-xl sm:p-6 md:space-x-3 md:min-h-[130px] dark:border-t dark:border-gray-700">
-                            <x-health-status-indicator :result="$result" />
-                            <div>
-                                <dd class="-mt-1 font-bold text-gray-900 dark:text-white md:mt-1 md:text-xl">
-                                    {{ $result->label }}
-                                </dd>
-                                <dt class="mt-0 text-sm font-medium text-gray-600 dark:text-gray-300 md:mt-1">
-                                    @if (!empty($result->notificationMessage))
-                                        {{ $result->notificationMessage }}
-                                    @else
-                                        {{ $result->shortSummary }}
-                                    @endif
-                                </dt>
+
+                    <details class="accordion">
+                        <summary style="margin-bottom: 10px;"
+                                 class="flex items-start px-4 space-x-2 overflow-hidden  text-opacity-0 transition transform bg-white shadow-md shadow-gray-200 dark:shadow-black/25 dark:shadow-md dark:bg-gray-800 rounded-xl sm:p-6   dark:border-t dark:border-gray-700">
+                            <h1 class=" font-bold text-gray-900 dark:text-white">
+                                {{ $serverKey }}
+                            </h1>
+                        </summary>
+                        @foreach ($results as $result)
+                            <div style="margin-bottom: 10px;"
+                                 class="flex items-start px-4 space-x-4 overflow-hidden py-5 text-opacity-0 transition transform bg-white shadow-md shadow-gray-200 dark:shadow-black/25 dark:shadow-md dark:bg-gray-800 rounded-xl   dark:border-t dark:border-gray-700">
+                                <x-health-status-indicator :result="$result"/>
+                                <div>
+                                    <dd class=" font-bold text-gray-900 dark:text-white  md:text-xl">
+                                        {{ $result->label }}
+                                    </dd>
+                                    <dt class=" text-sm font-medium text-gray-600 dark:text-gray-300 md:mt-1">
+                                        @if (!empty($result->notificationMessage))
+                                            {{ $result->notificationMessage }}
+                                        @else
+                                            {{ $result->shortSummary }}
+                                        @endif
+                                    </dt>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </details>
+
                 @endforeach
             </dl>
         @endif
