@@ -43,6 +43,11 @@ class QueueCheck extends Check
         return $this;
     }
 
+    public function failWhenHealthJobIsNotHandledWithinMinutes(int $minutes): self
+    {
+        return $this->failWhenHealthJobTakesLongerThanMinutes($minutes);
+    }
+
     public function getCacheKey(string $queue): string
     {
         return "{$this->cacheKey}.{$queue}";

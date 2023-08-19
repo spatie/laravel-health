@@ -57,10 +57,10 @@ Health::checks([
 
 ### Customizing job time
 
-By default, the `QueueCheck` will fail when the job dispatched by `DispatchQueueCheckJobsCommand` isn't handled within 5 minutes. You can customize the amount of minutes using the `failWhenHealthJobTakesLongerThanMinutes` method.
+By default, the `QueueCheck` will fail when the job dispatched by `DispatchQueueCheckJobsCommand` isn't handled within 5 minutes. You can customize the amount of minutes using the `failWhenHealthJobIsNotHandledWithinMinutes` method.
 
 ```php
-QueueCheck::new()->failWhenHealthJobTakesLongerThanMinutes(10),
+QueueCheck::new()->failWhenHealthJobIsNotHandledWithinMinutes(10),
 ```
 
 ### Customize the cache store

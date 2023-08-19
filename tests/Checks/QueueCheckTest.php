@@ -51,6 +51,23 @@ it('can use custom max age of the heartbeat for queue jobs', function () {
     expect($result->status)->toBe(Status::failed());
 });
 
+it('can use an alternative method to customise the max age of the heartbeat for queue jobs', function () {
+    $this->queueCheck->failWhenHealthJobIsNotHandledWithinMinutes(10);
+
+    artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
+
+    $result = $this->queueCheck->run();
+    expect($result->status)->toBe(Status::ok());
+
+    testTime()->addMinutes(10)->subSecond();
+    $result = $this->queueCheck->run();
+    expect($result->status)->toBe(Status::ok());
+
+    testTime()->addSecond();
+    $result = $this->queueCheck->run();
+    expect($result->status)->toBe(Status::failed());
+});
+
 it('will fail if only one queue is not working', function () {
     Health::clearChecks();
 
