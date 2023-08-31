@@ -1,10 +1,11 @@
 <?php
 
-use function Pest\Laravel\artisan;
-use function Pest\Laravel\get;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
+
+use function Pest\Laravel\artisan;
+use function Pest\Laravel\get;
 use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 

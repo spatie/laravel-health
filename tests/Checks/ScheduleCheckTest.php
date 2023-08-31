@@ -1,10 +1,11 @@
 <?php
 
-use function Pest\Laravel\artisan;
 use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
+
+use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {

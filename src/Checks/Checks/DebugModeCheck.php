@@ -2,9 +2,10 @@
 
 namespace Spatie\Health\Checks\Checks;
 
-use function config;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
+
+use function config;
 
 class DebugModeCheck extends Check
 {

@@ -2,9 +2,10 @@
 
 namespace Spatie\Health\Checks\Checks;
 
-use function app;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
+
+use function app;
 
 class EnvironmentCheck extends Check
 {

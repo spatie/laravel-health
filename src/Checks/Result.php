@@ -5,6 +5,7 @@ namespace Spatie\Health\Checks;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Str;
 use Spatie\Health\Enums\Status;
+
 use function trans;
 
 class Result

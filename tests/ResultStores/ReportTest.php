@@ -2,6 +2,7 @@
 
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
+
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can create create report', function () {

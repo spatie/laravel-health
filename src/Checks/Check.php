@@ -12,11 +12,11 @@ use Spatie\Health\Enums\Status;
 
 abstract class Check
 {
-    use ManagesFrequencies;
-    use Macroable;
     use Conditionable {
         unless as doUnless;
     }
+    use Macroable;
+    use ManagesFrequencies;
 
     protected string $expression = '* * * * *';
 
