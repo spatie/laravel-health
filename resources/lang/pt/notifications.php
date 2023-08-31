@@ -11,5 +11,5 @@ return [
 
     'health_results' => 'Resultados da saúde',
 
-    'check_results_from' => 'Verificar resultadados de',
+    'check_results_from' => 'Verificar resultados de',
 ];
