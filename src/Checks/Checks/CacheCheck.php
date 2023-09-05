@@ -36,12 +36,12 @@ class CacheCheck extends Check
         }
     }
 
-    protected function defaultDriver(): string
+    protected function defaultDriver(): ?string
     {
         return config('cache.default', 'file');
     }
 
-    protected function canWriteValuesToCache(string $driver): bool
+    protected function canWriteValuesToCache(?string $driver): bool
     {
         $expectedValue = Str::random(5);
 
