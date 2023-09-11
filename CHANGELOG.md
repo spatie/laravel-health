@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.23.2 - 2023-09-11
+
+### What's Changed
+
+- Added Hindi transalation by @thatal in https://github.com/spatie/laravel-health/pull/192
+
+### New Contributors
+
+- @thatal made their first contribution in https://github.com/spatie/laravel-health/pull/192
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.23.1...1.23.2
+
 ## 1.23.0 - 2023-07-21
 
 ### What's Changed
