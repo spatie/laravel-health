@@ -72,7 +72,9 @@ class PingCheck extends Check
     public function run(): Result
     {
         if (is_null($this->url)) {
-            throw InvalidCheck::urlNotSet();
+            return Result::make()
+                ->failed()
+                ->shortSummary(InvalidCheck::urlNotSet()->getMessage());
         }
 
         try {
