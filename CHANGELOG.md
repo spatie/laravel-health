@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.23.4 - 2023-09-14
+
+### What's Changed
+
+- Fixed output of Ping on null by @thethunderturner in https://github.com/spatie/laravel-health/pull/194
+
+### New Contributors
+
+- @thethunderturner made their first contribution in https://github.com/spatie/laravel-health/pull/194
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.23.2...1.23.4
+
 ## 1.23.2 - 2023-09-11
 
 ### What's Changed
