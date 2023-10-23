@@ -19,6 +19,11 @@ class Notifiable
         return config('health.notifications.slack.webhook_url');
     }
 
+    public function routeNotificationForMicrosoftTeams(): string
+    {
+        return config('health.notifications.microsoft_teams.webhook_url');
+    }
+
     public function getKey(): int
     {
         return 1;

@@ -90,6 +90,20 @@ class CheckFailedNotification extends Notification
         return $slackMessage;
     }
 
+    public function toMicrosoftTeams(): MicrosoftTeamsMessage
+    {
+        $teamsMessage = (new MicrosoftTeamsMessage())
+            ->type('error')
+            ->content(trans('health::notifications.check_failed_slack_message', $this->transParameters()));
+
+        foreach ($this->results as $result) {
+            $teamsMessage->addStartGroupToSection();
+            $teamsMessage->fact($result->check->getLabel(), $result->getNotificationMessage());
+        }
+
+        return $teamsMessage;
+    }
+
     /**
      * @return array<string, string>
      */
