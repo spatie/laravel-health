@@ -7,7 +7,7 @@ return [
 
     'check_failed_mail_body' => 'Følgende tjeks rapporterede advarsler og fejl:',
 
-    'check_failed_slack_message' => 'Nogle tjeks på :application_name mislykkedes.',
+    'check_failed_notification_message' => 'Nogle tjeks på :application_name mislykkedes.',
 
     'health_results' => 'Health resultater',
 

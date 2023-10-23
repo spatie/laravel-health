@@ -7,7 +7,7 @@ return [
 
     'check_failed_mail_body' => 'التشخيصات التالية أبلغت عن تحذيرات و أخطاء',
 
-    'check_failed_slack_message' => 'بعض التشخيصات في :application_name فشلت',
+    'check_failed_notification_message' => 'بعض التشخيصات في :application_name فشلت',
 
     'health_results' => 'نتائج التشخيص',
 

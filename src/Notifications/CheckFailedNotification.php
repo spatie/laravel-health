@@ -76,7 +76,7 @@ class CheckFailedNotification extends Notification
             ->error()
             ->from(config('health.notifications.slack.username'), config('health.notifications.slack.icon'))
             ->to(config('health.notifications.slack.channel'))
-            ->content(trans('health::notifications.check_failed_slack_message', $this->transParameters()));
+            ->content(trans('health::notifications.check_failed_notification_message', $this->transParameters()));
 
         foreach ($this->results as $result) {
             $slackMessage->attachment(function (SlackAttachment $attachment) use ($result) {
@@ -94,7 +94,7 @@ class CheckFailedNotification extends Notification
     {
         $teamsMessage = (new MicrosoftTeamsMessage())
             ->type('error')
-            ->content(trans('health::notifications.check_failed_slack_message', $this->transParameters()));
+            ->content(trans('health::notifications.check_failed_notification_message', $this->transParameters()));
 
         foreach ($this->results as $result) {
             $teamsMessage->addStartGroupToSection();

@@ -7,7 +7,7 @@ return [
 
     'check_failed_mail_body' => 'Nasledovné kontroly hlásených upozornení a chýb:',
 
-    'check_failed_slack_message' => 'Niektoré kontroly stavu :application_name zlyhali.',
+    'check_failed_notification_message' => 'Niektoré kontroly stavu :application_name zlyhali.',
 
     'health_results' => 'Výsledky',
 

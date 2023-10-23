@@ -7,7 +7,7 @@ return [
 
     'check_failed_mail_body' => 'Les tests suivants comportent des avertissements et des erreurs:',
 
-    'check_failed_slack_message' => 'Certains tests de :application_name ont échoué.',
+    'check_failed_notification_message' => 'Certains tests de :application_name ont échoué.',
 
     'health_results' => 'Bilan de santé',
 

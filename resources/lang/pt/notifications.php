@@ -7,7 +7,7 @@ return [
 
     'check_failed_mail_body' => 'As seguintes verificações reportaram avisos e erros:',
 
-    'check_failed_slack_message' => 'Falharam algumas verificações de saúde em :application_name .',
+    'check_failed_notification_message' => 'Falharam algumas verificações de saúde em :application_name .',
 
     'health_results' => 'Resultados da saúde',
 

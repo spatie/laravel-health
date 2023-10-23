@@ -7,7 +7,7 @@ return [
 
     'check_failed_mail_body' => 'موارد ذکر شده دارای خطا می باشد:',
 
-    'check_failed_slack_message' => 'بررسی برخی موارد امنیتی در برنامه :application_name از نظر سلامت ناموفق بود',
+    'check_failed_notification_message' => 'بررسی برخی موارد امنیتی در برنامه :application_name از نظر سلامت ناموفق بود',
 
     'health_results' => 'گزارش وضعیت سلامت',
 

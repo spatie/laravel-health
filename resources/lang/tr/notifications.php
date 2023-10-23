@@ -7,7 +7,7 @@ return [
 
     'check_failed_mail_body' => 'Aşağıda belirtilen sağlik kontrolleri uyari veya hata verdi:',
 
-    'check_failed_slack_message' => ':application_name isimli Uygulamada sağlık kontrolleri başarısız oldu.',
+    'check_failed_notification_message' => ':application_name isimli Uygulamada sağlık kontrolleri başarısız oldu.',
 
     'health_results' => 'Sağlık Durumu Raporu',
 
