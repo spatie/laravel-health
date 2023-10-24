@@ -48,8 +48,9 @@ return [
     ],
 
     /*
-     * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
+     * You can get notified when specific events occur. Out of the box you can use 'mail', 'slack' and 'microsoftTeams'.
      * For Slack you need to install laravel/slack-notification-channel.
+     * For Microsoft Teams you need to install laravel-notification-channels/microsoft-teams.
      */
     'notifications' => [
         /*

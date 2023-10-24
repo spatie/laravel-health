@@ -24,7 +24,7 @@ Health::checks([
 ]);
 ```
 
-When the used disk space is over 70%, then a notification with a warning will be sent. If it's above 90%, you'll get an error notification. Out of the box, the package can notify you via mail and Slack.
+When the used disk space is over 70%, then a notification with a warning will be sent. If it's above 90%, you'll get an error notification. Out of the box, the package can notify you via mail, Slack and Microsoft Teams.
 
 ## Support us
 

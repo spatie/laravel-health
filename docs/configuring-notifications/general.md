@@ -9,6 +9,7 @@ Out of the box, the notification can be sent:
 
 - via [mail](/docs/laravel-health/v1/configuring-notifications/via-mail), 
 - via [Slack](/docs/laravel-health/v1/configuring-notifications/via-slack)
+- via [Microsoft Teams](/docs/laravel-health/v1/configuring-notifications/via-microsoft-teams)
 - via [Oh Dear](/docs/laravel-health/v1/configuring-notifications/via-oh-dear) (enables snoozing notifications, and delivery via Telegram, Discord, MS Teams, webhooks, ...)
 
 ## Throttling notifications
