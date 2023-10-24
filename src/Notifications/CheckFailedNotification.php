@@ -98,7 +98,6 @@ class CheckFailedNotification extends Notification
             ->content(trans('health::notifications.check_failed_notification_message', $this->transParameters()));
 
         foreach ($this->results as $result) {
-            $teamsMessage->addStartGroupToSection();
             $teamsMessage->fact($result->check->getLabel(), $result->getNotificationMessage());
         }
 
