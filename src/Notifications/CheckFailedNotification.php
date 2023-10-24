@@ -94,6 +94,7 @@ class CheckFailedNotification extends Notification
     {
         $teamsMessage = (new MicrosoftTeamsMessage())
             ->type('error')
+            ->to(config('health.notifications.microsoft_teams.webhook_url'))
             ->content(trans('health::notifications.check_failed_notification_message', $this->transParameters()));
 
         foreach ($this->results as $result) {
