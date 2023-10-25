@@ -7,6 +7,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\MicrosoftTeams\MicrosoftTeamsMessage;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Enums\Status;
 
