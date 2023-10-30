@@ -109,13 +109,12 @@ class RunHealthChecksCommand extends Command
         /** @var array<int, Result> $results */
         $results = $resultsWithMessages->toArray();
 
-        $failedNotificationClasses = $this->getFailedNotificationClasses();
+        $failedNotificationClass = $this->getFailedNotificationClass();
 
-        foreach ($failedNotificationClasses as $failedNotificationClass) {
-            $notification = (new $failedNotificationClass($results));
+        $notification = (new $failedNotificationClass($results));
 
-            $notifiable->notify($notification);
-        }
+        $notifiable->notify($notification);
+        
 
         return $this;
     }
@@ -163,10 +162,11 @@ class RunHealthChecksCommand extends Command
     }
 
     /**
-     * @return array<class-string>
+     * @return class-string
      */
-    protected function getFailedNotificationClasses(): array
+    protected function getFailedNotificationClass(): string
     {
-        return array_keys(config('health.notifications.notifications'));
+        $classes = array_keys(config('health.notifications.notifications'));
+        return array_shift($classes);
     }
 }
