@@ -114,7 +114,6 @@ class RunHealthChecksCommand extends Command
         $notification = (new $failedNotificationClass($results));
 
         $notifiable->notify($notification);
-        
 
         return $this;
     }
@@ -167,6 +166,7 @@ class RunHealthChecksCommand extends Command
     protected function getFailedNotificationClass(): string
     {
         $classes = array_keys(config('health.notifications.notifications'));
+
         return array_shift($classes);
     }
 }
