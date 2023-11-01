@@ -165,6 +165,6 @@ class RunHealthChecksCommand extends Command
      */
     protected function getFailedNotificationClass(): string
     {
-        return  array_key_first(config('health.notifications.notifications'));
+        return array_key_first(config('health.notifications.notifications'));
     }
 }
