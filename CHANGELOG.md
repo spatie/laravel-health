@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.23.5 - 2023-11-03
+
+### What's Changed
+
+- Update overview.md by @ahtinurme in https://github.com/spatie/laravel-health/pull/201
+- Allow declaring custom or multiple notification classes in health.php by @christosku in https://github.com/spatie/laravel-health/pull/200
+
+### New Contributors
+
+- @ahtinurme made their first contribution in https://github.com/spatie/laravel-health/pull/201
+- @christosku made their first contribution in https://github.com/spatie/laravel-health/pull/200
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.23.4...1.23.5
+
 ## 1.23.4 - 2023-09-14
 
 ### What's Changed
