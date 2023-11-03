@@ -12,7 +12,6 @@ use Spatie\Health\Events\CheckEndedEvent;
 use Spatie\Health\Events\CheckStartingEvent;
 use Spatie\Health\Exceptions\CheckDidNotComplete;
 use Spatie\Health\Health;
-use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\ResultStores\ResultStore;
 
 class RunHealthChecksCommand extends Command
@@ -162,10 +161,10 @@ class RunHealthChecksCommand extends Command
     }
 
     /**
-     * @return class-string<CheckFailedNotification>
+     * @return class-string
      */
     protected function getFailedNotificationClass(): string
     {
-        return CheckFailedNotification::class;
+        return array_key_first(config('health.notifications.notifications'));
     }
 }
