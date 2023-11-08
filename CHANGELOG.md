@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.23.6 - 2023-11-08
+
+### What's Changed
+
+- Mysql Connections Count is not accurate Fixes #198 by @Saifallak in https://github.com/spatie/laravel-health/pull/202
+
+### New Contributors
+
+- @Saifallak made their first contribution in https://github.com/spatie/laravel-health/pull/202
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.23.5...1.23.6
+
 ## 1.23.5 - 2023-11-03
 
 ### What's Changed
