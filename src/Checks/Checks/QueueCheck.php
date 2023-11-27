@@ -57,7 +57,7 @@ class QueueCheck extends Check
 
     public function getQueues(): array
     {
-        return $this->onQueues ?? [$this->getDefaultQueue(config('queue.driver'))];
+        return $this->onQueues ?? [$this->getDefaultQueue(config('queue.default'))];
     }
 
     protected function getDefaultQueue($connection)
