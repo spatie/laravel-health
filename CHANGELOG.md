@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.23.7 - 2023-11-27
+
+### What's Changed
+
+* Fix getting default queue settings by @yaroslav-pohil in https://github.com/spatie/laravel-health/pull/203
+
+### New Contributors
+
+* @yaroslav-pohil made their first contribution in https://github.com/spatie/laravel-health/pull/203
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.23.6...1.23.7
+
 ## 1.23.6 - 2023-11-08
 
 ### What's Changed
