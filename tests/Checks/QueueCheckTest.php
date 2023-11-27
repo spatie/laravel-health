@@ -97,3 +97,15 @@ it('can specify on which queues check should be performed', function () {
     Queue::assertPushedOn('email', HealthQueueJob::class);
     Queue::assertPushedOn('payment', HealthQueueJob::class);
 });
+
+it('can get default queue settings', function () {
+    // Set default queue connection
+    $queueConnection = uniqid('connection');
+    config()->set('queue.default', $queueConnection);
+
+    // Set default queue name
+    $queueName = uniqid('queue');
+    config()->set("queue.connections.{$queueConnection}.queue", $queueName);
+
+    expect($this->queueCheck->getQueues())->toBe([$queueName]);
+});
