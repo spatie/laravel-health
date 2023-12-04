@@ -45,7 +45,7 @@ class CacheCheck extends Check
     {
         $expectedValue = Str::random(5);
 
-        $cacheName = "health:check-{$expectedValue}";
+        $cacheName = "laravel-health:check-{$expectedValue}";
 
         Cache::driver($driver)->put($cacheName, $expectedValue, 10);
 
