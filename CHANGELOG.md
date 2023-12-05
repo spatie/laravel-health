@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.23.8 - 2023-12-05
+
+### What's Changed
+
+* Added Queue Size Check by @SRWieZ in https://github.com/spatie/laravel-health/pull/204
+* Fixed the CacheCheck causing race conditions in some cases by @jonnyka in https://github.com/spatie/laravel-health/pull/205
+
+### New Contributors
+
+* @SRWieZ made their first contribution in https://github.com/spatie/laravel-health/pull/204
+* @jonnyka made their first contribution in https://github.com/spatie/laravel-health/pull/205
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.23.7...1.23.8
+
 ## 1.23.7 - 2023-11-27
 
 ### What's Changed
