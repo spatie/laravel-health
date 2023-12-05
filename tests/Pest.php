@@ -7,7 +7,7 @@ uses(TestCase::class)
     ->beforeEach(function () {
         Mail::fake();
 
-        ray()->newScreen(test()->name());
+        ray()->newScreen(test()->getName());
     })
     ->in(__DIR__);
 
