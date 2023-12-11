@@ -11,7 +11,7 @@ class FakeCheck extends Check
 
     private FakeValues $fakeValues;
 
-    public static function result(Result $result, bool $shouldRun = null): FakeValues
+    public static function result(Result $result, ?bool $shouldRun = null): FakeValues
     {
         return new FakeValues($result, $shouldRun);
     }

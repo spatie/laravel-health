@@ -118,7 +118,7 @@ class RunHealthChecksCommand extends Command
         return $this;
     }
 
-    protected function outputResult(Result $result, Exception $exception = null): void
+    protected function outputResult(Result $result, ?Exception $exception = null): void
     {
         $status = ucfirst((string) $result->status->value);
 
