@@ -81,6 +81,23 @@ return [
     ],
 
     /*
+     * You can monitor the results of all health checks. This way, you'll from open the url
+     */
+    'main_endpoint' => [
+        'enabled' => false,
+
+        /*
+         * The URL that should be configured in the Application health.
+         */
+        'url' => '/health',
+
+        /*
+         * The middleware for route that should be monitored.
+         */
+        'middleware' => ['web'],
+    ],
+
+    /*
      * You can let Oh Dear monitor the results of all health checks. This way, you'll
      * get notified of any problems even if your application goes totally down. Via
      * Oh Dear, you can also have access to more advanced notification options.

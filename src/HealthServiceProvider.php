@@ -10,6 +10,7 @@ use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 use Spatie\Health\Components\Logo;
 use Spatie\Health\Components\StatusIndicator;
 use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
+use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 use Spatie\Health\Http\Middleware\RequiresSecret;
 use Spatie\Health\Jobs\HealthQueueJob;
 use Spatie\Health\ResultStores\ResultStore;
@@ -50,8 +51,21 @@ class HealthServiceProvider extends PackageServiceProvider
         $this->app->make(Health::class)->inlineStylesheet(file_get_contents(__DIR__.'/../resources/dist/health.min.css'));
 
         $this
+            ->registerMainEndpoint()
             ->registerOhDearEndpoint()
             ->silenceHealthQueueJob();
+    }
+
+    protected function registerMainEndpoint(): self
+    {
+        if (! config('health.main_endpoint.enabled')) {
+            return $this;
+        }
+
+        Route::get(config('health.main_endpoint.url'), HealthCheckResultsController::class)
+            ->middleware(config('health.main_endpoint.middleware'));
+
+        return $this;
     }
 
     protected function registerOhDearEndpoint(): self
