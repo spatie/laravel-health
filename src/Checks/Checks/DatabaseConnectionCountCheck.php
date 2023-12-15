@@ -39,17 +39,13 @@ class DatabaseConnectionCountCheck extends Check
 
     public function run(): Result
     {
-        $connectionName = $this->connectionName ?? $this->getDefaultConnectionName();
-
         $connectionCount = $this->getConnectionCount();
 
         $shortSummary = $connectionCount.' '.Str::plural('connection', $connectionCount);
 
         $result = Result::make()
             ->ok()
-            ->meta([
-                'connection_count' => $connectionCount,
-            ])
+            ->meta(['connection_count' => $connectionCount])
             ->shortSummary($shortSummary);
 
         if ($connectionCount > $this->errorThreshold) {
