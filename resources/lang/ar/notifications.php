@@ -11,5 +11,5 @@ return [
 
     'health_results' => 'نتائج الصحة',
 
-    'check_results_from' => 'نتائج الفحص من',
+    'check_results_from' => 'تحقق من النتائج عن طريق',
 ];
