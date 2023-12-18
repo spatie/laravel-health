@@ -6,7 +6,7 @@ weight: 2
 The package contains a controller `Spatie\Health\Http\Controllers\HealthCheckResultsController` that can be used to render the latest results of all checks. Simply use that controller in your routes on any URL you desire.
 
 ```php
-use Spatie\Health\Http\Controllers\HealthCheckResultsController
+use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
 Route::get('health', HealthCheckResultsController::class);
 ```
