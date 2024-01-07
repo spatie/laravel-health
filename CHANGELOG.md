@@ -2,6 +2,24 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.23.9 - 2024-01-07
+
+### What's Changed
+
+* only use needed properties
+* Fix typos for tr lang by @sdkakcy in https://github.com/spatie/laravel-health/pull/206
+* Remove unused variable by @michaelnabil230 in https://github.com/spatie/laravel-health/pull/207
+* Fix Arabic language by @michaelnabil230 in https://github.com/spatie/laravel-health/pull/209
+* Update composer.json to use Larastan Org by @arnebr in https://github.com/spatie/laravel-health/pull/211
+
+### New Contributors
+
+* @sdkakcy made their first contribution in https://github.com/spatie/laravel-health/pull/206
+* @michaelnabil230 made their first contribution in https://github.com/spatie/laravel-health/pull/207
+* @arnebr made their first contribution in https://github.com/spatie/laravel-health/pull/211
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.23.8...1.23.9
+
 ## 1.23.8 - 2023-12-05
 
 ### What's Changed
