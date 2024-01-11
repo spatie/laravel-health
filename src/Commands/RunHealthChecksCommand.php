@@ -27,6 +27,7 @@ class RunHealthChecksCommand extends Command
     public function handle(): int
     {
         $this->info('Running checks...');
+        \PMLog::debug("[RunHealthChecksCommand][handle] Running checks...");
 
         $results = $this->runChecks();
 
@@ -40,6 +41,7 @@ class RunHealthChecksCommand extends Command
 
         $this->line('');
         $this->info('All done!');
+        \PMLog::debug("[RunHealthChecksCommand][handle] All done!");
 
         return $this->determineCommandResult($results);
     }
@@ -51,6 +53,8 @@ class RunHealthChecksCommand extends Command
         try {
             $this->line('');
             $this->line("Running check: {$check->getLabel()}...");
+            \PMLog::debug("[RunHealthChecksCommand][runCheck] Running check: {$check->getLabel()}...");
+
             $result = $check->run();
         } catch (Exception $exception) {
             $exception = CheckDidNotComplete::make($check, $exception);

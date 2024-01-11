@@ -71,8 +71,9 @@ class Result
     public function ok(string $message = ''): self
     {
         $this->notificationMessage = $message;
-
         $this->status = Status::ok();
+
+        \PMLog::debug("[Result][ok] Ok");
 
         return $this;
     }
@@ -80,8 +81,9 @@ class Result
     public function warning(string $message = ''): self
     {
         $this->notificationMessage = $message;
-
         $this->status = Status::warning();
+
+        \PMLog::debug("[Result][warning] Warning: {$message}");
 
         return $this;
     }
@@ -89,8 +91,9 @@ class Result
     public function failed(string $message = ''): self
     {
         $this->notificationMessage = $message;
-
         $this->status = Status::failed();
+
+        \PMLog::debug("[Result][failed] Failed: {$message}");
 
         return $this;
     }
