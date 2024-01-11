@@ -99,7 +99,7 @@ class EloquentHealthResultStore implements ResultStore
                     meta: $historyItem->meta,
                 );
             });
-        \PMLog::debug("[EloquentHealthResultStore][latestResults] Got {$storedCheckResults->count()} raws");
+        \PMLog::debug("[EloquentHealthResultStore][latestResults] Got {$storedCheckResults->count()} rows");
 
         return new StoredCheckResults(
             finishedAt: $latestItem->created_at,
