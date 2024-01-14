@@ -66,12 +66,14 @@ class EloquentHealthResultStore implements ResultStore
         if (!$latestItem = $modelInstance->newQuery()->latest()->first()) {
             return null;
         }
-        \PayMe::logDB();
+
+        $serverKey = Health::getServerKey();
+        \PMLog::debug("[EloquentHealthResultStore][latestResults] Going to get {$serverKey} latest result");
 
         $latestChecksForServerKey = $modelInstance->newQuery()
             ->select(DB::raw("MAX(id) as max_id"), "server_key")
-            ->when($onlySameServerKey, function (Builder $q) {
-                $q->where("server_key", Health::getServerKey());
+            ->when($onlySameServerKey, function (Builder $q) use ($serverKey) {
+                $q->where("server_key", $serverKey);
             })
             ->groupBy("server_key")
             ->get()
@@ -97,6 +99,7 @@ class EloquentHealthResultStore implements ResultStore
                     meta: $historyItem->meta,
                 );
             });
+        \PMLog::debug("[EloquentHealthResultStore][latestResults] Got {$storedCheckResults->count()} rows");
 
         return new StoredCheckResults(
             finishedAt: $latestItem->created_at,
