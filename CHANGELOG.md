@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.23.10 - 2024-01-19
+
+### What's Changed
+
+* Update nunomaduro/termwind to 2.0 by @yoeriboven in https://github.com/spatie/laravel-health/pull/213
+
+### New Contributors
+
+* @yoeriboven made their first contribution in https://github.com/spatie/laravel-health/pull/213
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.23.9...1.23.10
+
 ## 1.23.9 - 2024-01-07
 
 ### What's Changed
