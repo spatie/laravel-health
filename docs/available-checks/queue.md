@@ -1,6 +1,6 @@
 ---
 title: Queue
-weight: 15
+weight: 16
 ---
 
 This check will make sure that queued jobs are running. This check works by dispatching a test job (this will be done via a scheduled command), and verify if that test job is handled on time.

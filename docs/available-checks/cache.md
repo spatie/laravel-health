@@ -1,6 +1,6 @@
 ---
 title: Application Cache
-weight: 2
+weight: 3
 ---
 
 This check makes sure the application can connect to your cache system and read/write to the cache keys. By default, this check will make sure the `default` connection is working.

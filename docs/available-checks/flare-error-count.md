@@ -1,6 +1,6 @@
 ---
 title: Flare error count
-weight: 11
+weight: 12
 ---
 
 This check will monitor the amount of errors and exceptions your application throws. For this check you'll need to have an account on [Flare](https://flareapp.io).

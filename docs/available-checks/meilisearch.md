@@ -1,8 +1,8 @@
 ---
 title: MeiliSearch
-weight: 13
+weight: 14
 ---
-
+[meilisearch.md](meilisearch.md)
 This check will verify if MeiliSearch is running. It will call MeiliSearch's [built-in health endpoint](https://docs.meilisearch.com/reference/api/health.html) and verify that its status returns `available`.
 
 ## Usage

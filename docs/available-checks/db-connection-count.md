@@ -1,6 +1,6 @@
 ---
 title: DB connection count
-weight: 6
+weight: 7
 ---
 
 This check makes sure your database doesn't have too much active connections. This check supports MySQL and Postgres.

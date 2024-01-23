@@ -8,6 +8,7 @@ Using this package you can register one or more checks to verify the health of y
 These are the checks created by us:
 
 - [Application Cache](cache)
+- [Backups](backups)
 - [CPU Load](cpu-load)
 - [Database Connection](db-connection)
 - [Database Connection Count](db-connection-count)

@@ -1,6 +1,6 @@
 ---
 title: Schedule
-weight: 18
+weight: 19
 ---
 
 This check will make sure the schedule is running. If the check detects that the schedule is not run every minute, it will fail.

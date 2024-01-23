@@ -1,6 +1,6 @@
 ---
 title: DB table size
-weight: 8
+weight: 9
 ---
 
 This check makes sure the tables of your database are not too big. This check supports MySQL and Postgres.

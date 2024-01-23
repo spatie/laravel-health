@@ -18,7 +18,9 @@ class BackupsCheck extends Check
 
     protected int $minimumSizeInMegabytes = 0;
 
-    protected int $minimumNumberOfBackups = 0;
+    protected ?int $minimumNumberOfBackups = null;
+    protected ?int $maximumNumberOfBackups = null;
+
 
     public function locatedAt(string $globPath): self
     {
@@ -48,9 +50,10 @@ class BackupsCheck extends Check
         return $this;
     }
 
-    public function atLeastNumberOfBackups(int $minimumNumberOfBackups): self
+    public function numberOfBackups(int $min = null, int $max = null): self
     {
-        $this->minimumNumberOfBackups = $minimumNumberOfBackups;
+        $this->minimumNumberOfBackups = $min;
+        $this->maximumNumberOfBackups = $max;
 
         return $this;
     }
@@ -75,8 +78,16 @@ class BackupsCheck extends Check
             return Result::make()->failed('No backups found that are large enough');
         }
 
-        if ($eligableBackups->count() < $this->minimumNumberOfBackups) {
-            return Result::make()->failed('Not enough backups found');
+        if ($this->minimumNumberOfBackups) {
+            if ($eligableBackups->count() < $this->minimumNumberOfBackups) {
+                return Result::make()->failed('Not enough backups found');
+            }
+        }
+
+        if ($this->maximumNumberOfBackups) {
+            if ($eligableBackups->count() > $this->maximumNumberOfBackups) {
+                return Result::make()->failed('Too many backups found');
+            }
         }
 
         if ($this->youngestShouldHaveBeenMadeBefore) {

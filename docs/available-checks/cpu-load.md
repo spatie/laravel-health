@@ -1,6 +1,6 @@
 ---
 title: CPU load
-weight: 4
+weight: 5
 ---
 
 This check makes sure that your CPU load isn't too high.

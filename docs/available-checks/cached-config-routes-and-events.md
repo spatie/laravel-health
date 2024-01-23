@@ -1,6 +1,6 @@
 ---
 title: Cached config, routes, and events
-weight: 3
+weight: 4
 ---
 
 To improve performance, Laravel can cache configuration files, routes and events. Using the `OptimizedAppCheck` you can make sure these things are actually cached.

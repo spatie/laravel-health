@@ -118,7 +118,7 @@ it('can check that there are enough backups', function() {
 
     $result = $this->backupsCheck
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
-        ->atLeastNumberOfBackups(2)
+        ->numberOfBackups(min: 2)
         ->run();
     expect($result)->status->toBe(Status::failed());
 
@@ -126,10 +126,27 @@ it('can check that there are enough backups', function() {
 
     $result = $this->backupsCheck
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
-        ->atLeastNumberOfBackups(2)
+        ->numberOfBackups(min: 2)
         ->run();
     expect($result)->status->toBe(Status::ok());
 });
 
 
+it('can make sure that there are not too much backups', function() {
+    addTestFile($this->temporaryDirectory->path('first.zip'));
+    addTestFile($this->temporaryDirectory->path('second.zip'));
 
+    $result = $this->backupsCheck
+        ->locatedAt($this->temporaryDirectory->path('*.zip'))
+        ->numberOfBackups(max: 2)
+        ->run();
+    expect($result)->status->toBe(Status::ok());
+
+    addTestFile($this->temporaryDirectory->path('third.zip'));
+
+    $result = $this->backupsCheck
+        ->locatedAt($this->temporaryDirectory->path('*.zip'))
+        ->numberOfBackups(max: 2)
+        ->run();
+    expect($result)->status->toBe(Status::failed());
+});

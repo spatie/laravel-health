@@ -1,6 +1,6 @@
 ---
 title: Redis memory usage
-weight: 17
+weight: 18
 ---
 
 This check makes sure that Redis is not consuming too much memory.
