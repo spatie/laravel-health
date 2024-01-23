@@ -4,9 +4,10 @@ use Spatie\Health\Checks\Checks\BackupsCheck;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+
 use function Spatie\PestPluginTestTime\testTime;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->backupsCheck = BackupsCheck::new();
 
     Health::checks([
@@ -19,7 +20,7 @@ beforeEach(function() {
 
 });
 
-it('it will succeed if a file with the given glob exist', function() {
+it('it will succeed if a file with the given glob exist', function () {
     addTestFile($this->temporaryDirectory->path('hey.zip'));
 
     $result = $this->backupsCheck
@@ -29,7 +30,7 @@ it('it will succeed if a file with the given glob exist', function() {
     expect($result)->status->toBe(Status::ok());
 });
 
-it('it will fail if a file with the given glob does not exist', function() {
+it('it will fail if a file with the given glob does not exist', function () {
     addTestFile($this->temporaryDirectory->path('hey.other'));
 
     $result = $this->backupsCheck
@@ -39,7 +40,7 @@ it('it will fail if a file with the given glob does not exist', function() {
     expect($result)->status->toBe(Status::failed());
 });
 
-it('will fail if the given directory does not exist', function() {
+it('will fail if the given directory does not exist', function () {
     $result = $this->backupsCheck
         ->locatedAt('non-existing-directory')
         ->run();
@@ -47,7 +48,7 @@ it('will fail if the given directory does not exist', function() {
     expect($result)->status->toBe(Status::failed());
 });
 
-it('will fail if the backup is smaller than the given size', function() {
+it('will fail if the backup is smaller than the given size', function () {
     addTestFile($this->temporaryDirectory->path('hey.zip'), sizeInMb: 4);
 
     $result = $this->backupsCheck
@@ -58,7 +59,7 @@ it('will fail if the backup is smaller than the given size', function() {
     expect($result)->status->toBe(Status::failed());
 });
 
-it('will pass if the backup is at least than the given size', function(int $sizeInMb) {
+it('will pass if the backup is at least than the given size', function (int $sizeInMb) {
     addTestFile($this->temporaryDirectory->path('hey.zip'), sizeInMb: $sizeInMb);
 
     $result = $this->backupsCheck
@@ -72,7 +73,7 @@ it('will pass if the backup is at least than the given size', function(int $size
     [6],
 ]);
 
-it('can check if the youngest backup is recent enough', function() {
+it('can check if the youngest backup is recent enough', function () {
     addTestFile($this->temporaryDirectory->path('hey.zip'));
 
     testTime()->addMinutes(4);
@@ -92,7 +93,7 @@ it('can check if the youngest backup is recent enough', function() {
     expect($result)->status->toBe(Status::failed());
 });
 
-it('can check if the oldest backup is old enough', function() {
+it('can check if the oldest backup is old enough', function () {
     addTestFile($this->temporaryDirectory->path('hey.zip'), date: now()->startOfMinute());
 
     testTime()->addMinutes(4);
@@ -113,7 +114,7 @@ it('can check if the oldest backup is old enough', function() {
     expect($result)->status->toBe(Status::failed());
 });
 
-it('can check that there are enough backups', function() {
+it('can check that there are enough backups', function () {
     addTestFile($this->temporaryDirectory->path('first.zip'));
 
     $result = $this->backupsCheck
@@ -130,6 +131,3 @@ it('can check that there are enough backups', function() {
         ->run();
     expect($result)->status->toBe(Status::ok());
 });
-
-
-
