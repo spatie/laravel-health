@@ -25,7 +25,7 @@ function getTemporaryDirectory(string $path = ''): string
     return __DIR__."/temp/{$path}";
 }
 
-function addTestFile(string $path, Carbon $date = null, int $sizeInMb = null): void
+function addTestFile(string $path, ?Carbon $date = null, ?int $sizeInMb = null): void
 {
     $date = $date ?? now();
 

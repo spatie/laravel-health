@@ -2,7 +2,6 @@
 
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Enums\Status;
-use function Spatie\PestPluginTestTime\testTime;
 
 it('will determine that a working database connection is ok', function () {
     $result = DatabaseCheck::new()

@@ -14,6 +14,7 @@ class BackupsCheck extends Check
     protected ?string $locatedAt = null;
 
     protected ?Carbon $youngestShouldHaveBeenMadeBefore = null;
+
     protected ?Carbon $oldestShouldHaveBeenMadeAfter = null;
 
     protected int $minimumSizeInMegabytes = 0;
@@ -93,31 +94,28 @@ class BackupsCheck extends Check
         if ($this->youngestShouldHaveBeenMadeBefore) {
             if ($this->youngestBackupIsToolOld($eligableBackups)) {
                 return Result::make()
-                    ->failed("Youngest backup was too old");
+                    ->failed('Youngest backup was too old');
             }
         }
 
         if ($this->oldestShouldHaveBeenMadeAfter) {
             if ($this->oldestBackupIsTooYoung($eligableBackups)) {
                 return Result::make()
-                    ->failed("Oldest backup was too young");
+                    ->failed('Oldest backup was too young');
             }
         }
 
         return Result::make()->ok();
     }
 
-
     /**
-     * @param Collection<SymfonyFile> $backups
-     *
-     * @return bool
+     * @param  Collection<SymfonyFile>  $backups
      */
     protected function youngestBackupIsToolOld(Collection $backups): bool
     {
         /** @var SymfonyFile|null $youngestBackup */
         $youngestBackup = $backups
-            ->sortByDesc(fn(SymfonyFile $file) => $file->getMTime())
+            ->sortByDesc(fn (SymfonyFile $file) => $file->getMTime())
             ->first();
 
         $threshold = $this->youngestShouldHaveBeenMadeBefore->getTimestamp();
@@ -126,15 +124,13 @@ class BackupsCheck extends Check
     }
 
     /**
-     * @param Collection<SymfonyFile> $backups
-     *
-     * @return bool
+     * @param  Collection<SymfonyFile>  $backups
      */
     protected function oldestBackupIsTooYoung(Collection $backups): bool
     {
         /** @var SymfonyFile|null $oldestBackup */
         $oldestBackup = $backups
-            ->sortBy(fn(SymfonyFile $file) => $file->getMTime())
+            ->sortBy(fn (SymfonyFile $file) => $file->getMTime())
             ->first();
 
         $threshold = $this->oldestShouldHaveBeenMadeAfter->getTimestamp();
