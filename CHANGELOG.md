@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.24.0 - 2024-01-23
+
+- add `BackupsCheck`
+
 ## 1.23.10 - 2024-01-19
 
 ### What's Changed
