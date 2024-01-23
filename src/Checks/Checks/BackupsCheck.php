@@ -9,7 +9,7 @@ use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 
-class RecentBackupCheck extends Check
+class BackupsCheck extends Check
 {
     protected ?string $locatedAt = null;
 
@@ -17,6 +17,8 @@ class RecentBackupCheck extends Check
     protected ?Carbon $oldestShouldHaveBeenMadeAfter = null;
 
     protected int $minimumSizeInMegabytes = 0;
+
+    protected int $minimumNumberOfBackups = 0;
 
     public function locatedAt(string $globPath): self
     {
@@ -46,6 +48,13 @@ class RecentBackupCheck extends Check
         return $this;
     }
 
+    public function atLeastNumberOfBackups(int $minimumNumberOfBackups): self
+    {
+        $this->minimumNumberOfBackups = $minimumNumberOfBackups;
+
+        return $this;
+    }
+
     public function run(): Result
     {
         $files = collect(File::glob($this->locatedAt));
@@ -64,6 +73,10 @@ class RecentBackupCheck extends Check
 
         if ($eligableBackups->isEmpty()) {
             return Result::make()->failed('No backups found that are large enough');
+        }
+
+        if ($eligableBackups->count() < $this->minimumNumberOfBackups) {
+            return Result::make()->failed('Not enough backups found');
         }
 
         if ($this->youngestShouldHaveBeenMadeBefore) {
