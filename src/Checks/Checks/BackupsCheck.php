@@ -20,8 +20,8 @@ class BackupsCheck extends Check
     protected int $minimumSizeInMegabytes = 0;
 
     protected ?int $minimumNumberOfBackups = null;
-    protected ?int $maximumNumberOfBackups = null;
 
+    protected ?int $maximumNumberOfBackups = null;
 
     public function locatedAt(string $globPath): self
     {
@@ -51,7 +51,7 @@ class BackupsCheck extends Check
         return $this;
     }
 
-    public function numberOfBackups(int $min = null, int $max = null): self
+    public function numberOfBackups(?int $min = null, ?int $max = null): self
     {
         $this->minimumNumberOfBackups = $min;
         $this->maximumNumberOfBackups = $max;
