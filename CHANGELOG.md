@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.24.1 - 2024-01-31
+
+### What's Changed
+
+* docs: add i18n pt_BR by @marcosmarcolin in https://github.com/spatie/laravel-health/pull/215
+
+### New Contributors
+
+* @marcosmarcolin made their first contribution in https://github.com/spatie/laravel-health/pull/215
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.24.0...1.24.1
+
 ## 1.24.0 - 2024-01-23
 
 - add `BackupsCheck`
