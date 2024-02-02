@@ -34,7 +34,7 @@ class HealthCheckResultHistoryItem extends Model
 
     public function getConnectionName(): string
     {
-        return config('health.database.connection');
+        return config('health.result_stores.'.EloquentHealthResultStore::class.'.connection');
     }
 
     public function prunable(): Builder

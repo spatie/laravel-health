@@ -9,7 +9,7 @@ return new class extends Migration
 {
     public function up()
     {
-        $connection = config('health.database.connection');
+        $connection = config('health.result_stores.'.EloquentHealthResultStore::class.'.connection');
         $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
     
         Schema::connection($connection)->create($tableName, function (Blueprint $table) {
