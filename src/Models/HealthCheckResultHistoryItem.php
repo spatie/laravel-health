@@ -32,6 +32,11 @@ class HealthCheckResultHistoryItem extends Model
         'started_failing_at' => 'timestamp',
     ];
 
+    public function getConnectionName(): string
+    {
+        return config('health.database.connection');
+    }
+
     public function prunable(): Builder
     {
         $days = config('health.result_stores.'.EloquentHealthResultStore::class.'.keep_history_for_days') ?? 5;

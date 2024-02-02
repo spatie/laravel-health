@@ -1,6 +1,13 @@
 <?php
 
 return [
+    /*
+     * Configure your database connection if you want to use a different
+     * database to store the values.
+     */
+    'database' => [
+        'connection' => env('HEALTH_DATABASE_CONNECTION', env('DB_CONNECTION')),
+    ],
 
     /*
      * A result store is responsible for saving the results of the checks. The

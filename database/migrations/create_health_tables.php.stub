@@ -9,9 +9,10 @@ return new class extends Migration
 {
     public function up()
     {
+        $connection = config('health.database.connection');
         $tableName = EloquentHealthResultStore::getHistoryItemInstance()->getTable();
     
-        Schema::create($tableName, function (Blueprint $table) {
+        Schema::connection($connection)->create($tableName, function (Blueprint $table) {
             $table->id();
 
             $table->string('check_name');
@@ -26,7 +27,7 @@ return new class extends Migration
             $table->timestamps();
         });
         
-        Schema::table($tableName, function(Blueprint $table) {
+        Schema::connection($connection)->table($tableName, function(Blueprint $table) {
             $table->index('created_at');
             $table->index('batch');
         });
