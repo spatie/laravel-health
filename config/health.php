@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
      * A result store is responsible for saving the results of the checks. The
      * `EloquentHealthResultStore` will save results in the database. You
@@ -9,6 +8,7 @@ return [
      */
     'result_stores' => [
         Spatie\Health\ResultStores\EloquentHealthResultStore::class => [
+            'connection' => env('HEALTH_DB_CONNECTION', env('DB_CONNECTION')),
             'model' => Spatie\Health\Models\HealthCheckResultHistoryItem::class,
             'keep_history_for_days' => 5,
         ],
