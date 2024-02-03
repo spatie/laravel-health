@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.25.0 - 2024-02-03
+
+### What's Changed
+
+* Added Different Database Connection Support by @eusonlito in https://github.com/spatie/laravel-health/pull/216
+
+### New Contributors
+
+* @eusonlito made their first contribution in https://github.com/spatie/laravel-health/pull/216
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.24.1...1.25.0
+
 ## 1.24.1 - 2024-01-31
 
 ### What's Changed
