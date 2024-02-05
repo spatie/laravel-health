@@ -13,6 +13,7 @@ class MeiliSearchCheck extends Check
     protected int $timeout = 1;
 
     protected string $url = 'http://127.0.0.1:7700/health';
+
     protected ?string $token = null;
 
     public function timeout(int $seconds): self
