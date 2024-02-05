@@ -47,3 +47,16 @@ Health::checks([
     MeiliSearchCheck::new()->timeout(2),
 ]);
 ```
+
+### Adding an authorization header
+
+You can use `token()` to add an authorization header to the request.
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\MeiliSearchCheck;
+
+Health::checks([
+    MeiliSearchCheck::new()->token('auth-token'),
+]);
+```
