@@ -13,6 +13,7 @@ class MeiliSearchCheck extends Check
     protected int $timeout = 1;
 
     protected string $url = 'http://127.0.0.1:7700/health';
+    protected ?string $token = null;
 
     public function timeout(int $seconds): self
     {
@@ -28,6 +29,13 @@ class MeiliSearchCheck extends Check
         return $this;
     }
 
+    public function token(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
     public function getLabel(): string
     {
         return $this->getName();
@@ -36,7 +44,10 @@ class MeiliSearchCheck extends Check
     public function run(): Result
     {
         try {
-            $response = Http::timeout($this->timeout)->asJson()->get($this->url);
+            $response = Http::timeout($this->timeout)
+                ->when($this->token !== null, fn ($r) => $r->withToken($this->token))
+                ->asJson()
+                ->get($this->url);
         } catch (Exception) {
             return Result::make()
                 ->failed()
