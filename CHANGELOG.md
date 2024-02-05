@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.26.0 - 2024-02-05
+
+### What's Changed
+
+* Added the option to specify a HTTP Authentication token for the Meilisearch check by @pieterclaerhout in https://github.com/spatie/laravel-health/pull/217
+
+### New Contributors
+
+* @pieterclaerhout made their first contribution in https://github.com/spatie/laravel-health/pull/217
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.25.0...1.26.0
+
 ## 1.25.0 - 2024-02-03
 
 ### What's Changed
