@@ -2,6 +2,7 @@
 
 use Illuminate\Database\ConnectionResolverInterface;
 use Spatie\Health\Support\DbConnectionInfo;
+use Spatie\Health\Tests\TestClasses\CrashingHealthCheckResultHistoryItem;
 
 it('can determine the table size in mb', function () {
     $connection = app(ConnectionResolverInterface::class)->connection('mysql');
@@ -21,4 +22,10 @@ it('can determine the connection count', function () {
     $size = $connectionInfo->connectionCount($connection);
 
     expect($size)->toBeGreaterThan(0);
+});
+
+it('correctly determines the connection of the model', function () {
+    $model = new CrashingHealthCheckResultHistoryItem();
+
+    expect($model->getConnectionName())->toBe('custom');
 });
