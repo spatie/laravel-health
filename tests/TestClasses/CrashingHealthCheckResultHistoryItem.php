@@ -6,5 +6,5 @@ use Spatie\Health\Models\HealthCheckResultHistoryItem;
 
 class CrashingHealthCheckResultHistoryItem extends HealthCheckResultHistoryItem
 {
-	protected $connection = 'custom';
+    protected $connection = 'custom';
 }

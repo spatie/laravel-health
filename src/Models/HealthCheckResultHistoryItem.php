@@ -35,13 +35,13 @@ class HealthCheckResultHistoryItem extends Model
     public function getConnectionName(): string
     {
         return $this->connection ?:
-            config('health.result_stores.' . EloquentHealthResultStore::class . '.connection') ?:
+            config('health.result_stores.'.EloquentHealthResultStore::class.'.connection') ?:
             config('database.default');
     }
 
     public function prunable(): Builder
     {
-        $days = config('health.result_stores.' . EloquentHealthResultStore::class . '.keep_history_for_days') ?? 5;
+        $days = config('health.result_stores.'.EloquentHealthResultStore::class.'.keep_history_for_days') ?? 5;
 
         return static::where('created_at', '<=', now()->subDays($days));
     }

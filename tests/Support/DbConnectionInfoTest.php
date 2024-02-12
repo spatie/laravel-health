@@ -37,9 +37,9 @@ it('correctly determines the connection of the model', function () {
 
     config()->set('health.result_stores', [
         EloquentHealthResultStore::class => [
-            'connection' => 'custom_in_config'
+            'connection' => 'custom_in_config',
         ],
     ]);
 
-    expect($model->getConnectionName())->toBe(config('health.result_stores.' . EloquentHealthResultStore::class . '.connection'));
+    expect($model->getConnectionName())->toBe(config('health.result_stores.'.EloquentHealthResultStore::class.'.connection'));
 });
