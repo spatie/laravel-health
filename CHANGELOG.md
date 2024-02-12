@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.26.1 - 2024-02-12
+
+### What's Changed
+
+* Fix model connection by @wizzymore in https://github.com/spatie/laravel-health/pull/219
+
+### New Contributors
+
+* @wizzymore made their first contribution in https://github.com/spatie/laravel-health/pull/219
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.26.0...1.26.1
+
 ## 1.26.0 - 2024-02-05
 
 ### What's Changed
