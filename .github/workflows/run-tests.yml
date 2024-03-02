@@ -1,16 +1,19 @@
 name: run-tests
 
-on: [push, pull_request]
+on:
+  - push
+  - pull_request
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
         php: [8.1, 8.2, 8.3]
-        laravel: [9.*, 8.*, 10.*]
+        laravel: ['8.*', '9.*', '10.*', '11.*']
         stability: [prefer-stable]
         include:
           - laravel: 10.*
@@ -19,6 +22,11 @@ jobs:
             testbench: 7.*
           - laravel: 8.*
             testbench: ^6.23
+          - laravel: 11.*
+            testbench: 9.*
+        exclude:
+          - laravel: 11.*
+            php: 8.1
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -33,20 +41,13 @@ jobs:
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
       redis:
         image: redis
         ports:
           - 6379:6379
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-
-
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -74,4 +75,3 @@ jobs:
           DB_PASSWORD: secret
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           REDIS_PORT: 6379
-
