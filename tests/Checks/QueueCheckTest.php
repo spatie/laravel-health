@@ -17,7 +17,7 @@ beforeEach(function () {
         QueueCheck::new(),
     ]);
 
-    testTime()->freeze();
+    testTime()->freeze('2024-01-01 00:00:00');
 });
 
 it('can check whether the queue jobs are still running', function () {
@@ -26,14 +26,14 @@ it('can check whether the queue jobs are still running', function () {
     $result = $this->queueCheck->run();
     expect($result->status)->toBe(Status::ok());
 
-    testTime()->addMinutes(5)->subSecond();
+    testTime()->addMinutes(5);
     $result = $this->queueCheck->run();
     expect($result->status)->toBe(Status::ok());
 
     testTime()->addSecond();
     $result = $this->queueCheck->run();
     expect($result->status)->toBe(Status::failed());
-});
+})->skipOnOldCarbon();
 
 it('can use custom max age of the heartbeat for queue jobs', function () {
     $this->queueCheck->failWhenHealthJobTakesLongerThanMinutes(10);
@@ -43,14 +43,14 @@ it('can use custom max age of the heartbeat for queue jobs', function () {
     $result = $this->queueCheck->run();
     expect($result->status)->toBe(Status::ok());
 
-    testTime()->addMinutes(10)->subSecond();
+    testTime()->addMinutes(10);
     $result = $this->queueCheck->run();
     expect($result->status)->toBe(Status::ok());
 
     testTime()->addSecond();
     $result = $this->queueCheck->run();
     expect($result->status)->toBe(Status::failed());
-});
+})->skipOnOldCarbon();
 
 it('will fail if only one queue is not working', function () {
     Health::clearChecks();

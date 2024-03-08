@@ -3,6 +3,7 @@
 namespace Spatie\Health\Checks\Checks;
 
 use Carbon\Carbon;
+use Composer\InstalledVersions;
 use Illuminate\Support\Arr;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
@@ -80,7 +81,14 @@ class QueueCheck extends Check
 
             $latestHeartbeatAt = Carbon::createFromTimestamp($lastHeartbeatTimestamp);
 
-            $minutesAgo = $latestHeartbeatAt->diffInMinutes() + 1;
+            $carbonVersion = InstalledVersions::getVersion('nesbot/carbon');
+
+            $minutesAgo = $latestHeartbeatAt->diffInMinutes();
+
+            if (version_compare($carbonVersion,
+                '3.0.0', '<')) {
+                $minutesAgo +=1;
+            }
 
             if ($minutesAgo > $this->failWhenTestJobTakesLongerThanMinutes) {
                 $fails[] = "The last run of the `{$queue}` queue was more than {$minutesAgo} minutes ago.";

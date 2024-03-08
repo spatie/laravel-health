@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Composer\InstalledVersions;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Health\Tests\TestCase;
 
@@ -33,5 +34,14 @@ function addTestFile(string $path, ?Carbon $date = null, ?int $sizeInMb = null):
 
     if ($sizeInMb) {
         shell_exec("truncate -s {$sizeInMb}M {$path}");
+    }
+}
+
+function skipOnOldCarbon()
+{
+    $carbonVersion = InstalledVersions::getVersion('nesbot/carbon');
+
+    if (version_compare($carbonVersion, '3.0.0', '<')) {
+        test()->markTestSkipped();
     }
 }
