@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.27.0 - 2024-03-08
+
+### What's Changed
+
+* Laravel 11.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-health/pull/222
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.26.1...1.27.0
+
 ## 1.26.1 - 2024-02-12
 
 ### What's Changed
