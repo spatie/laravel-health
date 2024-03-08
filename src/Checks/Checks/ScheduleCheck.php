@@ -64,13 +64,8 @@ class ScheduleCheck extends Check
 
         if (version_compare($carbonVersion,
             '3.0.0', '<')) {
-          $minutesAgo +=1;
+            $minutesAgo += 1;
         }
-
-
-
-
-
 
         if ($minutesAgo > $this->heartbeatMaxAgeInMinutes) {
             return $result->failed("The last run of the schedule was more than {$minutesAgo} minutes ago.");

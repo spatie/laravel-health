@@ -87,7 +87,7 @@ class QueueCheck extends Check
 
             if (version_compare($carbonVersion,
                 '3.0.0', '<')) {
-                $minutesAgo +=1;
+                $minutesAgo += 1;
             }
 
             if ($minutesAgo > $this->failWhenTestJobTakesLongerThanMinutes) {
