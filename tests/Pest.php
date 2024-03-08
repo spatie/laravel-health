@@ -7,8 +7,6 @@ use Spatie\Health\Tests\TestCase;
 uses(TestCase::class)
     ->beforeEach(function () {
         Mail::fake();
-
-        ray()->newScreen(test()->name());
     })
     ->in(__DIR__);
 
