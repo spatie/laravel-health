@@ -28,5 +28,8 @@ class HealthQueueJob implements ShouldQueue
                 $this->queueCheck->getCacheKey($this->queue),
                 now()->timestamp,
             );
+
+        # https://github.com/laravel/horizon/issues/1034
+        sleep(2);
     }
 }
