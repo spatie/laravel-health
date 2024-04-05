@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.27.1 - 2024-04-05
+
+### What's Changed
+
+* Give space between the bottom card and end of page by @syofyanzuhad in https://github.com/spatie/laravel-health/pull/224
+
+### New Contributors
+
+* @syofyanzuhad made their first contribution in https://github.com/spatie/laravel-health/pull/224
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.27.0...1.27.1
+
 ## 1.27.0 - 2024-03-08
 
 ### What's Changed
