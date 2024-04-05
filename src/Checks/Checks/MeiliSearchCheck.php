@@ -73,7 +73,7 @@ class MeiliSearchCheck extends Check
 
         $status = Arr::get($response, 'status');
 
-        if ($status !== 'available') {
+        if (! in_array($status, ['available', 'running'])) {
             return Result::make()
                 ->failed()
                 ->shortSummary(ucfirst($status))
