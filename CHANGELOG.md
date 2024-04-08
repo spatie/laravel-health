@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.28.0 - 2024-04-08
+
+### What's Changed
+
+* Add running status to MeiliSearchCheck by @francoism90 in https://github.com/spatie/laravel-health/pull/225
+
+### New Contributors
+
+* @francoism90 made their first contribution in https://github.com/spatie/laravel-health/pull/225
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.27.1...1.28.0
+
 ## 1.27.1 - 2024-04-05
 
 ### What's Changed
