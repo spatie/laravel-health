@@ -9,13 +9,19 @@ class ResultStores
     /** @return Collection<int, ResultStore> */
     public static function createFromConfig(): Collection
     {
-        $configValues = config('health.result_stores');
+        $defaultStores = explode(',', config('health.result_stores.default'));
+        $storesConfig = config('health.result_stores.stores');
+        $resultStores = new Collection();
 
-        return collect($configValues)
-            ->keyBy(fn (mixed $value, mixed $key) => is_array($value) ? $key : $value)
-            ->map(fn (mixed $value) => is_array($value) ? $value : [])
-            ->map(function (array $parameters, string $className): ResultStore {
-                return app($className, $parameters);
-            });
+        foreach ($defaultStores as $storeKey) {
+            $storeKey = trim($storeKey); // Trim any whitespace
+            $selectedStoreConfig = $storesConfig[$storeKey] ?? null;
+            if ($selectedStoreConfig) {
+                $resultStoreClass = $selectedStoreConfig['class'];
+                $resultStores->push(app($resultStoreClass, $selectedStoreConfig));
+            }
+        }
+
+        return $resultStores;
     }
 }
