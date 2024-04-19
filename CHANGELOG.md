@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.28.1 - 2024-04-19
+
+### What's Changed
+
+* Fix styling and update CHANGELOG by @syofyanzuhad in https://github.com/spatie/laravel-health/pull/227
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.28.0...1.28.1
+
 ## 1.28.0 - 2024-04-08
 
 ### What's Changed
