@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.29.0 - 2024-05-02
+
+### What's Changed
+
+* Add Latvian translation by @algins in https://github.com/spatie/laravel-health/pull/228
+
+### New Contributors
+
+* @algins made their first contribution in https://github.com/spatie/laravel-health/pull/228
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.28.1...1.29.0
+
 ## 1.28.1 - 2024-04-19
 
 ### What's Changed
