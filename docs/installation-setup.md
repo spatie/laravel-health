@@ -159,8 +159,7 @@ If you want to let your application send notifications when something is wrong, 
 // in route/console.php
 use Illuminate\Support\Facades\Schedule;
 
-    Schedule::->command(\Spatie\Health\Commands\RunHealthChecksCommand::class)->everyMinute();
-
+Schedule::command(\Spatie\Health\Commands\RunHealthChecksCommand::class)->everyMinute();
 ```
 
 ## Running the checks by sending HTTP requests
