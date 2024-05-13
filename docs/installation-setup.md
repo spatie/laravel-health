@@ -156,12 +156,10 @@ These steps are not necessary when using the `JsonFileResultStore`.
 If you want to let your application send notifications when something is wrong, you should schedule the `RunHealthChecksCommand` to run every minute.
 
 ```php
-// in app/Console/Kernel.php
+// in route/console.php
+use Illuminate\Support\Facades\Schedule;
 
-protected function schedule(Schedule $schedule)
-{
-    $schedule->command(\Spatie\Health\Commands\RunHealthChecksCommand::class)->everyMinute();
-}
+Schedule::command(\Spatie\Health\Commands\RunHealthChecksCommand::class)->everyMinute();
 ```
 
 ## Running the checks by sending HTTP requests
