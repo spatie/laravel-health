@@ -8,7 +8,11 @@ use Spatie\Health\Facades\Health;
 use Spatie\Health\Jobs\HealthQueueJob;
 
 use function Pest\Laravel\artisan;
+use function PHPUnit\Framework\assertCount;
+use function PHPUnit\Framework\assertInstanceOf;
 use function Spatie\PestPluginTestTime\testTime;
+use function Spatie\Snapshots\assertMatchesObjectSnapshot;
+use function Spatie\Snapshots\assertMatchesSnapshot;
 
 beforeEach(function () {
     $this->queueCheck = QueueCheck::new();
@@ -108,4 +112,29 @@ it('can get default queue settings', function () {
     config()->set("queue.connections.{$queueConnection}.queue", $queueName);
 
     expect($this->queueCheck->getQueues())->toBe([$queueName]);
+});
+
+it('can be serialized', function() {
+    $check = QueueCheck::new()
+        ->onQueue('sync')
+        ->if(fn() => false);
+
+    $result = serialize($check);
+    // Replace with a consistent identifier
+    $result = preg_replace('/s:32:"[0-9a-z]{32}";/', 's:32:"0000000000000000000000000000000000000000";', $result);
+
+    assertMatchesSnapshot($result);
+});
+
+it('can be unserialized', function() {
+    $check = QueueCheck::new()
+        ->onQueue('sync')
+        ->if(fn() => false);
+
+    $result = unserialize(serialize($check));
+
+    assertCount(1, $result->getRunConditions());
+    assertInstanceOf(Closure::class, $result->getRunConditions()[0]);
+
+    assertMatchesObjectSnapshot($result);
 });
