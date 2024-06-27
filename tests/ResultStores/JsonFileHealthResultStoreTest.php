@@ -18,13 +18,9 @@ beforeEach(function () {
     testTime()->freeze('2021-01-01 00:00:00');
 
     Storage::fake('s3');
-
-    config()->set('health.result_stores', [
-        JsonFileHealthResultStore::class => [
-            'disk' => 's3',
-            'path' => $this->path,
-        ],
-    ]);
+    config()->set('health.result_stores.default', 'json');
+    config()->set('health.result_stores.stores.json.disk','s3');
+    config()->set('health.result_stores.stores.json.path',$this->path);
 
     $this->fakeDiskSpaceCheck = FakeUsedDiskSpaceCheck::new();
 

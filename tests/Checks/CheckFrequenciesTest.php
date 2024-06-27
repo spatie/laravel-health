@@ -10,7 +10,7 @@ use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
-    config()->set('health.result_stores', InMemoryResultStore::class);
+    config()->set('health.result_stores.default', 'memory');
 
     testTime()->freeze('2021-01-01 00:00:00');
 

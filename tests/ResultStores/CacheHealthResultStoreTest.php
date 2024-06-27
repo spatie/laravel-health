@@ -14,9 +14,7 @@ use function Spatie\Snapshots\assertMatchesJsonSnapshot;
 beforeEach(function () {
     testTime()->freeze('2021-01-01 00:00:00');
 
-    config()->set('health.result_stores', [
-        CacheHealthResultStore::class,
-    ]);
+    config()->set('health.result_stores.default', 'cache');
 
     $this->fakeDiskSpaceCheck = FakeUsedDiskSpaceCheck::new();
 
