@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Traits\Macroable;
+use Laravel\SerializableClosure\SerializableClosure;
 use Spatie\Health\Enums\Status;
 
 abstract class Check
@@ -78,6 +79,10 @@ abstract class Check
         return Str::of($baseName)->beforeLast('Check');
     }
 
+    public function getRunConditions(): array {
+        return $this->shouldRun;
+    }
+
     public function shouldRun(): bool
     {
         foreach ($this->shouldRun as $shouldRun) {
@@ -118,5 +123,32 @@ abstract class Check
 
     public function onTerminate(mixed $request, mixed $response): void
     {
+    }
+
+    public function __serialize(): array {
+        $vars = get_object_vars($this);
+
+        $serializableClosures = [];
+        foreach ($vars['shouldRun'] as $shouldRun) {
+            $serializableClosures[] = new SerializableClosure($shouldRun);
+        }
+
+        $vars['shouldRun'] = $serializableClosures;
+
+        return $vars;
+    }
+
+    public function __unserialize(array $data): void {
+        foreach ($data as $property => $value) {
+            $this->$property = $value;
+        }
+
+        $unwrappedClosures = [];
+
+        foreach($this->shouldRun as $shouldRun) {
+            $unwrappedClosures[] = $shouldRun->getClosure();
+        }
+
+        $this->shouldRun = $unwrappedClosures;
     }
 }
