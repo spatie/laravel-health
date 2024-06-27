@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.29.1 - 2024-06-27
+
+### What's Changed
+
+* Update installation-setup.md to move schedule command to route/console by @arnebr in https://github.com/spatie/laravel-health/pull/229
+* Allow checks to be serializable by @Riley19280 in https://github.com/spatie/laravel-health/pull/230
+
+### New Contributors
+
+* @Riley19280 made their first contribution in https://github.com/spatie/laravel-health/pull/230
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.29.0...1.29.1
+
 ## 1.29.0 - 2024-05-02
 
 ### What's Changed
