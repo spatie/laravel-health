@@ -9,8 +9,7 @@ class FakeValues
     public function __construct(
         private Result $result,
         private ?bool $shouldRun = null,
-    ) {
-    }
+    ) {}
 
     public static function from(Result|self $values): self
     {

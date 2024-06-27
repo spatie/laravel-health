@@ -26,8 +26,7 @@ class Result
         public Status $status,
         public string $notificationMessage = '',
         public string $shortSummary = '',
-    ) {
-    }
+    ) {}
 
     public function shortSummary(string $shortSummary): self
     {

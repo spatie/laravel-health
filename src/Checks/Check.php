@@ -30,9 +30,7 @@ abstract class Check
      */
     protected array $shouldRun = [];
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public static function new(): static
     {
@@ -79,7 +77,8 @@ abstract class Check
         return Str::of($baseName)->beforeLast('Check');
     }
 
-    public function getRunConditions(): array {
+    public function getRunConditions(): array
+    {
         return $this->shouldRun;
     }
 
@@ -121,11 +120,10 @@ abstract class Check
         return new Result(Status::crashed());
     }
 
-    public function onTerminate(mixed $request, mixed $response): void
-    {
-    }
+    public function onTerminate(mixed $request, mixed $response): void {}
 
-    public function __serialize(): array {
+    public function __serialize(): array
+    {
         $vars = get_object_vars($this);
 
         $serializableClosures = [];
@@ -138,14 +136,15 @@ abstract class Check
         return $vars;
     }
 
-    public function __unserialize(array $data): void {
+    public function __unserialize(array $data): void
+    {
         foreach ($data as $property => $value) {
             $this->$property = $value;
         }
 
         $unwrappedClosures = [];
 
-        foreach($this->shouldRun as $shouldRun) {
+        foreach ($this->shouldRun as $shouldRun) {
             $unwrappedClosures[] = $shouldRun->getClosure();
         }
 

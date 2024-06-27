@@ -13,9 +13,7 @@ use Spatie\Health\Enums\Status;
 class CheckFailedNotification extends Notification
 {
     /** @param  array<int, Result>  $results */
-    public function __construct(public array $results)
-    {
-    }
+    public function __construct(public array $results) {}
 
     /** @return array<int,string> */
     public function via(): array

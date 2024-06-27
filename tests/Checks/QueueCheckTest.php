@@ -114,10 +114,10 @@ it('can get default queue settings', function () {
     expect($this->queueCheck->getQueues())->toBe([$queueName]);
 });
 
-it('can be serialized', function() {
+it('can be serialized', function () {
     $check = QueueCheck::new()
         ->onQueue('sync')
-        ->if(fn() => false);
+        ->if(fn () => false);
 
     $result = serialize($check);
     // Replace with a consistent identifier
@@ -126,10 +126,10 @@ it('can be serialized', function() {
     assertMatchesSnapshot($result);
 });
 
-it('can be unserialized', function() {
+it('can be unserialized', function () {
     $check = QueueCheck::new()
         ->onQueue('sync')
-        ->if(fn() => false);
+        ->if(fn () => false);
 
     $result = unserialize(serialize($check));
 
