@@ -56,3 +56,18 @@ it('will run the checks when the run get parameter is passed and return the resu
     expect($storedCheckResults)->toBeInstanceOf(StoredCheckResults::class)
         ->and($storedCheckResults->storedCheckResults)->toHaveCount(1);
 });
+
+it('will return a 503 status for a unhealthy check', function () {
+    $this->check->replyWith(fn () => false);
+
+    config()->set('health.json_results_failure_status', Response::HTTP_SERVICE_UNAVAILABLE);
+
+    artisan(RunHealthChecksCommand::class);
+
+    $json = getJson('/')
+        ->assertStatus(Response::HTTP_SERVICE_UNAVAILABLE)
+        ->json();
+
+    assertMatchesSnapshot($json);
+});
+
