@@ -1,0 +1,1 @@
+O:38:"Spatie\Health\Checks\Checks\QueueCheck":8:{s:10:"expression";s:9:"* * * * *";s:4:"name";N;s:5:"label";N;s:9:"shouldRun";a:1:{i:0;b:1;}s:8:"cacheKey";s:37:"health:checks:queue:latestHeartbeatAt";s:14:"cacheStoreName";N;s:37:"failWhenTestJobTakesLongerThanMinutes";i:5;s:8:"onQueues";a:1:{i:0;s:4:"sync";}}

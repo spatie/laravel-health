@@ -10,6 +10,7 @@ use Spatie\Health\Jobs\HealthQueueJob;
 use function Pest\Laravel\artisan;
 use function PHPUnit\Framework\assertCount;
 use function PHPUnit\Framework\assertInstanceOf;
+use function PHPUnit\Framework\assertIsBool;
 use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesObjectSnapshot;
 use function Spatie\Snapshots\assertMatchesSnapshot;
@@ -114,7 +115,7 @@ it('can get default queue settings', function () {
     expect($this->queueCheck->getQueues())->toBe([$queueName]);
 });
 
-it('can be serialized', function () {
+it('can serialize closures', function () {
     $check = QueueCheck::new()
         ->onQueue('sync')
         ->if(fn () => false);
@@ -126,15 +127,27 @@ it('can be serialized', function () {
     assertMatchesSnapshot($result);
 });
 
-it('can be unserialized', function () {
+it('can serialize non closures', function () {
     $check = QueueCheck::new()
         ->onQueue('sync')
+        ->if(true);
+
+    $result = serialize($check);
+
+    assertMatchesSnapshot($result);
+});
+
+it('can unserialize', function () {
+    $check = QueueCheck::new()
+        ->onQueue('sync')
+        ->if(true)
         ->if(fn () => false);
 
     $result = unserialize(serialize($check));
 
-    assertCount(1, $result->getRunConditions());
-    assertInstanceOf(Closure::class, $result->getRunConditions()[0]);
+    assertCount(2, $result->getRunConditions());
+    assertIsBool($result->getRunConditions()[0]);
+    assertInstanceOf(Closure::class, $result->getRunConditions()[1]);
 
     assertMatchesObjectSnapshot($result);
 });

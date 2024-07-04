@@ -126,12 +126,16 @@ abstract class Check
     {
         $vars = get_object_vars($this);
 
-        $serializableClosures = [];
+        $serializedShouldRun = [];
         foreach ($vars['shouldRun'] as $shouldRun) {
-            $serializableClosures[] = new SerializableClosure($shouldRun);
+            if ($shouldRun instanceof \Closure) {
+                $serializedShouldRun[] = new SerializableClosure($shouldRun);
+            } else {
+                $serializedShouldRun[] = $shouldRun;
+            }
         }
 
-        $vars['shouldRun'] = $serializableClosures;
+        $vars['shouldRun'] = $serializedShouldRun;
 
         return $vars;
     }
@@ -142,12 +146,16 @@ abstract class Check
             $this->$property = $value;
         }
 
-        $unwrappedClosures = [];
+        $deserializedShouldRun = [];
 
         foreach ($this->shouldRun as $shouldRun) {
-            $unwrappedClosures[] = $shouldRun->getClosure();
+            if ($shouldRun instanceof SerializableClosure) {
+                $deserializedShouldRun[] = $shouldRun->getClosure();
+            } else {
+                $deserializedShouldRun[] = $shouldRun;
+            }
         }
 
-        $this->shouldRun = $unwrappedClosures;
+        $this->shouldRun = $deserializedShouldRun;
     }
 }
