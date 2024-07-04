@@ -57,7 +57,7 @@ it('will run the checks when the run get parameter is passed and return the resu
         ->and($storedCheckResults->storedCheckResults)->toHaveCount(1);
 });
 
-it('will return a 503 status for a unhealthy check', function () {
+it('will return the configured status for a unhealthy check', function () {
     $this->check->replyWith(fn () => false);
 
     config()->set('health.json_results_failure_status', Response::HTTP_SERVICE_UNAVAILABLE);
