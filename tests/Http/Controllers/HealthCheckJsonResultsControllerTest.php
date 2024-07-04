@@ -6,6 +6,7 @@ use Spatie\Health\Facades\Health;
 use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
+use Symfony\Component\HttpFoundation\Response;
 
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\getJson;

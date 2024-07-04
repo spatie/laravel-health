@@ -1,0 +1,3 @@
+finishedAt: 1609459200
+checkResults:
+    - { name: FakeUsedDiskSpace, label: 'Fake Used Disk Space', notificationMessage: 'The disk is almost full (100% used).', shortSummary: 100%, status: failed, meta: { disk_space_used_percentage: 100 } }

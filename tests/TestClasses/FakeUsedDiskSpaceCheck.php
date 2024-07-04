@@ -2,6 +2,7 @@
 
 namespace Spatie\Health\Tests\TestClasses;
 
+use Closure;
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 
 class FakeUsedDiskSpaceCheck extends UsedDiskSpaceCheck
@@ -23,5 +24,12 @@ class FakeUsedDiskSpaceCheck extends UsedDiskSpaceCheck
     public function getFilesystemName(): ?string
     {
         return $this->filesystemName;
+    }
+
+    public function replyWith(Closure $closure): self
+    {
+        $this->closure = $closure;
+
+        return $this;
     }
 }
