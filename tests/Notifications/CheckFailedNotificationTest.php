@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Notification;
+use Spatie\Health\Checks\Check;
+use Spatie\Health\Checks\Result;
 use Spatie\Health\Commands\RunHealthChecksCommand;
+use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\Notifications\Notifiable;
@@ -10,11 +13,11 @@ use Spatie\TestTime\TestTime;
 
 use function Pest\Laravel\artisan;
 
-beforeEach(function () {
+beforeEach(function() {
     Notification::fake();
 });
 
-it('will not send a notification when none of the checks have a message', function () {
+it('will not send a notification when none of the checks have a message', function() {
     registerPassingCheck();
 
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
@@ -22,7 +25,7 @@ it('will not send a notification when none of the checks have a message', functi
     Notification::assertNothingSent();
 });
 
-it('will send a notification when one of the checks has a message', function () {
+it('will send a notification when one of the checks has a message', function() {
     registerFailingCheck();
 
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
@@ -30,7 +33,7 @@ it('will send a notification when one of the checks has a message', function () 
     Notification::assertSentTimes(CheckFailedNotification::class, 1);
 });
 
-it('will not send any notifications if the config option is set to false', function () {
+it('will not send any notifications if the config option is set to false', function() {
     config()->set('health.notifications.enabled', false);
 
     registerFailingCheck();
@@ -40,7 +43,7 @@ it('will not send any notifications if the config option is set to false', funct
     Notification::assertSentTimes(CheckFailedNotification::class, 0);
 });
 
-it('will only send one failed notification per hour', function () {
+it('will only send one failed notification per hour', function() {
     TestTime::freeze();
     registerFailingCheck();
 
@@ -56,7 +59,7 @@ it('will only send one failed notification per hour', function () {
     Notification::assertSentTimes(CheckFailedNotification::class, 2);
 });
 
-it('can configure the throttle notifications key', function () {
+it('can configure the throttle notifications key', function() {
     TestTime::freeze();
     registerFailingCheck();
 
@@ -72,17 +75,17 @@ it('can configure the throttle notifications key', function () {
     Notification::assertSentTimes(CheckFailedNotification::class, 2);
 });
 
-test('the notification can be rendered to mail', function () {
+test('the notification can be rendered to mail', function() {
     $notification = (new CheckFailedNotification([]));
     $notification->shouldSend(new Notifiable(), 'mail');
     $mailable = $notification->toMail();
 
-    $html = (string) $mailable->render();
+    $html = (string)$mailable->render();
 
     expect($html)->toBeString();
 });
 
-it('can disable warning notifications', function () {
+it('can disable warning notifications', function() {
     TestTime::freeze();
     Health::checks([
         $check = FakeUsedDiskSpaceCheck::new()
@@ -101,7 +104,7 @@ it('can disable warning notifications', function () {
     Notification::assertSentTimes(CheckFailedNotification::class, 1);
 });
 
-it('can disable failure notifications', function () {
+it('can disable failure notifications', function() {
     TestTime::freeze();
     Health::checks([
         $check = FakeUsedDiskSpaceCheck::new()
@@ -120,7 +123,7 @@ it('can disable failure notifications', function () {
     Notification::assertSentTimes(CheckFailedNotification::class, 1);
 });
 
-it('can change warning throttle time', function () {
+it('can change warning throttle time', function() {
     TestTime::freeze();
     Health::checks([
         $check = FakeUsedDiskSpaceCheck::new()
@@ -147,7 +150,7 @@ it('can change warning throttle time', function () {
     Notification::assertSentTimes(CheckFailedNotification::class, 3);
 });
 
-it('can change failure throttle time', function () {
+it('can change failure throttle time', function() {
     TestTime::freeze();
     Health::checks([
         $check = FakeUsedDiskSpaceCheck::new()
@@ -172,6 +175,21 @@ it('can change failure throttle time', function () {
     $check->fakeDiskUsagePercentage(11);
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
     Notification::assertSentTimes(CheckFailedNotification::class, 3);
+});
+
+it('can dispatch notifications for crashed check', function() {
+    TestTime::freeze();
+    Health::checks([
+        new class extends Check {
+            public function run(): Result
+            {
+                return new Result(Status::crashed(),'Check Crashed', 'Check Crashed');
+            }
+        },
+    ]);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
 });
 
 function registerPassingCheck()

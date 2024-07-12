@@ -41,7 +41,7 @@ class CheckFailedNotification extends Notification
         }
 
         // If we have any checks that have custom throttle times set that have already been locked
-        $hasCustomThrottleCheck = array_reduce($this->resultsForNotificationByChannel[$channel], function (bool $a, Result $result) {
+        $hasCustomThrottleCheck = array_reduce($filteredResults, function (bool $a, Result $result) {
             return $a || ($result->check->getThrottleConfiguration()[$result->status->value]['minutes'] ?? null) != null;
         }, false);
 
@@ -120,7 +120,7 @@ class CheckFailedNotification extends Notification
     {
         return array_filter($this->results, function ($result) use ($channel) {
             if (! array_key_exists($result->status->value, $result->check->getThrottleConfiguration())) {
-                return false;
+                return true;
             }
 
             $throttleConfig = $result->check->getThrottleConfiguration()[$result->status->value];
