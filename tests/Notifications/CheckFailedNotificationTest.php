@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Notification;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
+use Spatie\Health\Notifications\Notifiable;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 use Spatie\TestTime\TestTime;
 
@@ -72,11 +73,105 @@ it('can configure the throttle notifications key', function () {
 });
 
 test('the notification can be rendered to mail', function () {
-    $mailable = (new CheckFailedNotification([]))->toMail();
+    $notification = (new CheckFailedNotification([]));
+    $notification->shouldSend(new Notifiable(), 'mail');
+    $mailable = $notification->toMail();
 
     $html = (string) $mailable->render();
 
     expect($html)->toBeString();
+});
+
+it('can disable warning notifications', function () {
+    TestTime::freeze();
+    Health::checks([
+        $check = FakeUsedDiskSpaceCheck::new()
+            ->warnWhenUsedSpaceIsAbovePercentage(10)
+            ->failWhenUsedSpaceIsAbovePercentage(50)
+            ->fakeDiskUsagePercentage(11)
+            ->disableNotificationsOnWarning(),
+    ]);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 0);
+
+    $check->fakeDiskUsagePercentage(51);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
+});
+
+it('can disable failure notifications', function () {
+    TestTime::freeze();
+    Health::checks([
+        $check = FakeUsedDiskSpaceCheck::new()
+            ->warnWhenUsedSpaceIsAbovePercentage(10)
+            ->failWhenUsedSpaceIsAbovePercentage(50)
+            ->fakeDiskUsagePercentage(11)
+            ->disableNotificationsOnFailure(),
+    ]);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
+
+    $check->fakeDiskUsagePercentage(51);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
+});
+
+it('can change warning throttle time', function () {
+    TestTime::freeze();
+    Health::checks([
+        $check = FakeUsedDiskSpaceCheck::new()
+            ->warnWhenUsedSpaceIsAbovePercentage(10)
+            ->failWhenUsedSpaceIsAbovePercentage(50)
+            ->fakeDiskUsagePercentage(11)
+            ->throttleWarningNotificationsFor(15),
+    ]);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
+
+    TestTime::addMinutes(15)->subSecond();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
+
+    TestTime::addSecond();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 2);
+
+    TestTime::addSecond();
+    $check->fakeDiskUsagePercentage(55);
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 3);
+});
+
+it('can change failure throttle time', function () {
+    TestTime::freeze();
+    Health::checks([
+        $check = FakeUsedDiskSpaceCheck::new()
+            ->warnWhenUsedSpaceIsAbovePercentage(10)
+            ->failWhenUsedSpaceIsAbovePercentage(50)
+            ->fakeDiskUsagePercentage(55)
+            ->throttleFailureNotificationsFor(15),
+    ]);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
+
+    TestTime::addMinutes(15)->subSecond();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
+
+    TestTime::addSecond();
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 2);
+
+    TestTime::addSecond();
+    $check->fakeDiskUsagePercentage(11);
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+    Notification::assertSentTimes(CheckFailedNotification::class, 3);
 });
 
 function registerPassingCheck()

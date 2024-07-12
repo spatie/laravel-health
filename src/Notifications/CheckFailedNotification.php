@@ -12,6 +12,9 @@ use Spatie\Health\Enums\Status;
 
 class CheckFailedNotification extends Notification
 {
+    /** @param  array<int, array<int, Result>>  $results */
+    protected array $resultsForNotificationByChannel = [];
+
     /** @param  array<int, Result>  $results */
     public function __construct(public array $results) {}
 
@@ -30,14 +33,34 @@ class CheckFailedNotification extends Notification
             return false;
         }
 
-        /** @var int $throttleMinutes */
-        $throttleMinutes = config('health.notifications.throttle_notifications_for_minutes');
+        $filteredResults = $this->filterResultsForNotificationChannel($channel);
+        $this->resultsForNotificationByChannel[$channel] = $filteredResults;
 
-        if ($throttleMinutes === 0) {
+        if (count($filteredResults) === 0) {
+            return false;
+        }
+
+        // If we have any checks that have custom throttle times set that have already been locked
+        $hasCustomThrottleCheck = array_reduce($this->resultsForNotificationByChannel[$channel], function (bool $a, Result $result) {
+            return $a || ($result->check->getThrottleConfiguration()[$result->status->value]['minutes'] ?? null) != null;
+        }, false);
+
+        if ($hasCustomThrottleCheck) {
             return true;
         }
 
-        $cacheKey = config('health.notifications.throttle_notifications_key', 'health:latestNotificationSentAt:').$channel;
+        /** @var int $defaultThrottleMinutes */
+        $defaultThrottleMinutes = config('health.notifications.throttle_notifications_for_minutes');
+        $defaultCacheKey = config('health.notifications.throttle_notifications_key', 'health:latestNotificationSentAt:').$channel;
+
+        return $this->canAcquireLock($defaultCacheKey, $defaultThrottleMinutes);
+    }
+
+    public function canAcquireLock(string $cacheKey, int $throttleMinutes): bool
+    {
+        if ($throttleMinutes === 0) {
+            return true;
+        }
 
         /** @var \Illuminate\Cache\CacheManager $cache */
         $cache = app('cache');
@@ -65,7 +88,7 @@ class CheckFailedNotification extends Notification
         return (new MailMessage)
             ->from(config('health.notifications.mail.from.address', config('mail.from.address')), config('health.notifications.mail.from.name', config('mail.from.name')))
             ->subject(trans('health::notifications.check_failed_mail_subject', $this->transParameters()))
-            ->markdown('health::mail.checkFailedNotification', ['results' => $this->results]);
+            ->markdown('health::mail.checkFailedNotification', ['results' => $this->getCheckResults('mail')]);
     }
 
     public function toSlack(): SlackMessage
@@ -76,7 +99,7 @@ class CheckFailedNotification extends Notification
             ->to(config('health.notifications.slack.channel'))
             ->content(trans('health::notifications.check_failed_slack_message', $this->transParameters()));
 
-        foreach ($this->results as $result) {
+        foreach ($this->getCheckResults('slack') as $result) {
             $slackMessage->attachment(function (SlackAttachment $attachment) use ($result) {
                 $attachment
                     ->color(Status::from($result->status)->getSlackColor())
@@ -86,6 +109,40 @@ class CheckFailedNotification extends Notification
         }
 
         return $slackMessage;
+    }
+
+    public function getCheckResults(string $channel)
+    {
+        return $this->resultsForNotificationByChannel[$channel];
+    }
+
+    protected function filterResultsForNotificationChannel(string $channel): array
+    {
+        return array_filter($this->results, function ($result) use ($channel) {
+            if (! array_key_exists($result->status->value, $result->check->getThrottleConfiguration())) {
+                return false;
+            }
+
+            $throttleConfig = $result->check->getThrottleConfiguration()[$result->status->value];
+
+            if ($throttleConfig['enabled'] === false) {
+                return false;
+            }
+
+            $checkCacheKey = implode(':', [
+                trim(config('health.notifications.throttle_notifications_key', 'health:latestNotificationSentAt'), ':'),
+                $channel,
+                get_class($result->check),
+            ]);
+
+            if ($throttleConfig['minutes'] != null) {
+                if (! $this->canAcquireLock($checkCacheKey, $throttleConfig['minutes'])) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
     }
 
     /**

@@ -30,6 +30,14 @@ abstract class Check
      */
     protected array $shouldRun = [];
 
+    protected bool $failureNotificationEnabled = true;
+
+    protected bool $warningNotificationEnabled = true;
+
+    protected ?int $failureThrottleMinutes = null;
+
+    protected ?int $warningThrottleMinutes = null;
+
     public function __construct() {}
 
     public static function new(): static
@@ -121,6 +129,64 @@ abstract class Check
     }
 
     public function onTerminate(mixed $request, mixed $response): void {}
+
+    public function disableNotifications()
+    {
+        $this->disableNotificationsOnWarning();
+        $this->disableNotificationsOnFailure();
+
+        return $this;
+    }
+
+    public function disableNotificationsOnWarning()
+    {
+        $this->warningNotificationEnabled = false;
+
+        return $this;
+    }
+
+    public function disableNotificationsOnFailure()
+    {
+        $this->failureNotificationEnabled = false;
+
+        return $this;
+    }
+
+    public function throttleNotificationsFor(int $minutes)
+    {
+        $this->throttleWarningNotificationsFor($minutes);
+        $this->throttleFailureNotificationsFor($minutes);
+
+        return $this;
+    }
+
+    public function throttleWarningNotificationsFor(int $minutes)
+    {
+        $this->warningThrottleMinutes = $minutes;
+
+        return $this;
+    }
+
+    public function throttleFailureNotificationsFor(int $minutes)
+    {
+        $this->failureThrottleMinutes = $minutes;
+
+        return $this;
+    }
+
+    public function getThrottleConfiguration(): array
+    {
+        return [
+            Status::warning()->value => [
+                'enabled' => $this->warningNotificationEnabled,
+                'minutes' => $this->warningThrottleMinutes,
+            ],
+            Status::failed()->value => [
+                'enabled' => $this->failureNotificationEnabled,
+                'minutes' => $this->failureThrottleMinutes,
+            ],
+        ];
+    }
 
     public function __serialize(): array
     {
