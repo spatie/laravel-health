@@ -4,4 +4,5 @@ queues:
 label: Queue
 name: Queue
 runConditions:
+    - true
     - {  }
