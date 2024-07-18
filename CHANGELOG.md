@@ -2,6 +2,26 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.29.3 - 2024-07-15
+
+### What's Changed
+
+* fix: do not try to send notifications when they are disabled by @kolaente in https://github.com/spatie/laravel-health/pull/231
+
+### New Contributors
+
+* @kolaente made their first contribution in https://github.com/spatie/laravel-health/pull/231
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.29.2...1.29.3
+
+## 1.29.2 - 2024-07-15
+
+### What's Changed
+
+* Fix serialization of non-closures by @Riley19280 in https://github.com/spatie/laravel-health/pull/233
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.29.1...1.29.2
+
 ## 1.29.1 - 2024-06-27
 
 ### What's Changed
