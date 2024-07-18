@@ -28,6 +28,17 @@ it('has a method to check if one or more checks are failing', function () {
     expect($storedCheckResults->containsFailingCheck())->toBeTrue();
 });
 
+it('returns a list of failed checks', function () {
+    $storedCheckResults = new StoredCheckResults(new DateTime(), collect([
+        makeStoredCheckResultWithStatus(Status::warning()),
+        makeStoredCheckResultWithStatus(Status::ok()),
+    ]));
+    $failing = $storedCheckResults->getFailing();
+    expect($failing->first()->status)->toBe('warning');
+    expect($failing->first()->name)->toBe('test');
+    expect($failing->count())->toBe(1);
+});
+
 it('has a method to check if all checks are good', function () {
     $storedCheckResults = new StoredCheckResults(new DateTime(), collect([
         makeStoredCheckResultWithStatus(Status::ok()),
