@@ -118,4 +118,10 @@ return [
      * in Horizon's silenced jobs screen.
      */
     'silence_health_queue_job' => true,
+
+    /*
+     * The response code to use for HealthCheckJsonResultsController when a health
+     * check has failed
+     */
+    'json_results_failure_status' => 200,
 ];
