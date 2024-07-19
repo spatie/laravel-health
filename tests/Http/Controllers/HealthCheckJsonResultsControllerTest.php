@@ -71,4 +71,3 @@ it('will return the configured status for a unhealthy check', function () {
 
     assertMatchesSnapshot($json);
 });
-
