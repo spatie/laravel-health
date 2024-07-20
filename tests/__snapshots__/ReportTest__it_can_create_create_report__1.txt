@@ -1,1 +1,1 @@
-{"finishedAt":978307200,"checkResults":[{"name":"name","label":"label","notificationMessage":"message","shortSummary":"summary","status":"ok","meta":{"name":"value"}}]}
+{"finishedAt":978307200,"status":"ok","failingChecks":"","checkResults":[{"name":"name","label":"label","notificationMessage":"message","shortSummary":"summary","status":"ok","meta":{"name":"value"}}]}
