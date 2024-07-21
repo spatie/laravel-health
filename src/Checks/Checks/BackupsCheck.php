@@ -3,15 +3,20 @@
 namespace Spatie\Health\Checks\Checks;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
+use Spatie\Health\Support\BackupFile;
 use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 
 class BackupsCheck extends Check
 {
     protected ?string $locatedAt = null;
+
+    protected ?Filesystem $disk = null;
 
     protected ?Carbon $youngestShouldHaveBeenMadeBefore = null;
 
@@ -26,6 +31,13 @@ class BackupsCheck extends Check
     public function locatedAt(string $globPath): self
     {
         $this->locatedAt = $globPath;
+
+        return $this;
+    }
+
+    public function onDisk($disk)
+    {
+        $this->disk = Storage::disk($disk);
 
         return $this;
     }
@@ -61,7 +73,7 @@ class BackupsCheck extends Check
 
     public function run(): Result
     {
-        $files = collect(File::glob($this->locatedAt));
+        $files = collect($this->disk ? $files = $this->disk->files($this->locatedAt) : File::glob($this->locatedAt));
 
         if ($files->isEmpty()) {
             return Result::make()->failed('No backups found');
@@ -69,10 +81,10 @@ class BackupsCheck extends Check
 
         $eligableBackups = $files
             ->map(function (string $path) {
-                return new SymfonyFile($path);
+                return new BackupFile($path, $this->disk);
             })
-            ->filter(function (SymfonyFile $file) {
-                return $file->getSize() >= $this->minimumSizeInMegabytes * 1024 * 1024;
+            ->filter(function (BackupFile $file) {
+                return $file->size() >= $this->minimumSizeInMegabytes * 1024 * 1024;
             });
 
         if ($eligableBackups->isEmpty()) {
@@ -94,14 +106,14 @@ class BackupsCheck extends Check
         if ($this->youngestShouldHaveBeenMadeBefore) {
             if ($this->youngestBackupIsToolOld($eligableBackups)) {
                 return Result::make()
-                    ->failed('Youngest backup was too old');
+                             ->failed('Youngest backup was too old');
             }
         }
 
         if ($this->oldestShouldHaveBeenMadeAfter) {
             if ($this->oldestBackupIsTooYoung($eligableBackups)) {
                 return Result::make()
-                    ->failed('Oldest backup was too young');
+                             ->failed('Oldest backup was too young');
             }
         }
 
@@ -115,12 +127,12 @@ class BackupsCheck extends Check
     {
         /** @var SymfonyFile|null $youngestBackup */
         $youngestBackup = $backups
-            ->sortByDesc(fn (SymfonyFile $file) => $file->getMTime())
+            ->sortByDesc(fn (BackupFile $file) => $file->lastModified())
             ->first();
 
         $threshold = $this->youngestShouldHaveBeenMadeBefore->getTimestamp();
 
-        return $youngestBackup->getMTime() <= $threshold;
+        return $youngestBackup->lastModified() <= $threshold;
     }
 
     /**
@@ -130,11 +142,11 @@ class BackupsCheck extends Check
     {
         /** @var SymfonyFile|null $oldestBackup */
         $oldestBackup = $backups
-            ->sortBy(fn (SymfonyFile $file) => $file->getMTime())
+            ->sortBy(fn (BackupFile $file) => $file->lastModified())
             ->first();
 
         $threshold = $this->oldestShouldHaveBeenMadeAfter->getTimestamp();
 
-        return $oldestBackup->getMTime() >= $threshold;
+        return $oldestBackup->lastModified() >= $threshold;
     }
 }
