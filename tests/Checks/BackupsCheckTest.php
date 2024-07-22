@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
 use Spatie\Health\Checks\Checks\BackupsCheck;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
@@ -147,6 +148,76 @@ it('can make sure that there are not too much backups', function () {
     $result = $this->backupsCheck
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->numberOfBackups(max: 2)
+        ->run();
+    expect($result)->status->toBe(Status::failed());
+});
+
+it('will pass if the backup is at least than the given size when loaded from filesystem disk', function (int $sizeInMb) {
+
+    Storage::fake('backups');
+
+    $tempFile = $this->temporaryDirectory->path('hey.zip');
+
+    shell_exec("truncate -s {$sizeInMb}M {$tempFile}");
+
+    Storage::disk('backups')->put('backups/hey.zip',file_get_contents($tempFile) );
+
+    $result = $this->backupsCheck
+        ->onDisk('backups')
+        ->locatedAt('backups')
+        ->atLeastSizeInMb(5)
+        ->run();
+
+    expect($result)->status->toBe(Status::ok());
+})->with([
+    [5],
+    [6],
+]);
+
+it('can check if the youngest backup is recent enough when loaded from filesystem disk', function () {
+
+    Storage::fake('backups');
+    Storage::disk('backups')->put('backups/hey.zip', 'content');
+
+    testTime()->addMinutes(4);
+
+    $result = $this->backupsCheck
+        ->onDisk('backups')
+        ->locatedAt('backups')
+        ->youngestBackShouldHaveBeenMadeBefore(now()->subMinutes(5)->startOfMinute())
+        ->run();
+
+    expect($result)->status->toBe(Status::ok());
+
+    testTime()->addMinutes(2);
+
+    $result = $this->backupsCheck
+        ->locatedAt($this->temporaryDirectory->path('*.zip'))
+        ->youngestBackShouldHaveBeenMadeBefore(now()->subMinutes(5))
+        ->run();
+    expect($result)->status->toBe(Status::failed());
+});
+
+it('can check if the oldest backup is old enough when loaded from filesystem disk', function () {
+
+    Storage::fake('backups');
+    Storage::disk('backups')->put('backups/hey.zip', 'content');
+
+    testTime()->addMinutes(4);
+
+    $result = $this->backupsCheck
+        ->onDisk('backups')
+        ->locatedAt('backups')
+        ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
+        ->run();
+
+    expect($result)->status->toBe(Status::failed());
+
+    testTime()->addMinutes(2);
+
+    $result = $this->backupsCheck
+        ->locatedAt($this->temporaryDirectory->path('*.zip'))
+        ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
         ->run();
     expect($result)->status->toBe(Status::failed());
 });
