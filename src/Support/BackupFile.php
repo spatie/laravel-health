@@ -1,17 +1,19 @@
 <?php
+
 namespace Spatie\Health\Support;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 
-class BackupFile {
+class BackupFile
+{
     protected ?SymfonyFile $file = null;
 
     public function __construct(
         protected string $path,
         protected ?Filesystem $disk = null,
     ) {
-        if (!$disk) {
+        if (! $disk) {
             $this->file = new SymfonyFile($path);
         }
     }
@@ -30,5 +32,4 @@ class BackupFile {
     {
         return $this->file ? $this->file->getMTime() : $this->disk->lastModified($this->path);
     }
-
 }

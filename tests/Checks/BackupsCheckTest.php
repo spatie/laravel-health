@@ -160,7 +160,7 @@ it('will pass if the backup is at least than the given size when loaded from fil
 
     shell_exec("truncate -s {$sizeInMb}M {$tempFile}");
 
-    Storage::disk('backups')->put('backups/hey.zip',file_get_contents($tempFile) );
+    Storage::disk('backups')->put('backups/hey.zip', file_get_contents($tempFile));
 
     $result = $this->backupsCheck
         ->onDisk('backups')

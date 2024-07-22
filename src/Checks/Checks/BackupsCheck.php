@@ -106,14 +106,14 @@ class BackupsCheck extends Check
         if ($this->youngestShouldHaveBeenMadeBefore) {
             if ($this->youngestBackupIsToolOld($eligableBackups)) {
                 return Result::make()
-                             ->failed('Youngest backup was too old');
+                    ->failed('Youngest backup was too old');
             }
         }
 
         if ($this->oldestShouldHaveBeenMadeAfter) {
             if ($this->oldestBackupIsTooYoung($eligableBackups)) {
                 return Result::make()
-                             ->failed('Oldest backup was too young');
+                    ->failed('Oldest backup was too young');
             }
         }
 
