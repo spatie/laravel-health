@@ -20,9 +20,9 @@ it('will return ok if the memory usage does not cross the threshold', function (
 
 it('will return an error if the used memory does cross the threshold', function () {
     $result = FakeRedisMemoryUsageCheck::new()
-                                       ->fakeMemoryUsageInMb(1001)
-                                       ->failWhenAboveMb(1000)
-                                       ->run();
+        ->fakeMemoryUsageInMb(1001)
+        ->failWhenAboveMb(1000)
+        ->run();
 
     expect($result)
         ->toBeInstanceOf(Result::class)
@@ -33,10 +33,10 @@ it('will return an error if the used memory does cross the threshold', function 
 
 it('will return a warning if the used memory does cross the threshold', function () {
     $result = FakeRedisMemoryUsageCheck::new()
-                                       ->fakeMemoryUsageInMb(700)
-                                       ->warnWhenAboveMb(600)
-                                       ->failWhenAboveMb(1000)
-                                       ->run();
+        ->fakeMemoryUsageInMb(700)
+        ->warnWhenAboveMb(600)
+        ->failWhenAboveMb(1000)
+        ->run();
 
     expect($result)
         ->toBeInstanceOf(Result::class)
