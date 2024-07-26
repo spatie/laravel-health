@@ -16,7 +16,9 @@ use Spatie\Health\Facades\Health;
 use Spatie\Health\Checks\Checks\RedisMemoryUsageCheck;
 
 Health::checks([
-    RedisMemoryUsageCheck::new()->failWhenAboveMb(1000),
+    RedisMemoryUsageCheck::new()
+        ->warnWhenAboveMb(900)
+        ->failWhenAboveMb(1000),
 ]);
 ```
 
