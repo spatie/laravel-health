@@ -139,7 +139,7 @@ it('will not throw an exception when all checks have unique names', function () 
 
 it('will throw an exception when registering a class that does not exist Check', function () {
     Health::checks([
-        new StdClass(),
+        new StdClass,
     ]);
 })->throws(InvalidCheck::class);
 

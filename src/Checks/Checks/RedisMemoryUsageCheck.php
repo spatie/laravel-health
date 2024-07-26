@@ -45,20 +45,20 @@ class RedisMemoryUsageCheck extends Check
 
         $result->meta([
             'connection_name' => $this->connectionName,
-            'memory_usage'    => $memoryUsage,
+            'memory_usage' => $memoryUsage,
         ]);
 
         $message = "Redis memory usage is {$memoryUsage} MB. The {threshold_type} threshold is {memory_threshold} MB.";
 
         if ($memoryUsage >= $this->failWhenAboveMb) {
             return $result->failed(strtr($message, [
-                '{threshold_type}'   => 'fail',
+                '{threshold_type}' => 'fail',
                 '{memory_threshold}' => $this->failWhenAboveMb,
             ]));
         }
         if ($this->warnWhenAboveMb && $memoryUsage >= $this->warnWhenAboveMb) {
             return $result->warning(strtr($message, [
-                '{threshold_type}'   => 'warning',
+                '{threshold_type}' => 'warning',
                 '{memory_threshold}' => $this->warnWhenAboveMb,
             ]));
         }

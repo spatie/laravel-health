@@ -96,8 +96,8 @@ it('can store the with failures results in the database', function () {
 
 it('will still run checks when there is a failing one', function () {
     Health::clearChecks()->checks([
-        new CrashingCheck(),
-        new FakeUsedDiskSpaceCheck(),
+        new CrashingCheck,
+        new FakeUsedDiskSpaceCheck,
     ]);
 
     artisan(RunHealthChecksCommand::class)

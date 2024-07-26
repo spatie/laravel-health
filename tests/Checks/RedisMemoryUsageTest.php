@@ -27,9 +27,8 @@ it('will return an error if the used memory does cross the threshold', function 
     expect($result)
         ->toBeInstanceOf(Result::class)
         ->status->toEqual(Status::failed())
-                ->getNotificationMessage()->toEqual('Redis memory usage is 1001 MB. The fail threshold is 1000 MB.');
+        ->getNotificationMessage()->toEqual('Redis memory usage is 1001 MB. The fail threshold is 1000 MB.');
 });
-
 
 it('will return a warning if the used memory does cross the threshold', function () {
     $result = FakeRedisMemoryUsageCheck::new()
@@ -41,5 +40,5 @@ it('will return a warning if the used memory does cross the threshold', function
     expect($result)
         ->toBeInstanceOf(Result::class)
         ->status->toEqual(Status::warning())
-                ->getNotificationMessage()->toEqual('Redis memory usage is 700 MB. The warning threshold is 600 MB.');
+        ->getNotificationMessage()->toEqual('Redis memory usage is 700 MB. The warning threshold is 600 MB.');
 });
