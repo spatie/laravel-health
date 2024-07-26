@@ -18,7 +18,7 @@ class HealthCheckJsonResultsController
 
         $checkResults = $resultStore->latestResults();
 
-        return response($checkResults?->toJson() ?? '')
+        return response($checkResults?->toJson() ?? '', config('health.json_results_failure_status', 200))
             ->header('Content-Type', 'application/json')
             ->header('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
     }

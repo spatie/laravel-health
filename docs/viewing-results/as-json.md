@@ -24,3 +24,8 @@ https://example.com/health?fresh
 ```
 
 This way you'll see the latest results in the JSON.
+
+## Status codes
+
+By default, a 200 response will be returned regardless of the results. You can change the status code that
+will be returned if a check fails using the `health.json_results_failure_status` config value.

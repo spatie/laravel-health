@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.29.4 - 2024-07-22
+
+### What's Changed
+
+* Allow status code of Json results controller to be changed on failure by @rbibby in https://github.com/spatie/laravel-health/pull/232
+* Add support for checking backups on filesystem disks by @pelmered in https://github.com/spatie/laravel-health/pull/237
+
+### New Contributors
+
+* @pelmered made their first contribution in https://github.com/spatie/laravel-health/pull/237
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.29.3...1.29.4
+
 ## 1.29.3 - 2024-07-15
 
 ### What's Changed
