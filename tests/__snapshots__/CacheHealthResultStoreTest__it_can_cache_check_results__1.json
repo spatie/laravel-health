@@ -1,7 +1,7 @@
 {
     "finishedAt": 1609459200,
     "status": "ok",
-    "failingChecks": "",
+    "failingChecks": [],
     "checkResults": [
         {
             "name": "FakeUsedDiskSpace",

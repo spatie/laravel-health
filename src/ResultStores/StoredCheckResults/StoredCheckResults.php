@@ -93,7 +93,7 @@ class StoredCheckResults
         return (string) json_encode([
             'finishedAt' => $this->finishedAt->getTimestamp(),
             'status' => $this->allChecksOk() ? 'ok' : 'failing',
-            'failingChecks' => $this->getFailing()->map->name->implode(', ') ?: '',
+            'failingChecks' => $this->getFailing()->map->name ?: [],
             'checkResults' => $this->storedCheckResults->map(fn (StoredCheckResult $line) => $line->toArray()),
         ]);
     }
