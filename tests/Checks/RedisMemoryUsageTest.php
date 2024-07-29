@@ -9,7 +9,8 @@ use Spatie\Health\Tests\TestClasses\FakeRedisMemoryUsageCheck;
 it('will return ok if the memory usage does not cross the threshold', function () {
     $result = FakeRedisMemoryUsageCheck::new()
         ->fakeMemoryUsageInMb(999)
-        ->failWhenAboveMb(1000)
+        ->warnWhenAboveMb(1000)
+        ->failWhenAboveMb(1100)
         ->run();
 
     expect($result)
@@ -26,5 +27,18 @@ it('will return an error if the used memory does cross the threshold', function 
     expect($result)
         ->toBeInstanceOf(Result::class)
         ->status->toEqual(Status::failed())
-        ->getNotificationMessage()->toEqual('Redis memory usage is 1001 MB, which is above the threshold of 1000 MB.');
+        ->getNotificationMessage()->toEqual('Redis memory usage is 1001 MB. The fail threshold is 1000 MB.');
+});
+
+it('will return a warning if the used memory does cross the threshold', function () {
+    $result = FakeRedisMemoryUsageCheck::new()
+        ->fakeMemoryUsageInMb(700)
+        ->warnWhenAboveMb(600)
+        ->failWhenAboveMb(1000)
+        ->run();
+
+    expect($result)
+        ->toBeInstanceOf(Result::class)
+        ->status->toEqual(Status::warning())
+        ->getNotificationMessage()->toEqual('Redis memory usage is 700 MB. The warning threshold is 600 MB.');
 });

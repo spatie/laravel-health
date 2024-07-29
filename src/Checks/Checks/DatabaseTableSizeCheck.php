@@ -75,6 +75,6 @@ class DatabaseTableSizeCheck extends Check
 
         $connection = app(ConnectionResolverInterface::class)->connection($connectionName);
 
-        return (new DbConnectionInfo())->tableSizeInMb($connection, $tableName);
+        return (new DbConnectionInfo)->tableSizeInMb($connection, $tableName);
     }
 }

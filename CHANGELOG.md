@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.30.0 - 2024-07-26
+
+### What's Changed
+
+* Improve redis memory usage check by @pelmered in https://github.com/spatie/laravel-health/pull/239
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.29.4...1.30.0
+
 ## 1.29.4 - 2024-07-22
 
 ### What's Changed

@@ -12,11 +12,20 @@ class RedisMemoryUsageCheck extends Check
 {
     protected string $connectionName = 'default';
 
+    protected ?float $warnWhenAboveMb = null;
+
     protected float $failWhenAboveMb = 500;
 
     public function connectionName(string $connectionName): self
     {
         $this->connectionName = $connectionName;
+
+        return $this;
+    }
+
+    public function warnWhenAboveMb(float $errorThresholdMb): self
+    {
+        $this->warnWhenAboveMb = $errorThresholdMb;
 
         return $this;
     }
@@ -30,14 +39,28 @@ class RedisMemoryUsageCheck extends Check
 
     public function run(): Result
     {
-        $result = Result::make()->meta([
-            'connection_name' => $this->connectionName,
-        ]);
-
         $memoryUsage = $this->getMemoryUsageInMb();
 
+        $result = Result::make()->shortSummary("{$memoryUsage} MB used");
+
+        $result->meta([
+            'connection_name' => $this->connectionName,
+            'memory_usage' => $memoryUsage,
+        ]);
+
+        $message = "Redis memory usage is {$memoryUsage} MB. The {threshold_type} threshold is {memory_threshold} MB.";
+
         if ($memoryUsage >= $this->failWhenAboveMb) {
-            return $result->failed("Redis memory usage is {$memoryUsage} MB, which is above the threshold of {$this->failWhenAboveMb} MB.");
+            return $result->failed(strtr($message, [
+                '{threshold_type}' => 'fail',
+                '{memory_threshold}' => $this->failWhenAboveMb,
+            ]));
+        }
+        if ($this->warnWhenAboveMb && $memoryUsage >= $this->warnWhenAboveMb) {
+            return $result->warning(strtr($message, [
+                '{threshold_type}' => 'warning',
+                '{memory_threshold}' => $this->warnWhenAboveMb,
+            ]));
         }
 
         return $result->ok();

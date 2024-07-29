@@ -9,7 +9,7 @@ use Spatie\Health\Tests\TestClasses\CrashingHealthCheckResultHistoryItem;
 it('can determine the table size in mb', function () {
     $connection = app(ConnectionResolverInterface::class)->connection('mysql');
 
-    $connectionInfo = new DbConnectionInfo();
+    $connectionInfo = new DbConnectionInfo;
 
     $size = $connectionInfo->tableSizeInMb($connection, 'health_check_result_history_items');
 
@@ -19,7 +19,7 @@ it('can determine the table size in mb', function () {
 it('can determine the connection count', function () {
     $connection = app(ConnectionResolverInterface::class)->connection('mysql');
 
-    $connectionInfo = new DbConnectionInfo();
+    $connectionInfo = new DbConnectionInfo;
 
     $size = $connectionInfo->connectionCount($connection);
 
@@ -27,11 +27,11 @@ it('can determine the connection count', function () {
 });
 
 it('correctly determines the connection of the model', function () {
-    $model = new CrashingHealthCheckResultHistoryItem();
+    $model = new CrashingHealthCheckResultHistoryItem;
 
     expect($model->getConnectionName())->toBe('custom');
 
-    $model = new HealthCheckResultHistoryItem();
+    $model = new HealthCheckResultHistoryItem;
 
     expect($model->getConnectionName())->toBe(config('database.default'));
 
