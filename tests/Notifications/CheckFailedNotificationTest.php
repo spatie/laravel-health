@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Notification;
+use Spatie\Health\Checks\Check;
+use Spatie\Health\Checks\Result;
 use Spatie\Health\Commands\RunHealthChecksCommand;
+use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\Notifications\Notifiable;

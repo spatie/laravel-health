@@ -6,3 +6,6 @@ name: Queue
 runConditions:
     - true
     - {  }
+throttleConfiguration:
+    warning: { enabled: true, minutes: null }
+    failed: { enabled: true, minutes: null }
