@@ -53,13 +53,6 @@ class BackupsCheck extends Check
         return $this;
     }
 
-    public function onDisk($disk)
-    {
-        $this->disk = Storage::disk($disk);
-
-        return $this;
-    }
-
     public function youngestBackShouldHaveBeenMadeBefore(Carbon $date): self
     {
         $this->youngestShouldHaveBeenMadeBefore = $date;
