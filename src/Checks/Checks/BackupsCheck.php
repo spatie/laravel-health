@@ -22,7 +22,11 @@ class BackupsCheck extends Check
 
     protected ?Carbon $oldestShouldHaveBeenMadeAfter = null;
 
+    protected string $parseModifiedUsing = 'Y-m-d_H-i-s';
+
     protected int $minimumSizeInMegabytes = 0;
+
+    protected bool $onlyCheckSizeOnFirstAndLast = false;
 
     protected ?int $minimumNumberOfBackups = null;
 
@@ -31,6 +35,20 @@ class BackupsCheck extends Check
     public function locatedAt(string $globPath): self
     {
         $this->locatedAt = $globPath;
+
+        return $this;
+    }
+
+    public function onDisk($disk)
+    {
+        $this->disk = Storage::disk($disk);
+
+        return $this;
+    }
+
+    public function parseModifiedFormat($parseModifiedFormat = 'Y-m-d_H-i-s'): self
+    {
+         $this->parseModifiedUsing = $parseModifiedFormat;
 
         return $this;
     }
@@ -56,9 +74,16 @@ class BackupsCheck extends Check
         return $this;
     }
 
-    public function atLeastSizeInMb(int $minimumSizeInMegabytes): self
+    public function atLeastSizeInMb(int $minimumSizeInMegabytes, $onlyCheckFirstAndLast = false): self
     {
         $this->minimumSizeInMegabytes = $minimumSizeInMegabytes;
+
+        return $this;
+    }
+
+    public function onlyCheckSizeOnFirstAndLast($onlyCheckSizeOnFirstAndLast = true): self
+    {
+        $this->onlyCheckSizeOnFirstAndLast = $onlyCheckSizeOnFirstAndLast;
 
         return $this;
     }
@@ -81,15 +106,8 @@ class BackupsCheck extends Check
 
         $eligableBackups = $files
             ->map(function (string $path) {
-                return new BackupFile($path, $this->disk);
-            })
-            ->filter(function (BackupFile $file) {
-                return $file->size() >= $this->minimumSizeInMegabytes * 1024 * 1024;
+                return new BackupFile($path, $this->disk, $this->parseModifiedUsing);
             });
-
-        if ($eligableBackups->isEmpty()) {
-            return Result::make()->failed('No backups found that are large enough');
-        }
 
         if ($this->minimumNumberOfBackups) {
             if ($eligableBackups->count() < $this->minimumNumberOfBackups) {
@@ -103,48 +121,66 @@ class BackupsCheck extends Check
             }
         }
 
+        $youngestBackup = $this->getYoungestBackup($eligableBackups);
+
         if ($this->youngestShouldHaveBeenMadeBefore) {
-            if ($this->youngestBackupIsToolOld($eligableBackups)) {
+            if (!$youngestBackup || $this->youngestBackupIsToolOld($youngestBackup)) {
                 return Result::make()
                     ->failed('Youngest backup was too old');
             }
         }
 
+        $oldestBackup = $this->getOldestBackup($eligableBackups);
+
         if ($this->oldestShouldHaveBeenMadeAfter) {
-            if ($this->oldestBackupIsTooYoung($eligableBackups)) {
+            if (!$oldestBackup || $this->oldestBackupIsTooYoung($eligableBackups)) {
                 return Result::make()
                     ->failed('Oldest backup was too young');
             }
         }
 
+        if ($eligableBackups->isEmpty()) {
+            return Result::make()->failed('Backups are not large enough');
+        }
+
+        if ($this->onlyCheckSizeOnFirstAndLast) {
+            $eligableBackups = collect([$youngestBackup, $oldestBackup]);
+        }
+
+        if (
+            $eligableBackups->filter(function (BackupFile $file) {
+                return $file->size() >= $this->minimumSizeInMegabytes * 1024 * 1024;
+            })->isEmpty()
+        ) {
+            return Result::make()->failed('Backups are not large enough');
+        }
+
         return Result::make()->ok();
     }
 
-    /**
-     * @param  Collection<SymfonyFile>  $backups
-     */
-    protected function youngestBackupIsToolOld(Collection $backups): bool
+    protected function getYoungestBackup(Collection $backups): ?BackupFile
     {
-        /** @var SymfonyFile|null $youngestBackup */
-        $youngestBackup = $backups
+        return $backups
             ->sortByDesc(fn (BackupFile $file) => $file->lastModified())
             ->first();
+    }
 
+    protected function youngestBackupIsToolOld(BackupFile $youngestBackup): bool
+    {
         $threshold = $this->youngestShouldHaveBeenMadeBefore->getTimestamp();
 
         return $youngestBackup->lastModified() <= $threshold;
     }
 
-    /**
-     * @param  Collection<SymfonyFile>  $backups
-     */
-    protected function oldestBackupIsTooYoung(Collection $backups): bool
+    protected function getOldestBackup(Collection $backups): ?BackupFile
     {
-        /** @var SymfonyFile|null $oldestBackup */
-        $oldestBackup = $backups
+        return $backups
             ->sortBy(fn (BackupFile $file) => $file->lastModified())
             ->first();
 
+    }
+    protected function oldestBackupIsTooYoung(BackupFile $oldestBackup): bool
+    {
         $threshold = $this->oldestShouldHaveBeenMadeAfter->getTimestamp();
 
         return $oldestBackup->lastModified() >= $threshold;
