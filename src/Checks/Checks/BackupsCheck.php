@@ -22,7 +22,7 @@ class BackupsCheck extends Check
 
     protected ?Carbon $oldestShouldHaveBeenMadeAfter = null;
 
-    protected string $parseModifiedUsing = 'Y-m-d_H-i-s';
+    protected ?string $parseModifiedUsing = null;
 
     protected int $minimumSizeInMegabytes = 0;
 
@@ -126,7 +126,7 @@ class BackupsCheck extends Check
         $oldestBackup = $this->getOldestBackup($eligableBackups);
 
         if ($this->oldestShouldHaveBeenMadeAfter) {
-            if (!$oldestBackup || $this->oldestBackupIsTooYoung($eligableBackups)) {
+            if (!$oldestBackup || $this->oldestBackupIsTooYoung($oldestBackup)) {
                 return Result::make()
                     ->failed('Oldest backup was too young');
             }
