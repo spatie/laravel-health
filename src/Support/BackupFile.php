@@ -35,12 +35,10 @@ class BackupFile
     public function lastModified(): ?int
     {
         if ($this->parseModifiedUsing) {
-            $filename = Str::before($this->path, '.');
-
-            $format = 'Y-m-d_H-i-s';
+            $filename = Str::of($this->path)->afterLast('/')->before('.');
 
             try {
-                return Carbon::createFromFormat($format, $filename)->timestamp;
+                return Carbon::createFromFormat($this->parseModifiedUsing, $filename)->timestamp;
             } catch (InvalidFormatException $e) {
                 return null;
             }
