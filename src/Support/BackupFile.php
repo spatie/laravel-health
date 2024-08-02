@@ -38,7 +38,7 @@ class BackupFile
             $filename = Str::of($this->path)->afterLast('/')->before('.');
 
             try {
-                return Carbon::createFromFormat($this->parseModifiedUsing, $filename)->timestamp;
+                return (int) Carbon::createFromFormat($this->parseModifiedUsing, $filename)->timestamp;
             } catch (InvalidFormatException $e) {
                 return null;
             }

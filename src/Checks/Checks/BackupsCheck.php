@@ -39,14 +39,14 @@ class BackupsCheck extends Check
         return $this;
     }
 
-    public function onDisk($disk): static
+    public function onDisk(string $disk): static
     {
         $this->disk = Storage::disk($disk);
 
         return $this;
     }
 
-    public function parseModifiedFormat($parseModifiedFormat = 'Y-m-d_H-i-s'): self
+    public function parseModifiedFormat(string $parseModifiedFormat = 'Y-m-d_H-i-s'): self
     {
         $this->parseModifiedUsing = $parseModifiedFormat;
 
@@ -67,14 +67,15 @@ class BackupsCheck extends Check
         return $this;
     }
 
-    public function atLeastSizeInMb(int $minimumSizeInMegabytes, $onlyCheckFirstAndLast = false): self
+    public function atLeastSizeInMb(int $minimumSizeInMegabytes, bool $onlyCheckFirstAndLast = false): self
     {
         $this->minimumSizeInMegabytes = $minimumSizeInMegabytes;
+        $this->onlyCheckSizeOnFirstAndLast = $onlyCheckFirstAndLast;
 
         return $this;
     }
 
-    public function onlyCheckSizeOnFirstAndLast($onlyCheckSizeOnFirstAndLast = true): self
+    public function onlyCheckSizeOnFirstAndLast(bool $onlyCheckSizeOnFirstAndLast = true): self
     {
         $this->onlyCheckSizeOnFirstAndLast = $onlyCheckSizeOnFirstAndLast;
 
@@ -116,15 +117,15 @@ class BackupsCheck extends Check
         $oldestBackup = $this->getOldestBackup($eligibleBackups);
 
         $result->appendMeta([
-            'youngest_backup' => Carbon::createFromTimestamp($youngestBackup?->lastModified())->toDateTimeString(),
-            'oldest_backup'   => Carbon::createFromTimestamp($oldestBackup?->lastModified())->toDateTimeString(),
+            'youngest_backup' => $youngestBackup ? Carbon::createFromTimestamp($youngestBackup->lastModified())->toDateTimeString() : null,
+            'oldest_backup'   => $oldestBackup ? Carbon::createFromTimestamp($oldestBackup->lastModified())->toDateTimeString() : null,
         ]);
 
-        if ($this->youngestShouldHaveBeenMadeBefore && $this->youngestBackupIsToolOld($youngestBackup)) {
+        if ($this->youngestBackupIsToolOld($youngestBackup)) {
             return $result->failed('The youngest backup was too old');
         }
 
-        if ($this->oldestShouldHaveBeenMadeAfter && $this->oldestBackupIsTooYoung($oldestBackup)) {
+        if ($this->oldestBackupIsTooYoung($oldestBackup)) {
             return $result->failed('The oldest backup was too young');
         }
 
@@ -146,7 +147,7 @@ class BackupsCheck extends Check
         return collect(
             $this->disk
                 ? $this->disk->files($this->locatedAt)
-                : File::glob($this->locatedAt)
+                : File::glob($this->locatedAt ?? '')
         )->map(function (string $path) {
             return new BackupFile($path, $this->disk, $this->parseModifiedUsing);
         });
@@ -161,6 +162,10 @@ class BackupsCheck extends Check
 
     protected function youngestBackupIsToolOld(?BackupFile $youngestBackup): bool
     {
+        if ($this->youngestShouldHaveBeenMadeBefore === null) {
+            return false;
+        }
+
         $threshold = $this->youngestShouldHaveBeenMadeBefore->getTimestamp();
 
         return !$youngestBackup || $youngestBackup->lastModified() <= $threshold;
@@ -175,6 +180,10 @@ class BackupsCheck extends Check
     }
     protected function oldestBackupIsTooYoung(?BackupFile $oldestBackup): bool
     {
+        if ($this->oldestShouldHaveBeenMadeAfter === null) {
+            return false;
+        }
+
         $threshold = $this->oldestShouldHaveBeenMadeAfter->getTimestamp();
 
         return !$oldestBackup || $oldestBackup->lastModified() >= $threshold;
