@@ -103,6 +103,13 @@ class Result
         return $this;
     }
 
+    public function appendMeta($meta): self
+    {
+        $this->meta = array_merge($this->meta, $meta);
+
+        return $this;
+    }
+
     public function endedAt(CarbonInterface $carbon): self
     {
         $this->ended_at = $carbon;
