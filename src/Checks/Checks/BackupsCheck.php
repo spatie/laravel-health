@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\BackupFile;
-use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 
 class BackupsCheck extends Check
 {
@@ -118,7 +117,7 @@ class BackupsCheck extends Check
 
         $result->appendMeta([
             'youngest_backup' => $youngestBackup ? Carbon::createFromTimestamp($youngestBackup->lastModified())->toDateTimeString() : null,
-            'oldest_backup'   => $oldestBackup ? Carbon::createFromTimestamp($oldestBackup->lastModified())->toDateTimeString() : null,
+            'oldest_backup' => $oldestBackup ? Carbon::createFromTimestamp($oldestBackup->lastModified())->toDateTimeString() : null,
         ]);
 
         if ($this->youngestBackupIsToolOld($youngestBackup)) {
@@ -134,7 +133,7 @@ class BackupsCheck extends Check
             : $eligibleBackups;
 
         if ($backupsToCheckSizeOn->filter(
-            fn(BackupFile $file) => $file->size() >= $this->minimumSizeInMegabytes * 1024 * 1024
+            fn (BackupFile $file) => $file->size() >= $this->minimumSizeInMegabytes * 1024 * 1024
         )->isEmpty()) {
             return $result->failed('Backups are not large enough');
         }
@@ -168,7 +167,7 @@ class BackupsCheck extends Check
 
         $threshold = $this->youngestShouldHaveBeenMadeBefore->getTimestamp();
 
-        return !$youngestBackup || $youngestBackup->lastModified() <= $threshold;
+        return ! $youngestBackup || $youngestBackup->lastModified() <= $threshold;
     }
 
     protected function getOldestBackup(Collection $backups): ?BackupFile
@@ -178,6 +177,7 @@ class BackupsCheck extends Check
             ->first();
 
     }
+
     protected function oldestBackupIsTooYoung(?BackupFile $oldestBackup): bool
     {
         if ($this->oldestShouldHaveBeenMadeAfter === null) {
@@ -186,6 +186,6 @@ class BackupsCheck extends Check
 
         $threshold = $this->oldestShouldHaveBeenMadeAfter->getTimestamp();
 
-        return !$oldestBackup || $oldestBackup->lastModified() >= $threshold;
+        return ! $oldestBackup || $oldestBackup->lastModified() >= $threshold;
     }
 }

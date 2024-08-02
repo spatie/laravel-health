@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Health\Checks\Checks\BackupsCheck;
 use Spatie\Health\Enums\Status;
