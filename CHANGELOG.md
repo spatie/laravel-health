@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.30.1 - 2024-08-02
+
+### What's Changed
+
+* Performance optimizations for backups check by @pelmered in https://github.com/spatie/laravel-health/pull/240
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.30.0...1.30.1
+
 ## 1.30.0 - 2024-07-26
 
 ### What's Changed
