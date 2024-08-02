@@ -39,7 +39,7 @@ class BackupsCheck extends Check
         return $this;
     }
 
-    public function onDisk($disk)
+    public function onDisk($disk): static
     {
         $this->disk = Storage::disk($disk);
 
