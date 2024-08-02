@@ -1,9 +1,11 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Health\Checks\Checks\BackupsCheck;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
+use Spatie\Health\Support\BackupFile;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 use function Spatie\PestPluginTestTime\testTime;
@@ -220,4 +222,69 @@ it('can check if the oldest backup is old enough when loaded from filesystem dis
         ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
         ->run();
     expect($result)->status->toBe(Status::failed());
+});
+
+it('can parse modified time from file name', function ($format) {
+    Storage::fake('backups');
+
+    $now = now();
+    Storage::disk('backups')->put('backups/'.$now->format($format).'.zip', 'content');
+
+    $result1 = $this->backupsCheck
+        ->onDisk('backups')
+        ->locatedAt('backups')
+        ->parseModifiedFormat($format)
+        ->oldestBackShouldHaveBeenMadeAfter($now->subMinutes(5))
+        ->run();
+
+    testTime()->addMinutes(6);
+
+    $backupFile = new BackupFile('backups/'.$now->format($format).'.zip', Storage::disk('backups'), $format);
+
+    expect($backupFile->lastModified())->toBe($now->timestamp);
+
+    $result2 = $this->backupsCheck
+        ->onDisk('backups')
+        ->locatedAt('backups')
+        ->parseModifiedFormat($format)
+        ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
+        ->run();
+
+    expect($result1)->status->toBe(Status::failed())
+        ->and($result2)->status->toBe(Status::ok());
+
+    testTime()->addMinutes(2);
+
+    $result = $this->backupsCheck
+        ->locatedAt($this->temporaryDirectory->path('*.zip'))
+        ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
+        ->run();
+    expect($result)->status->toBe(Status::failed());
+})->with([
+    ['Y-m-d_H-i-s'],
+    ['Ymd_His'],
+    ['YmdHis'],
+    ['\B\a\c\k\u\p_Ymd_His'],
+]);
+
+it('can check the size of only the first and last backup files', function () {
+    $now = now()->startOfMinute();
+
+    addTestFile($this->temporaryDirectory->path('hey1.zip'), date: $now, sizeInMb: 5);
+    addTestFile($this->temporaryDirectory->path('hey2.zip'), date: $now->addMinutes(10), sizeInMb: 10);
+    addTestFile($this->temporaryDirectory->path('hey3.zip'), date: $now->addMinutes(20), sizeInMb: 5);
+
+    $result1 = $this->backupsCheck
+        ->locatedAt($this->temporaryDirectory->path('*.zip'))
+        ->atLeastSizeInMb(9)
+        ->run();
+
+    $result2 = $this->backupsCheck
+        ->locatedAt($this->temporaryDirectory->path('*.zip'))
+        ->atLeastSizeInMb(9)
+        ->onlyCheckSizeOnFirstAndLast()
+        ->run();
+
+    expect($result1)->status->toBe(Status::ok())
+        ->and($result2)->status->toBe(Status::failed());
 });
