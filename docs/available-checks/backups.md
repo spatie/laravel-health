@@ -86,3 +86,41 @@ Health::checks([
         ->atLeastSizeInMb(20),
 ]);
 ```
+
+### Check backups on external filesystems
+
+You can use the `onDisk` method to specify any disk you have configured in Laravel.
+This is useful when the backups are stored on an external filesystem.
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\BackupsCheck;
+
+Health::checks([
+    BackupsCheck::new()
+        ->onDisk('backups')
+        ->locatedAt('backups'),
+]);
+```
+
+Checking backup files on external filesystems can be slow if you have a lot of backup files.
+* You can use the `parseModifiedFormat` method to get the modified date of the file from the name instead of reaching out to the file and read its metadata. This strips out the file folder and file extension and uses the remaining string to parse the date with `Carbon::createFromFormat`.
+* You can also limit the size check to only the first and last backup files by using the `onlyCheckSizeOnFirstAndLast` method. Otherwise the check needs to reach out to all files and check the file sizes.
+
+These two things can speed up the check of ~200 files on an S3 bucket from about 30 seconds to about 1 second.
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\BackupsCheck;
+
+Health::checks([
+    BackupsCheck::new()
+        ->onDisk('backups')
+        ->parseModifiedFormat('Y-m-d_H-i-s'),
+        ->atLeastSizeInMb(20),
+        ->onlyCheckSizeOnFirstAndLast()
+]);
+```
+
+For files that contains more than just the date you can use something like parseModifiedFormat('\b\a\c\k\u\p_Ymd_His')
+which would parse a file with the name similar to `backup_20240101_120000.sql.zip`.
