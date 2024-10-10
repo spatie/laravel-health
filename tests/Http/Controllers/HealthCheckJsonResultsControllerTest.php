@@ -69,3 +69,14 @@ it('will return the configured status code for an unhealthy check', function () 
 
     assertMatchesSnapshot($json);
 });
+
+it('will return http ok status code when there are no failing checks', function () {
+    $this->check->fakeDiskUsagePercentage(50);
+
+    config()->set('health.json_results_failure_status', Response::HTTP_SERVICE_UNAVAILABLE);
+
+    artisan(RunHealthChecksCommand::class);
+
+    getJson('/')
+        ->assertOk();
+});
