@@ -59,8 +59,6 @@ it('will run the checks when the run get parameter is passed and return the resu
 });
 
 it('will return the configured status code for an unhealthy check', function () {
-    $this->check->replyWith(fn () => false);
-
     config()->set('health.json_results_failure_status', Response::HTTP_SERVICE_UNAVAILABLE);
 
     artisan(RunHealthChecksCommand::class);
