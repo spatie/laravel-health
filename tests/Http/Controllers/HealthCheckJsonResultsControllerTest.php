@@ -64,7 +64,7 @@ it('will return the configured status code for an unhealthy check', function () 
     artisan(RunHealthChecksCommand::class);
 
     $json = getJson('/')
-        ->assertStatus(Response::HTTP_SERVICE_UNAVAILABLE)
+        ->assertServiceUnavailable()
         ->json();
 
     assertMatchesSnapshot($json);
