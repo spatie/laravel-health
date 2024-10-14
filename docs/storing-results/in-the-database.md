@@ -40,10 +40,10 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('model:prune', [
-                    '--model' => [
-                        \Spatie\Health\Models\HealthCheckResultHistoryItem::class,
-                    ],
+        $schedule->command('model:prune', [
+            '--model' => [
+                \Spatie\Health\Models\HealthCheckResultHistoryItem::class,
+            ],
         ])->daily();
     
         // ...   
