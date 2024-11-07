@@ -6,9 +6,12 @@ use Carbon\Carbon;
 use Composer\InstalledVersions;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
+use Spatie\Health\Traits\Pingable;
 
 class ScheduleCheck extends Check
 {
+    use Pingable;
+
     protected string $cacheKey = 'health:checks:schedule:latestHeartbeatAt';
 
     protected ?string $cacheStoreName = null;
@@ -62,13 +65,20 @@ class ScheduleCheck extends Check
 
         $minutesAgo = $latestHeartbeatAt->diffInMinutes();
 
-        if (version_compare($carbonVersion,
-            '3.0.0', '<')) {
+        if (version_compare(
+            $carbonVersion,
+            '3.0.0',
+            '<'
+        )) {
             $minutesAgo += 1;
         }
 
         if ($minutesAgo > $this->heartbeatMaxAgeInMinutes) {
             return $result->failed("The last run of the schedule was more than {$minutesAgo} minutes ago.");
+        }
+
+        if (config('health.schedule.heartbeat_url')) {
+            $this->pingUrl(config('health.schedule.heartbeat_url'));
         }
 
         return $result;
