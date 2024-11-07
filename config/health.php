@@ -106,6 +106,24 @@ return [
     ],
 
     /*
+     * You can specify a heartbeat URL for the Horizon check.
+     * This URL will be pinged if the Horizon check is successful.
+     * This way you can get notified if Horizon goes down.
+     */
+    'horizon' => [
+        'heartbeat_url' => env('HORIZON_HEARTBEAT_URL', null),
+    ],
+
+    /*
+     * You can specify a heartbeat URL for the Schedule check.
+     * This URL will be pinged if the Schedule check is successful.
+     * This way you can get notified if the schedule fails to run.
+     */
+    'schedule' => [
+        'heartbeat_url' => env('SCHEDULE_HEARTBEAT_URL', null),
+    ],
+
+    /*
      * You can set a theme for the local results page
      *
      * - light: light mode
