@@ -85,7 +85,7 @@ For more control, you can set the timeout and retry times in your check registra
 ```php
 Health::checks([
     ScheduleCheck::new()
-        ->pingTimeout(5)    // Set timeout in seconds (default: 1)
+        ->pingTimeout(5)    // Set timeout in seconds (default: 3)
         ->pingRetryTimes(3) // Set number of retry attempts (default: 1)
 ]);
 ```

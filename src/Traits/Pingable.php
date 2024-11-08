@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 trait Pingable
 {
-    protected int $timeout = 1; // seconds
+    protected int $timeout = 3; // seconds
     protected int $retryTimes = 1;
 
     protected function pingUrl(?string $url = null): void

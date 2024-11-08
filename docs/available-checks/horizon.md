@@ -22,7 +22,7 @@ Health::checks([
 
 The check can be configured to ping a URL when Horizon is running successfully. This is useful for external monitoring services like Oh Dear, Pingdom, Envoyer heartbeats etc.
 
-If a URL is configured, it will automatically be pinged each time the health checks run via the `RunHealthChecksCommand` in your scheduler at the frequency you've configured. NB!!! The URL will only be pinged if the check passes. 
+If a URL is configured, it will automatically be pinged each time the health checks run via the `RunHealthChecksCommand` in your scheduler at the frequency you've configured. NB!!! The URL will only be pinged if the check passes.
 
 The ping is independent of the check's status, so the check may pass but the ping may fail (e.g. the ping URL is malformed or unreachable).
 
@@ -43,7 +43,7 @@ For more control, you can set the timeout and retry times in your check registra
 ```php
 Health::checks([
     HorizonCheck::new()
-        ->pingTimeout(5)    // Set timeout in seconds (default: 1)
+        ->pingTimeout(5)    // Set timeout in seconds (default: 3)
         ->pingRetryTimes(3) // Set number of retry attempts (default: 1)
 ]);
 ```
