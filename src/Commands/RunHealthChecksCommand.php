@@ -132,7 +132,7 @@ class RunHealthChecksCommand extends Command
             Status::ok() => $this->info($okMessage),
             Status::warning() => $this->comment("{$status}: {$result->getNotificationMessage()}"),
             Status::failed() => $this->error("{$status}: {$result->getNotificationMessage()}"),
-            Status::crashed() => $this->error("{$status}}: `{$exception?->getMessage()}`"),
+            Status::crashed() => $this->error("{$status}: `{$exception?->getMessage()}`"),
             default => null,
         };
     }
