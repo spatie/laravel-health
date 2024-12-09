@@ -35,4 +35,5 @@ Here's a list of third party packages:
 - [SSL certificate expiration](https://github.com/victord11/ssl-certification-health-check)
 - [Laravel Octane](https://github.com/ahtinurme/octane-health-check)
 - [Queue Size Check](https://github.com/SRWieZ/queue-size-health-check)
+- [Opcache Check](https://github.com/f9webltd/laravel-health-opcache)
 
