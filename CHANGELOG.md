@@ -2,6 +2,25 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.31.0 - 2024-12-09
+
+### What's Changed
+
+* Indentation in docs by @yoeriboven in https://github.com/spatie/laravel-health/pull/245
+* Update 3rd Party Checks List - Opcache check by @ultrono in https://github.com/spatie/laravel-health/pull/251
+* Remove typo in crashed message by @JaZo in https://github.com/spatie/laravel-health/pull/250
+* bump serializable-closure by @timoteo7 in https://github.com/spatie/laravel-health/pull/249
+* Only return failure status code when results contains failures by @maartenpaauw in https://github.com/spatie/laravel-health/pull/246
+
+### New Contributors
+
+* @ultrono made their first contribution in https://github.com/spatie/laravel-health/pull/251
+* @JaZo made their first contribution in https://github.com/spatie/laravel-health/pull/250
+* @timoteo7 made their first contribution in https://github.com/spatie/laravel-health/pull/249
+* @maartenpaauw made their first contribution in https://github.com/spatie/laravel-health/pull/246
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.30.1...1.31.0
+
 ## 1.30.1 - 2024-08-02
 
 ### What's Changed
