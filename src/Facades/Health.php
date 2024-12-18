@@ -10,7 +10,14 @@ use Spatie\Health\Testing\FakeHealth;
 use Spatie\Health\Testing\FakeValues;
 
 /**
- * @mixin \Spatie\Health\Health
+ * @method static \Spatie\Health\Health checks(array<int, Check> $checks)
+ * @method static \Spatie\Health\Health clearChecks()
+ * @method static \Illuminate\Support\Collection<int, Check> registeredChecks()
+ * @method static \Illuminate\Support\Collection<int, \Spatie\Health\ResultStores\ResultStore> resultStores()
+ * @method static \Spatie\Health\Health inlineStylesheet(string $stylesheet)
+ * @method static \Illuminate\Support\HtmlString assets()
+ *
+ * @see \Spatie\Health\Health
  */
 class Health extends Facade
 {
