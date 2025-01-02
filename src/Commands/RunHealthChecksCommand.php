@@ -5,6 +5,7 @@ namespace Spatie\Health\Commands;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Enums\Status;
@@ -25,6 +26,12 @@ class RunHealthChecksCommand extends Command
 
     public function handle(): int
     {
+        if (Cache::get(PauseHealthChecksCommand::CACHE_KEY)) {
+            $this->info('Checks paused');
+
+            return self::SUCCESS;
+        }
+
         $this->info('Running checks...');
 
         $results = $this->runChecks();

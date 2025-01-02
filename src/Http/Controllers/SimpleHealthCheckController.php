@@ -5,6 +5,8 @@ namespace Spatie\Health\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
+use Spatie\Health\Commands\PauseHealthChecksCommand;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\ResultStores\ResultStore;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
@@ -13,7 +15,10 @@ class SimpleHealthCheckController
 {
     public function __invoke(Request $request, ResultStore $resultStore): Response
     {
-        if ($request->has('fresh') || config('health.oh_dear_endpoint.always_send_fresh_results')) {
+        if (
+            ($request->has('fresh') || config('health.oh_dear_endpoint.always_send_fresh_results'))
+            && Cache::missing(PauseHealthChecksCommand::CACHE_KEY)
+        ) {
             Artisan::call(RunHealthChecksCommand::class);
         }
 
