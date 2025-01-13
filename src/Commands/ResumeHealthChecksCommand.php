@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 class ResumeHealthChecksCommand extends Command
 {
     protected $signature = 'health:resume';
+
     protected $description = 'Resume all health checks';
 
     public function handle(): int
