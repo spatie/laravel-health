@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.32.0 - 2025-01-13
+
+### What's Changed
+
+* Fix typo in Italian translation by @Pes8 in https://github.com/spatie/laravel-health/pull/256
+* Add pause and resume commands for health checks by @faustoFF in https://github.com/spatie/laravel-health/pull/255
+
+### New Contributors
+
+* @Pes8 made their first contribution in https://github.com/spatie/laravel-health/pull/256
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.31.0...1.32.0
+
 ## 1.31.0 - 2024-12-09
 
 ### What's Changed
