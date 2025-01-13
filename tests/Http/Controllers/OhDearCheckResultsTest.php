@@ -62,9 +62,9 @@ it('will run the checks when visiting the endpoint if the relevant config option
 });
 
 it('will not display the results when the secret is wrong', function () {
-    get('my-url', ['oh-dear-health-check-secret' => 'wrong-secret'])->assertStatus(403);
-});
+get('my-url', ['oh-dear-health-check-secret' => 'wrong-secret'])->assertStatus(403);
+    });
 
 it('will not display the results when the secret is missing', function () {
-    get('my-url')->assertStatus(403);
-});
+get('my-url')->assertStatus(403);
+    });
