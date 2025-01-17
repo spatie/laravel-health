@@ -7,7 +7,7 @@ In certain scenario's, your application can be in such a bad state, that it can'
 
 Using Oh Dear unlocks some more options: you'll be able to snooze notifications, and there are more delivery channels such as Telegram, Discord, MS Teams, Webhooks and more.
 
-Using this package, you can register a protected endpoint where [the application health check of Oh Dear](http://ohdear.app/docs/general/application-health-monitoring) can read the latest results of the health checks.
+Using this package, you can register a protected endpoint where [the application health check of Oh Dear](https://ohdear.app/docs/features/application-health-monitoring) can read the latest results of the health checks.
 
 ## Adding a health check endpoint to your Laravel app
 
