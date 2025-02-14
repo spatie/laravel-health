@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.32.1 - 2025-02-14
+
+### What's Changed
+
+* Update old docs link by @Joel-Jensen in https://github.com/spatie/laravel-health/pull/257
+* Fix some typos and suggest improvements in via-oh-dear.md by @larshanskrause in https://github.com/spatie/laravel-health/pull/260
+* Improve Bangla translation by @RatulAlMamun in https://github.com/spatie/laravel-health/pull/259
+
+### New Contributors
+
+* @larshanskrause made their first contribution in https://github.com/spatie/laravel-health/pull/260
+* @RatulAlMamun made their first contribution in https://github.com/spatie/laravel-health/pull/259
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.32.0...1.32.1
+
 ## 1.32.0 - 2025-01-13
 
 ### What's Changed
