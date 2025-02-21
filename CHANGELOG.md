@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.32.2 - 2025-02-21
+
+### What's Changed
+
+* feat: support Laravel 12 by @SRWieZ in https://github.com/spatie/laravel-health/pull/258
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.32.1...1.32.2
+
 ## 1.32.1 - 2025-02-14
 
 ### What's Changed
