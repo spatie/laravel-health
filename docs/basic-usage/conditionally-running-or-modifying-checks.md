@@ -30,7 +30,7 @@ use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
 use Spatie\Health\Checks\Checks\RedisCheck;
 
-Health::macro('ifEnvironment', fn (string|array $envs) => app()->environment($envs));
+Check::macro('ifEnvironment', fn (string|array $envs) => $this->if(fn () => app()->environment($envs)));
 
 Health::checks([
     DebugModeCheck::new()->ifEnvironment('production')
