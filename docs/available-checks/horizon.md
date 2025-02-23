@@ -26,15 +26,31 @@ If a URL is configured, it will automatically be pinged each time the health che
 
 The ping is independent of the check's status, so the check may pass but the ping may fail (e.g. the ping URL is malformed or unreachable).
 
-### Simple Setup
+### Setting the Heartbeat URL
 
-The easiest way to set up pinging is through your `.env` file:
+You can set the heartbeat URL in two ways:
 
+1. Recommendation: Through your `.env` file (will be used as fallback if no URL is explicitly set):
 ```env
 HORIZON_HEARTBEAT_URL=https://your-monitoring-service.com/ping/abc123
 ```
 
-When this URL is set, it will automatically be pinged each time the health checks run via the `RunHealthChecksCommand` in your scheduler at the frequency you've configured.
+Then the Horizon check can be used like this:
+```php
+Health::checks([
+    HorizonCheck::new(),
+]);
+```
+
+2. Directly in your check registration:
+```php
+Health::checks([
+    HorizonCheck::new()
+        ->heartbeatUrl('https://your-monitoring-service.com/ping/abc123'),
+]);
+```
+
+When this URL is set in either of the methods above, it will automatically be pinged each time the health checks run via the `RunHealthChecksCommand` in your scheduler at the frequency you've configured.
 
 ### Advanced Configuration
 
