@@ -2,13 +2,14 @@
 
 namespace Spatie\Health\Traits;
 
-use InvalidArgumentException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use InvalidArgumentException;
 
 trait Pingable
 {
     protected int $timeout = 3; // seconds
+
     protected int $retryTimes = 1;
 
     protected function pingUrl(?string $url = null): void
@@ -19,6 +20,7 @@ trait Pingable
 
         if (! $this->isValidUrl($url)) {
             Log::error("Invalid URL provided for health check ping: {$url}");
+
             return;
         }
 
@@ -27,7 +29,7 @@ trait Pingable
                 ->retry($this->retryTimes)
                 ->get($url);
         } catch (\Exception $e) {
-            Log::error('Failed to ping health check URL: ' . $e->getMessage());
+            Log::error('Failed to ping health check URL: '.$e->getMessage());
         }
     }
 

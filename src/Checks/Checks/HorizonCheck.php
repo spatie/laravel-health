@@ -21,7 +21,7 @@ class HorizonCheck extends Check
     public function heartbeatUrl(string $url): self
     {
         $this->heartbeatUrl = $url;
-        
+
         return $this;
     }
 
@@ -52,7 +52,7 @@ class HorizonCheck extends Check
         }
 
         $heartbeatUrl = $this->heartbeatUrl ?? config('health.horizon.heartbeat_url');
-        
+
         if ($heartbeatUrl) {
             $this->pingUrl($heartbeatUrl);
         }

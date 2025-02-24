@@ -2,9 +2,9 @@
 
 namespace Spatie\Health\Tests\Checks;
 
+use Illuminate\Support\Facades\Http;
 use Spatie\Health\Checks\Checks\HorizonCheck;
 use Spatie\Health\Enums\Status;
-use Illuminate\Support\Facades\Http;
 
 it('will fail when horizon is not running', function () {
     $result = HorizonCheck::new()->run();
@@ -34,7 +34,7 @@ it('will determine that a running horizon is ok', function () {
 
 it('pings heartbeat url when explicitly set', function () {
     Http::fake();
-    
+
     $this->fakeHorizonStatus('running');
 
     HorizonCheck::new()
@@ -49,7 +49,7 @@ it('pings heartbeat url when explicitly set', function () {
 it('falls back to config heartbeat url when no url is explicitly set', function () {
     Http::fake();
     config()->set('health.horizon.heartbeat_url', 'https://example.com/config-heartbeat');
-    
+
     $this->fakeHorizonStatus('running');
 
     HorizonCheck::new()
@@ -63,10 +63,10 @@ it('falls back to config heartbeat url when no url is explicitly set', function 
 it('does not ping when heartbeat url is not set and no config fallback exists', function () {
     Http::fake();
     config()->set('health.horizon.heartbeat_url', null);
-    
+
     $this->fakeHorizonStatus('running');
 
     HorizonCheck::new()->run();
-    
+
     Http::assertNothingSent();
 });
