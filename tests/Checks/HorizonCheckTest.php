@@ -4,6 +4,7 @@ namespace Spatie\Health\Tests\Checks;
 
 use Spatie\Health\Checks\Checks\HorizonCheck;
 use Spatie\Health\Enums\Status;
+use Illuminate\Support\Facades\Http;
 
 it('will fail when horizon is not running', function () {
     $result = HorizonCheck::new()->run();
@@ -29,4 +30,43 @@ it('will determine that a running horizon is ok', function () {
     $result = HorizonCheck::new()->run();
 
     expect($result)->status->toBe(Status::ok());
+});
+
+it('pings heartbeat url when explicitly set', function () {
+    Http::fake();
+    
+    $this->fakeHorizonStatus('running');
+
+    HorizonCheck::new()
+        ->heartbeatUrl('https://example.com/explicit-heartbeat')
+        ->run();
+
+    Http::assertSent(function ($request) {
+        return $request->url() === 'https://example.com/explicit-heartbeat';
+    });
+});
+
+it('falls back to config heartbeat url when no url is explicitly set', function () {
+    Http::fake();
+    config()->set('health.horizon.heartbeat_url', 'https://example.com/config-heartbeat');
+    
+    $this->fakeHorizonStatus('running');
+
+    HorizonCheck::new()
+        ->run();
+
+    Http::assertSent(function ($request) {
+        return $request->url() === 'https://example.com/config-heartbeat';
+    });
+});
+
+it('does not ping when heartbeat url is not set and no config fallback exists', function () {
+    Http::fake();
+    config()->set('health.horizon.heartbeat_url', null);
+    
+    $this->fakeHorizonStatus('running');
+
+    HorizonCheck::new()->run();
+    
+    Http::assertNothingSent();
 });
