@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.32.3 - 2025-02-24
+
+### What's Changed
+
+* Fixes errant reference to Health facade - should be Check facade - when creating macros for health checks by @Mrkbingham in https://github.com/spatie/laravel-health/pull/262
+* Add optional pings to horizon and schedule checks by @Nicholasbell03 in https://github.com/spatie/laravel-health/pull/248
+
+### New Contributors
+
+* @Mrkbingham made their first contribution in https://github.com/spatie/laravel-health/pull/262
+* @Nicholasbell03 made their first contribution in https://github.com/spatie/laravel-health/pull/248
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.32.2...1.32.3
+
 ## 1.32.2 - 2025-02-21
 
 ### What's Changed
