@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.32.4 - 2025-03-03
+
+### What's Changed
+
+* Update package to resolve security vulnerability issues by @Orrison in https://github.com/spatie/laravel-health/pull/263
+
+### New Contributors
+
+* @Orrison made their first contribution in https://github.com/spatie/laravel-health/pull/263
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.32.3...1.32.4
+
 ## 1.32.3 - 2025-02-24
 
 ### What's Changed
