@@ -2,7 +2,6 @@
 
 namespace Spatie\Health\Checks;
 
-use Carbon\CarbonTimeZone;
 use Cron\CronExpression;
 use DateTimeZone;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
