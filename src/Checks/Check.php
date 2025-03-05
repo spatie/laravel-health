@@ -2,7 +2,9 @@
 
 namespace Spatie\Health\Checks;
 
+use Carbon\CarbonTimeZone;
 use Cron\CronExpression;
+use DateTimeZone;
 use Illuminate\Console\Scheduling\ManagesFrequencies;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
@@ -24,6 +26,8 @@ abstract class Check
     protected ?string $name = null;
 
     protected ?string $label = null;
+
+    protected DateTimeZone|string $timezone = 'UTC';
 
     /**
      * @var array<bool|callable(): bool>
@@ -92,7 +96,7 @@ abstract class Check
             }
         }
 
-        $date = Date::now();
+        $date = Date::now($this->timezone);
 
         return (new CronExpression($this->expression))->isDue($date->toDateTimeString());
     }
