@@ -50,4 +50,4 @@ Health::checks([
 ]);
 ```
 
-The `UsedDiskSpaceCheck` will run every day at 2AM Los Angeles time, whereas `DatabaseCheck` will run every day at 2AM UTC.
+The `UsedDiskSpaceCheck` check will run every day at 2AM Los Angeles time, whereas `DatabaseCheck` will run every day at 2AM UTC.
