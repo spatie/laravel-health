@@ -10,7 +10,7 @@ class StoredCheckResult
     public static function make(
         string $name,
         string $label = '',
-        string $notificationMessage = '',
+        ?string $notificationMessage = '',
         string $shortSummary = '',
         string $status = '',
         array $meta = [],
@@ -24,7 +24,7 @@ class StoredCheckResult
     public function __construct(
         public string $name,
         public string $label = '',
-        public string $notificationMessage = '',
+        public ?string $notificationMessage = '',
         public string $shortSummary = '',
         public string $status = '',
         public array $meta = [],
