@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.32.5 - 2025-03-08
+
+### What's Changed
+
+* Handle nullable for notificationMessage property by @mahdimsr in https://github.com/spatie/laravel-health/pull/266
+
+### New Contributors
+
+* @mahdimsr made their first contribution in https://github.com/spatie/laravel-health/pull/266
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.32.4...1.32.5
+
 ## 1.32.4 - 2025-03-03
 
 ### What's Changed
