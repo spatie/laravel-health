@@ -21,6 +21,24 @@ it('uses UTC as a default timezone', function () {
     expect($check->shouldRun())->toBeTrue();
 });
 
+it('does not run at the incorrect time', function (string $incorrectTime) {
+    $check = new class extends Check {
+        public function run(): Result
+        {
+            return Result::make();
+        }
+    };
+
+    $check->dailyAt('12:00');
+
+    [$hour, $minutes] = explode(':', $incorrectTime);
+    testTime()->freeze(Carbon::make('2021-01-01 08:00:00')->setTime($hour, $minutes));
+
+    expect($check->shouldRun())->toBeFalse();
+})->with([
+    '00:00', '11:00', '11:59', '12:01',
+]);
+
 it('takes a timezone into account', function (Check $check) {
     $check->dailyAt('00:00');
 
