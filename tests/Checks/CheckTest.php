@@ -21,16 +21,7 @@ it('uses UTC as a default timezone', function () {
     expect($check->shouldRun())->toBeTrue();
 });
 
-it('takes a timezone into account', function () {
-    $check = new class extends Check {
-        protected string|DateTimeZone $timezone = 'America/Los_Angeles';
-
-        public function run(): Result
-        {
-            return Result::make();
-        }
-    };
-
+it('takes a timezone into account', function (Check $check) {
     $check->dailyAt('00:00');
 
     testTime()->freeze(Carbon::make('2021-01-01 00:00:00'));
@@ -42,4 +33,19 @@ it('takes a timezone into account', function () {
 
     // Should run, because it's 00:00 America/Los_Angeles time / 08:00 UTC
     expect($check->shouldRun())->toBeTrue();
-});
+})->with([
+    'Explicit timezone as property' => new class extends Check {
+        protected string|DateTimeZone $timezone = 'America/Los_Angeles';
+
+        public function run(): Result
+        {
+            return Result::make();
+        }
+    },
+    'Timezone method call' => (new class extends Check {
+        public function run(): Result
+        {
+            return Result::make();
+        }
+    })->timezone('America/Los_Angeles'),
+]);
