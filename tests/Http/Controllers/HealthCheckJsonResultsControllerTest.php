@@ -35,21 +35,6 @@ it('will display the results as json when the request accepts json', function ()
     assertMatchesSnapshot($json);
 });
 
-it('will return 401 when secret token is defined and not send in header', function () {
-    config()->set('health.secret_token', 'my-secret-token');
-
-    getJson('/')
-        ->assertUnauthorized();
-});
-
-it('will display the results when token is defined and send in header', function () {
-    config()->set('health.secret_token', 'my-secret-token');
-
-    getJson('/', ['X-Secret-Token' => 'my-secret-token'])
-        ->assertSuccessful()
-        ->json();
-});
-
 it('the output of the json endpoint can be used to create a StoredCheckResults object', function () {
     artisan(RunHealthChecksCommand::class);
 

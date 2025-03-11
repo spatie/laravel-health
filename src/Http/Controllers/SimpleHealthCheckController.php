@@ -16,15 +16,6 @@ class SimpleHealthCheckController
     public function __invoke(Request $request, ResultStore $resultStore): Response
     {
         if (
-            config('health.secret_token')
-            && ($request->header('X-Secret-Token') !== config('health.secret_token'))
-        ) {
-            return response(null, Response::HTTP_UNAUTHORIZED)
-                ->header('Content-Type', 'application/json')
-                ->header('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-        }
-
-        if (
             ($request->has('fresh') || config('health.oh_dear_endpoint.always_send_fresh_results'))
             && Cache::missing(PauseHealthChecksCommand::CACHE_KEY)
         ) {

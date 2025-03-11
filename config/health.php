@@ -142,9 +142,4 @@ return [
      * check has failed
      */
     'json_results_failure_status' => 200,
-
-    /*
-     * You can specify a secret token that needs to be sent in the X-Secret-Token for secured access.
-     */
-    'secret_token' => env('HEALTH_SECRET_TOKEN') ?? null,
 ];
