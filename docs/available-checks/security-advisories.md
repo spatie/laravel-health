@@ -40,11 +40,11 @@ Health::checks([
 ]);
 ```
 
-You can ignore multiple packages in one go with the `ignorePackages` method.
+You can ignore multiple packages in one go with the `ignoredPackages` method.
 
 ```php
 Health::checks([
-    SecurityAdvisoriesCheck::new()->ignorePackages([
+    SecurityAdvisoriesCheck::new()->ignoredPackages([
        'spatie/laravel-backup',
        'spatie/laravel-medialibrary',
    ]),
