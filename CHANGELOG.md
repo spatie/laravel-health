@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.33.0 - 2025-03-18
+
+### What's Changed
+
+* feat: custom timezones by @mateusjatenee in https://github.com/spatie/laravel-health/pull/264
+
+### New Contributors
+
+* @mateusjatenee made their first contribution in https://github.com/spatie/laravel-health/pull/264
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.32.5...1.33.0
+
 ## 1.32.5 - 2025-03-08
 
 ### What's Changed
