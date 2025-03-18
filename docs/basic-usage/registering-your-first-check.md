@@ -30,3 +30,24 @@ When a check results in a warning or a failure, a notification will be sent. You
 
 Though it's not required, you can store the results of the checks. 
 This way, you can keep a history of [the results in your own database](https://spatie.be/docs/laravel-health/v1/storing-results/in-the-database).
+
+## Frequency
+You can configure how often the checks should run. By default, the checks will run every minute. You can change this by calling a method that defines how often it should run, or passing a cron expression. Please refer to [the Laravel documentation](https://laravel.com/docs/12.x/scheduling#schedule-frequency-options) to see which options are available. 
+
+```php
+Health::checks([
+    UsedDiskSpaceCheck::new()->daily(),
+    DatabaseCheck::new(),
+]);
+```
+
+Additionally, you might also choose the timezone in which the checks should run. By default, the timezone is set to `UTC`. You can change this by calling the `timezone` method.
+
+```php
+Health::checks([
+    UsedDiskSpaceCheck::new()->dailyAt('02:00')->timezone('America/Los_Angeles'),
+    DatabaseCheck::new()->dailyAt('02:00'),
+]);
+```
+
+The `UsedDiskSpaceCheck` check will run every day at 2AM Los Angeles time, whereas `DatabaseCheck` will run every day at 2AM UTC.
