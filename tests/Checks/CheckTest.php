@@ -7,7 +7,8 @@ use Spatie\Health\Checks\Result;
 use function Spatie\PestPluginTestTime\testTime;
 
 it('uses UTC as a default timezone', function () {
-    $check = new class extends Check {
+    $check = new class extends Check
+    {
         public function run(): Result
         {
             return Result::make();
@@ -22,7 +23,8 @@ it('uses UTC as a default timezone', function () {
 });
 
 it('does not run at the incorrect time', function (string $incorrectTime) {
-    $check = new class extends Check {
+    $check = new class extends Check
+    {
         public function run(): Result
         {
             return Result::make();
@@ -52,7 +54,8 @@ it('takes a timezone into account', function (Check $check) {
     // Should run, because it's 00:00 America/Los_Angeles time / 08:00 UTC
     expect($check->shouldRun())->toBeTrue();
 })->with([
-    'Explicit timezone as property' => new class extends Check {
+    'Explicit timezone as property' => new class extends Check
+    {
         protected string|DateTimeZone $timezone = 'America/Los_Angeles';
 
         public function run(): Result
@@ -60,7 +63,8 @@ it('takes a timezone into account', function (Check $check) {
             return Result::make();
         }
     },
-    'Timezone method call' => (new class extends Check {
+    'Timezone method call' => (new class extends Check
+    {
         public function run(): Result
         {
             return Result::make();

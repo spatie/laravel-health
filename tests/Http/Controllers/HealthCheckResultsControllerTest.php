@@ -32,8 +32,8 @@ it('can display the results as html', function () {
 });
 
 it('will run the checks when the run get parameter is passed and return the results as json', function () {
-get('/?fresh')
-->assertSuccessful()
-->assertViewIs('health::list')
-->assertSee($this->check->getLabel());
-    });
+    get('/?fresh')
+        ->assertSuccessful()
+        ->assertViewIs('health::list')
+        ->assertSee($this->check->getLabel());
+});
