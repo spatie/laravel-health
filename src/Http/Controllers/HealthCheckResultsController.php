@@ -5,7 +5,6 @@ namespace Spatie\Health\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\View\View;
 use Spatie\Health\Commands\RunHealthChecksCommand;
@@ -16,13 +15,6 @@ class HealthCheckResultsController
 {
     public function __invoke(Request $request, ResultStore $resultStore, Health $health): JsonResponse|View
     {
-        if (
-            config('health.secret_token')
-            && ($request->header('X-Secret-Token') !== config('health.secret_token'))
-        ) {
-            return response()->json(null, Response::HTTP_UNAUTHORIZED);
-        }
-
         if ($request->has('fresh')) {
             Artisan::call(RunHealthChecksCommand::class);
         }
