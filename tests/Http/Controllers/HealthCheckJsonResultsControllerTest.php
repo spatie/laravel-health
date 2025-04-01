@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
-use Spatie\Health\Http\Middleware\RequiresSecret;
 use Spatie\Health\Http\Middleware\RequiresSecretToken;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
@@ -55,7 +54,6 @@ it('will display the results when secret token is defined and send in header', f
         ->assertSuccessful()
         ->json();
 });
-
 
 it('the output of the json endpoint can be used to create a StoredCheckResults object', function () {
     artisan(RunHealthChecksCommand::class);
