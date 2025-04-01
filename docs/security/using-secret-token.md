@@ -15,6 +15,12 @@ Define secret token in your `.env` file:
 HEALTH_SECRET_TOKEN=your-secret-token
 ```
 
+Use `RequiresSecretToken` middleware in your route:
+
+```php
+Route::get('/', HealthCheckJsonResultsController::class)->middleware(RequiresSecretToken::class);
+```
+
 Add `X-Secret-Token` in the request header:
 
 ```

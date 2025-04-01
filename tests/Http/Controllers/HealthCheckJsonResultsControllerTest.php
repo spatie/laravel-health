@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
+use Spatie\Health\Http\Middleware\RequiresSecret;
+use Spatie\Health\Http\Middleware\RequiresSecretToken;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,15 +37,19 @@ it('will display the results as json when the request accepts json', function ()
     assertMatchesSnapshot($json);
 });
 
-it('will return 401 when secret token is defined and not send in header', function () {
+it('will return 403 when secret token is defined and not send in header', function () {
     config()->set('health.secret_token', 'my-secret-token');
+
+    Route::get('/', HealthCheckJsonResultsController::class)->middleware(RequiresSecretToken::class);
 
     getJson('/')
-        ->assertUnauthorized();
+        ->assertForbidden();
 });
 
-it('will display the results when token is defined and send in header', function () {
+it('will display the results when secret token is defined and send in header', function () {
     config()->set('health.secret_token', 'my-secret-token');
+
+    Route::get('/', HealthCheckJsonResultsController::class)->middleware(RequiresSecretToken::class);
 
     getJson('/', ['X-Secret-Token' => 'my-secret-token'])
         ->assertSuccessful()
