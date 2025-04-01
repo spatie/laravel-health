@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.34.0 - 2025-04-01
+
+### What's Changed
+
+* Fix documentation: Correct method name from ignorePackages to ignored… by @syaritech in https://github.com/spatie/laravel-health/pull/268
+* Secret Token Middleware by @jakub-wizcodepl in https://github.com/spatie/laravel-health/pull/269
+
+### New Contributors
+
+* @syaritech made their first contribution in https://github.com/spatie/laravel-health/pull/268
+* @jakub-wizcodepl made their first contribution in https://github.com/spatie/laravel-health/pull/269
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.33.0...1.34.0
+
 ## 1.33.0 - 2025-03-18
 
 ### What's Changed
