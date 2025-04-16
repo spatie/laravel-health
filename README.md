@@ -1,11 +1,19 @@
-# Check the health of your Laravel app
+<div align="left">
+    <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=laravel-health">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/laravel-health/html/dark.webp?1">
+        <img alt="Logo for laravel-health" src=" https://spatie.be/packages/header/laravel-health/html/light.webp?1" height="190">
+      </picture>
+    </a>
+
+<h1>Check the health of your Laravel app</h1>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
 [![run-tests](https://github.com/spatie/laravel-health/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/laravel-health/actions/workflows/run-tests.yml)
 [![Check & fix styling](https://github.com/spatie/laravel-health/actions/workflows/pint.yml/badge.svg)](https://github.com/spatie/laravel-health/actions/workflows/pint.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-health.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-health)
-
-
+    
+</div>
 
 Using this package you can monitor the health of your application by registering checks.
 
