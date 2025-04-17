@@ -19,6 +19,11 @@ Health::checks([
 ]);
 ```
 
+> **Important!**  
+> Be cautious when conditionally running or modifying checks. By default, skipped checks are considered failures, which
+may impact the overall health status. You can adjust this behavior by setting the configuration option
+`treat_skipped_as_failure` to `false` in the health config file.
+
 ## Custom condition methods
 
 You may find yourself repeating conditions for multiple checks. To avoid that, 
