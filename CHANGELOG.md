@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.34.1 - 2025-04-17
+
+### What's Changed
+
+* Update link to Laravel docs latest version by @Erulezz in https://github.com/spatie/laravel-health/pull/270
+* Update prune docs according to current laravel documentation by @amacado in https://github.com/spatie/laravel-health/pull/271
+* Add configuration option for treating skipped checks as failures by @joaquinwojcik in https://github.com/spatie/laravel-health/pull/272
+
+### New Contributors
+
+* @Erulezz made their first contribution in https://github.com/spatie/laravel-health/pull/270
+* @amacado made their first contribution in https://github.com/spatie/laravel-health/pull/271
+* @joaquinwojcik made their first contribution in https://github.com/spatie/laravel-health/pull/272
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.34.0...1.34.1
+
 ## 1.34.0 - 2025-04-01
 
 ### What's Changed
