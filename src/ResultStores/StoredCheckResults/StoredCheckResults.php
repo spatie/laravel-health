@@ -71,7 +71,7 @@ class StoredCheckResults
     public function containsFailingCheck(): bool
     {
         return $this->storedCheckResults->contains(
-            fn (StoredCheckResult $line) => !in_array($line->status, $this->okStatuses)
+            fn (StoredCheckResult $line) => ! in_array($line->status, $this->okStatuses)
         );
     }
 
