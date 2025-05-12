@@ -116,9 +116,9 @@ use Spatie\Health\Checks\Checks\BackupsCheck;
 Health::checks([
     BackupsCheck::new()
         ->onDisk('backups')
-        ->parseModifiedFormat('Y-m-d_H-i-s'),
-        ->atLeastSizeInMb(20),
-        ->onlyCheckSizeOnFirstAndLast()
+        ->parseModifiedFormat('Y-m-d_H-i-s')
+        ->atLeastSizeInMb(20)
+        ->onlyCheckSizeOnFirstAndLast(),
 ]);
 ```
 
