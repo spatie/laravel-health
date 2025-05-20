@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.34.2 - 2025-05-20
+
+### What's Changed
+
+* Update backups.md by @marventhieme in https://github.com/spatie/laravel-health/pull/273
+* Cleaned up stub and orphan hey.zip by @lasselehtinen in https://github.com/spatie/laravel-health/pull/274
+* Czech translation by @hamrak in https://github.com/spatie/laravel-health/pull/277
+
+### New Contributors
+
+* @marventhieme made their first contribution in https://github.com/spatie/laravel-health/pull/273
+* @lasselehtinen made their first contribution in https://github.com/spatie/laravel-health/pull/274
+* @hamrak made their first contribution in https://github.com/spatie/laravel-health/pull/277
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.34.1...1.34.2
+
 ## 1.34.1 - 2025-04-17
 
 ### What's Changed
