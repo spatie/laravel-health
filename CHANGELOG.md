@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.34.3 - 2025-06-04
+
+### What's Changed
+
+* Fix symfony console 7.3 deprecations on command classes by @faytekin in https://github.com/spatie/laravel-health/pull/280
+
+### New Contributors
+
+* @faytekin made their first contribution in https://github.com/spatie/laravel-health/pull/280
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.34.2...1.34.3
+
 ## 1.34.2 - 2025-05-20
 
 ### What's Changed
