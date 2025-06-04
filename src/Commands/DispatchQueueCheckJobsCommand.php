@@ -12,6 +12,8 @@ class DispatchQueueCheckJobsCommand extends Command
 {
     protected $signature = 'health:queue-check-heartbeat';
 
+    protected $description = 'Dispatch health check jobs for all monitored queues.';
+
     public function handle(): int
     {
         /** @var QueueCheck|null $queueCheck */
