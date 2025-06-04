@@ -11,6 +11,8 @@ class ScheduleCheckHeartbeatCommand extends Command
 {
     protected $signature = 'health:schedule-check-heartbeat';
 
+    protected $description = 'Set the heartbeat for the schedule health check.';
+
     public function handle(): int
     {
         /** @var ScheduleCheck|null $scheduleCheck */
