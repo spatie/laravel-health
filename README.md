@@ -2,7 +2,7 @@
     <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=laravel-health">
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/laravel-health/html/dark.webp?1">
-        <img alt="Logo for laravel-health" src="https://spatie.be/packages/header/laravel-health/html/light.webp?1" height="190">
+        <img alt="Logo for laravel-health" src="https://spatie.be/packages/header/laravel-health/html/light.webp?1">
       </picture>
     </a>
 
