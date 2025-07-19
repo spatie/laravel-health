@@ -120,7 +120,7 @@ class BackupsCheck extends Check
             'oldest_backup' => $oldestBackup ? Carbon::createFromTimestamp($oldestBackup->lastModified())->toDateTimeString() : null,
         ]);
 
-        if ($this->youngestBackupIsToolOld($youngestBackup)) {
+        if ($this->youngestBackupIsTooOld($youngestBackup)) {
             return $result->failed('The youngest backup was too old');
         }
 
@@ -159,7 +159,7 @@ class BackupsCheck extends Check
             ->first();
     }
 
-    protected function youngestBackupIsToolOld(?BackupFile $youngestBackup): bool
+    protected function youngestBackupIsTooOld(?BackupFile $youngestBackup): bool
     {
         if ($this->youngestShouldHaveBeenMadeBefore === null) {
             return false;
