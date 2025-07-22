@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.34.4 - 2025-07-22
+
+### What's Changed
+
+* Fix method name typo by @shdehnavi in https://github.com/spatie/laravel-health/pull/281
+
+### New Contributors
+
+* @shdehnavi made their first contribution in https://github.com/spatie/laravel-health/pull/281
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.34.3...1.34.4
+
 ## 1.34.3 - 2025-06-04
 
 ### What's Changed
