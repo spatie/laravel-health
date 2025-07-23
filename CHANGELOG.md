@@ -263,7 +263,7 @@ All notable changes to `laravel-health` will be documented in this file.
 
 ### What's Changed
 
-* Add running status to MeiliSearchCheck by @francoism90 in https://github.com/spatie/laravel-health/pull/225
+* Add running status to MeilisearchCheck by @francoism90 in https://github.com/spatie/laravel-health/pull/225
 
 ### New Contributors
 
@@ -1138,7 +1138,7 @@ Only report unique checks
 
 ## 1.7.0 - 2021-12-21
 
-- add `MeiliSearchCheck`
+- add `MeilisearchCheck`
 
 ## 1.6.0 - 2021-12-17
 

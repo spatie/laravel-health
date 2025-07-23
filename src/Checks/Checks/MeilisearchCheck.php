@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
-class MeiliSearchCheck extends Check
+class MeilisearchCheck extends Check
 {
     protected int $timeout = 1;
 
