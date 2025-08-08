@@ -7,10 +7,11 @@ use Illuminate\Support\Str;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\DbConnectionInfo;
+use Spatie\Health\Traits\DatabaseRelatable;
 
 class DatabaseConnectionCountCheck extends Check
 {
-    protected ?string $connectionName = null;
+    use DatabaseRelatable;
 
     protected ?int $warningThreshold = null;
 
@@ -26,13 +27,6 @@ class DatabaseConnectionCountCheck extends Check
     public function failWhenMoreConnectionsThan(int $errorThreshold): self
     {
         $this->errorThreshold = $errorThreshold;
-
-        return $this;
-    }
-
-    public function connectionName(string $connectionName): self
-    {
-        $this->connectionName = $connectionName;
 
         return $this;
     }
@@ -59,11 +53,6 @@ class DatabaseConnectionCountCheck extends Check
         }
 
         return $result;
-    }
-
-    protected function getDefaultConnectionName(): string
-    {
-        return config('database.default');
     }
 
     protected function getConnectionCount(): int

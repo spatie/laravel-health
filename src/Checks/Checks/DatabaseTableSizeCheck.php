@@ -6,20 +6,14 @@ use Illuminate\Database\ConnectionResolverInterface;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\DbConnectionInfo;
+use Spatie\Health\Traits\DatabaseRelatable;
 
 class DatabaseTableSizeCheck extends Check
 {
-    protected ?string $connectionName = null;
+    use DatabaseRelatable;
 
     /** @var array<string, int> */
     protected array $checkingTables = [];
-
-    public function connectionName(string $connectionName): self
-    {
-        $this->connectionName = $connectionName;
-
-        return $this;
-    }
 
     public function table(string $name, int $maxSizeInMb): self
     {
@@ -62,11 +56,6 @@ class DatabaseTableSizeCheck extends Check
         $message = "{$messageStart} too big: {$tablesString}";
 
         return $result->failed($message);
-    }
-
-    protected function getDefaultConnectionName(): string
-    {
-        return config('database.default');
     }
 
     protected function getTableSizeInMb(string $tableName): float
