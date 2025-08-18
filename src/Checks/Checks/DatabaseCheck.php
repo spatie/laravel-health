@@ -6,17 +6,11 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
+use Spatie\Health\Traits\DatabaseRelatable;
 
 class DatabaseCheck extends Check
 {
-    protected ?string $connectionName = null;
-
-    public function connectionName(string $connectionName): self
-    {
-        $this->connectionName = $connectionName;
-
-        return $this;
-    }
+    use DatabaseRelatable;
 
     public function run(): Result
     {
@@ -33,10 +27,5 @@ class DatabaseCheck extends Check
         } catch (Exception $exception) {
             return $result->failed("Could not connect to the database: `{$exception->getMessage()}`");
         }
-    }
-
-    protected function getDefaultConnectionName(): string
-    {
-        return config('database.default');
     }
 }
