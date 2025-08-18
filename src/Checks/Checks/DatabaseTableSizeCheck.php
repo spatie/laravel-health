@@ -6,11 +6,11 @@ use Illuminate\Database\ConnectionResolverInterface;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\DbConnectionInfo;
-use Spatie\Health\Traits\DatabaseRelatable;
+use Spatie\Health\Traits\HasDatabaseConnection;
 
 class DatabaseTableSizeCheck extends Check
 {
-    use DatabaseRelatable;
+    use HasDatabaseConnection;
 
     /** @var array<string, int> */
     protected array $checkingTables = [];

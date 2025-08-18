@@ -6,11 +6,11 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
-use Spatie\Health\Traits\DatabaseRelatable;
+use Spatie\Health\Traits\HasDatabaseConnection;
 
 class DatabaseCheck extends Check
 {
-    use DatabaseRelatable;
+    use HasDatabaseConnection;
 
     public function run(): Result
     {

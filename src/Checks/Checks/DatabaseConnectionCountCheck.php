@@ -7,11 +7,11 @@ use Illuminate\Support\Str;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\DbConnectionInfo;
-use Spatie\Health\Traits\DatabaseRelatable;
+use Spatie\Health\Traits\HasDatabaseConnection;
 
 class DatabaseConnectionCountCheck extends Check
 {
-    use DatabaseRelatable;
+    use HasDatabaseConnection;
 
     protected ?int $warningThreshold = null;
 

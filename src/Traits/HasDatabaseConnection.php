@@ -2,7 +2,7 @@
 
 namespace Spatie\Health\Traits;
 
-trait DatabaseRelatable
+trait HasDatabaseConnection
 {
     protected ?string $connectionName = null;
 

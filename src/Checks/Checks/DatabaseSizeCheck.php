@@ -6,11 +6,11 @@ use Illuminate\Database\ConnectionResolverInterface;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\DbConnectionInfo;
-use Spatie\Health\Traits\DatabaseRelatable;
+use Spatie\Health\Traits\HasDatabaseConnection;
 
 class DatabaseSizeCheck extends Check
 {
-    use DatabaseRelatable;
+    use HasDatabaseConnection;
 
     protected float $failWhenSizeAboveGb = 1;
 
