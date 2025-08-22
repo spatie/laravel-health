@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Notification;
-use function Pest\Laravel\artisan;
 use Spatie\Health\Checks\Checks\DatabaseSizeCheck;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Tests\TestClasses\FakeDatabaseSizeCheck;
+
+use function Pest\Laravel\artisan;
 
 it('will determine that database size is ok if it does not cross the maximum', function () {
     $result = DatabaseSizeCheck::new()

@@ -5,6 +5,7 @@ namespace Spatie\Health\Checks;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Str;
 use Spatie\Health\Enums\Status;
+
 use function trans;
 
 class Result
@@ -25,8 +26,7 @@ class Result
         public Status $status,
         public string $notificationMessage = '',
         public string $shortSummary = '',
-    ) {
-    }
+    ) {}
 
     public function shortSummary(string $shortSummary): self
     {
@@ -73,7 +73,7 @@ class Result
         $this->notificationMessage = $message;
         $this->status = Status::ok();
 
-        \PMLog::debug("[Result][ok] Ok");
+        \PMLog::debug('[Result][ok] Ok');
 
         return $this;
     }

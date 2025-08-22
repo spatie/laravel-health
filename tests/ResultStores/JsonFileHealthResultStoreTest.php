@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Storage;
-use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\ResultStores\JsonFileHealthResultStore;
 use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
+
+use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesJsonSnapshot;
 

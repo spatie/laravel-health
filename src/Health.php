@@ -12,7 +12,6 @@ use Spatie\Health\ResultStores\ResultStores;
 
 class Health
 {
-
     protected ?string $serverKey;
 
     /** @var array<int, Check> */
@@ -91,18 +90,11 @@ class Health
         }
     }
 
-    /**
-     * @return string|null
-     */
     public function getServerKey(): ?string
     {
         return $this->serverKey;
     }
 
-    /**
-     * @param string|null $serverKey
-     * @return Health
-     */
     public function setServerKey(?string $serverKey): self
     {
         $this->serverKey = $serverKey;

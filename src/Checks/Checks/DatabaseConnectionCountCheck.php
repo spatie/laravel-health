@@ -76,6 +76,6 @@ class DatabaseConnectionCountCheck extends Check
 
         $connection = app(ConnectionResolverInterface::class)->connection($connectionName);
 
-        return (new DbConnectionInfo())->connectionCount($connection);
+        return (new DbConnectionInfo)->connectionCount($connection);
     }
 }

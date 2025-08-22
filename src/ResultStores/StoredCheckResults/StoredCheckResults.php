@@ -24,7 +24,7 @@ class StoredCheckResults
             ->sortBy(fn (StoredCheckResult $result) => strtolower($result->label));
 
         return new self(
-            finishedAt: (new DateTime())->setTimestamp($properties['finishedAt']),
+            finishedAt: (new DateTime)->setTimestamp($properties['finishedAt']),
             checkResults: $checkResults,
         );
     }
@@ -36,7 +36,7 @@ class StoredCheckResults
         ?DateTimeInterface $finishedAt = null,
         ?Collection $checkResults = null
     ) {
-        $this->finishedAt = $finishedAt ?? new DateTime();
+        $this->finishedAt = $finishedAt ?? new DateTime;
 
         $this->storedCheckResults = $checkResults ?? collect();
     }

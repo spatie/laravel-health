@@ -14,8 +14,7 @@ class CacheHealthResultStore implements ResultStore
     public function __construct(
         public string $store = 'file',
         public string $cacheKey = 'health:storeResults',
-    ) {
-    }
+    ) {}
 
     public function save(Collection $checkResults): void
     {
@@ -61,30 +60,30 @@ class CacheHealthResultStore implements ResultStore
 
         if ($onlySameServerKey) {
             $serverKey = Health::getServerKey();
-            $healthResults = [$serverKey => $healthResults[$serverKey] ?? "{}"];
+            $healthResults = [$serverKey => $healthResults[$serverKey] ?? '{}'];
         }
 
         $result = [];
         $maxFinished = 0;
-        foreach($healthResults as $checkJson) {
+        foreach ($healthResults as $checkJson) {
             $storedCheckResultsData = json_decode($checkJson, true);
 
-            $maxFinished = max($storedCheckResultsData["finishedAt"], $maxFinished);
-            foreach($storedCheckResultsData["checkResults"] as $checkResult) {
+            $maxFinished = max($storedCheckResultsData['finishedAt'], $maxFinished);
+            foreach ($storedCheckResultsData['checkResults'] as $checkResult) {
                 $result[] = new StoredCheckResult(
-                    serverKey: $checkResult["serverKey"],
-                    name: $checkResult["name"],
-                    label: $checkResult["label"],
-                    notificationMessage: $checkResult["notificationMessage"],
-                    shortSummary: $checkResult["shortSummary"],
-                    status: $checkResult["status"],
-                    meta: $checkResult["meta"],
+                    serverKey: $checkResult['serverKey'],
+                    name: $checkResult['name'],
+                    label: $checkResult['label'],
+                    notificationMessage: $checkResult['notificationMessage'],
+                    shortSummary: $checkResult['shortSummary'],
+                    status: $checkResult['status'],
+                    meta: $checkResult['meta'],
                 );
             }
         }
 
         return new StoredCheckResults(
-            finishedAt: (new DateTime())->setTimestamp($maxFinished),
+            finishedAt: (new DateTime)->setTimestamp($maxFinished),
             checkResults: collect($result),
         );
     }

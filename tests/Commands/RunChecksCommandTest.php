@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Notification;
-use function Pest\Laravel\artisan;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
@@ -9,6 +8,8 @@ use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\Tests\TestClasses\CrashingCheck;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
+
+use function Pest\Laravel\artisan;
 
 beforeEach(function () {
     $this->fakeDiskSpaceCheck = FakeUsedDiskSpaceCheck::new();
@@ -95,8 +96,8 @@ it('can store the with failures results in the database', function () {
 
 it('will still run checks when there is a failing one', function () {
     Health::clearChecks()->checks([
-        new CrashingCheck(),
-        new FakeUsedDiskSpaceCheck(),
+        new CrashingCheck,
+        new FakeUsedDiskSpaceCheck,
     ]);
 
     artisan(RunHealthChecksCommand::class)

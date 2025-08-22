@@ -32,8 +32,7 @@ class StoredCheckResult
         public string $shortSummary = '',
         public string $status = '',
         public array $meta = [],
-    ) {
-    }
+    ) {}
 
     public function notificationMessage(string $message): self
     {
@@ -71,7 +70,7 @@ class StoredCheckResult
     public function toArray(): array
     {
         return [
-            'batch' =>$this->batch,
+            'batch' => $this->batch,
             'serverKey' => $this->serverKey,
             'name' => $this->name,
             'label' => $this->label,

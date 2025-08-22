@@ -9,7 +9,7 @@ use Spatie\Health\Checks\Checks\QueueCheck;
 
 class HealthQueueJob implements ShouldQueue
 {
-    use Queueable, Dispatchable;
+    use Dispatchable, Queueable;
 
     protected QueueCheck $queueCheck;
 

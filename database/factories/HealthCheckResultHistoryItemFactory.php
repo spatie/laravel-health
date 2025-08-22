@@ -14,7 +14,7 @@ class HealthCheckResultHistoryItemFactory extends Factory
     public function definition(): array
     {
         return [
-            "server_key" => $this->faker->uuid(),
+            'server_key' => $this->faker->uuid(),
             'check_name' => $this->faker->word(),
             'check_label' => $this->faker->word(),
             'status' => $this->faker->randomElement(Status::toArray()),

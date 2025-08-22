@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Queue;
-use function Pest\Laravel\artisan;
 use Spatie\Health\Checks\Checks\QueueCheck;
 use Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Jobs\HealthQueueJob;
+
+use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {

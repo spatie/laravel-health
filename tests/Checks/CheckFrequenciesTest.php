@@ -1,11 +1,12 @@
 <?php
 
-use function Pest\Laravel\artisan;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Tests\TestClasses\InMemoryResultStore;
+
+use function Pest\Laravel\artisan;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {

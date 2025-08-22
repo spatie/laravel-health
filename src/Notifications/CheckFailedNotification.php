@@ -13,9 +13,7 @@ use Spatie\Health\Enums\Status;
 class CheckFailedNotification extends Notification
 {
     /** @param  array<int, Result>  $results */
-    public function __construct(public array $results)
-    {
-    }
+    public function __construct(public array $results) {}
 
     /** @return array<int,string> */
     public function via(): array
@@ -64,7 +62,7 @@ class CheckFailedNotification extends Notification
 
     public function toMail(): MailMessage
     {
-        return (new MailMessage())
+        return (new MailMessage)
             ->from(config('health.notifications.mail.from.address', config('mail.from.address')), config('health.notifications.mail.from.name', config('mail.from.name')))
             ->subject(trans('health::notifications.check_failed_mail_subject', $this->transParameters()))
             ->markdown('health::mail.checkFailedNotification', ['results' => $this->results]);
@@ -72,7 +70,7 @@ class CheckFailedNotification extends Notification
 
     public function toSlack(): SlackMessage
     {
-        $slackMessage = (new SlackMessage())
+        $slackMessage = (new SlackMessage)
             ->error()
             ->from(config('health.notifications.slack.username'), config('health.notifications.slack.icon'))
             ->to(config('health.notifications.slack.channel'))

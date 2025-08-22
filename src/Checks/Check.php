@@ -20,9 +20,7 @@ abstract class Check
 
     protected bool $shouldRun = true;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public static function new(): static
     {
@@ -101,7 +99,5 @@ abstract class Check
         return new Result(Status::crashed());
     }
 
-    public function onTerminate(mixed $request, mixed $response): void
-    {
-    }
+    public function onTerminate(mixed $request, mixed $response): void {}
 }

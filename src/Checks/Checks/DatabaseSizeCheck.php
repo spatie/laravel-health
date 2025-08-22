@@ -53,6 +53,6 @@ class DatabaseSizeCheck extends Check
 
         $connection = app(ConnectionResolverInterface::class)->connection($connectionName);
 
-        return round((new DbConnectionInfo())->databaseSizeInMb($connection) / 1000, 2);
+        return round((new DbConnectionInfo)->databaseSizeInMb($connection) / 1000, 2);
     }
 }

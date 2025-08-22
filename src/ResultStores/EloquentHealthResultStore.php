@@ -35,7 +35,7 @@ class EloquentHealthResultStore implements ResultStore
     {
         $historyItemClassName = static::determineHistoryItemModel();
 
-        return new $historyItemClassName();
+        return new $historyItemClassName;
     }
 
     /** @param  Collection<int, Result>  $checkResults */
@@ -63,7 +63,7 @@ class EloquentHealthResultStore implements ResultStore
     {
         /** @var Model $modelInstance */
         $modelInstance = new (static::determineHistoryItemModel());
-        if (!$latestItem = $modelInstance->newQuery()->latest()->first()) {
+        if (! $latestItem = $modelInstance->newQuery()->latest()->first()) {
             return null;
         }
 
@@ -71,17 +71,17 @@ class EloquentHealthResultStore implements ResultStore
         \PMLog::debug("[EloquentHealthResultStore][latestResults] Going to get {$serverKey} latest result");
 
         $latestChecksForServerKey = $modelInstance->newQuery()
-            ->select(DB::raw("MAX(id) as max_id"), "server_key")
+            ->select(DB::raw('MAX(id) as max_id'), 'server_key')
             ->when($onlySameServerKey, function (Builder $q) use ($serverKey) {
-                $q->where("server_key", $serverKey);
+                $q->where('server_key', $serverKey);
             })
-            ->groupBy("server_key")
+            ->groupBy('server_key')
             ->get()
-            ->pluck("max_id", "server_key");
+            ->pluck('max_id', 'server_key');
 
         $latestBatches = $modelInstance->newQuery()
             ->whereKey($latestChecksForServerKey)
-            ->pluck("batch");
+            ->pluck('batch');
 
         /** @var Collection<int, StoredCheckResult> $storedCheckResults */
         $storedCheckResults = $modelInstance->newQuery()
