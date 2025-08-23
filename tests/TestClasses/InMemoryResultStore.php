@@ -22,10 +22,23 @@ class InMemoryResultStore implements ResultStore
     public function latestResults(): ?StoredCheckResults
     {
         // TODO: Implement latestReport() method.
+        if (self::$checkResults->isEmpty()) {
+            return null;
+        }
+
+        return new StoredCheckResults(
+            finishedAt: now(),
+            checkResults: self::$checkResults
+        );
     }
 
     public static function expectCheckResults(): Expectation|Extendable
     {
         return expect(self::$checkResults);
+    }
+
+    public function flush(): void
+    {
+        self::$checkResults = new Collection();
     }
 }

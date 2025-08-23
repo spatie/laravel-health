@@ -12,6 +12,7 @@ use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 use Spatie\Health\Components\Logo;
 use Spatie\Health\Components\StatusIndicator;
 use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
+use Spatie\Health\Http\Controllers\NagiosHealthCheckResultsController;
 use Spatie\Health\Http\Middleware\RequiresSecret;
 use Spatie\Health\Jobs\HealthQueueJob;
 use Spatie\Health\ResultStores\ResultStore;
@@ -55,7 +56,8 @@ class HealthServiceProvider extends PackageServiceProvider
 
         $this
             ->registerOhDearEndpoint()
-            ->silenceHealthQueueJob();
+            ->silenceHealthQueueJob()
+            ->registerNagiosEndpoint();
     }
 
     protected function registerOhDearEndpoint(): self
@@ -93,6 +95,14 @@ class HealthServiceProvider extends PackageServiceProvider
         $silencedJobs[] = HealthQueueJob::class;
 
         config()->set('horizon.silenced', $silencedJobs);
+
+        return $this;
+    }
+
+    protected function registerNagiosEndpoint(): self
+    {
+        Route::get('health/nagios', NagiosHealthCheckResultsController::class)
+            ->middleware(config('health.middleware', []));
 
         return $this;
     }
