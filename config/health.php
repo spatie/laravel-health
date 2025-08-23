@@ -105,6 +105,26 @@ return [
         'url' => '/oh-dear-health-check-results',
     ],
 
+    'nagios_endpoint' => [
+        'enabled' => false,
+
+        /*
+         * When this option is enabled, the checks will run before sending a response.
+         * Otherwise, we'll send the results from the last time the checks have run.
+         */
+        'always_send_fresh_results' => true,
+
+        /*
+         * The secret that is sent as auth bearer token.
+         */
+        'bearer_token' => env('NAGIOS_HEALTH_BEARER_TOKEN'),
+
+        /*
+         * The URL that should be configured nagios to check for application health.
+         */
+        'url' => '/health/nagios',
+    ],
+
     /*
      * You can specify a heartbeat URL for the Horizon check.
      * This URL will be pinged if the Horizon check is successful.

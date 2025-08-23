@@ -13,6 +13,7 @@ use Spatie\Health\Components\Logo;
 use Spatie\Health\Components\StatusIndicator;
 use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
 use Spatie\Health\Http\Controllers\NagiosHealthCheckResultsController;
+use Spatie\Health\Http\Middleware\RequiresBearerToken;
 use Spatie\Health\Http\Middleware\RequiresSecret;
 use Spatie\Health\Jobs\HealthQueueJob;
 use Spatie\Health\ResultStores\ResultStore;
@@ -101,8 +102,20 @@ class HealthServiceProvider extends PackageServiceProvider
 
     protected function registerNagiosEndpoint(): self
     {
-        Route::get('health/nagios', NagiosHealthCheckResultsController::class)
-            ->middleware(config('health.middleware', []));
+        if (! config('health.nagios_endpoint.enabled')) {
+            return $this;
+        }
+
+        if (! config('health.nagios_endpoint.bearer_token')) {
+            return $this;
+        }
+
+        if (! config('health.nagios_endpoint.url')) {
+            return $this;
+        }
+
+        Route::get(config('health.nagios_endpoint.url'), NagiosHealthCheckResultsController::class)
+            ->middleware(RequiresBearerToken::class);
 
         return $this;
     }

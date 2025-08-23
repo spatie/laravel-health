@@ -21,6 +21,13 @@ class NagiosHealthCheckResultsControllerTest extends TestCase
 
         $this->resultStore = new InMemoryResultStore();
         $this->app->instance(ResultStore::class, $this->resultStore);
+
+        config()->set('health.nagios_endpoint', [
+            'enabled'      => true,
+            'bearer_token' => 'my-bearer-token',
+            'url'          => '/health/nagios',
+        ]);
+        (new HealthServiceProvider($this->app))->packageBooted();
     }
 
     protected function getPackageProviders($app): array
@@ -35,6 +42,29 @@ class NagiosHealthCheckResultsControllerTest extends TestCase
         return [
             'Health' => Health::class,
         ];
+    }
+
+    /** @test */
+    public function it_returns_returns_404_when_disabled()
+    {
+        config()->set('health.nagios_endpoint', [
+            'enabled'      => false,
+            'bearer_token' => 'my-bearer-token',
+            'url'          => '/health/other-nagios-url',
+        ]);
+        (new HealthServiceProvider($this->app))->packageBooted();
+
+        $response = $this->withToken('my-bearer-token')->get('/health/other-nagios-url');
+
+        $response->assertStatus(404);
+    }
+
+    /** @test */
+    public function it_returns_returns_unauthorised_without_bearer_token()
+    {
+        $response = $this->get('/health/nagios');
+
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -65,7 +95,7 @@ class NagiosHealthCheckResultsControllerTest extends TestCase
 
         $this->resultStore->save($checkResults);
 
-        $response = $this->get('health/nagios');
+        $response = $this->withToken('my-bearer-token')->get('/health/nagios');
 
         $response->assertStatus(200);
         $response->assertHeader('Content-Type', 'text/plain; charset=UTF-8');
@@ -90,7 +120,7 @@ class NagiosHealthCheckResultsControllerTest extends TestCase
 
         $this->resultStore->save($checkResults);
 
-        $response = $this->get('health/nagios');
+        $response = $this->withToken('my-bearer-token')->get('health/nagios');
 
         $response->assertStatus(200);
         $response->assertHeader('Content-Type', 'text/plain; charset=UTF-8');
@@ -103,7 +133,7 @@ class NagiosHealthCheckResultsControllerTest extends TestCase
     {
         $this->resultStore->flush();
 
-        $response = $this->get('health/nagios');
+        $response = $this->withToken('my-bearer-token')->get('health/nagios');
 
         $response->assertStatus(200);
         $response->assertHeader('Content-Type', 'text/plain; charset=UTF-8');
