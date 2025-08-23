@@ -46,46 +46,12 @@ For security, you should configure a bearer token that Nagios will use to authen
 NAGIOS_HEALTH_BEARER_TOKEN=your-secret-token-here
 ```
 
-### Fresh Results vs Cached Results
-
-- **`always_send_fresh_results => true`**: Health checks will run every time Nagios calls the endpoint (recommended for critical monitoring)
-- **`always_send_fresh_results => false`**: Returns the results from the last scheduled health check run (better performance)
-
 ### Custom Endpoint URL
 
 You can customize the endpoint URL by changing the `url` configuration:
 
 ```php
 'url' => '/custom/nagios/health',
-```
-
-## Setting up Nagios
-
-Once configured, you can add your Laravel application to your Nagios configuration:
-
-### Basic Nagios Service Definition
-
-```nagios
-define service {
-    use                     generic-service
-    host_name               your-web-server
-    service_description     Laravel Health Check
-    check_command           check_http_bearer_token!your-secret-token-here!/health/nagios
-    check_interval          5
-    retry_interval          1
-    max_check_attempts      3
-}
-```
-
-### Custom Check Command (if needed)
-
-You may need to define a custom check command that includes bearer token authentication:
-
-```nagios
-define command {
-    command_name    check_http_bearer_token
-    command_line    $USER1$/check_http -H $HOSTADDRESS$ -u $ARG2$ -A "Bearer $ARG1$" -t 30
-}
 ```
 
 ## Response Format
