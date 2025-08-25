@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.34.7 - 2025-08-25
+
+### What's Changed
+
+* Round diffInMinutes on Carbon 3 by @trippo in https://github.com/spatie/laravel-health/pull/285
+
+### New Contributors
+
+* @trippo made their first contribution in https://github.com/spatie/laravel-health/pull/285
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.34.6...1.34.7
+
 ## 1.34.6 - 2025-08-18
 
 ### What's Changed
