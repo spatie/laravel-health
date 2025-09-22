@@ -7,6 +7,8 @@ use Spatie\Health\Checks\Result;
 use Spatie\Regex\Regex;
 use Symfony\Component\Process\Process;
 
+use function __;
+
 class UsedDiskSpaceCheck extends Check
 {
     protected int $warningThreshold = 70;
@@ -14,6 +16,12 @@ class UsedDiskSpaceCheck extends Check
     protected int $errorThreshold = 90;
 
     protected ?string $filesystemName = null;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.used_disk_space'));
+    }
 
     public function filesystemName(string $filesystemName): self
     {
@@ -45,11 +53,15 @@ class UsedDiskSpaceCheck extends Check
             ->shortSummary($diskSpaceUsedPercentage.'%');
 
         if ($diskSpaceUsedPercentage > $this->errorThreshold) {
-            return $result->failed("The disk is almost full ({$diskSpaceUsedPercentage}% used).");
+            return $result->failed(__('health::checks.used_disk_space.almost_full_error', [
+                'percentage' => $diskSpaceUsedPercentage,
+            ]));
         }
 
         if ($diskSpaceUsedPercentage > $this->warningThreshold) {
-            return $result->warning("The disk is almost full ({$diskSpaceUsedPercentage}% used).");
+            return $result->warning(__('health::checks.used_disk_space.almost_full_warning', [
+                'percentage' => $diskSpaceUsedPercentage,
+            ]));
         }
 
         return $result->ok();

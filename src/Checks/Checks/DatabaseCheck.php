@@ -14,6 +14,12 @@ class DatabaseCheck extends Check
 {
     use HasDatabaseConnection;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.database'));
+    }
+
     public function run(): Result
     {
         $connectionName = $this->connectionName ?? $this->getDefaultConnectionName();

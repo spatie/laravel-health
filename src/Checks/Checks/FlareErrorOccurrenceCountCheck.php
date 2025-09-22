@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
+use function __;
+
 class FlareErrorOccurrenceCountCheck extends Check
 {
     protected int $warningThreshold = 500;
@@ -18,6 +20,12 @@ class FlareErrorOccurrenceCountCheck extends Check
     protected ?int $flareProjectId = null;
 
     protected ?string $flareApiToken = null;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.flare_error_occurrence_count'));
+    }
 
     public function warnWhenMoreErrorsReceivedThan(int $warningThreshold): self
     {
@@ -67,7 +75,10 @@ class FlareErrorOccurrenceCountCheck extends Check
             ])
             ->shortSummary($shortSummary);
 
-        $message = "In the past {$this->periodInMinutes} minutes, {$errorOccurrenceCount} errors occurred.";
+        $message = __('health::checks.flare_error_occurrence_count.too_many_errors', [
+            'period' => $this->periodInMinutes,
+            'count' => $errorOccurrenceCount,
+        ]);
 
         if ($errorOccurrenceCount > $this->errorThreshold) {
             return $result->failed($message);

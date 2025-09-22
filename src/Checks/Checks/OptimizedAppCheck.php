@@ -5,6 +5,8 @@ namespace Spatie\Health\Checks\Checks;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
+use function __;
+
 class OptimizedAppCheck extends Check
 {
     public const CONFIG = 'config';
@@ -16,25 +18,31 @@ class OptimizedAppCheck extends Check
     /** @var array<string>|null */
     public ?array $checks = null;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.optimized_app'));
+    }
+
     public function run(): Result
     {
         $result = Result::make();
 
         if ($this->shouldPerformCheck(self::CONFIG)) {
             if (! app()->configurationIsCached()) {
-                return $result->failed('Configs are not cached.');
+                return $result->failed(__('health::checks.optimized_app.config_not_cached'));
             }
         }
 
         if ($this->shouldPerformCheck(self::ROUTES)) {
             if (! app()->routesAreCached()) {
-                return $result->failed('Routes are not cached.');
+                return $result->failed(__('health::checks.optimized_app.routes_not_cached'));
             }
         }
 
         if ($this->shouldPerformCheck(self::EVENTS)) {
             if (! app()->eventsAreCached()) {
-                return $result->failed('The events are not cached.');
+                return $result->failed(__('health::checks.optimized_app.events_not_cached'));
             }
         }
 

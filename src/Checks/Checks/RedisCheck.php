@@ -7,9 +7,17 @@ use Illuminate\Support\Facades\Redis;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
+use function __;
+
 class RedisCheck extends Check
 {
     protected string $connectionName = 'default';
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.redis'));
+    }
 
     public function connectionName(string $connectionName): self
     {
@@ -27,11 +35,13 @@ class RedisCheck extends Check
         try {
             $response = $this->pingRedis();
         } catch (Exception $exception) {
-            return $result->failed("An exception occurred when connecting to Redis: `{$exception->getMessage()}`");
+            return $result->failed(__('health::checks.redis.connection_exception', [
+                'message' => $exception->getMessage(),
+            ]));
         }
 
         if ($response === false) {
-            return $result->failed('Redis returned a falsy response when try to connection to it.');
+            return $result->failed(__('health::checks.redis.falsy_response'));
         }
 
         return $result->ok();

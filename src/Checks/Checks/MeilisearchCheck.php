@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Http;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
+use function __;
+
 class MeilisearchCheck extends Check
 {
     protected int $timeout = 1;
@@ -15,6 +17,12 @@ class MeilisearchCheck extends Check
     protected string $url = 'http://127.0.0.1:7700/health';
 
     protected ?string $token = null;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.meilisearch'));
+    }
 
     public function timeout(int $seconds): self
     {
@@ -52,7 +60,7 @@ class MeilisearchCheck extends Check
         } catch (Exception) {
             return Result::make()
                 ->failed()
-                ->shortSummary('Unreachable')
+                ->shortSummary(__('health::checks.meilisearch.unreachable'))
                 ->notificationMessage("Could not reach {$this->url}.");
         }
 
@@ -60,14 +68,14 @@ class MeilisearchCheck extends Check
         if (! $response) {
             return Result::make()
                 ->failed()
-                ->shortSummary('Did not respond')
+                ->shortSummary(__('health::checks.meilisearch.did_not_respond'))
                 ->notificationMessage("Did not get a response from {$this->url}.");
         }
 
         if (! Arr::has($response, 'status')) {
             return Result::make()
                 ->failed()
-                ->shortSummary('Invalid response')
+                ->shortSummary(__('health::checks.meilisearch.invalid_response'))
                 ->notificationMessage('The response did not contain a `status` key.');
         }
 
@@ -77,7 +85,9 @@ class MeilisearchCheck extends Check
             return Result::make()
                 ->failed()
                 ->shortSummary(ucfirst($status))
-                ->notificationMessage("The health check returned a status `{$status}`.");
+                ->notificationMessage(__('health::checks.meilisearch.health_check_failed', [
+                    'status' => $status,
+                ]));
         }
 
         return Result::make()

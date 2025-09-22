@@ -11,6 +11,8 @@ use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\BackupFile;
 
+use function __;
+
 class BackupsCheck extends Check
 {
     protected ?string $locatedAt = null;
@@ -30,6 +32,12 @@ class BackupsCheck extends Check
     protected ?int $minimumNumberOfBackups = null;
 
     protected ?int $maximumNumberOfBackups = null;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.backups'));
+    }
 
     public function locatedAt(string $globPath): self
     {
@@ -101,15 +109,15 @@ class BackupsCheck extends Check
         ]);
 
         if ($backupCount === 0) {
-            return $result->failed('No backups found');
+            return $result->failed(__('health::checks.backups.no_backups_found'));
         }
 
         if ($this->minimumNumberOfBackups && $backupCount < $this->minimumNumberOfBackups) {
-            return $result->failed('Not enough backups found');
+            return $result->failed(__('health::checks.backups.not_enough_backups'));
         }
 
         if ($this->maximumNumberOfBackups && $backupCount > $this->maximumNumberOfBackups) {
-            return $result->failed('Too many backups found');
+            return $result->failed(__('health::checks.backups.too_many_backups'));
         }
 
         $youngestBackup = $this->getYoungestBackup($eligibleBackups);
@@ -121,11 +129,11 @@ class BackupsCheck extends Check
         ]);
 
         if ($this->youngestBackupIsTooOld($youngestBackup)) {
-            return $result->failed('The youngest backup was too old');
+            return $result->failed(__('health::checks.backups.youngest_backup_too_old'));
         }
 
         if ($this->oldestBackupIsTooYoung($oldestBackup)) {
-            return $result->failed('The oldest backup was too young');
+            return $result->failed(__('health::checks.backups.oldest_backup_too_young'));
         }
 
         $backupsToCheckSizeOn = $this->onlyCheckSizeOnFirstAndLast
@@ -135,7 +143,7 @@ class BackupsCheck extends Check
         if ($backupsToCheckSizeOn->filter(
             fn (BackupFile $file) => $file->size() >= $this->minimumSizeInMegabytes * 1024 * 1024
         )->isEmpty()) {
-            return $result->failed('Backups are not large enough');
+            return $result->failed(__('health::checks.backups.backups_not_large_enough'));
         }
 
         return $result->ok();

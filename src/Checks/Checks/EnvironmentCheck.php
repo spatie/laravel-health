@@ -6,10 +6,17 @@ use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
 use function app;
+use function __;
 
 class EnvironmentCheck extends Check
 {
     protected string $expectedEnvironment = 'production';
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.environment'));
+    }
 
     public function expectEnvironment(string $expectedEnvironment): self
     {
@@ -31,6 +38,9 @@ class EnvironmentCheck extends Check
 
         return $this->expectedEnvironment === $actualEnvironment
             ? $result->ok()
-            : $result->failed('The environment was expected to be `:expected`, but actually was `:actual`');
+            : $result->failed(__('health::checks.environment.expected_but_was', [
+                'expected' => $this->expectedEnvironment,
+                'actual' => $actualEnvironment,
+            ]));
     }
 }

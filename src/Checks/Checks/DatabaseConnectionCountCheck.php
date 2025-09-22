@@ -9,6 +9,8 @@ use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\DbConnectionInfo;
 use Spatie\Health\Traits\HasDatabaseConnection;
 
+use function __;
+
 class DatabaseConnectionCountCheck extends Check
 {
     use HasDatabaseConnection;
@@ -16,6 +18,12 @@ class DatabaseConnectionCountCheck extends Check
     protected ?int $warningThreshold = null;
 
     protected int $errorThreshold = 50;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.database_connection_count'));
+    }
 
     public function warnWhenMoreConnectionsThan(int $warningThreshold): self
     {
@@ -43,7 +51,9 @@ class DatabaseConnectionCountCheck extends Check
             ->shortSummary($shortSummary);
 
         if ($connectionCount > $this->errorThreshold) {
-            return $result->failed("There are too many database connections ({$connectionCount} connections)");
+            return $result->failed(__('health::checks.database_connection_count.too_many_connections', [
+                'count' => $connectionCount,
+            ]));
         }
 
         if (! is_null($this->warningThreshold)) {

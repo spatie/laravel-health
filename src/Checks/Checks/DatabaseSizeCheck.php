@@ -8,11 +8,19 @@ use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\DbConnectionInfo;
 use Spatie\Health\Traits\HasDatabaseConnection;
 
+use function __;
+
 class DatabaseSizeCheck extends Check
 {
     use HasDatabaseConnection;
 
     protected float $failWhenSizeAboveGb = 1;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.database_size'));
+    }
 
     public function failWhenSizeAboveGb(float $errorThresholdGb): self
     {
@@ -32,7 +40,10 @@ class DatabaseSizeCheck extends Check
             ->shortSummary("{$databaseSizeInGb} GB");
 
         return $databaseSizeInGb >= $this->failWhenSizeAboveGb
-            ? $result->failed("Database size is {$databaseSizeInGb} GB, which is above the threshold of {$this->failWhenSizeAboveGb} GB")
+            ? $result->failed(__('health::checks.database_size.size_above_threshold', [
+                'size' => $databaseSizeInGb,
+                'threshold' => $this->failWhenSizeAboveGb,
+            ]))
             : $result->ok();
     }
 

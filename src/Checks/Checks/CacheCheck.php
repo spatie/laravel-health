@@ -14,6 +14,12 @@ class CacheCheck extends Check
 {
     protected ?string $driver = null;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.cache'));
+    }
+
     public function driver(string $driver): self
     {
         $this->driver = $driver;

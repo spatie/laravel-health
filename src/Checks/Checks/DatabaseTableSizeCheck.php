@@ -8,12 +8,20 @@ use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\DbConnectionInfo;
 use Spatie\Health\Traits\HasDatabaseConnection;
 
+use function __;
+
 class DatabaseTableSizeCheck extends Check
 {
     use HasDatabaseConnection;
 
     /** @var array<string, int> */
     protected array $checkingTables = [];
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.database_table_size'));
+    }
 
     public function table(string $name, int $maxSizeInMb): self
     {
@@ -42,20 +50,18 @@ class DatabaseTableSizeCheck extends Check
         if ($tooBigTables->isEmpty()) {
             return $result
                 ->ok()
-                ->shortSummary('Table sizes are ok');
+                ->shortSummary(__('health::checks.database_table_size.sizes_ok'));
         }
 
         $tablesString = $tooBigTables->map(function (array $tableProperties) {
             return "`{$tableProperties['name']}` ({$tableProperties['actualSize']} MB)";
         })->join(', ', ' and ');
 
-        $messageStart = $tooBigTables->count() === 1
-            ? 'This table is'
-            : 'These tables are';
+        $messageKey = $tooBigTables->count() === 1
+            ? 'health::checks.database_table_size.single_table_too_big'
+            : 'health::checks.database_table_size.multiple_tables_too_big';
 
-        $message = "{$messageStart} too big: {$tablesString}";
-
-        return $result->failed($message);
+        return $result->failed(__($messageKey, ['tables' => $tablesString]));
     }
 
     protected function getTableSizeInMb(string $tableName): float

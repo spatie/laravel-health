@@ -20,6 +20,12 @@ class QueueCheck extends Check
 
     protected ?array $onQueues;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.queue'));
+    }
+
     public function useCacheStore(string $cacheStoreName): self
     {
         $this->cacheStoreName = $cacheStoreName;

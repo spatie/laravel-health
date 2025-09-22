@@ -16,6 +16,12 @@ class RedisMemoryUsageCheck extends Check
 
     protected float $failWhenAboveMb = 500;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.redis_memory_usage'));
+    }
+
     public function connectionName(string $connectionName): self
     {
         $this->connectionName = $connectionName;

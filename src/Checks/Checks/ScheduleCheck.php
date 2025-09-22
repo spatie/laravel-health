@@ -20,6 +20,12 @@ class ScheduleCheck extends Check
 
     protected int $heartbeatMaxAgeInMinutes = 1;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.schedule'));
+    }
+
     public function useCacheStore(string $cacheStoreName): self
     {
         $this->cacheStoreName = $cacheStoreName;

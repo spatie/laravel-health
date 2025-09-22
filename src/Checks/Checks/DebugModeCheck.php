@@ -12,6 +12,12 @@ class DebugModeCheck extends Check
 {
     protected bool $expected = false;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->label(__('health::checks.titles.debug_mode'));
+    }
+
     public function expectedToBe(bool $bool): self
     {
         $this->expected = $bool;
