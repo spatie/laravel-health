@@ -8,6 +8,8 @@ use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Traits\HasDatabaseConnection;
 
+use function __;
+
 class DatabaseCheck extends Check
 {
     use HasDatabaseConnection;
@@ -25,7 +27,9 @@ class DatabaseCheck extends Check
 
             return $result->ok();
         } catch (Exception $exception) {
-            return $result->failed("Could not connect to the database: `{$exception->getMessage()}`");
+            return $result->failed(__('health::checks.database.connection_failed', [
+                'message' => $exception->getMessage(),
+            ]));
         }
     }
 }

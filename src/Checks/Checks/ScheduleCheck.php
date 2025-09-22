@@ -8,6 +8,8 @@ use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Traits\Pingable;
 
+use function __;
+
 class ScheduleCheck extends Check
 {
     use Pingable;
@@ -56,7 +58,7 @@ class ScheduleCheck extends Check
         $lastHeartbeatTimestamp = cache()->store($this->cacheStoreName)->get($this->cacheKey);
 
         if (! $lastHeartbeatTimestamp) {
-            return $result->failed('The schedule did not run yet.');
+            return $result->failed(__('health::checks.schedule.not_running'));
         }
 
         $latestHeartbeatAt = Carbon::createFromTimestamp($lastHeartbeatTimestamp);
@@ -74,7 +76,9 @@ class ScheduleCheck extends Check
         }
 
         if ($minutesAgo > $this->heartbeatMaxAgeInMinutes) {
-            return $result->failed("The last run of the schedule was more than {$minutesAgo} minutes ago.");
+            return $result->failed(__('health::checks.schedule.last_run_too_long_ago', [
+                'minutes' => $minutesAgo,
+            ]));
         }
 
         if (config('health.schedule.heartbeat_url')) {

@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
+use function __;
+
 class CacheCheck extends Check
 {
     protected ?string $driver = null;
@@ -30,9 +32,11 @@ class CacheCheck extends Check
         try {
             return $this->canWriteValuesToCache($driver)
                 ? $result->ok()
-                : $result->failed('Could not set or retrieve an application cache value.');
+                : $result->failed(__('health::checks.cache.could_not_set_retrieve'));
         } catch (Exception $exception) {
-            return $result->failed("An exception occurred with the application cache: `{$exception->getMessage()}`");
+            return $result->failed(__('health::checks.cache.exception_occurred', [
+                'message' => $exception->getMessage(),
+            ]));
         }
     }
 

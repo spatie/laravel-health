@@ -8,6 +8,8 @@ use Illuminate\Support\Arr;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
+use function __;
+
 class QueueCheck extends Check
 {
     protected ?string $cacheKey = 'health:checks:queue:latestHeartbeatAt';
@@ -74,7 +76,7 @@ class QueueCheck extends Check
             $lastHeartbeatTimestamp = cache()->store($this->cacheStoreName)->get($this->getCacheKey($queue));
 
             if (! $lastHeartbeatTimestamp) {
-                $fails[] = "The `{$queue}` queue did not run yet.";
+                $fails[] = __('health::checks.queue.not_run_yet', ['queue' => $queue]);
 
                 continue;
             }
@@ -91,7 +93,10 @@ class QueueCheck extends Check
             }
 
             if ($minutesAgo > $this->failWhenTestJobTakesLongerThanMinutes) {
-                $fails[] = "The last run of the `{$queue}` queue was more than {$minutesAgo} minutes ago.";
+                $fails[] = __('health::checks.queue.too_long_ago', [
+                    'queue' => $queue,
+                    'minutes' => $minutesAgo,
+                ]);
             }
         }
 
@@ -100,7 +105,7 @@ class QueueCheck extends Check
         if (! empty($fails)) {
             $result->meta($fails);
 
-            return $result->failed('Queue jobs running failed. Check meta for more information.');
+            return $result->failed(__('health::checks.queue.jobs_failed'));
         }
 
         return $result->ok();

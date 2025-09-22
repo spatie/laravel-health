@@ -6,6 +6,7 @@ use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 
 use function config;
+use function __;
 
 class DebugModeCheck extends Check
 {
@@ -31,7 +32,10 @@ class DebugModeCheck extends Check
 
         return $this->expected === $actual
             ? $result->ok()
-            : $result->failed("The debug mode was expected to be `{$this->convertToWord((bool) $this->expected)}`, but actually was `{$this->convertToWord((bool) $actual)}`");
+            : $result->failed(__('health::checks.debug_mode.expected_but_was', [
+                'expected' => $this->convertToWord((bool) $this->expected),
+                'actual' => $this->convertToWord((bool) $actual),
+            ]));
     }
 
     protected function convertToWord(bool $boolean): string
