@@ -83,7 +83,7 @@ class QueueCheck extends Check
 
             $carbonVersion = InstalledVersions::getVersion('nesbot/carbon');
 
-            $minutesAgo = (int) $latestHeartbeatAt->diffInMinutes();
+            $minutesAgo = $latestHeartbeatAt->diffInMinutes();
 
             if (version_compare($carbonVersion,
                 '3.0.0', '<')) {
