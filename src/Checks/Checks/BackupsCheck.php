@@ -3,6 +3,7 @@
 namespace Spatie\Health\Checks\Checks;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -17,9 +18,9 @@ class BackupsCheck extends Check
 
     protected ?Filesystem $disk = null;
 
-    protected ?Carbon $youngestShouldHaveBeenMadeBefore = null;
+    protected ?CarbonInterface $youngestShouldHaveBeenMadeBefore = null;
 
-    protected ?Carbon $oldestShouldHaveBeenMadeAfter = null;
+    protected ?CarbonInterface $oldestShouldHaveBeenMadeAfter = null;
 
     protected ?string $parseModifiedUsing = null;
 
@@ -52,14 +53,14 @@ class BackupsCheck extends Check
         return $this;
     }
 
-    public function youngestBackShouldHaveBeenMadeBefore(Carbon $date): self
+    public function youngestBackShouldHaveBeenMadeBefore(CarbonInterface $date): self
     {
         $this->youngestShouldHaveBeenMadeBefore = $date;
 
         return $this;
     }
 
-    public function oldestBackShouldHaveBeenMadeAfter(Carbon $date): self
+    public function oldestBackShouldHaveBeenMadeAfter(CarbonInterface $date): self
     {
         $this->oldestShouldHaveBeenMadeAfter = $date;
 
