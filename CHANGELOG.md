@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.34.8 - 2025-10-10
+
+### What's Changed
+
+* Update issue template by @AlexVanderbist in https://github.com/spatie/laravel-health/pull/287
+* fix: Remove int casting in QueueCheck for Carbon 3 compatibility by @saeedhosseiinii in https://github.com/spatie/laravel-health/pull/290
+* Allow immutable dates for BackupsCheck by @yoeriboven in https://github.com/spatie/laravel-health/pull/291
+
+### New Contributors
+
+* @AlexVanderbist made their first contribution in https://github.com/spatie/laravel-health/pull/287
+* @saeedhosseiinii made their first contribution in https://github.com/spatie/laravel-health/pull/290
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.34.7...1.34.8
+
 ## 1.34.7 - 2025-08-25
 
 ### What's Changed
