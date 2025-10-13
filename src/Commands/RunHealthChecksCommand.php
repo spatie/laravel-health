@@ -81,13 +81,24 @@ class RunHealthChecksCommand extends Command
     /** @return Collection<int, Result> */
     protected function runChecks(): Collection
     {
-        return app(Health::class)
-            ->registeredChecks()
-            ->map(function (Check $check): Result {
-                return $check->shouldRun()
-                    ? $this->runCheck($check)
-                    : (new Result(Status::skipped()))->check($check)->endedAt(now());
-            });
+        [$shouldRun, $skipped] = $this->splitChecksByShouldRun(
+            app(Health::class)->registeredChecks()
+        );
+
+        // retain original order
+        return $skipped->mapWithKeys(fn (Check $check, $i) => [
+            $i => (new Result(Status::skipped()))->check($check)->endedAt(now()),
+        ])->union(
+            $shouldRun->mapWithKeys(fn (Check $check, $i) => [
+                $i => $this->runCheck($check),
+            ])
+        )->sortKeys();
+    }
+
+    /** @return array{Collection<int, Check>, Collection<int, Check>}  */
+    protected function splitChecksByShouldRun(Collection $checks): Collection
+    {
+        return $checks->partition(fn (Check $check) => $check->shouldRun());
     }
 
     /** @param  Collection<int, Result>  $results */
