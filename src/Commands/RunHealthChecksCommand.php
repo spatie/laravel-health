@@ -85,6 +85,7 @@ class RunHealthChecksCommand extends Command
             app(Health::class)->registeredChecks()
         );
 
+        // retain original order
         return $skipped->mapWithKeys(fn (Check $check, $i) => [
             $i => (new Result(Status::skipped()))->check($check)->endedAt(now()),
         ])->union(
