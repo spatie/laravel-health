@@ -11,6 +11,8 @@ This check relies on cache.
 
 First, you must schedule the `Spatie\Health\Commands\DispatchQueueCheckJobsCommand` to run every minute. This command will dispatch a very light job on the queue you wish to monitor.
 
+### For Laravel 10 and earlier
+
 ```php
 // in app/Console/Kernel.php
 use \Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
@@ -20,6 +22,19 @@ protected function schedule(Schedule $schedule) {
 
     $schedule->command(DispatchQueueCheckJobsCommand::class)->everyMinute();
 }
+```
+
+### For Laravel 11 and newer
+
+```php
+// in routes/console.php
+
+use Illuminate\Support\Facades\Schedule;
+use Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
+
+// your other scheduled commands
+
+Schedule::command(DispatchQueueCheckJobsCommand::class)->everyMinute();
 ```
 
 Next, you must register a `QueueCheck`. When providing no options, this check will monitor the `default` queue, and will fail if the job dispatched by the `DispatchQueueCheckJobsCommand` isn't handled within 5 minutes.
