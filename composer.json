@@ -30,7 +30,7 @@
         "spatie/laravel-package-tools": "^1.12.1",
         "spatie/regex": "^3.1.1|^3.1",
         "spatie/temporary-directory": "^2.2",
-        "symfony/process": "^5.4|^6.0|^7.0"
+        "symfony/process": "^5.4||^6.0||^7.0 || ^8.0"
     },
     "require-dev": {
         "laravel/horizon": "^5.9.10",
