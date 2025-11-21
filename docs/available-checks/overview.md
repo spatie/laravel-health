@@ -30,7 +30,7 @@ These are the checks created by us:
 If you have created [a custom check](/docs/laravel-health/v1/basic-usage/creating-custom-checks), consider packaging it up so others can make use of it too. Take a look at the [spatie/cpu-load-health-check](https://github.com/spatie/cpu-load-health-check) for a good example of how to package a health check. If you don't know how to create a package, consider watching the [Laravel Package Training](https://laravelpackage.training).
 
 Here's a list of third party packages:
-- [Domain Health Check](https://github.com/ziming/laravel-domain-health-check)
+- [Domain Expiry Health Check](https://github.com/ziming/laravel-domain-health-check)
 - [Env vars](https://github.com/encodia/laravel-health-env-vars)
 - [SSL certificate expiration](https://github.com/victord11/ssl-certification-health-check)
 - [Laravel Octane](https://github.com/ahtinurme/octane-health-check)
