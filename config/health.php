@@ -111,7 +111,7 @@ return [
      * This way you can get notified if Horizon goes down.
      */
     'horizon' => [
-        'heartbeat_url' => env('HORIZON_HEARTBEAT_URL', null),
+        'heartbeat_url' => env('HORIZON_HEARTBEAT_URL'),
     ],
 
     /*
@@ -120,7 +120,7 @@ return [
      * This way you can get notified if the schedule fails to run.
      */
     'schedule' => [
-        'heartbeat_url' => env('SCHEDULE_HEARTBEAT_URL', null),
+        'heartbeat_url' => env('SCHEDULE_HEARTBEAT_URL'),
     ],
 
     /*
@@ -132,7 +132,7 @@ return [
     'theme' => 'light',
 
     /*
-     * When enabled,  completed `HealthQueueJob`s will be displayed
+     * When enabled, completed `HealthQueueJob`s will be displayed
      * in Horizon's silenced jobs screen.
      */
     'silence_health_queue_job' => true,
@@ -146,7 +146,7 @@ return [
     /*
      * You can specify a secret token that needs to be sent in the X-Secret-Token for secured access.
      */
-    'secret_token' => env('HEALTH_SECRET_TOKEN') ?? null,
+    'secret_token' => env('HEALTH_SECRET_TOKEN'),
 
 /**
  * By default, conditionally skipped health checks are treated as failures.

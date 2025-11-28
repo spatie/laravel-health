@@ -5,7 +5,7 @@ weight: 1
 
 This package offers [various checks](https://spatie.be/docs/laravel-health/v1/available-checks/overview) to monitor different aspects of your application.
 
-You can register the checks you want to run, by passing an array with checks to `Spatie\Health\Facades\Health::check()`.
+You can register the checks you want to run by passing an array with checks to `Spatie\Health\Facades\Health::check()`.
 
 Here's an example where we're going to register the `UsedDiskSpace` and `DatabaseCheck`. Typically, you would put this in [a service provider of your own](https://laravel.com/docs/12.x/providers#writing-service-providers).
 
