@@ -2,6 +2,26 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.34.9 - 2025-11-28
+
+### What's Changed
+
+* Update health.php by @Erulezz in https://github.com/spatie/laravel-health/pull/292
+* fix: prevent time drift causing health checks to be skipped by @saeedhosseiinii in https://github.com/spatie/laravel-health/pull/289
+* Update queue.md to Reflect Laravel 11+ Syntax by @mnurullahsaglam in https://github.com/spatie/laravel-health/pull/293
+* Remove grammatically incorrect comma in registering-your-first-check.md by @rossalexander in https://github.com/spatie/laravel-health/pull/296
+* add memory usage and domain health check 3rd party packages by @ziming in https://github.com/spatie/laravel-health/pull/295
+* Added Symfony 8 support to all symfony/* packages. by @thecaliskan in https://github.com/spatie/laravel-health/pull/297
+
+### New Contributors
+
+* @mnurullahsaglam made their first contribution in https://github.com/spatie/laravel-health/pull/293
+* @rossalexander made their first contribution in https://github.com/spatie/laravel-health/pull/296
+* @ziming made their first contribution in https://github.com/spatie/laravel-health/pull/295
+* @thecaliskan made their first contribution in https://github.com/spatie/laravel-health/pull/297
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.34.8...1.34.9
+
 ## 1.34.8 - 2025-10-10
 
 ### What's Changed
