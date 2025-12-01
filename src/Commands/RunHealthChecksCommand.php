@@ -13,6 +13,7 @@ use Spatie\Health\Events\CheckEndedEvent;
 use Spatie\Health\Events\CheckStartingEvent;
 use Spatie\Health\Exceptions\CheckDidNotComplete;
 use Spatie\Health\Health;
+use Spatie\Health\Notifications\CheckRecoveredNotification;
 use Spatie\Health\ResultStores\ResultStore;
 
 class RunHealthChecksCommand extends Command
@@ -199,6 +200,6 @@ class RunHealthChecksCommand extends Command
     {
         return config('health.notifications.notifications.recovered')
             // for config backwards-compatibility
-            ?? array_key_last(config('health.notifications.notifications'));
+            ?? CheckRecoveredNotification::class;
     }
 }
