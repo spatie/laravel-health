@@ -187,7 +187,7 @@ class RunHealthChecksCommand extends Command
      */
     protected function getFailedNotificationClass(): string
     {
-        return config('health.notifications.failed')
+        return config('health.notifications.notifications.failed')
             // for config backwards-compatibility
             ?? array_key_first(config('health.notifications.notifications'));
     }
@@ -197,7 +197,7 @@ class RunHealthChecksCommand extends Command
      */
     protected function getRecoveryNotificationClass(): string
     {
-        return config('health.notifications.recovered')
+        return config('health.notifications.notifications.recovered')
             // for config backwards-compatibility
             ?? array_key_last(config('health.notifications.notifications'));
     }
