@@ -19,7 +19,9 @@ class CheckFailedNotification extends Notification
     public function via(): array
     {
         /** @var array<int, string> $notificationChannels */
-        $notificationChannels = config('health.notifications.notifications.'.static::class);
+        $notificationChannels = config('health.notifications.channels.failed')
+            // for config backwards-compatibility
+            ?? config('health.notifications.notifications.'.static::class);
 
         return array_filter($notificationChannels);
     }
@@ -33,19 +35,15 @@ class CheckFailedNotification extends Notification
         /** @var int $throttleMinutes */
         $throttleMinutes = config('health.notifications.throttle_notifications_for_minutes');
 
-        if ($throttleMinutes === 0) {
-            return true;
-        }
-
         $cacheKey = config('health.notifications.throttle_notifications_key', 'health:latestNotificationSentAt:').$channel;
 
         /** @var \Illuminate\Cache\CacheManager $cache */
-        $cache = app('cache');
+        $cache = cache();
 
         /** @var string $timestamp */
         $timestamp = $cache->get($cacheKey);
 
-        if (! $timestamp) {
+        if (! $timestamp || $throttleMinutes === 0) {
             $cache->set($cacheKey, now()->timestamp);
 
             return true;

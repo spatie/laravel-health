@@ -9,6 +9,12 @@ return [
 
     'check_failed_slack_message' => ':application_name पर कुछ स्वास्थ्य जाँच विफल हो गई हैं।',
 
+    'check_recovered_mail_subject' => ':application_name पर सभी स्वास्थ्य जांचें पुनः ठीक हो गई हैं',
+
+    'check_recovered_mail_body' => 'सभी स्वास्थ्य जांचें विफलता से उबर गई हैं।',
+
+    'check_recovered_slack_message' => ':application_name पर सभी स्वास्थ्य जांचें पुनः ठीक हो गई हैं।',
+
     'health_results' => 'स्वास्थ्य जाँच के परिणाम',
 
     'check_results_from' => 'परिणाम जाँचा गया है',

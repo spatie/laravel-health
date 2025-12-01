@@ -113,16 +113,20 @@ class RunHealthChecksCommand extends Command
 
     protected function sendNotification(Collection $results): self
     {
-        $resultsWithMessages = $results->filter(fn (Result $result) => ! empty($result->getNotificationMessage()));
-
-        if ($resultsWithMessages->count() === 0) {
-            return $this;
-        }
-
         $notifiableClass = config('health.notifications.notifiable');
 
         /** @var \Spatie\Health\Notifications\Notifiable $notifiable */
         $notifiable = app($notifiableClass);
+
+        $resultsWithMessages = $results->filter(fn (Result $result) => ! empty($result->getNotificationMessage()));
+
+        if ($resultsWithMessages->count() === 0) {
+            $recoveryNotificationClass = $this->getRecoveryNotificationClass();
+
+            $notifiable->notify(new $recoveryNotificationClass);
+
+            return $this;
+        }
 
         /** @var array<int, Result> $results */
         $results = $resultsWithMessages->toArray();
@@ -183,6 +187,18 @@ class RunHealthChecksCommand extends Command
      */
     protected function getFailedNotificationClass(): string
     {
-        return array_key_first(config('health.notifications.notifications'));
+        return config('health.notifications.failed')
+            // for config backwards-compatibility
+            ?? array_key_first(config('health.notifications.notifications'));
+    }
+
+    /**
+     * @return class-string
+     */
+    protected function getRecoveryNotificationClass(): string
+    {
+        return config('health.notifications.recovered')
+            // for config backwards-compatibility
+            ?? array_key_last(config('health.notifications.notifications'));
     }
 }
