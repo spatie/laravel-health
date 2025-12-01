@@ -30,16 +30,9 @@ class CheckRecoveredNotification extends Notification
         /** @var \Illuminate\Cache\CacheManager $cache */
         $cache = cache();
 
-        if (! $cache->has($cacheKey)) {
-            return false;
-        }
-
         // If the cache key existed, we assume there were previous failing checks,
         // and this recovery notification should be sent.
-
-        $cache->forget($cacheKey);
-
-        return true;
+        return (bool) $cache->pull($cacheKey);
     }
 
     public function toMail(): MailMessage
