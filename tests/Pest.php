@@ -3,7 +3,9 @@
 use Carbon\Carbon;
 use Composer\InstalledVersions;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Health\Facades\Health;
 use Spatie\Health\Tests\TestCase;
+use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 
 uses(TestCase::class)
     ->beforeEach(function () {
@@ -37,11 +39,29 @@ function addTestFile(string $path, ?Carbon $date = null, ?int $sizeInMb = null):
     }
 }
 
-function skipOnOldCarbon()
+function skipOnOldCarbon(): void
 {
     $carbonVersion = InstalledVersions::getVersion('nesbot/carbon');
 
     if (version_compare($carbonVersion, '3.0.0', '<')) {
         test()->markTestSkipped();
     }
+}
+
+function registerPassingCheck(): void
+{
+    Health::checks([
+        FakeUsedDiskSpaceCheck::new()
+            ->failWhenUsedSpaceIsAbovePercentage(10)
+            ->fakeDiskUsagePercentage(0),
+    ]);
+}
+
+function registerFailingCheck(): void
+{
+    Health::checks([
+        FakeUsedDiskSpaceCheck::new()
+            ->failWhenUsedSpaceIsAbovePercentage(10)
+            ->fakeDiskUsagePercentage(11),
+    ]);
 }

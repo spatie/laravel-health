@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Notification;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Notifications\CheckFailedNotification;
-use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 use Spatie\TestTime\TestTime;
 
 use function Pest\Laravel\artisan;
 
 beforeEach(function () {
+    Health::clearChecks();
     Notification::fake();
 });
 
@@ -78,21 +78,3 @@ test('the notification can be rendered to mail', function () {
 
     expect($html)->toBeString();
 });
-
-function registerPassingCheck()
-{
-    Health::checks([
-        FakeUsedDiskSpaceCheck::new()
-            ->failWhenUsedSpaceIsAbovePercentage(10)
-            ->fakeDiskUsagePercentage(0),
-    ]);
-}
-
-function registerFailingCheck()
-{
-    Health::checks([
-        FakeUsedDiskSpaceCheck::new()
-            ->failWhenUsedSpaceIsAbovePercentage(10)
-            ->fakeDiskUsagePercentage(11),
-    ]);
-}
