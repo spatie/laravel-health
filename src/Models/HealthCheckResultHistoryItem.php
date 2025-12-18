@@ -10,6 +10,7 @@ use Spatie\Health\ResultStores\EloquentHealthResultStore;
 
 /**
  * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  * @property string $batch
  * @property string $ended_at
  * @property string $notification_message
