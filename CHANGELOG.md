@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.34.10 - 2025-12-22
+
+### What's Changed
+
+* Adding the $updated_at property to the PHPDoc of HealthCheckResultHistoryItem by @ruuddeenen in https://github.com/spatie/laravel-health/pull/299
+
+### New Contributors
+
+* @ruuddeenen made their first contribution in https://github.com/spatie/laravel-health/pull/299
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.34.9...1.34.10
+
 ## 1.34.9 - 2025-11-28
 
 ### What's Changed
