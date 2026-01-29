@@ -146,3 +146,43 @@ it('does not perform checks if checks are paused', function () {
 
     expect($historyItems)->toHaveCount(0);
 });
+
+it('will send a notification when a check has warning status by default', function () {
+    Notification::fake();
+
+    $this->fakeDiskSpaceCheck
+        ->warnWhenUsedSpaceIsAbovePercentage(50)
+        ->fakeDiskUsagePercentage(51);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
+});
+
+it('will not send a notification for warnings when only_on_failure is enabled', function () {
+    Notification::fake();
+
+    config()->set('health.notifications.only_on_failure', true);
+
+    $this->fakeDiskSpaceCheck
+        ->warnWhenUsedSpaceIsAbovePercentage(50)
+        ->fakeDiskUsagePercentage(51);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+
+    Notification::assertSentTimes(CheckFailedNotification::class, 0);
+});
+
+it('will send a notification for failures when only_on_failure is enabled', function () {
+    Notification::fake();
+
+    config()->set('health.notifications.only_on_failure', true);
+
+    $this->fakeDiskSpaceCheck
+        ->failWhenUsedSpaceIsAbovePercentage(50)
+        ->fakeDiskUsagePercentage(51);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+
+    Notification::assertSentTimes(CheckFailedNotification::class, 1);
+});

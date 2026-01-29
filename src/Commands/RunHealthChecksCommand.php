@@ -115,6 +115,12 @@ class RunHealthChecksCommand extends Command
     {
         $resultsWithMessages = $results->filter(fn (Result $result) => ! empty($result->getNotificationMessage()));
 
+        if (config('health.notifications.only_on_failure', false)) {
+            $resultsWithMessages = $resultsWithMessages->filter(
+                fn (Result $result) => $result->status === Status::failed()
+            );
+        }
+
         if ($resultsWithMessages->count() === 0) {
             return $this;
         }

@@ -75,6 +75,12 @@ return [
          * only get one notification per hour.
          */
         'throttle_notifications_for_minutes' => 60,
+        
+        /*
+         * When set to true, notifications will only be sent when at least one
+         * check has a 'failed' status. Warnings will be ignored.
+         */
+        'only_on_failure' => false,
 
         'mail' => [
             'to' => 'your@example.com',
