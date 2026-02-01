@@ -65,3 +65,18 @@ Health::checks([
 ```
 
 When a ping fails, it will be logged to your application's log file.
+
+### Fail after minutes
+
+By default, the check will immediately report a failure when Horizon is down. You can use `failAfterMinutes()` to delay the failure status. When this option is set, the check will first report a **warning** status when Horizon becomes unreachable. Only if Horizon remains unreachable for the specified number of minutes, the check will transition to a **failed** status.
+
+This is useful to avoid false alarms caused by temporary Horizon downtimes (e.g. during deployment).
+
+```php
+Health::checks([
+    HorizonCheck::new()
+        ->failAfterMinutes(3),
+]);
+```
+
+In this example, the check will return a warning for the first 3 minutes of unreachability, and only after that will it report a failure.
