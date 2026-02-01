@@ -172,6 +172,6 @@ class PingCheck extends Check
 
     protected function getCacheKey(): string
     {
-        return $this->cacheKeyPrefix . ':' . Str::slug($this->getName()) . ':firstFailureAt';
+        return $this->cacheKeyPrefix.':'.Str::slug($this->getName()).':firstFailureAt';
     }
 }
