@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.35.0 - 2026-02-01
+
+### What's Changed
+
+* Add `only_on_failure` option for notifications by @faustoFF in https://github.com/spatie/laravel-health/pull/301
+* Add `failAfterMinutes` support to PingCheck by @faustoFF in https://github.com/spatie/laravel-health/pull/300
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.34.10...1.35.0
+
 ## 1.34.10 - 2025-12-22
 
 ### What's Changed
