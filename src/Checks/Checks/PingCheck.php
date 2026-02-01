@@ -2,16 +2,17 @@
 
 namespace Spatie\Health\Checks\Checks;
 
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Exceptions\InvalidCheck;
+use Spatie\Health\Traits\HasFailedAfter;
 
 class PingCheck extends Check
 {
+    use HasFailedAfter;
+
     protected ?string $url = null;
 
     protected ?string $failureMessage = null;
@@ -24,12 +25,6 @@ class PingCheck extends Check
 
     /** @var array<string, string> */
     protected array $headers = [];
-
-    protected int $failAfterMinutes = 0;
-
-    protected ?string $cacheStoreName = null;
-
-    protected string $cacheKeyPrefix = 'health:checks:ping';
 
     public function url(string $url): self
     {
@@ -70,37 +65,16 @@ class PingCheck extends Check
         return $this;
     }
 
-    public function failAfterMinutes(int $minutes): self
-    {
-        $this->failAfterMinutes = $minutes;
-
-        return $this;
-    }
-
-    public function useCacheStore(string $cacheStoreName): self
-    {
-        $this->cacheStoreName = $cacheStoreName;
-
-        return $this;
-    }
-
-    public function getCacheStoreName(): string
-    {
-        return $this->cacheStoreName ?? config('cache.default');
-    }
-
-    public function cacheKeyPrefix(string $cacheKeyPrefix): self
-    {
-        $this->cacheKeyPrefix = $cacheKeyPrefix;
-
-        return $this;
-    }
-
     public function failureMessage(string $failureMessage): self
     {
         $this->failureMessage = $failureMessage;
 
         return $this;
+    }
+
+    protected function getCacheKeyPrefix(): string
+    {
+        return 'health:checks:ping';
     }
 
     public function run(): Result
@@ -124,34 +98,8 @@ class PingCheck extends Check
             return $this->handleFailure();
         }
 
-        cache()->store($this->cacheStoreName)->forget($this->getCacheKey());
-
-        return Result::make()
-            ->ok()
+        return $this->handleSuccess()
             ->shortSummary('Reachable');
-    }
-
-    protected function handleFailure(): Result
-    {
-        if ($this->failAfterMinutes <= 0) {
-            return $this->failedResult();
-        }
-
-        $cacheKey = $this->getCacheKey();
-        $firstFailureAt = cache()->store($this->cacheStoreName)->get($cacheKey);
-
-        if ($firstFailureAt === null) {
-            cache()->store($this->cacheStoreName)->put($cacheKey, now());
-
-            return $this->warningResult();
-        }
-
-        $failingSince = Carbon::parse($firstFailureAt);
-        if ($failingSince->diffInMinutes(now()) >= $this->failAfterMinutes) {
-            return $this->failedResult();
-        }
-
-        return $this->warningResult();
     }
 
     protected function warningResult(): Result
@@ -168,10 +116,5 @@ class PingCheck extends Check
             ->failed()
             ->shortSummary('Unreachable')
             ->notificationMessage($this->failureMessage ?? "Pinging {$this->getName()} failed.");
-    }
-
-    protected function getCacheKey(): string
-    {
-        return $this->cacheKeyPrefix.':'.Str::slug($this->getName()).':firstFailureAt';
     }
 }
