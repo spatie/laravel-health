@@ -1,8 +1,9 @@
 cacheStoreName: array
 queues:
     - sync
-label: Queue
 name: Queue
+label: Queue
 runConditions:
     - true
     - {  }
+shouldRun: false
