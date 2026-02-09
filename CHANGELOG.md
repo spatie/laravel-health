@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.36.0 - 2026-02-09
+
+### What's Changed
+
+* Fix snapshot tests broken by phpunit-snapshot-assertions 5.3.1 by @freekmurze in https://github.com/spatie/laravel-health/pull/304
+* Extract `failAfterMinutes` logic into reusable `HasFailedAfter` trait / add support to HorizonCheck by @onlime in https://github.com/spatie/laravel-health/pull/303
+
+### New Contributors
+
+* @freekmurze made their first contribution in https://github.com/spatie/laravel-health/pull/304
+* @onlime made their first contribution in https://github.com/spatie/laravel-health/pull/303
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.35.0...1.36.0
+
 ## 1.35.0 - 2026-02-01
 
 ### What's Changed
