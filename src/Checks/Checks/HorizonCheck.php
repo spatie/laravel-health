@@ -6,10 +6,12 @@ use Exception;
 use Laravel\Horizon\Contracts\MasterSupervisorRepository;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
+use Spatie\Health\Traits\HasFailedAfter;
 use Spatie\Health\Traits\Pingable;
 
 class HorizonCheck extends Check
 {
+    use HasFailedAfter;
     use Pingable;
 
     protected ?string $heartbeatUrl = null;
@@ -27,26 +29,25 @@ class HorizonCheck extends Check
 
     public function run(): Result
     {
-        $result = Result::make();
-
         try {
             $horizon = app(MasterSupervisorRepository::class);
         } catch (Exception) {
-            return $result->failed('Horizon does not seem to be installed correctly.');
+            return Result::make()
+                ->failed('Horizon does not seem to be installed correctly.');
         }
 
         $masterSupervisors = $horizon->all();
 
         if (count($masterSupervisors) === 0) {
-            return $result
-                ->failed('Horizon is not running.')
+            return $this
+                ->handleFailure('Horizon is not running.')
                 ->shortSummary('Not running');
         }
 
         $masterSupervisor = $masterSupervisors[0];
 
         if ($masterSupervisor->status === 'paused') {
-            return $result
+            return Result::make()
                 ->warning('Horizon is running, but the status is paused.')
                 ->shortSummary('Paused');
         }
@@ -57,6 +58,8 @@ class HorizonCheck extends Check
             $this->pingUrl($heartbeatUrl);
         }
 
-        return $result->ok()->shortSummary('Running');
+        return $this
+            ->handleSuccess()
+            ->shortSummary('Running');
     }
 }

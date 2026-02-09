@@ -21,7 +21,7 @@ class TestCase extends Orchestra
         );
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             HealthServiceProvider::class,
@@ -29,7 +29,7 @@ class TestCase extends Orchestra
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    public function getEnvironmentSetUp($app): void
     {
         Schema::dropAllTables();
 
@@ -37,17 +37,32 @@ class TestCase extends Orchestra
         $migration->up();
     }
 
-    protected function fakeHorizonStatus(string $status)
+    protected function fakeHorizonStatus(string $status): void
     {
         $masters = Mockery::mock(MasterSupervisorRepository::class);
-        $masters->shouldReceive('all')->andReturn([
-            (object) [
-                'status' => $status,
-            ],
-            (object) [
-                'status' => $status,
-            ],
-        ]);
+        $masters->shouldReceive('all')->andReturn(
+            $status === 'down' ? [] : [
+                (object) ['status' => $status],
+                (object) ['status' => $status],
+            ]
+        );
+
+        $this->app->instance(MasterSupervisorRepository::class, $masters);
+    }
+
+    protected function fakeHorizonStatusSequence(array $statuses): void
+    {
+        $masters = Mockery::mock(MasterSupervisorRepository::class);
+
+        $masters->shouldReceive('all')
+            ->andReturnUsing(function () use (&$statuses) {
+                $status = array_shift($statuses);
+
+                return $status === 'down' ? [] : [
+                    (object) ['status' => $status],
+                    (object) ['status' => $status],
+                ];
+            });
 
         $this->app->instance(MasterSupervisorRepository::class, $masters);
     }
