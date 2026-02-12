@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Queue;
 use Spatie\Health\Checks\Checks\QueueCheck;
 use Spatie\Health\Commands\DispatchQueueCheckJobsCommand;
@@ -113,6 +114,62 @@ it('can get default queue settings', function () {
     config()->set("queue.connections.{$queueConnection}.queue", $queueName);
 
     expect($this->queueCheck->getQueues())->toBe([$queueName]);
+});
+
+it('will return warning on first failure when failAfterMinutes is set', function () {
+    $check = QueueCheck::new()->failAfterMinutes(2);
+
+    Health::clearChecks();
+    Health::checks([$check]);
+
+    $result = $check->run();
+
+    expect($result->status)->toBe(Status::warning());
+});
+
+it('will return failed after grace period expires', function () {
+    $check = QueueCheck::new()->failAfterMinutes(2);
+
+    Health::clearChecks();
+    Health::checks([$check]);
+
+    // First failure - should be warning
+    $result = $check->run();
+    expect($result->status)->toBe(Status::warning());
+
+    // Travel past the grace period
+    Carbon::setTestNow(now()->addMinutes(3));
+
+    // Second failure after grace period - should be failed
+    $result = $check->run();
+    expect($result->status)->toBe(Status::failed());
+
+    Carbon::setTestNow();
+});
+
+it('will reset failure cache on successful queue run', function () {
+    $check = QueueCheck::new()->failAfterMinutes(2);
+
+    Health::clearChecks();
+    Health::checks([$check]);
+
+    // First: no heartbeat - should be warning
+    $result = $check->run();
+    expect($result->status)->toBe(Status::warning());
+
+    // Dispatch heartbeat job (simulates queue running again after deploy)
+    artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
+
+    // Second: heartbeat present - should be ok (cache cleared)
+    $result = $check->run();
+    expect($result->status)->toBe(Status::ok());
+
+    // Clear the heartbeat cache to simulate queue down again
+    cache()->store($check->getCacheStoreName())->flush();
+
+    // Third: failure again - should be warning (not failed, because cache was reset)
+    $result = $check->run();
+    expect($result->status)->toBe(Status::warning());
 });
 
 it('can serialize closures', function () {

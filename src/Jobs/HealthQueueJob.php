@@ -25,7 +25,7 @@ class HealthQueueJob implements ShouldQueue
         cache()
             ->store($cacheStore)
             ->set(
-                $this->queueCheck->getCacheKey($this->queue),
+                $this->queueCheck->getHeartbeatCacheKey($this->queue),
                 now()->timestamp,
             );
     }
