@@ -1,4 +1,4 @@
-cacheStoreName: array
+cacheKey: 'health:checks:queue:firstFailureAt'
 queues:
     - sync
 name: Queue
@@ -7,3 +7,4 @@ runConditions:
     - true
     - {  }
 shouldRun: false
+cacheStoreName: array
