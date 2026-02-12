@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.37.0 - 2026-02-12
+
+### What's Changed
+
+* Add `failAfterMinutes` support to `QueueCheck` by @stefket in https://github.com/spatie/laravel-health/pull/305
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.36.0...1.37.0
+
 ## 1.36.0 - 2026-02-09
 
 ### What's Changed
