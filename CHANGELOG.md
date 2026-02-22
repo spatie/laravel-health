@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.38.0 - 2026-02-22
+
+Add Laravel 13.x support
+
 ## 1.37.0 - 2026-02-12
 
 ### What's Changed
