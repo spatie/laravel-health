@@ -34,6 +34,17 @@ Health::checks([
 ]);
 ```
 
+If you need more precise control, you can use `timeoutMs()` to set the timeout in milliseconds.
+
+```php
+use Spatie\Health\Facades\Health;
+use Spatie\Health\Checks\Checks\PingCheck;
+
+Health::checks([
+    PingCheck::new()->url('https://example.com')->timeoutMs(500),
+]);
+```
+
 
 ### Customizing the name
 
