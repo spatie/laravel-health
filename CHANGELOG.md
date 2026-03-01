@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.39.0 - 2026-03-01
+
+### What's Changed
+
+* Add `timeoutMs()` method to `PingCheck` for sub-second timeout control by @faytekin in https://github.com/spatie/laravel-health/pull/307
+* Remove `laravel/slack-notification-channel` from require-dev to fix L13 CI builds in https://github.com/spatie/laravel-health/pull/308
+
+### New Contributors
+
+* @faytekin made their first contribution in https://github.com/spatie/laravel-health/pull/307
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.38.0...1.39.0
+
 ## 1.38.0 - 2026-02-22
 
 Add Laravel 13.x support
