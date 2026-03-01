@@ -17,7 +17,7 @@ class PingCheck extends Check
 
     protected ?string $failureMessage = null;
 
-    protected int $timeout = 1;
+    protected int $timeoutMs = 1000;
 
     protected int $retryTimes = 1;
 
@@ -35,7 +35,14 @@ class PingCheck extends Check
 
     public function timeout(int $seconds): self
     {
-        $this->timeout = $seconds;
+        $this->timeoutMs = $seconds * 1000;
+
+        return $this;
+    }
+
+    public function timeoutMs(int $milliseconds): self
+    {
+        $this->timeoutMs = $milliseconds;
 
         return $this;
     }
@@ -85,8 +92,10 @@ class PingCheck extends Check
                 ->shortSummary(InvalidCheck::urlNotSet()->getMessage());
         }
 
+        $timeoutInSeconds = $this->timeoutMs / 1000;
+
         try {
-            $request = Http::timeout($this->timeout)
+            $request = Http::withOptions(['timeout' => $timeoutInSeconds, 'connect_timeout' => $timeoutInSeconds])
                 ->withHeaders($this->headers)
                 ->retry($this->retryTimes)
                 ->send($this->method, $this->url);

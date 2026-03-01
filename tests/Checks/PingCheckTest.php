@@ -102,6 +102,32 @@ it('will reset failure cache on successful request', function () {
     expect($result->status)->toBe(Status::warning());
 });
 
+it('can set timeout in milliseconds', function () {
+    Http::fake([
+        '*' => Http::response(status: 200),
+    ]);
+
+    $result = PingCheck::new()
+        ->url('https://dummy-url.com')
+        ->timeoutMs(500)
+        ->run();
+
+    expect($result->status)->toBe(Status::ok());
+});
+
+it('timeout method still works with seconds', function () {
+    Http::fake([
+        '*' => Http::response(status: 200),
+    ]);
+
+    $result = PingCheck::new()
+        ->url('https://dummy-url.com')
+        ->timeout(2)
+        ->run();
+
+    expect($result->status)->toBe(Status::ok());
+});
+
 it('will return warning during grace period', function () {
     Http::fake([
         '*' => Http::response(status: 500),
