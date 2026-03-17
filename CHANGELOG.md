@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.39.1 - 2026-03-17
+
+### What's Changed
+
+* Round diffInMinutes float in failure messages by @mattiasgeniar in https://github.com/spatie/laravel-health/pull/309
+
+### New Contributors
+
+* @mattiasgeniar made their first contribution in https://github.com/spatie/laravel-health/pull/309
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.39.0...1.39.1
+
 ## 1.39.0 - 2026-03-01
 
 ### What's Changed
