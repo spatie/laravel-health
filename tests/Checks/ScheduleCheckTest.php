@@ -51,6 +51,17 @@ it('can use custom max age of the heartbeat', function () {
     expect($result->status)->toBe(Status::failed());
 });
 
+it('rounds minutes in failure message', function () {
+    artisan(ScheduleCheckHeartbeatCommand::class)->assertSuccessful();
+
+    testTime()->addMinutes(1)->addSeconds(5);
+
+    $result = $this->scheduleCheck->run();
+
+    expect($result->status)->toBe(Status::failed())
+        ->and($result->notificationMessage)->toMatch('/^The last run of the schedule was more than \d+(\.\d{1,2})? minutes ago\.$/');
+})->skipOnOldCarbon();
+
 it('pings heartbeat url when configured', function () {
     Http::fake();
     config()->set('health.schedule.heartbeat_url', 'https://example.com/heartbeat');
