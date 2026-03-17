@@ -58,6 +58,17 @@ it('can use custom max age of the heartbeat for queue jobs', function () {
     expect($result->status)->toBe(Status::failed());
 })->skipOnOldCarbon();
 
+it('rounds minutes in failure message', function () {
+    artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
+
+    testTime()->addMinutes(5)->addSeconds(5);
+
+    $result = $this->queueCheck->run();
+
+    expect($result->status)->toBe(Status::failed())
+        ->and($result->meta)->each->toMatch('/^The last run of the `\w+` queue was more than \d+(\.\d{1,2})? minutes ago\.$/');
+})->skipOnOldCarbon();
+
 it('will fail if only one queue is not working', function () {
     Health::clearChecks();
 

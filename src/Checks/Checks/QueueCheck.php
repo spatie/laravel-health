@@ -80,7 +80,8 @@ class QueueCheck extends Check
             }
 
             if ($minutesAgo > $this->failWhenTestJobTakesLongerThanMinutes) {
-                $fails[] = "The last run of the `{$queue}` queue was more than {$minutesAgo} minutes ago.";
+                $roundedMinutes = round($minutesAgo, 2);
+                $fails[] = "The last run of the `{$queue}` queue was more than {$roundedMinutes} minutes ago.";
             }
         }
 
