@@ -13,6 +13,7 @@ use Spatie\Health\Events\CheckEndedEvent;
 use Spatie\Health\Events\CheckStartingEvent;
 use Spatie\Health\Exceptions\CheckDidNotComplete;
 use Spatie\Health\Health;
+use Spatie\Health\Notifications\Notifiable;
 use Spatie\Health\ResultStores\ResultStore;
 
 class RunHealthChecksCommand extends Command
@@ -127,7 +128,7 @@ class RunHealthChecksCommand extends Command
 
         $notifiableClass = config('health.notifications.notifiable');
 
-        /** @var \Spatie\Health\Notifications\Notifiable $notifiable */
+        /** @var Notifiable $notifiable */
         $notifiable = app($notifiableClass);
 
         /** @var array<int, Result> $results */

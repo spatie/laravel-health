@@ -3,6 +3,7 @@
 namespace Spatie\Health\Notifications;
 
 use Carbon\Carbon;
+use Illuminate\Cache\CacheManager;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
@@ -39,7 +40,7 @@ class CheckFailedNotification extends Notification
 
         $cacheKey = config('health.notifications.throttle_notifications_key', 'health:latestNotificationSentAt:').$channel;
 
-        /** @var \Illuminate\Cache\CacheManager $cache */
+        /** @var CacheManager $cache */
         $cache = app('cache');
 
         /** @var string $timestamp */

@@ -23,7 +23,7 @@ class JsonFileHealthResultStore implements ResultStore
         $this->path = $path;
     }
 
-    /** @param  Collection<int, \Spatie\Health\Checks\Result>  $checkResults */
+    /** @param  Collection<int, Result>  $checkResults */
     public function save(Collection $checkResults): void
     {
         $report = new StoredCheckResults(now());

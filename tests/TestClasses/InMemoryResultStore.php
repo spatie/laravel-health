@@ -11,7 +11,7 @@ use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 
 class InMemoryResultStore implements ResultStore
 {
-    /** @var \Illuminate\Support\Collection<int, Result> */
+    /** @var Collection<int, Result> */
     public static Collection $checkResults;
 
     public function save(Collection $checkResults): void

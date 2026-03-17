@@ -75,6 +75,7 @@ class ScheduleCheck extends Check
 
         if ($minutesAgo > $this->heartbeatMaxAgeInMinutes) {
             $roundedMinutes = round($minutesAgo, 2);
+
             return $result->failed("The last run of the schedule was more than {$roundedMinutes} minutes ago.");
         }
 
