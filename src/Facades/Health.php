@@ -35,6 +35,6 @@ class Health extends Facade
 
     protected static function getFacadeAccessor()
     {
-        return 'health';
+        return \Spatie\Health\Health::class;
     }
 }

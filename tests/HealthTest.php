@@ -181,6 +181,12 @@ it('can fake checks', function () {
     }
 });
 
+it('does not register a container alias named "health" that would shadow a middleware of the same name', function () {
+    // Regression test for https://github.com/spatie/laravel-health/issues/310: a 'health' alias
+    // caused ->middleware('health') to resolve to the Health service instead of throwing.
+    expect(app()->bound('health'))->toBeFalse();
+});
+
 it('can pass a closure to fake checks', function () {
     Health::checks([
         DatabaseCheck::new()->name('MySQL')->connectionName('mysql'),
