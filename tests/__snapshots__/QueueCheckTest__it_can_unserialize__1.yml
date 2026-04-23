@@ -1,10 +1,10 @@
 cacheKey: 'health:checks:queue:firstFailureAt'
 queues:
     - sync
+cacheStoreName: array
 name: Queue
 label: Queue
 runConditions:
     - true
     - {  }
 shouldRun: false
-cacheStoreName: array
