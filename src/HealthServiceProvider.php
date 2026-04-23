@@ -44,7 +44,6 @@ class HealthServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->app->singleton(Health::class);
-        $this->app->alias(Health::class, 'health');
 
         $this->app->bind(ResultStore::class, fn () => ResultStores::createFromConfig()->first());
     }
