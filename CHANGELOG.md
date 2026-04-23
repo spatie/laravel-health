@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.39.2 - 2026-04-23
+
+### What's Changed
+
+* Remove 'health' container alias to prevent middleware name collision by @freekmurze in https://github.com/spatie/laravel-health/pull/311
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.39.1...1.39.2
+
 ## 1.39.1 - 2026-03-17
 
 ### What's Changed
