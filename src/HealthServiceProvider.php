@@ -71,7 +71,8 @@ class HealthServiceProvider extends PackageServiceProvider
             return $this;
         }
 
-        Route::get(config('health.oh_dear_endpoint.url'), HealthCheckJsonResultsController::class)
+        Route::domain(config('health.oh_dear_endpoint.domain'))
+            ->get(config('health.oh_dear_endpoint.url'), HealthCheckJsonResultsController::class)
             ->middleware(RequiresSecret::class);
 
         return $this;
