@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.39.3 - 2026-05-13
+
+### What's Changed
+
+* Update packages to resolve security issues by @rebecca-canyon in https://github.com/spatie/laravel-health/pull/314
+
+### New Contributors
+
+* @rebecca-canyon made their first contribution in https://github.com/spatie/laravel-health/pull/314
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.39.2...1.39.3
+
 ## 1.39.2 - 2026-04-23
 
 ### What's Changed
