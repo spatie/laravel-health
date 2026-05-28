@@ -40,7 +40,7 @@ return [
         /*
          * Notifications will only get sent if this option is set to `true`.
          */
-        'enabled' => true,
+        'enabled' => env('HEALTH_NOTIFICATIONS_ENABLED', true),
 
         'notifications' => [
             CheckFailedNotification::class => ['mail'],
@@ -69,7 +69,7 @@ return [
         'only_on_failure' => false,
 
         'mail' => [
-            'to' => 'your@example.com',
+            'to' => env('HEALTH_TO_ADDRESS', ''),
 
             'from' => [
                 'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
