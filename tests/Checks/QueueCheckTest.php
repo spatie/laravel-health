@@ -13,7 +13,6 @@ use function PHPUnit\Framework\assertCount;
 use function PHPUnit\Framework\assertInstanceOf;
 use function PHPUnit\Framework\assertIsBool;
 use function Spatie\PestPluginTestTime\testTime;
-use function Spatie\Snapshots\assertMatchesObjectSnapshot;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 beforeEach(function () {
