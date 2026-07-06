@@ -157,12 +157,12 @@ it('can fake checks', function () {
 
     Health::fake([
         DatabaseCheck::class => new Result(
-            Status::crashed(),
+            Status::Crashed,
             "We're just making sure faking works",
             'Hey, faking works!',
         ),
         PingCheck::class => FakeCheck::result(
-            new Result(Status::warning()),
+            new Result(Status::Warning),
             true
         ),
     ]);
@@ -173,8 +173,8 @@ it('can fake checks', function () {
      */
     if (version_compare(App::version(), '9.2.0', '>=')) {
         $this->artisan('health:check', ['--fail-command-on-failing-check' => true])
-            ->expectsOutputToContain(ucfirst((string) Status::crashed()->value))
-            ->expectsOutputToContain(ucfirst((string) Status::warning()->value))
+            ->expectsOutputToContain(ucfirst((string) Status::Crashed->value))
+            ->expectsOutputToContain(ucfirst((string) Status::Warning->value))
             ->assertFailed();
     } else {
         $this->artisan('health:check', ['--fail-command-on-failing-check' => true])->assertFailed();
@@ -196,8 +196,8 @@ it('can pass a closure to fake checks', function () {
     Health::fake([
         DatabaseCheck::class => function (DatabaseCheck $check) {
             return $check->getName() === 'MySQL'
-                ? new Result(Status::crashed())
-                : new Result(Status::warning());
+                ? new Result(Status::Crashed)
+                : new Result(Status::Warning);
         },
     ]);
 
@@ -207,8 +207,8 @@ it('can pass a closure to fake checks', function () {
      */
     if (version_compare(App::version(), '9.2.0', '>=')) {
         $this->artisan('health:check', ['--fail-command-on-failing-check' => true])
-            ->expectsOutputToContain(ucfirst((string) Status::crashed()->value))
-            ->expectsOutputToContain(ucfirst((string) Status::warning()->value))
+            ->expectsOutputToContain(ucfirst((string) Status::Crashed->value))
+            ->expectsOutputToContain(ucfirst((string) Status::Warning->value))
             ->assertFailed();
     } else {
         $this->artisan('health:check', ['--fail-command-on-failing-check' => true])->assertFailed();

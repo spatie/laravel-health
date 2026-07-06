@@ -7,7 +7,7 @@ use Spatie\Health\Tests\TestClasses\FakeCacheCheck;
 it('will determine that a working cache is ok', function () {
     $result = CacheCheck::new()->run();
 
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 });
 
 it('will determine that a non-existing cache is not ok', function () {
@@ -16,7 +16,7 @@ it('will determine that a non-existing cache is not ok', function () {
         ->run();
 
     expect($result)
-        ->status->toBe(Status::failed())
+        ->status->toBe(Status::Failed)
         ->getNotificationMessage()->toBe('An exception occurred with the application cache: `Cache store [does-not-exist] is not defined.`');
 });
 
@@ -26,6 +26,6 @@ it('will return an error when it cannot set or retrieve cache key', function () 
         ->run();
 
     expect($result)
-        ->status->toBe(Status::failed())
+        ->status->toBe(Status::Failed)
         ->notificationMessage->toBe('Could not set or retrieve an application cache value.');
 });

@@ -14,13 +14,13 @@
         @foreach ($checkResults->storedCheckResults as $result)
             <div class="space-x-1">
                 <span class="w-10">
-                    <b class="uppercase {{ $color($result->status) }}">
-                        {{ ucfirst($result->status) }}
+                    <b class="uppercase {{ $result->status->getCliColor() }}">
+                        {{ ucfirst($result->status->value) }}
                     </b>
                 </span>
                 <span>{{ $result->label }}</span>
                 <span class="text-gray">›</span>
-                <span class="{{ $color($result->status) }}"> {{ $result->shortSummary }}</span>
+                <span class="{{ $result->status->getCliColor() }}"> {{ $result->shortSummary }}</span>
             </div>
             @if ($result->notificationMessage)
             <div class="ml-11 text-gray">

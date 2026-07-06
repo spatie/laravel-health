@@ -22,9 +22,9 @@ it('can check the error occurrence count in flare', function (int $actualErrorCo
 
     expect($result->status->value)->toBe($expectedStatus->value);
 })->with([
-    [0, Status::ok()],
-    [10, Status::ok()],
-    [11, Status::warning()],
-    [20, Status::warning()],
-    [21, Status::failed()],
+    [0, Status::Ok],
+    [10, Status::Ok],
+    [11, Status::Warning],
+    [20, Status::Warning],
+    [21, Status::Failed],
 ]);

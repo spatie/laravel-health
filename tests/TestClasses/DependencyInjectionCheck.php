@@ -23,7 +23,7 @@ class DependencyInjectionCheck extends Check
         $this->logger->info('Dependency injection worked');
 
         return new Result(
-            Status::ok(),
+            Status::Ok,
         );
     }
 

@@ -22,7 +22,7 @@ class InMemoryHealthResultStore implements ResultStore
                     label: $result->check->getLabel(),
                     notificationMessage: $result->getNotificationMessage(),
                     shortSummary: $result->getShortSummary(),
-                    status: (string) $result->status->value,
+                    status: $result->status,
                     meta: $result->meta,
                 );
             })

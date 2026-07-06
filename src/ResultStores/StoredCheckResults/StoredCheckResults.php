@@ -26,7 +26,7 @@ class StoredCheckResults
                 $lineProperties['label'] ?? '',
                 $lineProperties['notificationMessage'] ?? '',
                 $lineProperties['shortSummary'] ?? '',
-                $lineProperties['status'] ?? '',
+                Status::tryFrom($lineProperties['status'] ?? '') ?? Status::Failed,
                 $lineProperties['meta'] ?? [],
             ))
             ->unique('name')
@@ -52,8 +52,8 @@ class StoredCheckResults
         $treatSkippedAsFailure = config('health.treat_skipped_as_failure', true);
 
         $this->okStatuses = $treatSkippedAsFailure
-            ? [Status::ok()->value]
-            : [Status::ok()->value, Status::skipped()->value];
+            ? [Status::Ok]
+            : [Status::Ok, Status::Skipped];
     }
 
     public function addCheck(StoredCheckResult $line): self
@@ -71,7 +71,7 @@ class StoredCheckResults
     public function containsFailingCheck(): bool
     {
         return $this->storedCheckResults->contains(
-            fn (StoredCheckResult $line) => ! in_array($line->status, $this->okStatuses)
+            fn (StoredCheckResult $line) => ! in_array($line->status, $this->okStatuses, true)
         );
     }
 
@@ -85,7 +85,7 @@ class StoredCheckResults
         }
 
         return $this->storedCheckResults->contains(
-            fn (StoredCheckResult $line) => in_array($line->status, $statuses)
+            fn (StoredCheckResult $line) => in_array($line->status, $statuses, true)
         );
     }
 

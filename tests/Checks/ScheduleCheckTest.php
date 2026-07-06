@@ -23,15 +23,15 @@ it('can check whether the scheduler is still running', function () {
     artisan(ScheduleCheckHeartbeatCommand::class)->assertSuccessful();
 
     $result = $this->scheduleCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     testTime()->addMinute()->subSecond();
     $result = $this->scheduleCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     testTime()->addSecond();
     $result = $this->scheduleCheck->run();
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 });
 
 it('can use custom max age of the heartbeat', function () {
@@ -40,15 +40,15 @@ it('can use custom max age of the heartbeat', function () {
     artisan(ScheduleCheckHeartbeatCommand::class)->assertSuccessful();
 
     $result = $this->scheduleCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     testTime()->addMinutes(2)->subSecond();
     $result = $this->scheduleCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     testTime()->addSecond();
     $result = $this->scheduleCheck->run();
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 });
 
 it('rounds minutes in failure message', function () {
@@ -58,7 +58,7 @@ it('rounds minutes in failure message', function () {
 
     $result = $this->scheduleCheck->run();
 
-    expect($result->status)->toBe(Status::failed())
+    expect($result->status)->toBe(Status::Failed)
         ->and($result->notificationMessage)->toMatch('/^The last run of the schedule was more than \d+(\.\d{1,2})? minutes ago\.$/');
 })->skipOnOldCarbon();
 
@@ -69,7 +69,7 @@ it('pings heartbeat url when configured', function () {
     artisan(ScheduleCheckHeartbeatCommand::class)->assertSuccessful();
 
     $result = $this->scheduleCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     Http::assertSent(function ($request) {
         return $request->url() === 'https://example.com/heartbeat';
@@ -83,7 +83,7 @@ it('does not ping heartbeat url when not configured', function () {
     artisan(ScheduleCheckHeartbeatCommand::class)->assertSuccessful();
 
     $result = $this->scheduleCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     Http::assertNothingSent();
 });

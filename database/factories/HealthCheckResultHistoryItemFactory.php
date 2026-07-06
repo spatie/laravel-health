@@ -7,18 +7,19 @@ use Illuminate\Support\Str;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 
+/**
+ * @extends Factory<HealthCheckResultHistoryItem>
+ */
 class HealthCheckResultHistoryItemFactory extends Factory
 {
-    protected $model = HealthCheckResultHistoryItem::class;
-
     public function definition(): array
     {
         return [
-            'check_name' => $this->faker->word(),
-            'check_label' => $this->faker->word(),
-            'status' => $this->faker->randomElement(Status::toArray()),
-            'notification_message' => $this->faker->text(),
-            'short_summary' => $this->faker->sentences(asText: true),
+            'check_name' => fake()->word(),
+            'check_label' => fake()->word(),
+            'status' => fake()->randomElement(Status::cases()),
+            'notification_message' => fake()->text(),
+            'short_summary' => fake()->sentences(asText: true),
             'meta' => [],
             'batch' => (string) Str::uuid(),
             'ended_at' => now(),

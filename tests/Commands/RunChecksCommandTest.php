@@ -30,7 +30,7 @@ it('can store the ok results in the database', function () {
         ->toHaveCount(1)
         ->and($historyItems->first())
         ->notification_message->toBeEmpty()
-        ->status->toBe(Status::ok()->value)
+        ->status->toBe(Status::Ok)
         ->meta->toBe(['disk_space_used_percentage' => 0]);
 });
 
@@ -74,7 +74,7 @@ it('can store the with warnings results in the database', function () {
         ->toHaveCount(1)
         ->and($historyItems->first())
         ->notification_message->toBe('The disk is almost full (51% used).')
-        ->status->toBe(Status::warning()->value)
+        ->status->toBe(Status::Warning)
         ->meta->toBe(['disk_space_used_percentage' => 51]);
 });
 
@@ -92,7 +92,7 @@ it('can store the with failures results in the database', function () {
         ->toHaveCount(1)
         ->and($historyItems->first())
         ->notification_message->toBe('The disk is almost full (51% used).')
-        ->status->toBe(Status::failed()->value)
+        ->status->toBe(Status::Failed)
         ->meta->toBe(['disk_space_used_percentage' => 51]);
 });
 
@@ -110,10 +110,10 @@ it('will still run checks when there is a failing one', function () {
     expect($historyItems)
         ->toHaveCount(2)
         ->and($historyItems[0])
-        ->status->toBe(Status::crashed()->value)
+        ->status->toBe(Status::Crashed)
         ->and($historyItems[1])
         ->message->toBeEmpty()
-        ->status->toBe(Status::ok()->value)
+        ->status->toBe(Status::Ok)
         ->meta->toBe(['disk_space_used_percentage' => 0]);
 });
 

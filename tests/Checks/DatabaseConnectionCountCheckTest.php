@@ -9,7 +9,7 @@ it('will determine that connection count is ok if it does not cross the maximum'
         ->failWhenMoreConnectionsThan(50)
         ->run();
 
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
     expect($result->meta['connection_count'])->toBeGreaterThan(0);
 });
 
@@ -18,7 +18,7 @@ it('will determine that connection count is not ok if it does cross the maximum'
         ->failWhenMoreConnectionsThan(0)
         ->run();
 
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
     expect($result->getNotificationMessage())->toStartWith('There are too many database connections');
 });
 
@@ -27,7 +27,7 @@ it('will determine that connection count is not ok if it does cross the warning 
         ->warnWhenMoreConnectionsThan(0)
         ->run();
 
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 
     expect($result->getNotificationMessage())->toContain('connection');
 });

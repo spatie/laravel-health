@@ -47,5 +47,5 @@ it('can store skipped results in memory', function () {
 
     $report = app(ResultStore::class)->latestResults();
 
-    expect($report->containsCheckWithStatus(Status::skipped()))->toBeTrue();
+    expect($report->containsCheckWithStatus(Status::Skipped))->toBeTrue();
 });

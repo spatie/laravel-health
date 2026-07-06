@@ -15,7 +15,7 @@ it('will determine that database size is ok if it does not cross the maximum', f
         ->failWhenSizeAboveGb(50)
         ->run();
 
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 });
 
 it('will determine that database size is not ok if it does cross the maximum', function () {
@@ -24,7 +24,7 @@ it('will determine that database size is not ok if it does cross the maximum', f
         ->failWhenSizeAboveGb(0)
         ->run();
 
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 });
 
 it('should not send a notification on a successful check', function () {

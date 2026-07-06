@@ -33,7 +33,7 @@ function addTestFile(string $path, ?Carbon $date = null, ?int $sizeInMb = null):
     touch($path, $date->timestamp);
 
     if ($sizeInMb) {
-        shell_exec("truncate -s {$sizeInMb}M {$path}");
+        shell_exec("truncate -s {$sizeInMb}M ".escapeshellarg($path));
     }
 }
 

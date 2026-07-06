@@ -6,13 +6,13 @@ use Spatie\Health\Enums\Status;
 it('will determine that a correct debug mode is ok', function () {
     $result = DebugModeCheck::new()
         ->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     $result = DebugModeCheck::new()
         ->expectedToBe(true)
         ->run();
 
     expect($result)
-        ->status->toBe(Status::failed())
+        ->status->toBe(Status::Failed)
         ->getNotificationMessage()->toBe('The debug mode was expected to be `true`, but actually was `false`');
 });

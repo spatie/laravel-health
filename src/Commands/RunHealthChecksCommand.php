@@ -88,7 +88,7 @@ class RunHealthChecksCommand extends Command
 
         // retain original order
         return $skipped->mapWithKeys(fn (Check $check, $i) => [
-            $i => (new Result(Status::skipped()))->check($check)->endedAt(now()),
+            $i => (new Result(Status::Skipped))->check($check)->endedAt(now()),
         ])->union(
             $shouldRun->mapWithKeys(fn (Check $check, $i) => [
                 $i => $this->runCheck($check),
@@ -118,7 +118,7 @@ class RunHealthChecksCommand extends Command
 
         if (config('health.notifications.only_on_failure', false)) {
             $resultsWithMessages = $resultsWithMessages->filter(
-                fn (Result $result) => $result->status === Status::failed()
+                fn (Result $result) => $result->status === Status::Failed
             );
         }
 
@@ -154,10 +154,10 @@ class RunHealthChecksCommand extends Command
         }
 
         match ($result->status) {
-            Status::ok() => $this->info($okMessage),
-            Status::warning() => $this->comment("{$status}: {$result->getNotificationMessage()}"),
-            Status::failed() => $this->error("{$status}: {$result->getNotificationMessage()}"),
-            Status::crashed() => $this->error("{$status}: `{$exception?->getMessage()}`"),
+            Status::Ok => $this->info($okMessage),
+            Status::Warning => $this->comment("{$status}: {$result->getNotificationMessage()}"),
+            Status::Failed => $this->error("{$status}: {$result->getNotificationMessage()}"),
+            Status::Crashed => $this->error("{$status}: `{$exception?->getMessage()}`"),
             default => null,
         };
     }
@@ -174,9 +174,9 @@ class RunHealthChecksCommand extends Command
 
         $containsFailingCheck = $results->contains(function (Result $result) {
             return in_array($result->status, [
-                Status::crashed(),
-                Status::failed(),
-                Status::warning(),
+                Status::Crashed,
+                Status::Failed,
+                Status::Warning,
             ]);
         });
 

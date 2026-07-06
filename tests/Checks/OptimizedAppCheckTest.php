@@ -6,7 +6,7 @@ use Spatie\Health\Enums\Status;
 it('will check if services are cached', function () {
     $result = OptimizedAppCheck::new()->run();
 
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('can perform only selected checks', function () {
