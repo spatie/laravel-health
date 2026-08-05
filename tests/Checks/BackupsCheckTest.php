@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Health\Checks\Checks\BackupsCheck;
 use Spatie\Health\Enums\Status;
@@ -334,4 +335,36 @@ it('can check the size of only the first and last backup files', function () {
 
     expect($result1)->status->toBe(Status::ok())
         ->and($result2)->status->toBe(Status::failed());
+});
+
+it('uses the size and last modified it was given instead of asking the disk', function () {
+    $disk = Mockery::mock(Filesystem::class);
+    $disk->shouldNotReceive('size');
+    $disk->shouldNotReceive('lastModified');
+
+    $backupFile = new BackupFile('backups/hey.zip', $disk, null, 1234, 1704067200);
+
+    expect($backupFile->size())->toBe(1234)
+        ->and($backupFile->lastModified())->toBe(1704067200);
+});
+
+it('reads every backup from a single listing instead of one request per file', function () {
+    Storage::fake('backups');
+
+    foreach (['first', 'second', 'third'] as $name) {
+        Storage::disk('backups')->put("backups/{$name}.zip", 'content');
+    }
+
+    $disk = Mockery::mock(Storage::disk('backups'))->makePartial();
+    $disk->shouldNotReceive('size');
+    $disk->shouldNotReceive('lastModified');
+    Storage::set('backups', $disk);
+
+    $result = $this->backupsCheck
+        ->onDisk('backups')
+        ->locatedAt('backups')
+        ->run();
+
+    expect($result)->status->toBe(Status::ok())
+        ->and($result->meta['backup_count'])->toBe(3);
 });
