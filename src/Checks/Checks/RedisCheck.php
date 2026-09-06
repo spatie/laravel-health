@@ -2,10 +2,11 @@
 
 namespace Spatie\Health\Checks\Checks;
 
-use Exception;
+use Illuminate\Redis\Connections\PhpRedisClusterConnection;
 use Illuminate\Support\Facades\Redis;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
+use Throwable;
 
 class RedisCheck extends Check
 {
@@ -26,7 +27,7 @@ class RedisCheck extends Check
 
         try {
             $response = $this->pingRedis();
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             return $result->failed("An exception occurred when connecting to Redis: `{$exception->getMessage()}`");
         }
 
@@ -39,6 +40,12 @@ class RedisCheck extends Check
 
     protected function pingRedis(): bool|string
     {
-        return Redis::connection($this->connectionName)->ping();
+        $connection = Redis::connection($this->connectionName);
+
+        $response = $connection instanceof PhpRedisClusterConnection
+            ? $connection->command('ping', ['laravel-health:redis:ping'])
+            : $connection->ping();
+
+        return is_string($response) ? $response : (bool) $response;
     }
 }
