@@ -22,15 +22,30 @@ Health::checks([
 
 Next, you must schedule the `Spatie\Health\Commands\ScheduleCheckHeartbeatCommand` to run every minute. We recommend to put this command as the very last command in your schedule.
 
+### For Laravel 10 and earlier
+
 ```php
 // in app/Console/Kernel.php
 use \Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
 
-public function schedule(Schedule $schedule) {
+protected function schedule(Schedule $schedule) {
     // your other commands
 
     $schedule->command(ScheduleCheckHeartbeatCommand::class)->everyMinute();
 }
+```
+
+### For Laravel 11 and newer
+
+```php
+// in routes/console.php
+
+use Illuminate\Support\Facades\Schedule;
+use Spatie\Health\Commands\ScheduleCheckHeartbeatCommand;
+
+// your other scheduled commands
+
+Schedule::command(ScheduleCheckHeartbeatCommand::class)->everyMinute();
 ```
 
 ### Customize the cache store
