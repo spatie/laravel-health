@@ -9,7 +9,6 @@ use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 use Spatie\Health\Checks\Result;
-use Spatie\Health\Enums\Status;
 
 class CheckFailedNotification extends Notification
 {
@@ -80,7 +79,7 @@ class CheckFailedNotification extends Notification
         foreach ($this->results as $result) {
             $slackMessage->attachment(function (SlackAttachment $attachment) use ($result) {
                 $attachment
-                    ->color(Status::from($result->status)->getSlackColor())
+                    ->color($result->status->getSlackColor())
                     ->title($result->check->getLabel())
                     ->content($result->getNotificationMessage());
             });

@@ -14,7 +14,7 @@ it('will determine that a working site is ok', function () {
         ->url('https://dummy-url.com')
         ->run();
 
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 });
 
 it('will determine that a non-existing site is not ok', function () {
@@ -26,7 +26,7 @@ it('will determine that a non-existing site is not ok', function () {
         ->url('https://dummy-url.com')
         ->run();
 
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 });
 
 it('when the http client throws an exception, then the check will fail', function () {
@@ -34,7 +34,7 @@ it('when the http client throws an exception, then the check will fail', functio
         ->url('https://test.com')
         ->run();
 
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 });
 
 it('will return warning on first failure when failAfterMinutes is set', function () {
@@ -48,7 +48,7 @@ it('will return warning on first failure when failAfterMinutes is set', function
         ->failAfterMinutes(30)
         ->run();
 
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 });
 
 it('will return failed after grace period expires', function () {
@@ -63,14 +63,14 @@ it('will return failed after grace period expires', function () {
 
     // First failure - should be warning
     $result = $check->run();
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 
     // Travel 31 minutes into the future
     Carbon::setTestNow(now()->addMinutes(31));
 
     // Second failure after grace period - should be failed
     $result = $check->run();
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 
     Carbon::setTestNow();
 });
@@ -91,15 +91,15 @@ it('will reset failure cache on successful request', function () {
 
     // First: failure - should be warning
     $result = $check->run();
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 
     // Second: success - should clear cache and return ok
     $result = $check->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     // Third: failure again - should be warning (cache was cleared)
     $result = $check->run();
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 });
 
 it('can set timeout in milliseconds', function () {
@@ -112,7 +112,7 @@ it('can set timeout in milliseconds', function () {
         ->timeoutMs(500)
         ->run();
 
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 });
 
 it('timeout method still works with seconds', function () {
@@ -125,7 +125,7 @@ it('timeout method still works with seconds', function () {
         ->timeout(2)
         ->run();
 
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 });
 
 it('will return warning during grace period', function () {
@@ -140,14 +140,14 @@ it('will return warning during grace period', function () {
 
     // First failure
     $result = $check->run();
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 
     // Travel 15 minutes (still within grace period)
     Carbon::setTestNow(now()->addMinutes(15));
 
     // Second failure - still warning
     $result = $check->run();
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 
     // Reset time
     Carbon::setTestNow();

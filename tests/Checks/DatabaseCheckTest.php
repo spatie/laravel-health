@@ -8,7 +8,7 @@ it('will determine that a working database connection is ok', function () {
         ->connectionName('testing')
         ->run();
 
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 });
 
 it('will determine that a non-existing database connection is not ok', function () {
@@ -17,6 +17,6 @@ it('will determine that a non-existing database connection is not ok', function 
         ->run();
 
     expect($result)
-        ->status->toBe(Status::failed())
+        ->status->toBe(Status::Failed)
         ->getNotificationMessage()->toBe('Could not connect to the database: `Database connection [does-not-exist] not configured.`');
 });

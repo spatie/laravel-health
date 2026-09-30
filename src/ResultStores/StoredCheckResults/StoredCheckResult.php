@@ -2,6 +2,8 @@
 
 namespace Spatie\Health\ResultStores\StoredCheckResults;
 
+use Spatie\Health\Enums\Status;
+
 class StoredCheckResult
 {
     /**
@@ -12,7 +14,7 @@ class StoredCheckResult
         string $label = '',
         ?string $notificationMessage = '',
         string $shortSummary = '',
-        string $status = '',
+        Status $status = Status::Ok,
         array $meta = [],
     ): self {
         return new self(...func_get_args());
@@ -26,7 +28,7 @@ class StoredCheckResult
         public string $label = '',
         public ?string $notificationMessage = '',
         public string $shortSummary = '',
-        public string $status = '',
+        public Status $status = Status::Ok,
         public array $meta = [],
     ) {}
 
@@ -37,7 +39,7 @@ class StoredCheckResult
         return $this;
     }
 
-    public function status(string $status): self
+    public function status(Status $status): self
     {
         $this->status = $status;
 
@@ -70,7 +72,7 @@ class StoredCheckResult
             'label' => $this->label,
             'notificationMessage' => $this->notificationMessage,
             'shortSummary' => $this->shortSummary,
-            'status' => $this->status,
+            'status' => $this->status->value,
             'meta' => $this->meta,
         ];
     }

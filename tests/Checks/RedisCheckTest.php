@@ -10,7 +10,7 @@ use Spatie\Health\Tests\TestClasses\FakeRedisCheck;
 it('will return ok when redis is running', function () {
     $result = RedisCheck::new()->run();
 
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 })->skip(fn () => extension_loaded('redis') !== true, 'The redis extension is not loaded.');
 
 it('will return an error when it cannot connect to Redis', function () {
@@ -19,7 +19,7 @@ it('will return an error when it cannot connect to Redis', function () {
         ->run();
 
     expect($result)
-        ->status->toBe(Status::failed())
+        ->status->toBe(Status::Failed)
         ->notificationMessage->toBe('Redis returned a falsy response when try to connection to it.');
 });
 
@@ -29,6 +29,6 @@ it('will return an error when connecting to redis throws an exception', function
         ->run();
 
     expect($result)
-        ->status->toBe(Status::failed())
+        ->status->toBe(Status::Failed)
         ->notificationMessage->toBe('An exception occurred when connecting to Redis: `This is an exception`');
 });

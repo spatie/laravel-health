@@ -59,5 +59,5 @@ it('can cache skipped results', function () {
 
     $report = app(ResultStore::class)->latestResults();
 
-    expect($report->containsCheckWithStatus(Status::skipped()))->toBeTrue();
+    expect($report->containsCheckWithStatus(Status::Skipped))->toBeTrue();
 });

@@ -31,7 +31,7 @@ function addTestFile(string $path, ?Carbon $date = null, ?int $sizeInMb = null):
     file_put_contents($path, 'content');
 
     if ($sizeInMb) {
-        shell_exec("truncate -s {$sizeInMb}M {$path}");
+        shell_exec("truncate -s {$sizeInMb}M ".escapeshellarg($path));
     }
 
     // Truncating rewrites the file, so the modified time has to be set afterwards.

@@ -14,7 +14,7 @@ it('will return ok if the used disk space does not cross the threshold', functio
 
     expect($result)
         ->toBeInstanceOf(Result::class)
-        ->status->toBe(Status::ok())
+        ->status->toBe(Status::Ok)
         ->meta->toEqual(['disk_space_used_percentage' => 10]);
 });
 
@@ -27,7 +27,7 @@ it('will return a warning if the used disk space does cross the warning threshol
 
     expect($result)
         ->toBeInstanceOf(Result::class)
-        ->status->toEqual(Status::warning())
+        ->status->toEqual(Status::Warning)
         ->meta->toEqual(['disk_space_used_percentage' => 71])
         ->getNotificationMessage()->toEqual('The disk is almost full (71% used).');
 });
@@ -41,7 +41,7 @@ it('will return an error if the used disk space does cross the error threshold',
 
     expect($result)
         ->toBeInstanceOf(Result::class)
-        ->status->toEqual(Status::failed())
+        ->status->toEqual(Status::Failed)
         ->meta->toEqual(['disk_space_used_percentage' => 91])
         ->getNotificationMessage()->toEqual('The disk is almost full (91% used).');
 });

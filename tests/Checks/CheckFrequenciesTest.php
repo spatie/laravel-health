@@ -26,15 +26,15 @@ beforeEach(function () {
 it('will return a skipped result for checks that should not run', function () {
     artisan(RunHealthChecksCommand::class);
     expect(InMemoryResultStore::$checkResults)->toHaveCount(1);
-    expect(InMemoryResultStore::$checkResults[0]->status)->toBe(Status::ok());
+    expect(InMemoryResultStore::$checkResults[0]->status)->toBe(Status::Ok);
 
     testTime()->addMinutes(4);
     artisan(RunHealthChecksCommand::class);
     expect(InMemoryResultStore::$checkResults)->toHaveCount(1);
-    expect(InMemoryResultStore::$checkResults[0]->status)->toBe(Status::skipped());
+    expect(InMemoryResultStore::$checkResults[0]->status)->toBe(Status::Skipped);
 
     testTime()->addMinute();
     artisan(RunHealthChecksCommand::class);
     expect(InMemoryResultStore::$checkResults)->toHaveCount(1);
-    expect(InMemoryResultStore::$checkResults[0]->status)->toBe(Status::ok());
+    expect(InMemoryResultStore::$checkResults[0]->status)->toBe(Status::Ok);
 });

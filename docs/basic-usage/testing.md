@@ -15,7 +15,7 @@ to make the `DatabaseCheck` fail in a test:
 ```php
 it('has an error if the database is not available', function () {
   Health::fake([
-    DatabaseCheck::class => new Result(Status::failed())
+    DatabaseCheck::class => new Result(Status::Failed)
   ]);
 
   $this->get('/health')->assertStatus(503);
@@ -34,7 +34,7 @@ you may call `FakeCheck::result` and pass a boolean indicating whether the check
 it('has an error if the database is not available', function () {
   Health::fake([
     DatabaseCheck::class => FakeCheck::result(
-        new Result(Status::failed()),
+        new Result(Status::Failed),
         true // Run this check, even if `shouldRun` returns false in the check itself
     )
   ]);
@@ -51,8 +51,8 @@ the check as an argument:
 it('has an error if the database is not available', function () {
   Health::fake([
     DatabaseCheck::class => fn($check) => $check->getName() === 'Users DB' 
-        ? new Result(Status::ok())
-        : new Result(Status::failed())
+        ? new Result(Status::Ok)
+        : new Result(Status::Failed)
   ]);
 
   $this->get('/health')->assertStatus(503);

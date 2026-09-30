@@ -120,7 +120,7 @@ abstract class Check
 
     public function markAsCrashed(): Result
     {
-        return new Result(Status::crashed());
+        return new Result(Status::Crashed);
     }
 
     public function onTerminate(mixed $request, mixed $response): void {}

@@ -1,5 +1,6 @@
 <?php
 
+use Spatie\Health\Enums\Status;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResult;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 
@@ -27,7 +28,7 @@ function getReport(): StoredCheckResults
             'label',
             'message',
             'summary',
-            'ok',
+            Status::Ok,
             ['name' => 'value']
         ),
     ]);

@@ -67,5 +67,5 @@ it('can write skipped results to a json file', function () {
 
     $report = app(ResultStore::class)->latestResults();
 
-    expect($report->containsCheckWithStatus(Status::skipped()))->toBeTrue();
+    expect($report->containsCheckWithStatus(Status::Skipped))->toBeTrue();
 });

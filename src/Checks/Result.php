@@ -19,7 +19,7 @@ class Result
 
     public static function make(string $message = ''): self
     {
-        return new self(Status::ok(), $message);
+        return new self(Status::Ok, $message);
     }
 
     public function __construct(
@@ -41,7 +41,7 @@ class Result
             return $this->shortSummary;
         }
 
-        return Str::of($this->status)->snake()->replace('_', ' ')->title();
+        return Str::of($this->status->value)->snake()->replace('_', ' ')->title();
     }
 
     public function check(Check $check): self
@@ -72,7 +72,7 @@ class Result
     {
         $this->notificationMessage = $message;
 
-        $this->status = Status::ok();
+        $this->status = Status::Ok;
 
         return $this;
     }
@@ -81,7 +81,7 @@ class Result
     {
         $this->notificationMessage = $message;
 
-        $this->status = Status::warning();
+        $this->status = Status::Warning;
 
         return $this;
     }
@@ -90,7 +90,7 @@ class Result
     {
         $this->notificationMessage = $message;
 
-        $this->status = Status::failed();
+        $this->status = Status::Failed;
 
         return $this;
     }

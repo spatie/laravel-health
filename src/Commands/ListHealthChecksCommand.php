@@ -42,23 +42,9 @@ class ListHealthChecksCommand extends Command
         render(view('health::list-cli', [
             'lastRanAt' => new Carbon($checkResults?->finishedAt),
             'checkResults' => $checkResults,
-            'color' => fn (string $status) => $this->getBackgroundColor($status),
         ]));
 
         return $this->determineCommandResult($checkResults);
-    }
-
-    protected function getBackgroundColor(string $status): string
-    {
-        $status = Status::from($status);
-
-        return match ($status) {
-            Status::ok() => 'text-green-600',
-            Status::warning() => 'text-yellow-600',
-            Status::skipped() => 'text-blue-600',
-            Status::failed(), Status::crashed() => 'text-red-600',
-            default => ''
-        };
     }
 
     protected function determineCommandResult(?StoredCheckResults $results): int
@@ -69,10 +55,10 @@ class ListHealthChecksCommand extends Command
 
         $containsFailingCheck = $results->storedCheckResults->contains(function (StoredCheckResult $result) {
             return in_array($result->status, [
-                Status::crashed(),
-                Status::failed(),
-                Status::warning(),
-            ]);
+                Status::Crashed,
+                Status::Failed,
+                Status::Warning,
+            ], true);
         });
 
         return $containsFailingCheck

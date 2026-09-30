@@ -11,7 +11,7 @@ it('will determine that a working meilisearch is ok', function () {
 
     $result = MeilisearchCheck::new()->run();
 
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 });
 
 it('will determine that another status is not ok', function () {
@@ -21,7 +21,7 @@ it('will determine that another status is not ok', function () {
 
     $result = MeilisearchCheck::new()->run();
 
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 });
 
 it('will determine that an http error is not ok', function () {
@@ -31,5 +31,5 @@ it('will determine that an http error is not ok', function () {
 
     $result = MeilisearchCheck::new()->run();
 
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 });

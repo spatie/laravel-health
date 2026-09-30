@@ -30,7 +30,7 @@ it('it will succeed if a file with the given glob exist', function () {
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->run();
 
-    expect($result)->status->toBe(Status::ok());
+    expect($result)->status->toBe(Status::Ok);
 });
 
 it('it will fail if a file with the given glob does not exist', function () {
@@ -40,7 +40,7 @@ it('it will fail if a file with the given glob does not exist', function () {
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->run();
 
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('will fail if the given directory does not exist', function () {
@@ -48,7 +48,7 @@ it('will fail if the given directory does not exist', function () {
         ->locatedAt('non-existing-directory')
         ->run();
 
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('will fail if the backup is smaller than the given size', function () {
@@ -59,7 +59,7 @@ it('will fail if the backup is smaller than the given size', function () {
         ->atLeastSizeInMb(5)
         ->run();
 
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('will pass if the backup is at least than the given size', function (int $sizeInMb) {
@@ -70,7 +70,7 @@ it('will pass if the backup is at least than the given size', function (int $siz
         ->atLeastSizeInMb(5)
         ->run();
 
-    expect($result)->status->toBe(Status::ok());
+    expect($result)->status->toBe(Status::Ok);
 })->with([
     [5],
     [6],
@@ -85,7 +85,7 @@ it('can check if the youngest backup is recent enough', function () {
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->youngestBackShouldHaveBeenMadeBefore(now()->subMinutes(5)->startOfMinute())
         ->run();
-    expect($result)->status->toBe(Status::ok());
+    expect($result)->status->toBe(Status::Ok);
 
     testTime()->addMinute();
 
@@ -93,7 +93,7 @@ it('can check if the youngest backup is recent enough', function () {
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->youngestBackShouldHaveBeenMadeBefore(now()->subMinutes(5))
         ->run();
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('can check if the oldest backup is old enough', function () {
@@ -106,7 +106,7 @@ it('can check if the oldest backup is old enough', function () {
         ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
         ->run();
 
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 
     testTime()->addMinute();
 
@@ -114,7 +114,7 @@ it('can check if the oldest backup is old enough', function () {
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
         ->run();
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('can check that there are enough backups', function () {
@@ -124,7 +124,7 @@ it('can check that there are enough backups', function () {
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->numberOfBackups(min: 2)
         ->run();
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 
     addTestFile($this->temporaryDirectory->path('second.zip'));
 
@@ -132,7 +132,7 @@ it('can check that there are enough backups', function () {
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->numberOfBackups(min: 2)
         ->run();
-    expect($result)->status->toBe(Status::ok());
+    expect($result)->status->toBe(Status::Ok);
 });
 
 it('can make sure that there are not too much backups', function () {
@@ -143,7 +143,7 @@ it('can make sure that there are not too much backups', function () {
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->numberOfBackups(max: 2)
         ->run();
-    expect($result)->status->toBe(Status::ok());
+    expect($result)->status->toBe(Status::Ok);
 
     addTestFile($this->temporaryDirectory->path('third.zip'));
 
@@ -151,7 +151,7 @@ it('can make sure that there are not too much backups', function () {
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->numberOfBackups(max: 2)
         ->run();
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('will pass if the backup is at least the given size when loaded from filesystem disk', function (int $sizeInMb) {
@@ -160,7 +160,7 @@ it('will pass if the backup is at least the given size when loaded from filesyst
 
     $tempFile = $this->temporaryDirectory->path('hey.zip');
 
-    shell_exec("truncate -s {$sizeInMb}M {$tempFile}");
+    shell_exec("truncate -s {$sizeInMb}M ".escapeshellarg($tempFile));
 
     Storage::disk('backups')->put('backups/hey.zip', file_get_contents($tempFile));
 
@@ -170,7 +170,7 @@ it('will pass if the backup is at least the given size when loaded from filesyst
         ->atLeastSizeInMb(5)
         ->run();
 
-    expect($result)->status->toBe(Status::ok());
+    expect($result)->status->toBe(Status::Ok);
 })->with([
     [5],
     [6],
@@ -189,7 +189,7 @@ it('can check if the youngest backup is recent enough when loaded from filesyste
         ->youngestBackShouldHaveBeenMadeBefore(now()->subMinutes(5)->startOfMinute())
         ->run();
 
-    expect($result)->status->toBe(Status::ok());
+    expect($result)->status->toBe(Status::Ok);
 
     testTime()->addMinutes(2);
 
@@ -197,7 +197,7 @@ it('can check if the youngest backup is recent enough when loaded from filesyste
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->youngestBackShouldHaveBeenMadeBefore(now()->subMinutes(5))
         ->run();
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('can check if the youngest backup is recent enough when loaded from filesystem disk with an immutable date', function () {
@@ -213,7 +213,7 @@ it('can check if the youngest backup is recent enough when loaded from filesyste
         ->youngestBackShouldHaveBeenMadeBefore(now()->subMinutes(5)->startOfMinute()->toImmutable())
         ->run();
 
-    expect($result)->status->toBe(Status::ok());
+    expect($result)->status->toBe(Status::Ok);
 
     testTime()->addMinutes(2);
 
@@ -221,7 +221,7 @@ it('can check if the youngest backup is recent enough when loaded from filesyste
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->youngestBackShouldHaveBeenMadeBefore(now()->subMinutes(5)->toImmutable())
         ->run();
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('can check if the oldest backup is old enough when loaded from filesystem disk', function () {
@@ -237,7 +237,7 @@ it('can check if the oldest backup is old enough when loaded from filesystem dis
         ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
         ->run();
 
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 
     testTime()->addMinutes(2);
 
@@ -245,7 +245,7 @@ it('can check if the oldest backup is old enough when loaded from filesystem dis
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
         ->run();
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('can check if the oldest backup is old enough when loaded from filesystem disk with an immutable date', function () {
@@ -261,7 +261,7 @@ it('can check if the oldest backup is old enough when loaded from filesystem dis
         ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5)->toImmutable())
         ->run();
 
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 
     testTime()->addMinutes(2);
 
@@ -269,7 +269,7 @@ it('can check if the oldest backup is old enough when loaded from filesystem dis
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5)->toImmutable())
         ->run();
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 });
 
 it('can parse modified time from file name', function ($format) {
@@ -298,8 +298,8 @@ it('can parse modified time from file name', function ($format) {
         ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
         ->run();
 
-    expect($result1)->status->toBe(Status::failed())
-        ->and($result2)->status->toBe(Status::ok());
+    expect($result1)->status->toBe(Status::Failed)
+        ->and($result2)->status->toBe(Status::Ok);
 
     testTime()->addMinutes(2);
 
@@ -307,7 +307,7 @@ it('can parse modified time from file name', function ($format) {
         ->locatedAt($this->temporaryDirectory->path('*.zip'))
         ->oldestBackShouldHaveBeenMadeAfter(now()->subMinutes(5))
         ->run();
-    expect($result)->status->toBe(Status::failed());
+    expect($result)->status->toBe(Status::Failed);
 })->with([
     ['Y-m-d_H-i-s'],
     ['Ymd_His'],
@@ -333,8 +333,8 @@ it('can check the size of only the first and last backup files', function () {
         ->onlyCheckSizeOnFirstAndLast()
         ->run();
 
-    expect($result1)->status->toBe(Status::ok())
-        ->and($result2)->status->toBe(Status::failed());
+    expect($result1)->status->toBe(Status::Ok)
+        ->and($result2)->status->toBe(Status::Failed);
 });
 
 it('uses the size and last modified it was given instead of asking the disk', function () {

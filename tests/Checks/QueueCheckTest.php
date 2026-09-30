@@ -29,15 +29,15 @@ it('can check whether the queue jobs are still running', function () {
     artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
 
     $result = $this->queueCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     testTime()->addMinutes(5);
     $result = $this->queueCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     testTime()->addSecond();
     $result = $this->queueCheck->run();
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 })->skipOnOldCarbon();
 
 it('can use custom max age of the heartbeat for queue jobs', function () {
@@ -46,15 +46,15 @@ it('can use custom max age of the heartbeat for queue jobs', function () {
     artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
 
     $result = $this->queueCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     testTime()->addMinutes(10);
     $result = $this->queueCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     testTime()->addSecond();
     $result = $this->queueCheck->run();
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 })->skipOnOldCarbon();
 
 it('rounds minutes in failure message', function () {
@@ -64,7 +64,7 @@ it('rounds minutes in failure message', function () {
 
     $result = $this->queueCheck->run();
 
-    expect($result->status)->toBe(Status::failed())
+    expect($result->status)->toBe(Status::Failed)
         ->and($result->meta)->each->toMatch('/^The last run of the `\w+` queue was more than \d+(\.\d{1,2})? minutes ago\.$/');
 })->skipOnOldCarbon();
 
@@ -78,11 +78,11 @@ it('will fail if only one queue is not working', function () {
     artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
 
     $result = $queueCheck->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     $queueCheck->onQueue(['payment', 'email']);
     $result = $queueCheck->run();
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 });
 
 it('can specify on which queue check should be performed', function () {
@@ -134,7 +134,7 @@ it('will return warning on first failure when failAfterMinutes is set', function
 
     $result = $check->run();
 
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 });
 
 it('will return failed after grace period expires', function () {
@@ -145,14 +145,14 @@ it('will return failed after grace period expires', function () {
 
     // First failure - should be warning
     $result = $check->run();
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 
     // Travel past the grace period
     Carbon::setTestNow(now()->addMinutes(3));
 
     // Second failure after grace period - should be failed
     $result = $check->run();
-    expect($result->status)->toBe(Status::failed());
+    expect($result->status)->toBe(Status::Failed);
 
     Carbon::setTestNow();
 });
@@ -165,21 +165,21 @@ it('will reset failure cache on successful queue run', function () {
 
     // First: no heartbeat - should be warning
     $result = $check->run();
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 
     // Dispatch heartbeat job (simulates queue running again after deploy)
     artisan(DispatchQueueCheckJobsCommand::class)->assertSuccessful();
 
     // Second: heartbeat present - should be ok (cache cleared)
     $result = $check->run();
-    expect($result->status)->toBe(Status::ok());
+    expect($result->status)->toBe(Status::Ok);
 
     // Clear the heartbeat cache to simulate queue down again
     cache()->store($check->getCacheStoreName())->flush();
 
     // Third: failure again - should be warning (not failed, because cache was reset)
     $result = $check->run();
-    expect($result->status)->toBe(Status::warning());
+    expect($result->status)->toBe(Status::Warning);
 });
 
 it('can serialize closures', function () {
