@@ -1,36 +1,337 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\ConnectionInterface\\:\\:getDriverName\\(\\)\\.$#"
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			count: 11
+			path: config/health.php
+
+		-
+			message: '#^Class Spatie\\Health\\Database\\Factories\\HealthCheckResultHistoryItemFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: database/factories/HealthCheckResultHistoryItemFactory.php
+
+		-
+			message: '#^Method Spatie\\Health\\Database\\Factories\\HealthCheckResultHistoryItemFactory\:\:definition\(\) should return array\<model property of Illuminate\\Database\\Eloquent\\Model, mixed\> but returns array\<string, mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: database/factories/HealthCheckResultHistoryItemFactory.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Check\:\:__unserialize\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Checks/Check.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Check\:\:getRunConditions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Checks/Check.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Checks\\BackupsCheck\:\:getBackupFiles\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Checks/Checks/BackupsCheck.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Checks\\BackupsCheck\:\:getOldestBackup\(\) has parameter \$backups with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Checks/Checks/BackupsCheck.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Checks\\BackupsCheck\:\:getYoungestBackup\(\) has parameter \$backups with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Checks/Checks/BackupsCheck.php
+
+		-
+			message: '#^Parameter \#1 \$timestamp of static method Carbon\\Carbon\:\:createFromTimestamp\(\) expects float\|int\|string, int\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Checks/Checks/BackupsCheck.php
+
+		-
+			message: '#^Variable \$url in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: src/Checks/Checks/HorizonCheck.php
+
+		-
+			message: '#^Parameter \#1 \$token of method Illuminate\\Http\\Client\\PendingRequest\<false\>\:\:withToken\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Checks/Checks/MeilisearchCheck.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Checks\\PingCheck\:\:failedResult\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: src/Checks/Checks/PingCheck.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Checks\\PingCheck\:\:warningResult\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: src/Checks/Checks/PingCheck.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Checks\\QueueCheck\:\:getDefaultQueue\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Checks/Checks/QueueCheck.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Checks\\QueueCheck\:\:getDefaultQueue\(\) has parameter \$connection with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Checks/Checks/QueueCheck.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Checks\\QueueCheck\:\:getQueues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Checks/Checks/QueueCheck.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Checks\\QueueCheck\:\:onQueue\(\) has parameter \$queue with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Checks/Checks/QueueCheck.php
+
+		-
+			message: '#^Parameter \#1 \$meta of method Spatie\\Health\\Checks\\Result\:\:meta\(\) expects array\<string, mixed\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Checks/Checks/QueueCheck.php
+
+		-
+			message: '#^Parameter \#1 \$version1 of function version_compare expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Checks/Checks/QueueCheck.php
+
+		-
+			message: '#^Property Spatie\\Health\\Checks\\Checks\\QueueCheck\:\:\$onQueues type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Checks/Checks/QueueCheck.php
+
+		-
+			message: '#^Parameter \#1 \$version1 of function version_compare expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Checks/Checks/ScheduleCheck.php
+
+		-
+			message: '#^Variable \$url in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: src/Checks/Checks/ScheduleCheck.php
+
+		-
+			message: '#^Call to function is_scalar\(\) with bool\|int\|string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Checks/Result.php
+
+		-
+			message: '#^Method Spatie\\Health\\Checks\\Result\:\:appendMeta\(\) has parameter \$meta with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/Checks/Result.php
+
+		-
+			message: '#^Variable \$queueCheck in PHPDoc tag @var does not match assigned variable \$queueChecks\.$#'
+			identifier: varTag.differentVariable
+			count: 1
+			path: src/Commands/DispatchQueueCheckJobsCommand.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Commands/ListHealthChecksCommand.php
+
+		-
+			message: '#^Method Spatie\\Health\\Commands\\RunHealthChecksCommand\:\:determineCommandResult\(\) has parameter \$results with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Commands/RunHealthChecksCommand.php
+
+		-
+			message: '#^Method Spatie\\Health\\Commands\\RunHealthChecksCommand\:\:sendNotification\(\) has parameter \$results with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Commands/RunHealthChecksCommand.php
+
+		-
+			message: '#^Method Spatie\\Health\\Commands\\RunHealthChecksCommand\:\:splitChecksByShouldRun\(\) has parameter \$checks with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Commands/RunHealthChecksCommand.php
+
+		-
+			message: '#^Method Spatie\\Health\\Commands\\RunHealthChecksCommand\:\:splitChecksByShouldRun\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Commands/RunHealthChecksCommand.php
+
+		-
+			message: '#^PHPDoc tag @return with type array\<int, Illuminate\\Support\\Collection\<int, Spatie\\Health\\Checks\\Check\>\> is incompatible with native type Illuminate\\Support\\Collection\.$#'
+			identifier: return.phpDocType
+			count: 1
+			path: src/Commands/RunHealthChecksCommand.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Components/Logo.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Components/StatusIndicator.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\ConnectionInterface\:\:getDriverName\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: src/Exceptions/DatabaseNotSupported.php
 
 		-
-			message: "#^Method Spatie\\\\Health\\\\Notifications\\\\CheckFailedNotification\\:\\:transParameters\\(\\) should return array\\<string, string\\> but returns array\\<string, mixed\\>\\.$#"
+			message: '#^Method Spatie\\Health\\Exceptions\\DuplicateCheckNamesFound\:\:make\(\) has parameter \$duplicateCheckNames with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Exceptions/DuplicateCheckNamesFound.php
+
+		-
+			message: '#^Cannot call method instance\(\) on Illuminate\\Contracts\\Foundation\\Application\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Facades/Health.php
+
+		-
+			message: '#^Parameter \#1 \$stylesheet of method Spatie\\Health\\Health\:\:inlineStylesheet\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/HealthServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Http/Controllers/HealthCheckResultsController.php
+
+		-
+			message: '#^Parameter \#1 \$queue of method Spatie\\Health\\Checks\\Checks\\QueueCheck\:\:getHeartbeatCacheKey\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Jobs/HealthQueueJob.php
+
+		-
+			message: '#^Class Spatie\\Health\\Models\\HealthCheckResultHistoryItem uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Models/HealthCheckResultHistoryItem.php
+
+		-
+			message: '#^Method Spatie\\Health\\Models\\HealthCheckResultHistoryItem\:\:prunable\(\) return type with generic class Illuminate\\Database\\Eloquent\\Builder does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Models/HealthCheckResultHistoryItem.php
+
+		-
+			message: '#^Call to method color\(\) on an unknown class Illuminate\\Notifications\\Messages\\SlackAttachment\.$#'
+			identifier: class.notFound
 			count: 1
 			path: src/Notifications/CheckFailedNotification.php
 
 		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
+			message: '#^Call to method error\(\) on an unknown class Illuminate\\Notifications\\Messages\\SlackMessage\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Notifications/CheckFailedNotification.php
+
+		-
+			message: '#^Instantiated class Illuminate\\Notifications\\Messages\\SlackMessage not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Notifications/CheckFailedNotification.php
+
+		-
+			message: '#^Method Spatie\\Health\\Notifications\\CheckFailedNotification\:\:toSlack\(\) has invalid return type Illuminate\\Notifications\\Messages\\SlackMessage\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Notifications/CheckFailedNotification.php
+
+		-
+			message: '#^Parameter \$attachment of anonymous function has invalid type Illuminate\\Notifications\\Messages\\SlackAttachment\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Notifications/CheckFailedNotification.php
+
+		-
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
 			count: 1
 			path: src/ResultStores/ResultStores.php
 
 		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
+			message: '#^Unable to resolve the template type TNewKey in call to method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:keyBy\(\)$#'
+			identifier: argument.templateType
 			count: 1
 			path: src/ResultStores/ResultStores.php
 
 		-
-			message: "#^Property Spatie\\\\Health\\\\ResultStores\\\\StoredCheckResults\\\\StoredCheckResults\\:\\:\\$storedCheckResults \\(Illuminate\\\\Support\\\\Collection\\<int, Spatie\\\\Health\\\\ResultStores\\\\StoredCheckResults\\\\StoredCheckResult\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<int, Spatie\\\\Health\\\\ResultStores\\\\StoredCheckResults\\\\StoredCheckResult\\>\\|Illuminate\\\\Support\\\\Collection\\<TKey of \\(int\\|string\\), TValue\\>\\.$#"
+			message: '#^Unable to resolve the template type TValue in call to function collect$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/ResultStores/ResultStores.php
+
+		-
+			message: '#^Property Spatie\\Health\\ResultStores\\StoredCheckResults\\StoredCheckResults\:\:\$okStatuses type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/ResultStores/StoredCheckResults/StoredCheckResults.php
 
 		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
-			count: 2
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
+			count: 1
 			path: src/ResultStores/StoredCheckResults/StoredCheckResults.php
 
 		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
-			count: 2
+			message: '#^Unable to resolve the template type TValue in call to function collect$#'
+			identifier: argument.templateType
+			count: 1
 			path: src/ResultStores/StoredCheckResults/StoredCheckResults.php
+
+		-
+			message: '#^Cannot access property \$timestamp on Illuminate\\Support\\Carbon\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/Support/BackupFile.php
+
+		-
+			message: '#^Cannot call method lastModified\(\) on Illuminate\\Contracts\\Filesystem\\Filesystem\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Support/BackupFile.php
+
+		-
+			message: '#^Cannot call method size\(\) on Illuminate\\Contracts\\Filesystem\\Filesystem\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/Support/BackupFile.php
+
+		-
+			message: '#^Class Spatie\\Health\\Support\\Checks extends generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Support/Checks.php

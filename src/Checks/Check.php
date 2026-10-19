@@ -100,14 +100,14 @@ abstract class Check
         return (new CronExpression($this->expression))->isDue($date->toDateTimeString());
     }
 
-    public function if(bool|callable $condition)
+    public function if(bool|callable $condition): static
     {
         $this->shouldRun[] = $condition;
 
         return $this;
     }
 
-    public function unless(bool|callable $condition)
+    public function unless(bool|callable $condition): static
     {
         $this->shouldRun[] = is_callable($condition) ?
             fn () => ! $condition() :

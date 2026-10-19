@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Spatie\Health\Commands\PauseHealthChecksCommand;
 use Spatie\Health\Commands\RunHealthChecksCommand;
@@ -129,16 +129,7 @@ it('has an option that will let the command fail when a check fails', function (
 });
 
 it('does not perform checks if checks are paused', function () {
-    $mockRepository = Mockery::mock(Repository::class);
-
-    $mockRepository->shouldReceive('get')
-        ->once()
-        ->with(PauseHealthChecksCommand::CACHE_KEY)
-        ->andReturn(true);
-
-    Cache::swap($mockRepository);
-
-    Cache::shouldReceive('driver')->andReturn($mockRepository);
+    Cache::put(PauseHealthChecksCommand::CACHE_KEY, true);
 
     artisan('health:check')->assertSuccessful()->expectsOutput('Checks paused');
 

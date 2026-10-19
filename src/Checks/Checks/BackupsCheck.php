@@ -5,9 +5,11 @@ namespace Spatie\Health\Checks\Checks;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\FileAttributes;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Support\BackupFile;
@@ -144,6 +146,10 @@ class BackupsCheck extends Check
 
     protected function getBackupFiles(): Collection
     {
+        if ($this->disk instanceof FilesystemAdapter) {
+            return $this->getBackupFilesFromListing($this->disk);
+        }
+
         return collect(
             $this->disk
                 ? $this->disk->files($this->locatedAt)
@@ -151,6 +157,34 @@ class BackupsCheck extends Check
         )->map(function (string $path) {
             return new BackupFile($path, $this->disk, $this->parseModifiedUsing);
         });
+    }
+
+    /**
+     * A directory listing already reports the size and last modified time of every
+     * file, so passing those along keeps the check to a single request instead of
+     * two more per backup.
+     *
+     * @return Collection<int, BackupFile>
+     */
+    protected function getBackupFilesFromListing(FilesystemAdapter $disk): Collection
+    {
+        $backupFiles = [];
+
+        foreach ($disk->getDriver()->listContents($this->locatedAt ?? '')->sortByPath() as $attributes) {
+            if (! $attributes instanceof FileAttributes) {
+                continue;
+            }
+
+            $backupFiles[] = new BackupFile(
+                $attributes->path(),
+                $disk,
+                $this->parseModifiedUsing,
+                $attributes->fileSize(),
+                $attributes->lastModified(),
+            );
+        }
+
+        return collect($backupFiles);
     }
 
     protected function getYoungestBackup(Collection $backups): ?BackupFile

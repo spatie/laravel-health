@@ -1,6 +1,8 @@
 <?php
 
-use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Health\Commands\PauseHealthChecksCommand;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
@@ -50,23 +52,16 @@ it('will return a 503 status for a unhealthy check', function () {
 it('does not perform checks if checks are paused', function () {
     artisan(RunHealthChecksCommand::class);
 
-    $mockRepository = Mockery::mock(Repository::class);
+    Cache::put(PauseHealthChecksCommand::CACHE_KEY, true);
 
-    $mockRepository->shouldReceive('missing')
-        ->once()
-        ->with(PauseHealthChecksCommand::CACHE_KEY)
-        ->andReturn(false);
+    $kernel = Mockery::spy(Kernel::class);
+    Artisan::swap($kernel);
 
-    Cache::swap($mockRepository);
-
-    Cache::shouldReceive('driver')->andReturn($mockRepository);
-
-    // If the RunHealthChecksCommand were called (instead of being skipped as expected),
-    // the test should fail with the error similar to:
-    // "Received Mockery_2_Illuminate_Contracts_Cache_Repository::get(), but no expectations were specified."
     $json = getJson('/')
         ->assertOk()
         ->json();
+
+    $kernel->shouldNotHaveReceived('call');
 
     assertMatchesSnapshot($json);
 });

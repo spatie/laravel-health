@@ -12,10 +12,16 @@ class BackupFile
 {
     protected ?SymfonyFile $file = null;
 
+    /**
+     * Pass $size and $lastModified when they are already known, so the disk
+     * does not have to be queried for them again.
+     */
     public function __construct(
         protected string $path,
         protected ?Filesystem $disk = null,
         protected ?string $parseModifiedUsing = null,
+        protected ?int $size = null,
+        protected ?int $lastModified = null,
     ) {
         if (! $disk) {
             $this->file = new SymfonyFile($path);
@@ -29,7 +35,7 @@ class BackupFile
 
     public function size(): int
     {
-        return $this->file ? $this->file->getSize() : $this->disk->size($this->path);
+        return $this->size ??= $this->file ? $this->file->getSize() : $this->disk->size($this->path);
     }
 
     public function lastModified(): ?int
@@ -44,6 +50,6 @@ class BackupFile
             }
         }
 
-        return $this->file ? $this->file->getMTime() : $this->disk->lastModified($this->path);
+        return $this->lastModified ??= $this->file ? $this->file->getMTime() : $this->disk->lastModified($this->path);
     }
 }
