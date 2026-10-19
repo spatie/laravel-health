@@ -151,12 +151,6 @@ parameters:
 			path: src/Commands/DispatchQueueCheckJobsCommand.php
 
 		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Commands/ListHealthChecksCommand.php
-
-		-
 			message: '#^Method Spatie\\Health\\Commands\\RunHealthChecksCommand\:\:determineCommandResult\(\) has parameter \$results with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
 			identifier: missingType.generics
 			count: 1
@@ -187,18 +181,6 @@ parameters:
 			path: src/Commands/RunHealthChecksCommand.php
 
 		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Components/Logo.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Components/StatusIndicator.php
-
-		-
 			message: '#^Call to an undefined method Illuminate\\Database\\ConnectionInterface\:\:getDriverName\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -221,12 +203,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/HealthServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Http/Controllers/HealthCheckResultsController.php
 
 		-
 			message: '#^Parameter \#1 \$queue of method Spatie\\Health\\Checks\\Checks\\QueueCheck\:\:getHeartbeatCacheKey\(\) expects string, string\|null given\.$#'
