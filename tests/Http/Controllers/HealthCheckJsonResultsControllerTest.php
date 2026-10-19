@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Spatie\Health\Commands\RunHealthChecksCommand;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
+use Spatie\Health\Http\Controllers\SimpleHealthCheckController;
 use Spatie\Health\Http\Middleware\RequiresSecretToken;
+use Spatie\Health\ResultStores\CacheHealthResultStore;
+use Spatie\Health\ResultStores\ResultStore;
 use Spatie\Health\ResultStores\StoredCheckResults\StoredCheckResults;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 use Symfony\Component\HttpFoundation\Response;
@@ -100,3 +103,35 @@ it('will return http ok status code when there are no failing checks', function 
     getJson('/')
         ->assertOk();
 });
+
+it('preserves the JSON API and health decisions for persisted statuses', function (string $status, bool $failing, bool $treatSkippedAsFailure) {
+    config()->set('health.json_results_failure_status', 503);
+    config()->set('health.treat_skipped_as_failure', $treatSkippedAsFailure);
+    app()->instance(ResultStore::class, new CacheHealthResultStore('array'));
+    Route::get('/simple', SimpleHealthCheckController::class);
+
+    $payload = [
+        'finishedAt' => 1609459200,
+        'checkResults' => [[
+            'name' => 'custom',
+            'label' => 'Custom check',
+            'notificationMessage' => 'A message',
+            'shortSummary' => 'A summary',
+            'status' => $status,
+            'meta' => ['count' => 7],
+        ]],
+    ];
+
+    cache()->store('array')->put('health:storeResults', json_encode($payload, JSON_THROW_ON_ERROR));
+
+    $expectedStatus = ($failing || ($status === 'skipped' && $treatSkippedAsFailure)) ? 503 : 200;
+
+    getJson('/')->assertStatus($expectedStatus)->assertExactJson($payload);
+    getJson('/simple')->assertStatus($expectedStatus);
+})->with([
+    ['ok', false],
+    ['warning', true],
+    ['failed', true],
+    ['crashed', true],
+    ['skipped', false],
+])->with([true, false]);

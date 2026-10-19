@@ -12,6 +12,8 @@ use Spatie\Health\Models\HealthCheckResultHistoryItem;
  */
 class HealthCheckResultHistoryItemFactory extends Factory
 {
+    protected $model = HealthCheckResultHistoryItem::class;
+
     public function definition(): array
     {
         return [

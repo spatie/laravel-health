@@ -20,6 +20,7 @@ enum Status: string
             self::Ok => '#2EB67D',
             self::Warning => '#ECB22E',
             self::Failed, self::Crashed => '#E01E5A',
+            self::Skipped => '',
         };
     }
 

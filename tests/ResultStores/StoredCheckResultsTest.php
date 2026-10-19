@@ -62,6 +62,31 @@ it('has a method to check if all checks are good', function () {
     expect($storedCheckResults->allChecksOk())->toBeTrue();
 });
 
+it('does not report a result without an explicit status as healthy', function () {
+    $results = new StoredCheckResults(checkResults: collect([
+        StoredCheckResult::make('unspecified'),
+        new StoredCheckResult('also unspecified'),
+    ]));
+
+    expect($results->allChecksOk())->toBeFalse();
+});
+
+it('treats missing and unrecognized persisted statuses as failed', function (array $properties) {
+    $results = StoredCheckResults::fromJson(json_encode([
+        'finishedAt' => 1609459200,
+        'checkResults' => [array_merge(['name' => 'legacy'], $properties)],
+    ], JSON_THROW_ON_ERROR));
+
+    expect($results->storedCheckResults->sole()->status)->toBe(Status::Failed)
+        ->and($results->containsCheckWithStatus(Status::Failed))->toBeTrue()
+        ->and($results->allChecksOk())->toBeFalse();
+})->with([
+    'missing' => [[]],
+    'empty' => [['status' => '']],
+    'unknown' => [['status' => 'custom']],
+    'null' => [['status' => null]],
+]);
+
 function makeStoredCheckResultWithStatus(Status $status): StoredCheckResult
 {
     return StoredCheckResult::make(

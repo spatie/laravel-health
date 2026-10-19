@@ -1,6 +1,7 @@
 <?php
 
 use Spatie\Health\Commands\RunHealthChecksCommand;
+use Spatie\Health\Database\Factories\HealthCheckResultHistoryItemFactory;
 use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
@@ -30,6 +31,16 @@ it('can write check results to the database', function () {
     artisan(RunHealthChecksCommand::class)->assertSuccessful();
 
     expect(HealthCheckResultHistoryItem::get())->toHaveCount(1);
+});
+
+it('can create history items directly through the package factory', function () {
+    $item = HealthCheckResultHistoryItemFactory::new()->create([
+        'status' => Status::Warning,
+    ]);
+
+    expect($item)->toBeInstanceOf(HealthCheckResultHistoryItem::class)
+        ->and($item->fresh()->status)->toBe(Status::Warning)
+        ->and($item->getRawOriginal('status'))->toBe('warning');
 });
 
 it('can retrieve the latest results from json', function () {

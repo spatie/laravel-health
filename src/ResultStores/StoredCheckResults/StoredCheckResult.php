@@ -14,7 +14,7 @@ class StoredCheckResult
         string $label = '',
         ?string $notificationMessage = '',
         string $shortSummary = '',
-        Status $status = Status::Ok,
+        Status $status = Status::Failed,
         array $meta = [],
     ): self {
         return new self(...func_get_args());
@@ -28,7 +28,7 @@ class StoredCheckResult
         public string $label = '',
         public ?string $notificationMessage = '',
         public string $shortSummary = '',
-        public Status $status = Status::Ok,
+        public Status $status = Status::Failed,
         public array $meta = [],
     ) {}
 

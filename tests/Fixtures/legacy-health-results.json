@@ -1,0 +1,10 @@
+{
+    "finishedAt": 1609459200,
+    "checkResults": [
+        {"name": "cache", "label": "A cache", "notificationMessage": "", "shortSummary": "Ready", "status": "ok", "meta": {"hits": 42}},
+        {"name": "disk", "label": "B disk", "notificationMessage": "Space is low", "shortSummary": "85%", "status": "warning", "meta": {"used": 85}},
+        {"name": "database", "label": "C database", "notificationMessage": "Unavailable", "shortSummary": "Failed", "status": "failed", "meta": {"connected": false}},
+        {"name": "queue", "label": "D queue", "notificationMessage": "Unexpected error", "shortSummary": "Crashed", "status": "crashed", "meta": {"message": "échec\nretry"}},
+        {"name": "schedule", "label": "E schedule", "notificationMessage": "", "shortSummary": "Skipped", "status": "skipped", "meta": []}
+    ]
+}

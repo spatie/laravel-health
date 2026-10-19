@@ -24,19 +24,17 @@ use Spatie\Health\ResultStores\EloquentHealthResultStore;
  */
 class HealthCheckResultHistoryItem extends Model
 {
-    use HasFactory, MassPrunable;
+    use HasFactory;
+    use MassPrunable;
 
     protected $guarded = [];
 
-    /** @return array<string, string> */
-    protected function casts(): array
-    {
-        return [
-            'meta' => 'array',
-            'started_failing_at' => 'timestamp',
-            'status' => Status::class,
-        ];
-    }
+    /** @var array<string, string> */
+    public $casts = [
+        'meta' => 'array',
+        'started_failing_at' => 'timestamp',
+        'status' => Status::class,
+    ];
 
     public function getConnectionName(): string
     {
