@@ -2,6 +2,24 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.40.3 - 2026-10-19
+
+Fix Redis health checks on phpredis cluster connections by routing PING with a key. Redis errors now produce failed results instead of aborting subsequent health checks.
+
+Includes real Redis Cluster regression coverage and corrected package-view registration for static analysis. No breaking changes or PHP/Laravel requirement changes.
+
+### What's Changed
+
+* Use the real cache instead of mocking the cache repository in tests by @freekmurze in https://github.com/spatie/laravel-health/pull/327
+* Add Laravel 11+ scheduling example to schedule check docs by @yeganemehr in https://github.com/spatie/laravel-health/pull/329
+* Make RedisCheck work on Redis Cluster (key-routed ping) and catch Throwable by @Orrison in https://github.com/spatie/laravel-health/pull/328
+
+### New Contributors
+
+* @yeganemehr made their first contribution in https://github.com/spatie/laravel-health/pull/329
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.40.2...1.40.3
+
 ## 1.40.2 - 2026-08-07
 
 ### What's Changed
