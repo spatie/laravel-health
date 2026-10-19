@@ -43,6 +43,9 @@ jobs:
         image: redis
         ports:
           - 6379:6379
+          - 7000:7000
+          - 7001:7001
+          - 7002:7002
         options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
@@ -53,8 +56,17 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo, redis
           coverage: none
+
+      - name: Start Redis cluster
+        run: |
+          docker exec "${{ job.services.redis.id }}" sh -ec '
+            for port in 7000 7001 7002; do
+              redis-server --port "$port" --cluster-enabled yes --cluster-config-file "/tmp/nodes-$port.conf" --cluster-announce-ip 127.0.0.1 --daemonize yes --save "" --appendonly no
+            done
+            redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 --cluster-replicas 0 --cluster-yes
+          '
 
       - name: Setup problem matchers
         run: |
@@ -73,3 +85,4 @@ jobs:
           DB_PASSWORD: secret
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           REDIS_PORT: 6379
+          REDIS_CLUSTER_PORT: 7000

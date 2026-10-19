@@ -9,6 +9,7 @@ use Spatie\Health\Facades\Health;
 use Spatie\Health\Models\HealthCheckResultHistoryItem;
 use Spatie\Health\Notifications\CheckFailedNotification;
 use Spatie\Health\Tests\TestClasses\CrashingCheck;
+use Spatie\Health\Tests\TestClasses\FakeRedisCheck;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 
 use function Pest\Laravel\artisan;
@@ -115,6 +116,28 @@ it('will still run checks when there is a failing one', function () {
         ->message->toBeEmpty()
         ->status->toBe(Status::ok()->value)
         ->meta->toBe(['disk_space_used_percentage' => 0]);
+});
+
+it('stores a redis error and continues running subsequent checks', function () {
+    Health::clearChecks()->checks([
+        FakeRedisCheck::new()
+            ->connectionName('unavailable')
+            ->replyWith(fn () => throw new ArgumentCountError('Redis ping failed')),
+        FakeUsedDiskSpaceCheck::new(),
+    ]);
+
+    artisan('health:check --no-notification --fail-command-on-failing-check')->assertFailed();
+
+    $historyItems = HealthCheckResultHistoryItem::orderBy('id')->get();
+
+    expect($historyItems)
+        ->toHaveCount(2)
+        ->and($historyItems[0])
+        ->status->toBe(Status::failed()->value)
+        ->notification_message->toBe('An exception occurred when connecting to Redis: `Redis ping failed`')
+        ->meta->toBe(['connection_name' => 'unavailable'])
+        ->and($historyItems[1])
+        ->status->toBe(Status::ok()->value);
 });
 
 it('has an option that will let the command fail when a check fails', function () {

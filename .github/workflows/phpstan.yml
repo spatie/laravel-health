@@ -6,12 +6,14 @@ on:
       - '**.php'
       - 'phpstan.neon.dist'
       - 'phpstan-baseline.neon'
+      - 'testbench.yaml.dist'
       - '.github/workflows/phpstan.yml'
   pull_request:
     paths:
       - '**.php'
       - 'phpstan.neon.dist'
       - 'phpstan-baseline.neon'
+      - 'testbench.yaml.dist'
       - '.github/workflows/phpstan.yml'
 
 jobs:
