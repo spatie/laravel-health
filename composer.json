@@ -33,6 +33,7 @@
     "require-dev": {
         "larastan/larastan": "^3.0",
         "laravel/horizon": "^5.9.10",
+        "laravel/pint": "^1.24",
         "nunomaduro/collision": "^5.10|^6.2.1|^6.1|^8.0",
         "orchestra/testbench": "^9.0|^10.0|^11.0",
         "pestphp/pest": "^2.34|^3.0|^4.0",
@@ -61,8 +62,10 @@
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse",
         "baseline": "vendor/bin/phpstan --generate-baseline",
+        "format": "vendor/bin/pint",
+        "format-test": "vendor/bin/pint --test",
         "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest coverage"
+        "test-coverage": "vendor/bin/pest --coverage"
     },
     "config": {
         "sort-packages": true,

@@ -43,6 +43,30 @@ it('can create history items directly through the package factory', function () 
         ->and($item->getRawOriginal('status'))->toBe('warning');
 });
 
+it('retains package casts when a custom history model defines additional casts', function () {
+    $model = new class extends HealthCheckResultHistoryItem
+    {
+        protected $table = 'health_check_result_history_items';
+
+        protected function casts(): array
+        {
+            return ['check_label' => 'string'];
+        }
+    };
+
+    config()->set('health.result_stores', [
+        EloquentHealthResultStore::class => ['model' => $model::class],
+    ]);
+
+    artisan(RunHealthChecksCommand::class)->assertSuccessful();
+
+    $item = $model->newQuery()->sole();
+
+    expect($item->status)->toBe(Status::Ok)
+        ->and($item->meta)->toBeArray()
+        ->and(app(ResultStore::class)->latestResults()->storedCheckResults->sole()->status)->toBe(Status::Ok);
+});
+
 it('can retrieve the latest results from json', function () {
     $report = app(ResultStore::class)->latestResults();
     expect($report)->toBeNull();

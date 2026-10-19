@@ -365,6 +365,6 @@ it('reads every backup from a single listing instead of one request per file', f
         ->locatedAt('backups')
         ->run();
 
-    expect($result)->status->toBe(Status::ok())
+    expect($result)->status->toBe(Status::Ok)
         ->and($result->meta['backup_count'])->toBe(3);
 });

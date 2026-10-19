@@ -6,13 +6,18 @@ on:
       - '**.php'
       - 'phpstan.neon.dist'
       - 'phpstan-baseline.neon'
+      - 'composer.json'
       - '.github/workflows/phpstan.yml'
   pull_request:
     paths:
       - '**.php'
       - 'phpstan.neon.dist'
       - 'phpstan-baseline.neon'
+      - 'composer.json'
       - '.github/workflows/phpstan.yml'
+
+permissions:
+  contents: read
 
 jobs:
   phpstan:
@@ -21,7 +26,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -30,7 +35,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse --error-format=github
