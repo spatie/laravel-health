@@ -64,6 +64,15 @@ jobs:
           docker exec "${{ job.services.redis.id }}" sh -ec '
             for port in 7000 7001 7002; do
               redis-server --port "$port" --cluster-enabled yes --cluster-config-file "/tmp/nodes-$port.conf" --cluster-announce-ip 127.0.0.1 --daemonize yes --save "" --appendonly no
+              attempts=0
+              until redis-cli -p "$port" ping | grep -qx PONG; do
+                attempts=$((attempts + 1))
+                if [ "$attempts" -ge 30 ]; then
+                  echo "Redis on port $port did not become ready"
+                  exit 1
+                fi
+                sleep 1
+              done
             done
             redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 --cluster-replicas 0 --cluster-yes
           '
