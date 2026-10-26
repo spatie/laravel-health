@@ -2,6 +2,24 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.40.4 - 2026-10-26
+
+Update frontend build dependencies without changing the PHP API, PHP/Laravel requirements or distributed CSS.
+
+### What changed
+
+- Update PostCSS, nanoid, source-map-js, brace-expansion and picomatch to versions outside the affected ranges of the 16 advisories cited in #330, by @MarjovanLier in https://github.com/spatie/laravel-health/pull/330.
+- Wait for each Redis cluster node to answer PING before creating the CI test cluster, fixing a reproduced startup race while retaining all eleven PHP/Laravel matrix jobs.
+- Keep the README support image on the approved Spatie-hosted URL instead of S3.
+
+### Security scope
+
+These Node dependencies are frontend build tooling, not packages executed by Laravel at runtime. Frozen installation succeeds and the base and updated Tailwind builds produce byte-identical CSS. No distributed asset rebuild is included.
+
+This is not a clean audit of the entire build dependency tree: three pre-existing advisories remain in postcss-selector-parser and yaml (GHSA-w9m9-85wc-3x92, GHSA-rj75-hqrm-r3gf and GHSA-48c2-rrv3-qjmp).
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.40.3...1.40.4
+
 ## 1.40.3 - 2026-10-19
 
 Fix Redis health checks on phpredis cluster connections by routing PING with a key. Redis errors now produce failed results instead of aborting subsequent health checks.
