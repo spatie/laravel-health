@@ -147,3 +147,59 @@ it('will return warning during grace period', function () {
     // Reset time
     Carbon::setTestNow();
 });
+
+it('will return failed after grace period expires when the cache store does not allow unserializing classes', function () {
+    config()->set('cache.serializable_classes', false);
+    config()->set('cache.stores.serialized-array', [
+        'driver' => 'array',
+        'serialize' => true,
+    ]);
+
+    $check = HorizonCheck::new()
+        ->useCacheStore('serialized-array')
+        ->failAfterMinutes(30);
+
+    $this->fakeHorizonStatus('down');
+
+    // First failure - should be warning
+    $result = $check->run();
+    expect($result->status)->toBe(Status::warning());
+
+    // Travel 31 minutes into the future
+    Carbon::setTestNow(now()->addMinutes(31));
+
+    // Second failure after grace period - should be failed
+    $result = $check->run();
+    expect($result->status)->toBe(Status::failed());
+
+    Carbon::setTestNow();
+});
+
+it('will treat a first failure cached as an object as a new first failure when the cache store does not allow unserializing classes', function () {
+    config()->set('cache.serializable_classes', false);
+    config()->set('cache.stores.serialized-array', [
+        'driver' => 'array',
+        'serialize' => true,
+    ]);
+
+    $check = HorizonCheck::new()
+        ->useCacheStore('serialized-array')
+        ->failAfterMinutes(30);
+
+    // A first failure time cached as a Carbon object, as earlier versions did
+    cache()->store('serialized-array')->put($check->getCacheKey(), now()->subHour());
+
+    $this->fakeHorizonStatus('down');
+
+    // The cached object can't be read back, so this counts as a first failure
+    $result = $check->run();
+    expect($result->status)->toBe(Status::warning());
+
+    // Travel 31 minutes into the future
+    Carbon::setTestNow(now()->addMinutes(31));
+
+    $result = $check->run();
+    expect($result->status)->toBe(Status::failed());
+
+    Carbon::setTestNow();
+});
