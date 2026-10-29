@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Spatie\Health\Traits;
 
 use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Str;
 use Spatie\Health\Checks\Check;
@@ -74,8 +75,10 @@ trait HasFailedAfter
         $cacheKey = $this->getCacheKey();
         $firstFailureAt = $cache->get($cacheKey);
 
-        if ($firstFailureAt === null) {
-            $cache->put($cacheKey, now());
+        // A missing value, or one cached as an object by an earlier version that the cache
+        // can no longer unserialize, both count as a first failure.
+        if (! is_string($firstFailureAt) && ! $firstFailureAt instanceof DateTimeInterface) {
+            $cache->put($cacheKey, now()->toIso8601String());
 
             return $this->warningResult($message);
         }
