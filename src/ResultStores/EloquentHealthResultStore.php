@@ -38,17 +38,21 @@ class EloquentHealthResultStore implements ResultStore
     public function save(Collection $checkResults): void
     {
         $batch = Str::uuid();
-        $checkResults->each(function (Result $result) use ($batch) {
-            (static::determineHistoryItemModel())::create([
-                'check_name' => $result->check->getName(),
-                'check_label' => $result->check->getLabel(),
-                'status' => $result->status,
-                'notification_message' => $result->getNotificationMessage(),
-                'short_summary' => $result->getShortSummary(),
-                'meta' => $result->meta,
-                'batch' => $batch,
-                'ended_at' => $result->ended_at,
-            ]);
+
+        // Saving the batch in one transaction commits once per run, instead of once per check.
+        static::getHistoryItemInstance()->getConnection()->transaction(function () use ($checkResults, $batch) {
+            $checkResults->each(function (Result $result) use ($batch) {
+                (static::determineHistoryItemModel())::create([
+                    'check_name' => $result->check->getName(),
+                    'check_label' => $result->check->getLabel(),
+                    'status' => $result->status,
+                    'notification_message' => $result->getNotificationMessage(),
+                    'short_summary' => $result->getShortSummary(),
+                    'meta' => $result->meta,
+                    'batch' => $batch,
+                    'ended_at' => $result->ended_at,
+                ]);
+            });
         });
     }
 
