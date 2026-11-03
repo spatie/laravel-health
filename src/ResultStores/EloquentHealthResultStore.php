@@ -40,7 +40,7 @@ class EloquentHealthResultStore implements ResultStore
         $batch = Str::uuid();
 
         // Saving the batch in one transaction commits once per run, instead of once per check.
-        static::getHistoryItemInstance()->getConnection()->transaction(function () use ($checkResults, $batch) {
+        (static::determineHistoryItemModel())::query()->getConnection()->transaction(function () use ($checkResults, $batch) {
             $checkResults->each(function (Result $result) use ($batch) {
                 (static::determineHistoryItemModel())::create([
                     'check_name' => $result->check->getName(),
