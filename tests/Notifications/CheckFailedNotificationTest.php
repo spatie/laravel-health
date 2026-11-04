@@ -79,6 +79,43 @@ test('the notification can be rendered to mail', function () {
     expect($html)->toBeString();
 });
 
+it('uses the complete Czech translations for both supported locale names', function (string $locale) {
+    app()->setLocale($locale);
+    app()->setFallbackLocale('en');
+
+    expect(trans('health::notifications'))->toBe([
+        'laravel_health' => 'Laravel Health',
+        'check_failed_mail_subject' => 'Některé kontroly stavu :application_name selhaly',
+        'check_failed_mail_body' => 'Následující kontroly hlásí upozornění a chyby:',
+        'check_failed_slack_message' => 'Některé kontroly stavu :application_name selhaly.',
+        'health_results' => 'Výsledky',
+        'check_results_from' => 'Poslední kontrola',
+    ]);
+
+    config()->set('app.name', 'Monitor');
+
+    $mailable = (new CheckFailedNotification([]))->toMail();
+
+    expect($mailable->subject)->toBe('Některé kontroly stavu Monitor selhaly')
+        ->and((string) $mailable->render())->toContain('Následující kontroly hlásí upozornění a chyby:');
+})->with(['cs', 'cz']);
+
+it('resolves namespaced translations through the configured fallback locale', function (string $fallbackLocale, string $expected) {
+    app()->setLocale('unknown');
+    app()->setFallbackLocale($fallbackLocale);
+
+    app('translator')->addLines(['notifications.health_results' => 'Application results'], 'unknown');
+
+    expect(trans('notifications.health_results'))->toBe('Application results')
+        ->and(trans('health::notifications.health_results'))->toBe($expected)
+        ->and(app('translator')->get('health::notifications.health_results', [], null, false))->toBe('health::notifications.health_results')
+        ->and(trans('health::notifications.missing'))->toBe('health::notifications.missing');
+})->with([
+    ['cs', 'Výsledky'],
+    ['cz', 'Výsledky'],
+    ['en', 'Health Results'],
+]);
+
 function registerPassingCheck()
 {
     Health::checks([
