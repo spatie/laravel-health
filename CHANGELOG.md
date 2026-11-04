@@ -2,6 +2,23 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.40.6 - 2026-11-04
+
+### Fixed
+
+- Add Czech translations for the standard `cs` locale while preserving the existing `cz` locale and its unchanged translation content.
+- Add regressions through Laravel package translation resolution and notification mail rendering, including both locale names, fallback behavior, namespace isolation, placeholders and English controls.
+
+Thanks to @kojdad-alt for the contribution in https://github.com/spatie/laravel-health/pull/332, with compatibility corrections and validation.
+
+No breaking runtime or API changes. PHP/Laravel requirements, Composer advisory policy, hosted images and the fixes released in 1.40.5 remain unchanged.
+
+### Validation
+
+Local full suite: 220 tests / 546 assertions with MariaDB and a real Redis cluster. PHPStan, full Pint, Composer strict validation, platform checks and advisory audit pass. All eight pre-merge and nine post-merge GitHub checks passed, covering all seven supported PHP/Laravel combinations.
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.40.5...1.40.6
+
 ## 1.40.5 - 2026-11-04
 
 Fix failAfterMinutes() when a cache store refuses to unserialize date objects.
