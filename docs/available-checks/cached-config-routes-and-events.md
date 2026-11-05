@@ -20,11 +20,18 @@ Health::checks([
 
 This check will pass if the config, routes and events are cached.
 
-Should this check fail for your app, then you should consider adding these commands to your deployment procedure
+Should this check fail for your app, then you should consider adding this command to your deployment procedure
 
 ```bash
-php artisan optimize # will cache config and routes
-php artisan event:cache # will cache events
+php artisan optimize # will cache config, events, routes and views
+```
+
+If you prefer to cache things individually, you can use these commands instead:
+
+```bash
+php artisan config:cache
+php artisan route:cache
+php artisan event:cache
 ```
 
 ### Only check certain caches
