@@ -31,8 +31,9 @@ beforeEach(function () {
     ]);
 });
 
-it('will determine that a reachable reverb server is ok', function () {
-    fakeReverbServer([new Response(200, [], '{"channels":{}}')]);
+it('will determine that a reachable reverb server without occupied channels is ok', function () {
+    // Reverb returns an empty JSON array, not an empty object, when no channel is occupied.
+    fakeReverbServer([new Response(200, [], '{"channels":[]}')]);
 
     $result = ReverbCheck::new()->run();
 
@@ -44,9 +45,18 @@ it('will determine that a reachable reverb server is ok', function () {
     ]);
 });
 
+it('will determine that a reachable reverb server with occupied channels is ok', function () {
+    fakeReverbServer([new Response(200, [], '{"channels":{"orders":{},"notifications":{}}}')]);
+
+    $result = ReverbCheck::new()->run();
+
+    expect($result->status)->toBe(Status::ok());
+    expect($result->getShortSummary())->toBe('Connected');
+});
+
 it('will send a signed request using the broadcasting configuration', function () {
     $history = [];
-    fakeReverbServer([new Response(200, [], '{"channels":{}}')], $history);
+    fakeReverbServer([new Response(200, [], '{"channels":[]}')], $history);
 
     ReverbCheck::new()->run();
 
@@ -68,7 +78,7 @@ it('will send a signed request using the broadcasting configuration', function (
 
 it('will use the configured timeout', function () {
     $history = [];
-    fakeReverbServer([new Response(200, [], '{"channels":{}}')], $history);
+    fakeReverbServer([new Response(200, [], '{"channels":[]}')], $history);
 
     ReverbCheck::new()->timeout(3)->run();
 
@@ -90,7 +100,7 @@ it('can use another broadcasting connection', function () {
     ]);
 
     $history = [];
-    $handler = HandlerStack::create(new MockHandler([new Response(200, [], '{"channels":{}}')]));
+    $handler = HandlerStack::create(new MockHandler([new Response(200, [], '{"channels":[]}')]));
     $handler->push(Middleware::history($history));
     config()->set('broadcasting.connections.other-reverb.client_options.handler', $handler);
 

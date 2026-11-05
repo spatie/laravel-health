@@ -62,7 +62,9 @@ class ReverbCheck extends Check
         $result->appendMeta(['host' => (string) Arr::get($config, 'options.host')]);
 
         try {
-            $this->pusher($config)->getChannels();
+            // `getChannels()` can't be used: when no channel is occupied, Reverb returns
+            // `{"channels": []}` instead of `{"channels": {}}`, which makes it crash.
+            $this->pusher($config)->get('/channels');
         } catch (ApiErrorException $exception) {
             if (in_array($exception->getCode(), [401, 403])) {
                 return $result
