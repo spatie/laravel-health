@@ -23,6 +23,7 @@ These are the checks created by us:
 - [Ping](ping)
 - [Queue](queue)
 - [Redis](redis)
+- [Redis Memory Usage](redis-memory-usage)
 - [Schedule](schedule)
 - [Security advisories](security-advisories)
 - [Used Disk Space](used-disk-space)
