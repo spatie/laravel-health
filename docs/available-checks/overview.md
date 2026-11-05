@@ -9,6 +9,7 @@ These are the checks created by us:
 
 - [Application Cache](cache)
 - [Backups](backups)
+- [Cached config, routes, and events](cached-config-routes-and-events)
 - [CPU Load](cpu-load)
 - [Database Connection](db-connection)
 - [Database Connection Count](db-connection-count)
