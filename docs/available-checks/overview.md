@@ -21,6 +21,7 @@ These are the checks created by us:
 - [Ping](ping)
 - [Queue](queue)
 - [Redis](redis)
+- [Reverb](reverb)
 - [Schedule](schedule)
 - [Security advisories](security-advisories)
 - [Used Disk Space](used-disk-space)
