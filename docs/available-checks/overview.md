@@ -13,6 +13,7 @@ These are the checks created by us:
 - [CPU Load](cpu-load)
 - [Database Connection](db-connection)
 - [Database Connection Count](db-connection-count)
+- [Database Size](db-size-check)
 - [Database Table Size](db-table-size-check)
 - [Debug Mode](debug-mode)
 - [Environment](environment)
