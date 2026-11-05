@@ -77,7 +77,7 @@ class ReverbCheck extends Check
                 ->shortSummary('Unexpected response');
         } catch (GuzzleException $exception) {
             return $result
-                ->failed("Could not reach the Reverb server: `{$exception->getMessage()}`")
+                ->failed("Could not reach the Reverb server: `{$this->withoutQueryStrings($exception->getMessage())}`")
                 ->shortSummary('Unreachable');
         } catch (Throwable $exception) {
             return $result
@@ -106,5 +106,14 @@ class ReverbCheck extends Check
         ]);
 
         return app(BroadcastManager::class)->pusher($config);
+    }
+
+    /**
+     * Remove the query strings of the URLs in an exception message, so the
+     * signature of the request doesn't end up in notifications.
+     */
+    protected function withoutQueryStrings(string $message): string
+    {
+        return (string) preg_replace('/\?[^\s)]*/', '', $message);
     }
 }

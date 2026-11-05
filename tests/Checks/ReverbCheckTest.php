@@ -151,6 +151,25 @@ it('will fail when the reverb server is unreachable', function () {
     expect($result->getNotificationMessage())->toContain('Connection refused');
 });
 
+it('will not expose the request signature when the reverb server is unreachable', function () {
+    $url = 'http://reverb.test:8080/apps/app-id/channels?auth_key=app-key&auth_timestamp=1700000000&auth_version=1.0&auth_signature=abc123';
+
+    fakeReverbServer([
+        new ConnectException(
+            "cURL error 7: Failed to connect to reverb.test port 8080: Couldn't connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for {$url}",
+            new Request('GET', $url),
+        ),
+    ]);
+
+    $message = ReverbCheck::new()->run()->getNotificationMessage();
+
+    expect($message)
+        ->toContain('Failed to connect to reverb.test port 8080')
+        ->toContain('http://reverb.test:8080/apps/app-id/channels')
+        ->not->toContain('auth_key')
+        ->not->toContain('auth_signature');
+});
+
 it('will fail when the reverb server rejects the credentials', function (int $status) {
     fakeReverbServer([new Response($status, [], '{"error":"Authentication signature invalid."}')]);
 
