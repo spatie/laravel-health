@@ -187,11 +187,14 @@ it('can serialize closures', function () {
         ->onQueue('sync')
         ->if(fn () => false);
 
-    $result = serialize($check);
-    // Replace with a consistent identifier
-    $result = preg_replace('/s:32:"[0-9a-z]{32}";/', 's:32:"0000000000000000000000000000000000000000";', $result);
+    $result = unserialize(serialize($check));
 
-    assertMatchesSnapshot($result);
+    expect($result)
+        ->toBeInstanceOf(QueueCheck::class)
+        ->getQueues()->toBe(['sync'])
+        ->getRunConditions()->toHaveCount(1);
+
+    expect($result->getRunConditions()[0]())->toBeFalse();
 });
 
 it('can serialize non closures', function () {
