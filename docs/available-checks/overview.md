@@ -21,6 +21,7 @@ These are the checks created by us:
 - [Ping](ping)
 - [Queue](queue)
 - [Redis](redis)
+- [Reverb](reverb)
 - [Schedule](schedule)
 - [Security advisories](security-advisories)
 - [Used Disk Space](used-disk-space)
@@ -37,4 +38,3 @@ Here's a list of third party packages:
 - [Memory Usage Check](https://github.com/ziming/laravel-memory-health-check)
 - [Queue Size Check](https://github.com/SRWieZ/queue-size-health-check)
 - [Opcache Check](https://github.com/f9webltd/laravel-health-opcache)
-
