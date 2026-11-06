@@ -42,6 +42,7 @@
         "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
         "phpstan/phpstan-phpunit": "^1.1.1|^2.0",
         "phpunit/phpunit": "^13.0",
+        "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-ray": "^1.30",
         "spatie/pest-plugin-snapshots": "^1.1|^2.3|^3.0",
         "spatie/pest-plugin-test-time": "^1.1.1|^1.1|^2.0|^3.0",

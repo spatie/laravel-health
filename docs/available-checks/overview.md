@@ -24,6 +24,7 @@ These are the checks created by us:
 - [Queue](queue)
 - [Redis](redis)
 - [Redis Memory Usage](redis-memory-usage)
+- [Reverb](reverb)
 - [Schedule](schedule)
 - [Security advisories](security-advisories)
 - [Used Disk Space](used-disk-space)
