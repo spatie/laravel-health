@@ -2,6 +2,43 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.40.6 - 2026-11-04
+
+### Fixed
+
+- Add Czech translations for the standard `cs` locale while preserving the existing `cz` locale and its unchanged translation content.
+- Add regressions through Laravel package translation resolution and notification mail rendering, including both locale names, fallback behavior, namespace isolation, placeholders and English controls.
+
+Thanks to @kojdad-alt for the contribution in https://github.com/spatie/laravel-health/pull/332, with compatibility corrections and validation.
+
+No breaking runtime or API changes. PHP/Laravel requirements, Composer advisory policy, hosted images and the fixes released in 1.40.5 remain unchanged.
+
+### Validation
+
+Local full suite: 220 tests / 546 assertions with MariaDB and a real Redis cluster. PHPStan, full Pint, Composer strict validation, platform checks and advisory audit pass. All eight pre-merge and nine post-merge GitHub checks passed, covering all seven supported PHP/Laravel combinations.
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.40.5...1.40.6
+
+## 1.40.5 - 2026-11-04
+
+Fix failAfterMinutes() when a cache store refuses to unserialize date objects.
+
+### What changed
+
+- Cache first-failure timestamps as ISO strings with microsecond precision, preserving exact grace deadlines and timezone-independent comparisons.
+- Reset unreadable legacy cached objects once instead of crashing. Existing readable Carbon, immutable date, and string timers keep their original deadlines; recovery still clears the timer.
+- Add regression coverage for Horizon, Ping, and Queue checks using real serializing array/file stores and mutable/immutable application dates.
+- Correct Redis connection typing for static analysis without changing runtime memory parsing or thresholds.
+- Retire upstream-EOL Laravel 11 CI jobs while retaining all seven supported PHP/Laravel combinations. Composer PHP/Laravel requirements and Composer advisory blocking are unchanged.
+
+Based on the contribution by @BenjaminSelectUp in https://github.com/spatie/laravel-health/pull/331, with maintainer corrections and validation. No breaking runtime API changes or deployment.
+
+### Validation
+
+All eight pre-merge checks and all nine post-merge checks passed. Local full suite: 215 tests / 528 assertions on Laravel 12 and 13, including PHP 8.2 compatibility. Full PHPStan and Pint pass.
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.40.4...1.40.5
+
 ## 1.40.4 - 2026-10-26
 
 Update frontend build dependencies without changing the PHP API, PHP/Laravel requirements or distributed CSS.

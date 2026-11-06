@@ -12,19 +12,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        php: [8.2, 8.3, 8.4, 8.5]
-        laravel: ['11.*', '12.*', '13.*']
+        php: [8.4, 8.5, 8.6]
+        laravel: ['13.*']
         stability: [prefer-stable]
         include:
-          - laravel: 11.*
-            testbench: 9.*
-          - laravel: 12.*
-            testbench: 10.*
           - laravel: 13.*
             testbench: 11.*
-        exclude:
-          - laravel: 13.*
-            php: 8.2
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -81,11 +74,6 @@ jobs:
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-
-      - name: Allow installing Laravel 11
-        # Laravel 11 no longer gets security fixes, so Composer refuses to install any 11.x release by default.
-        if: matrix.laravel == '11.*'
-        run: composer config policy.advisories.block false
 
       - name: Install dependencies
         run: |

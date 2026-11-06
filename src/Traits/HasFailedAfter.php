@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Spatie\Health\Traits;
 
+use __PHP_Incomplete_Class;
 use Carbon\Carbon;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Str;
@@ -74,8 +75,8 @@ trait HasFailedAfter
         $cacheKey = $this->getCacheKey();
         $firstFailureAt = $cache->get($cacheKey);
 
-        if ($firstFailureAt === null) {
-            $cache->put($cacheKey, now());
+        if ($firstFailureAt === null || $firstFailureAt instanceof __PHP_Incomplete_Class) {
+            $cache->put($cacheKey, now()->toISOString());
 
             return $this->warningResult($message);
         }

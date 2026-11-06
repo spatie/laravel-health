@@ -69,7 +69,7 @@ class RedisMemoryUsageCheck extends Check
 
     protected function getMemoryUsageInMb(): float
     {
-        $redis = $this->redisConnection();
+        $redis = $this->getRedisConnection();
 
         $memoryUsage = (int) match (get_class($redis)) {
             PhpRedisConnection::class => $redis->info()['used_memory'],
@@ -80,11 +80,7 @@ class RedisMemoryUsageCheck extends Check
         return round($memoryUsage / 1024 / 1024, 2);
     }
 
-    /**
-     * Returns the connection typed as the base class, because this check supports both phpredis and Predis.
-     * Larastan would otherwise narrow the facade to the one client configured where PHPStan runs.
-     */
-    protected function redisConnection(): Connection
+    protected function getRedisConnection(): Connection
     {
         return Redis::connection($this->connectionName);
     }
