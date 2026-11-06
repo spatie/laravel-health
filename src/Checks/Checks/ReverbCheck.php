@@ -5,8 +5,10 @@ namespace Spatie\Health\Checks\Checks;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Broadcasting\BroadcastManager;
 use Illuminate\Support\Arr;
+use InvalidArgumentException;
 use Pusher\ApiErrorException;
 use Pusher\Pusher;
+use Pusher\PusherException;
 use Spatie\Health\Checks\Check;
 use Spatie\Health\Checks\Result;
 use Throwable;
@@ -26,6 +28,10 @@ class ReverbCheck extends Check
 
     public function timeout(int $seconds): self
     {
+        if ($seconds < 1) {
+            throw new InvalidArgumentException('The Reverb check timeout must be at least one second.');
+        }
+
         $this->timeout = $seconds;
 
         return $this;
@@ -46,7 +52,9 @@ class ReverbCheck extends Check
         }
 
         foreach (['app_id', 'key', 'secret', 'options.host'] as $setting) {
-            if ((string) Arr::get($config, $setting) === '') {
+            $value = Arr::get($config, $setting);
+
+            if ((! is_string($value) && ! is_int($value)) || trim((string) $value) === '') {
                 return $result
                     ->failed("The `{$setting}` of broadcasting connection `{$this->connectionName}` is not set.")
                     ->shortSummary('Not configured');
@@ -64,7 +72,13 @@ class ReverbCheck extends Check
         try {
             // `getChannels()` can't be used: when no channel is occupied, Reverb returns
             // `{"channels": []}` instead of `{"channels": {}}`, which makes it crash.
-            $this->pusher($config)->get('/channels');
+            $response = $this->pusher($config)->get('/channels');
+
+            if (! is_object($response) || ! isset($response->channels) || (! is_array($response->channels) && ! is_object($response->channels))) {
+                return $result
+                    ->failed('The Reverb server did not return a channel listing.')
+                    ->shortSummary('Unexpected response');
+            }
         } catch (ApiErrorException $exception) {
             if (in_array($exception->getCode(), [401, 403])) {
                 return $result
@@ -75,13 +89,17 @@ class ReverbCheck extends Check
             return $result
                 ->failed("The Reverb server returned an unexpected status code `{$exception->getCode()}`.")
                 ->shortSummary('Unexpected response');
-        } catch (GuzzleException $exception) {
+        } catch (PusherException) {
             return $result
-                ->failed("Could not reach the Reverb server: `{$this->withoutQueryStrings($exception->getMessage())}`")
+                ->failed('The Reverb server did not return a valid channel listing.')
+                ->shortSummary('Unexpected response');
+        } catch (GuzzleException) {
+            return $result
+                ->failed('Could not reach the Reverb server.')
                 ->shortSummary('Unreachable');
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             return $result
-                ->failed("An exception occurred when checking the Reverb server: `{$exception->getMessage()}`")
+                ->failed('An exception occurred when checking the Reverb server.')
                 ->shortSummary('Failed');
         }
 
@@ -106,14 +124,5 @@ class ReverbCheck extends Check
         ]);
 
         return app(BroadcastManager::class)->pusher($config);
-    }
-
-    /**
-     * Remove the query strings of the URLs in an exception message, so the
-     * signature of the request doesn't end up in notifications.
-     */
-    protected function withoutQueryStrings(string $message): string
-    {
-        return (string) preg_replace('/\?[^\s)]*/', '', $message);
     }
 }

@@ -32,7 +32,6 @@ beforeEach(function () {
 });
 
 it('will determine that a reachable reverb server without occupied channels is ok', function () {
-    // Reverb returns an empty JSON array, not an empty object, when no channel is occupied.
     fakeReverbServer([new Response(200, [], '{"channels":[]}')]);
 
     $result = ReverbCheck::new()->run();
@@ -79,11 +78,17 @@ it('will send a signed request using the broadcasting configuration', function (
 it('will use the configured timeout', function () {
     $history = [];
     fakeReverbServer([new Response(200, [], '{"channels":[]}')], $history);
+    config()->set('broadcasting.connections.reverb.options.timeout', 30);
+    config()->set('broadcasting.connections.reverb.client_options.timeout', 40);
+    config()->set('broadcasting.connections.reverb.client_options.connect_timeout', 50);
+    config()->set('broadcasting.connections.reverb.client_options.verify', '/custom/ca.pem');
 
-    ReverbCheck::new()->timeout(3)->run();
+    $result = ReverbCheck::new()->timeout(3)->run();
 
+    expect($result->status)->toBe(Status::ok());
     expect($history[0]['options']['timeout'])->toBe(3);
     expect($history[0]['options']['connect_timeout'])->toBe(3);
+    expect($history[0]['options']['verify'])->toBe('/custom/ca.pem');
 });
 
 it('can use another broadcasting connection', function () {
@@ -148,7 +153,7 @@ it('will fail when the reverb server is unreachable', function () {
 
     expect($result->status)->toBe(Status::failed());
     expect($result->getShortSummary())->toBe('Unreachable');
-    expect($result->getNotificationMessage())->toContain('Connection refused');
+    expect($result->getNotificationMessage())->toBe('Could not reach the Reverb server.');
 });
 
 it('will not expose the request signature when the reverb server is unreachable', function () {
@@ -164,8 +169,7 @@ it('will not expose the request signature when the reverb server is unreachable'
     $message = ReverbCheck::new()->run()->getNotificationMessage();
 
     expect($message)
-        ->toContain('Failed to connect to reverb.test port 8080')
-        ->toContain('http://reverb.test:8080/apps/app-id/channels')
+        ->toBe('Could not reach the Reverb server.')
         ->not->toContain('auth_key')
         ->not->toContain('auth_signature');
 });
@@ -179,12 +183,56 @@ it('will fail when the reverb server rejects the credentials', function (int $st
     expect($result->getShortSummary())->toBe('Unauthorized');
 })->with([401, 403]);
 
-it('will fail when the reverb server returns an error', function () {
-    fakeReverbServer([new Response(500)]);
+it('will fail when the reverb server returns an unexpected status', function (int $status) {
+    fakeReverbServer([new Response($status, [], 'app-secret auth_signature=abc123')]);
 
     $result = ReverbCheck::new()->run();
 
     expect($result->status)->toBe(Status::failed());
     expect($result->getShortSummary())->toBe('Unexpected response');
-    expect($result->getNotificationMessage())->toContain('500');
-});
+    expect($result->getNotificationMessage())
+        ->toContain((string) $status)
+        ->not->toContain('app-secret', 'abc123');
+})->with([204, 404, 500]);
+
+it('will reject responses that are not channel listings', function (string $body) {
+    fakeReverbServer([new Response(200, [], $body)]);
+
+    $result = ReverbCheck::new()->run();
+
+    expect($result->status)->toBe(Status::failed());
+    expect($result->getShortSummary())->toBe('Unexpected response');
+})->with(['{}', 'null', 'true', '{"channels":null}', '{"channels":"ok"}', '<html>Login</html>']);
+
+it('will not expose credentials from transport or client exceptions', function (bool $transport) {
+    $message = 'app-secret app-key https://user:password@reverb.test/?auth_signature=abc123';
+    $exception = $transport
+        ? new ConnectException($message, new Request('GET', 'http://reverb.test'))
+        : new RuntimeException($message);
+    fakeReverbServer([$exception]);
+
+    $result = ReverbCheck::new()->run();
+
+    expect($result->status)->toBe(Status::failed());
+    expect($result->getNotificationMessage())
+        ->not->toContain('app-secret', 'app-key', 'password', 'abc123');
+})->with([true, false]);
+
+it('will reject malformed required settings without throwing', function (string $setting, mixed $value) {
+    config()->set("broadcasting.connections.reverb.{$setting}", $value);
+
+    $result = ReverbCheck::new()->run();
+
+    expect($result->status)->toBe(Status::failed());
+    expect($result->getShortSummary())->toBe('Not configured');
+})->with([
+    ['secret', ['sensitive']],
+    ['key', new stdClass],
+    ['app_id', false],
+    ['options.host', ['invalid']],
+    ['options.host', '   '],
+]);
+
+it('requires a positive timeout', function (int $seconds) {
+    expect(fn () => ReverbCheck::new()->timeout($seconds))->toThrow(InvalidArgumentException::class);
+})->with([0, -1]);
