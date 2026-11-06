@@ -2,6 +2,33 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.41.0 - 2026-11-06
+
+### Added
+
+- Add `ReverbCheck` to check the configured Reverb server with a signed, read-only `GET /apps/{appId}/channels` request. No event is broadcast.
+- Support named Reverb broadcasting connections, Laravel's Pusher client configuration, TLS/client options, and a configurable positive timeout (default: one second).
+- Return distinct configuration, connectivity, authorization, and unexpected-response failures. Validate channel listings instead of treating arbitrary successful JSON as healthy; keep raw client exceptions and response bodies out of notifications to avoid exposing credentials or signed URLs.
+- Document the HTTP check's limits: Reverb validates the app ID and signature but does not independently validate the app key; this is not a browser/WebSocket handshake check.
+
+Contributed by @HiCharly in https://github.com/spatie/laravel-health/pull/337, with response-validation, configuration, timeout, and credential-redaction regressions added during review.
+
+### Compatibility and release scope
+
+This backward-compatible minor release is isolated from **1.40.6** on `release/1.41.0`. It includes only the Reverb feature, its tests, documentation, and optional Pusher development dependency. Published PHP (`^8.2`) and Laravel (`^11.0|^12.0|^13.0`) requirements are unchanged; no mandatory runtime Pusher dependency is added. Applications using this check must have `pusher/pusher-php-server`, as installed by Reverb setup.
+
+The unrelated, unreleased PHP/Laravel support changes in #335 and subsequent unrelated documentation changes on `main` are deliberately excluded. The #334 integration is tree-identical to its pre-merge `main` and introduces no additional release behavior. Composer advisory/security policy is unchanged; no advisory bypass is introduced.
+
+### Validation
+
+- Full local suite on PHP 8.5/Laravel 13 and PHP 8.2/Laravel 12: **253 passed** on each; PHPStan, full Pint, strict Composer validation, platform checks, and advisory audits pass.
+- Real disposable Reverb 1.12 server: empty and occupied channels, wrong secret, wrong app ID, named connections, trusted/untrusted TLS, refused connection, and a slow response terminating at approximately one second despite longer application client timeouts. Verified the documented wrong-key limitation against the real server.
+- Clean no-dev installation without Pusher returns a failed `Not configured` result rather than crashing.
+- All four corrected-head checks, five post-merge checks, nine isolated release-branch checks, and nine tag-triggered checks passed. The release/tag matrix covers PHP 8.2–8.5 with Laravel 12 and PHP 8.3–8.5 with Laravel 13, plus PHPStan and formatting.
+- Verified Packagist source/dist references and the distributed check's content hash against the exact release commit. A fresh consumer installed 1.41.0 from Packagist on PHP 8.2/Laravel 12 and connected to the real Reverb server with the optional Pusher package installed.
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.40.6...1.41.0
+
 ## 1.40.6 - 2026-11-04
 
 ### Fixed
