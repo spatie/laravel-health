@@ -9,6 +9,8 @@ return [
 
     'check_failed_slack_message' => 'Some of the health checks on :application_name have failed.',
 
+    'check_failed_teams_message' => 'Some of the health checks on :application_name have failed.',
+
     'health_results' => 'Health Results',
 
     'check_results_from' => 'Check results from',

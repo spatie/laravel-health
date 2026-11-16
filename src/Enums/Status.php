@@ -22,4 +22,14 @@ class Status extends Enum
             default => '',
         };
     }
+
+    public function getTeamsColor(): string
+    {
+        return match ($this) {
+            self::ok() => 'Good',
+            self::warning() => 'Warning',
+            self::failed(), self::crashed() => 'Attention',
+            default => 'Default',
+        };
+    }
 }

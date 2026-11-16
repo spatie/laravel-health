@@ -19,6 +19,11 @@ class Notifiable
         return config('health.notifications.slack.webhook_url');
     }
 
+    public function routeNotificationForTeams(): ?string
+    {
+        return config('health.notifications.teams.webhook_url');
+    }
+
     public function getKey(): int
     {
         return 1;

@@ -1,9 +1,15 @@
 <?php
 
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
+use Spatie\Health\Checks\Result;
 use Spatie\Health\Commands\RunHealthChecksCommand;
+use Spatie\Health\Enums\Status;
 use Spatie\Health\Facades\Health;
+use Spatie\Health\Notifications\Channels\TeamsChannel;
 use Spatie\Health\Notifications\CheckFailedNotification;
+use Spatie\Health\Notifications\Notifiable;
 use Spatie\Health\Tests\TestClasses\FakeUsedDiskSpaceCheck;
 use Spatie\TestTime\TestTime;
 
@@ -115,6 +121,56 @@ it('resolves namespaced translations through the configured fallback locale', fu
     ['cz', 'Výsledky'],
     ['en', 'Health Results'],
 ]);
+
+it('maps the teams channel to the teams channel class', function () {
+    config()->set('health.notifications.notifications.'.CheckFailedNotification::class, ['mail', 'teams']);
+
+    expect((new CheckFailedNotification([]))->via())->toBe(['mail', TeamsChannel::class]);
+});
+
+test('the notification can be rendered to a teams adaptive card', function () {
+    $result = Result::make()
+        ->failed('Disk is almost full')
+        ->shortSummary('95%')
+        ->check(FakeUsedDiskSpaceCheck::new());
+
+    $payload = (new CheckFailedNotification([$result]))->toTeams();
+
+    expect($payload['type'])->toBe('message');
+
+    $attachment = $payload['attachments'][0];
+    expect($attachment['contentType'])->toBe('application/vnd.microsoft.card.adaptive');
+
+    $body = $attachment['content']['body'];
+    expect($body)->toHaveCount(2)
+        ->and($body[1]['items'][0]['text'])->toContain('95%')
+        ->and($body[1]['items'][0]['color'])->toBe(Status::failed()->getTeamsColor())
+        ->and($body[1]['items'][1]['text'])->toBe('Disk is almost full');
+});
+
+it('posts the notification to the configured teams webhook', function () {
+    Http::fake();
+    config()->set('health.notifications.teams.webhook_url', 'https://example.com/teams-webhook');
+
+    $result = Result::make()->failed('Disk is almost full')->check(FakeUsedDiskSpaceCheck::new());
+
+    (new TeamsChannel)->send(new Notifiable, new CheckFailedNotification([$result]));
+
+    Http::assertSent(function (Request $request) {
+        return $request->url() === 'https://example.com/teams-webhook'
+            && $request['type'] === 'message'
+            && $request['attachments'][0]['content']['type'] === 'AdaptiveCard';
+    });
+});
+
+it('does not post to teams when no webhook url is configured', function () {
+    Http::fake();
+    config()->set('health.notifications.teams.webhook_url', '');
+
+    (new TeamsChannel)->send(new Notifiable, new CheckFailedNotification([]));
+
+    Http::assertNothingSent();
+});
 
 function registerPassingCheck()
 {
