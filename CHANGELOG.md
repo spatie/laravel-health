@@ -2,6 +2,30 @@
 
 All notable changes to `laravel-health` will be documented in this file.
 
+## 1.42.0 - 2026-11-16
+
+### Added
+
+- Send health check notifications to Microsoft Teams Workflows webhooks using the opt-in `teams` channel. No extra package is required.
+- Include check labels, summaries, messages, and status colors in an Adaptive Card.
+- Configure the webhook with `health.notifications.teams.webhook_url` or `HEALTH_TEAMS_WEBHOOK_URL`.
+- Document the nested notification configuration, the required **Anyone** trigger authentication setting, and webhook URL secrecy.
+
+Thanks to @lasselehtinen for contributing this feature in https://github.com/spatie/laravel-health/pull/338.
+
+### Compatibility and release scope
+
+This backward-compatible minor release is isolated from **1.41.0** on `release/1.42.0`. It includes only the Teams feature, its documentation, and tests. Existing mail and Slack channels remain unchanged. Published PHP (`^8.2`) and Laravel (`^11.0|^12.0|^13.0`) requirements and dependencies are unchanged. Unrelated unreleased support changes on `main` are excluded.
+
+### Validation
+
+- Full local suite: **263 tests passed** on PHP 8.4 with Laravel 12 and Laravel 13.
+- PHPStan, Pint, strict Composer validation, and Composer advisory audit passed.
+- Tests exercise the health command through Laravel's real notification dispatcher and assert the outgoing HTTP payload, notification throttling, warning/failure/crash colors, missing webhook behavior, and HTTP 400/429/500 failures.
+- The payload and authentication guidance were checked against Microsoft's Teams Workflows documentation. A live Teams tenant/webhook was not available; receipt/rendering inside Teams was not exercised.
+
+**Full Changelog**: https://github.com/spatie/laravel-health/compare/1.41.0...1.42.0
+
 ## 1.41.0 - 2026-11-06
 
 ### Added
