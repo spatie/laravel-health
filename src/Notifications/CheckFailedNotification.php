@@ -23,10 +23,10 @@ class CheckFailedNotification extends Notification
         /** @var array<int, string> $notificationChannels */
         $notificationChannels = config('health.notifications.notifications.'.static::class);
 
-        return array_values(array_map(
+        return array_map(
             fn (string $channel) => $channel === 'teams' ? TeamsChannel::class : $channel,
             array_filter($notificationChannels),
-        ));
+        );
     }
 
     public function shouldSend(Notifiable $notifiable, string $channel): bool
