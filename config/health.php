@@ -33,7 +33,7 @@ return [
     ],
 
     /*
-     * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
+     * You can get notified when specific events occur. Out of the box you can use 'mail', 'slack' and 'teams'.
      * For Slack you need to install laravel/slack-notification-channel.
      */
     'notifications' => [
@@ -88,6 +88,15 @@ return [
             'username' => null,
 
             'icon' => null,
+        ],
+
+        'teams' => [
+            /*
+             * The URL of a Microsoft Teams Workflows webhook ("When a Teams
+             * webhook request is received"). The notification is posted as an
+             * Adaptive Card.
+             */
+            'webhook_url' => env('HEALTH_TEAMS_WEBHOOK_URL', ''),
         ],
     ],
 
