@@ -10,6 +10,7 @@ use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 use Spatie\Health\Checks\Result;
 use Spatie\Health\Enums\Status;
+use Spatie\Health\Notifications\Channels\TeamsChannel;
 
 class CheckFailedNotification extends Notification
 {
@@ -22,7 +23,10 @@ class CheckFailedNotification extends Notification
         /** @var array<int, string> $notificationChannels */
         $notificationChannels = config('health.notifications.notifications.'.static::class);
 
-        return array_filter($notificationChannels);
+        return array_map(
+            fn (string $channel) => $channel === 'teams' ? TeamsChannel::class : $channel,
+            array_filter($notificationChannels),
+        );
     }
 
     public function shouldSend(Notifiable $notifiable, string $channel): bool
@@ -87,6 +91,64 @@ class CheckFailedNotification extends Notification
         }
 
         return $slackMessage;
+    }
+
+    /**
+     * Builds a message containing an Adaptive Card, as expected by
+     * Microsoft Teams "When a Teams webhook request is received" workflows.
+     *
+     * @return array<string, mixed>
+     */
+    public function toTeams(): array
+    {
+        $body = [
+            [
+                'type' => 'TextBlock',
+                'text' => trans('health::notifications.check_failed_teams_message', $this->transParameters()),
+                'weight' => 'Bolder',
+                'size' => 'Medium',
+                'wrap' => true,
+            ],
+        ];
+
+        foreach ($this->results as $result) {
+            $body[] = [
+                'type' => 'Container',
+                'separator' => true,
+                'items' => [
+                    [
+                        'type' => 'TextBlock',
+                        'text' => $result->check->getLabel().' — '.$result->getShortSummary(),
+                        'weight' => 'Bolder',
+                        'color' => Status::from($result->status)->getTeamsColor(),
+                        'wrap' => true,
+                    ],
+                    [
+                        'type' => 'TextBlock',
+                        'text' => $result->getNotificationMessage(),
+                        'wrap' => true,
+                        'spacing' => 'Small',
+                    ],
+                ],
+            ];
+        }
+
+        return [
+            'type' => 'message',
+            'attachments' => [
+                [
+                    'contentType' => 'application/vnd.microsoft.card.adaptive',
+                    'contentUrl' => null,
+                    'content' => [
+                        '$schema' => 'http://adaptivecards.io/schemas/adaptive-card.json',
+                        'type' => 'AdaptiveCard',
+                        'version' => '1.4',
+                        'msteams' => ['width' => 'Full'],
+                        'body' => $body,
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
